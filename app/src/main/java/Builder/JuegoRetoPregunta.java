@@ -2,7 +2,7 @@ package Builder;
 
 public class RetoPregunta extends GameBuilder {
 
-    public RetoPregunta(){ super.juego = new Juego(); }
+    public JuegoRetoPregunta(){ super.juego = new Juego(); }
 
     @Override
     public void buildDificultad() {

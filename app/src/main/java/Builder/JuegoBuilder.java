@@ -1,6 +1,6 @@
 package Builder;
 
-public abstract class GameBuilder {
+public abstract class JuegoBuilder {
     protected Juego juego;
 
     public Juego getJuego() {

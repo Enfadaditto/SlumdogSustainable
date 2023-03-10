@@ -23,7 +23,9 @@ public class User {
         this.timeSpent = 0;
     }
 
-    public void addODSKnowledge(ODS_has_User newODSKnown) {this.ODSUser.add(newODSKnown);}
+    public void addODSKnowledge(ODS_has_User newODSKnown) {
+        this.ODSUser.add(newODSKnown);
+    }
 
     public String getNickname() {
         return nickname;

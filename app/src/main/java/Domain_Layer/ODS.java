@@ -22,10 +22,7 @@ public class ODS {
         this.theme = theme;
     }
 
-    public Question getOneQuestion() {
-        int randomIndex = new Random().nextInt(questions.size());
-        return questions.get(randomIndex);
-    }
+    public Question getOneQuestion() { return questions.get(new Random().nextInt(questions.size())); }
 
     public void addQuestions(Question questions) {
         this.questions.add(questions);

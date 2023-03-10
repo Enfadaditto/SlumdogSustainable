@@ -11,7 +11,7 @@ public class ODS_has_User {
     private User user;
     private ODS ods;
 
-    public ODS_has_User(User user, ODS ods){
+    public ODS_has_User(User user, ODS ods) {
         this.user = user;
         this.ods = ods;
 
@@ -70,6 +70,6 @@ public class ODS_has_User {
     }
 
     public double getRigthGuesssesPercent() {
-        return this.rightGuesses/(this.rightGuesses + this.wrongGuesses) * 100;
+        return this.rightGuesses / (this.rightGuesses + this.wrongGuesses) * 100;
     }
 }

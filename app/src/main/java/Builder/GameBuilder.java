@@ -11,7 +11,6 @@ public abstract class GameBuilder {
         juego = new Juego();
     }
 
-    //---------- AQUI SE LIA
 
     public abstract void buildDificultad();
     public abstract void buildNivel();

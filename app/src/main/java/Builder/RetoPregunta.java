@@ -31,7 +31,6 @@ public class RetoPregunta extends GameBuilder {
 
     @Override
     public void buildPuntos() {
-        int puntosPorNivel = 100 * juego.getNivel();
-        juego.setPuntos(puntosPorNivel);
+        juego.setPuntos(100 * juego.getNivel());
     }
 }

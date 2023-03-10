@@ -16,7 +16,10 @@ public class Juego {
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
-    public int getNivel() { return nivel; }
+
+    public int getNivel() {
+        return nivel;
+    }
 
     public void setTiempo(int tiempo) {
         this.tiempo = tiempo;

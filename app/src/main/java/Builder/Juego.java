@@ -2,7 +2,7 @@ package Builder;
 
 public class Juego {
     private String dificultad;
-    private String nivel;
+    private int nivel;
     private int tiempo;
     private String sonidoacierto;
     private String sonidofallo;
@@ -13,9 +13,10 @@ public class Juego {
         this.dificultad = dificultad;
     }
 
-    public void setNivel(String nivel) {
+    public void setNivel(int nivel) {
         this.nivel = nivel;
     }
+    public int getNivel() { return nivel; }
 
     public void setTiempo(int tiempo) {
         this.tiempo = tiempo;

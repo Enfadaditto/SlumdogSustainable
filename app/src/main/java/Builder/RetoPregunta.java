@@ -11,26 +11,27 @@ public class RetoPregunta extends GameBuilder {
 
     @Override
     public void buildNivel() {
-
+        juego.setNivel(1);
     }
 
     @Override
     public void buildTiempo() {
-
+        juego.setTiempo(10000); //10000ms = 10seg
     }
 
     @Override
     public void buildSonidoAcierto() {
-
+        juego.setSonidoacierto("rutaSonidoAcierto");
     }
 
     @Override
     public void buildSonidoFallo() {
-
+        juego.setSonidofallo("rutaSonidoFallo");
     }
 
     @Override
     public void buildPuntos() {
-
+        int puntosPorNivel = 100 * juego.getNivel();
+        juego.setPuntos(puntosPorNivel);
     }
 }

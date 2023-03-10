@@ -1,6 +1,5 @@
 package Builder;
 
-public class RetoPregunta extends GameBuilder {
 public class JuegoRetoPregunta extends JuegoBuilder {
 
     public JuegoRetoPregunta(){ super.juego = new Juego(); }

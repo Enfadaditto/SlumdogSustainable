@@ -1,17 +1,41 @@
 package Domain_Layer;
 
+import java.util.List;
+import java.util.Random;
+
 public class ODS {
 
     private String theme;
-    private int questionID;
 
-    private Question question;
+    private List<Question> questions;
+    private ODS_has_User ODSUser;
 
-    public ODS(String theme, Question question) {
-        this.question = question;
+    public ODS(String theme) {
         this.theme = theme;
-        this.questionID = question.getID();
     }
 
-    public String getTheme() {return this.theme;}
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public Question getOneQuestion() {
+        int randomIndex = new Random().nextInt(questions.size());
+        return questions.get(randomIndex);
+    }
+
+    public void addQuestions(Question questions) {
+        this.questions.add(questions);
+    }
+
+    public ODS_has_User getODSUser() {
+        return ODSUser;
+    }
+
+    public void setODSUser(ODS_has_User ODSUser) {
+        this.ODSUser = ODSUser;
+    }
 }

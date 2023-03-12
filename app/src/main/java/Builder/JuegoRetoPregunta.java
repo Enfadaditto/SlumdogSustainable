@@ -1,6 +1,10 @@
 package Builder;
 
+import Domain_Layer.Question;
+
 public class JuegoRetoPregunta extends JuegoBuilder {
+
+    Question preguntaActual = new Question();
 
     public JuegoRetoPregunta(){ super.juego = new Juego(); }
 
@@ -32,5 +36,15 @@ public class JuegoRetoPregunta extends JuegoBuilder {
     @Override
     public void buildPuntos() {
         juego.setPuntos(100 * juego.getNivel());
+    }
+
+    public Question getQuestion(){
+        return preguntaActual;
+    }
+
+    public Question getQuestionByLevel(String nivel){
+
+        return preguntaActual;
+
     }
 }

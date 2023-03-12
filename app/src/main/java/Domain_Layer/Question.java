@@ -13,6 +13,26 @@ public class Question {
     private ODS ods;
     private List<Answer> answers;
 
+   public Question(){
+       this.statement = "pregunta por defecto";
+       this.timeToAnswer = 10;
+       this.points= 100;
+       this.difficulty = "1";
+       ODS odsPorDefecto = new ODS("tema1");
+       this.ods = odsPorDefecto;
+       Answer respuesta1 = new Answer("respuesta1", true);
+       Answer respuesta2 = new Answer("respuesta2", false);
+       Answer respuesta3 = new Answer("respuesta3", false);
+       Answer respuesta4 = new Answer("respuesta4", false);
+       List<Answer> listaRespuestas = null;
+       listaRespuestas.add(respuesta1);
+       listaRespuestas.add(respuesta2);
+       listaRespuestas.add(respuesta3);
+       listaRespuestas.add(respuesta4);
+
+       this.answers = listaRespuestas;
+   }
+
     public Question(String statement, int time, int points, String difficulty, ODS ods) {
         this.statement = statement;
         this.timeToAnswer = time;

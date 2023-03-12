@@ -1,6 +1,6 @@
 package Builder;
 
-public class CreadoDeJuego {
+public class CreadorDeJuego {
 
     private JuegoBuilder juegoBuilder;
 

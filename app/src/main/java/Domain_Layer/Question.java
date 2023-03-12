@@ -13,6 +13,8 @@ public class Question {
     private ODS ods;
     private List<Answer> answers;
 
+    Question preguntaActual = new Question();
+
    public Question(){
        this.statement = "pregunta por defecto";
        this.timeToAnswer = 10;
@@ -86,4 +88,26 @@ public class Question {
     public void setOds(ODS ods) {
         this.ods = ods;
     }
+
+    public Question getQuestion(){
+        return preguntaActual;
+    }
+
+    public List<Question> getQuestionListByDifficulty(String difficulty){
+
+        //implementar con la base de datos
+
+
+        List<Question> list = null;
+
+
+        return list;
+
+    }
+
+    public int numeroAleatorioDeLista(List<Question> lista){
+
+       return (int)(Math.random()*lista.size());
+    }
+
 }

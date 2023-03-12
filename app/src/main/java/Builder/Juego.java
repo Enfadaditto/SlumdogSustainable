@@ -8,6 +8,30 @@ public class Juego {
     private String sonidofallo;
     private int puntos;
 
+    public String getDificultad() {
+        return dificultad;
+    }
+
+    public int getTiempo() {
+        return tiempo;
+    }
+
+    public String getSonidoacierto() {
+        return sonidoacierto;
+    }
+
+    public String getSonidofallo() {
+        return sonidofallo;
+    }
+
+    public int getPuntos() {
+        return puntos;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
 
     public void setDificultad(String dificultad) {
         this.dificultad = dificultad;
@@ -15,10 +39,6 @@ public class Juego {
 
     public void setNivel(int nivel) {
         this.nivel = nivel;
-    }
-
-    public int getNivel() {
-        return nivel;
     }
 
     public void setTiempo(int tiempo) {

@@ -23,14 +23,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_pregunta);
 
-
-        //Esto es lo que hace el director
-      /* CreadorDeJuego creadorDeJuego = new CreadorDeJuego();
         JuegoBuilder retoPegunta = new JuegoRetoPregunta();
+        //Esto es lo que hace el director
+       CreadorDeJuego creadorDeJuego = new CreadorDeJuego(retoPegunta);
+
+       creadorDeJuego.construirJuego();
+       Juego juego = retoPegunta.getJuego();
+
+       
+
+
+
+
+
+
+       // creadorDeJuego.setJuegoBuilder(retoPegunta);
 
         creadorDeJuego.setJuegoBuilder(retoPegunta);
+        creadorDeJuego.construirJuego();
 
         creadorDeJuego.contruirJuego();
+      //  Juego juegoActual = creadorDeJuego.getJuego();
 
         Juego juegoActual = creadorDeJuego.getJuego();
 

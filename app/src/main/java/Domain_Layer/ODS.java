@@ -1,4 +1,4 @@
-package com.slumdogsustainable.Domain_Layer;
+package Domain_Layer;
 
 import java.util.List;
 import java.util.Random;

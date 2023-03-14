@@ -1,4 +1,4 @@
-package com.slumdogsustainable.Domain_Layer;
+package Domain_Layer;
 
 public class ODS_has_User {
 

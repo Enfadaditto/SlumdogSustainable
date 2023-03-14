@@ -11,8 +11,7 @@ import com.slumdogsustainable.R;
 
 import java.util.List;
 
-import Domain_Layer.Question;
-import Builder.*;
+import com.slumdogsustainable.Domain_Layer.Question;
 
 public class IUretoPregunta extends AppCompatActivity {
 

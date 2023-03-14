@@ -5,18 +5,8 @@ import java.util.List;
 import Domain_Layer.Question;
 
 public class JuegoRetoPregunta extends JuegoBuilder {
-public class JuegoRetoPregunta implements JuegoBuilder {
-    private Juego juego;
-    public JuegoRetoPregunta(){ juego = new Juego(); }
 
-
-
-
-    public JuegoRetoPregunta(){ super.juego = new Juego(); }
-    @Override
-    public Juego getJuego(){
-        return juego;
-    }
+    //public JuegoRetoPregunta(){ juego = new Juego(); }
 
     @Override
     public void buildDificultad() {

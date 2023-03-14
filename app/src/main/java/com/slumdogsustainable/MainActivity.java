@@ -25,7 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
         JuegoBuilder retoPegunta = new JuegoRetoPregunta();
         //Esto es lo que hace el director
-       CreadorDeJuego creadorDeJuego = new CreadorDeJuego(retoPegunta);
+       CreadorDeJuego creadorDeJuego = new CreadorDeJuego();
+       creadorDeJuego.setJuegoBuilder(retoPegunta);
+
 
        creadorDeJuego.construirJuego();
        Juego juego = retoPegunta.getJuego();
@@ -39,15 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
        // creadorDeJuego.setJuegoBuilder(retoPegunta);
 
-        creadorDeJuego.setJuegoBuilder(retoPegunta);
         creadorDeJuego.construirJuego();
 
-        creadorDeJuego.contruirJuego();
       //  Juego juegoActual = creadorDeJuego.getJuego();
 
-        Juego juegoActual = creadorDeJuego.getJuego();
 
-        */
 
 
 

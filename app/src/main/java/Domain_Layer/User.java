@@ -4,6 +4,8 @@ import android.media.Image;
 
 import java.util.List;
 
+import Persistence.UserRepository;
+
 public class User {
 
     private String nickname;
@@ -21,6 +23,10 @@ public class User {
         this.password = password;
         this.pointsAchieved = 0;
         this.timeSpent = 0;
+    }
+
+    public boolean checkPassword(String username, String password) {
+        return password == UserRepository.GetUserByNickName(username).password;
     }
 
     public void addODSKnowledge(ODS_has_User newODSKnown) {

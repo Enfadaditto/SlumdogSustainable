@@ -6,10 +6,7 @@ import Domain_Layer.Question;
 
 public class JuegoRetoPregunta extends JuegoBuilder {
 
-
-
-
-    public JuegoRetoPregunta(){ super.juego = new Juego(); }
+    //public JuegoRetoPregunta(){ juego = new Juego(); }
 
     @Override
     public void buildDificultad() {
@@ -41,5 +38,10 @@ public class JuegoRetoPregunta extends JuegoBuilder {
         juego.setPuntos(100 * juego.getNivel());
     }
 
+
+    public void ejemplo(){}
+    public int suma(){
+        return 2;
+    }
 
 }

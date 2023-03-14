@@ -9,11 +9,11 @@ public class CreadorDeJuego {
         juegoBuilder = jb;
     }
 
-    public Juego getJuego(){
+   public Juego getJuego(){
         return juegoBuilder.getJuego();
     }
 
-    public void contruirJuego(){
+    public void construirJuego(){
 
         juegoBuilder.buildDificultad();
         juegoBuilder.buildNivel();

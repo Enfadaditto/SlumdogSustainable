@@ -9,10 +9,10 @@
     <EditText
         android:id="@+id/editTextTextPersonName3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="55dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="75dp"
         android:layout_marginTop="240dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="290dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -27,14 +27,16 @@
 
     <EditText
         android:id="@+id/editTextTextPassword"
-        android:layout_width="210dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
+        android:text="Contraseña"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
 
@@ -46,8 +48,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:text="R E G I S T R A R S E"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#D80000"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
@@ -55,16 +59,31 @@
     <Button
         android:id="@+id/loginButton"
         android:layout_width="184dp"
-        android:layout_height="38dp"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/boton_verde"
         android:text="Iniciar Sesión"
+        android:textAlignment="gravity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.583"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register"
         app:layout_constraintVertical_bias="0.857" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/divider_horizontal_bright"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/editTextTextPassword"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.567"
+        app:srcCompat="@android:drawable/ic_menu_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

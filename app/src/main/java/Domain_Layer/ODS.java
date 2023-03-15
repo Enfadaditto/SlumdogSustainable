@@ -11,7 +11,7 @@ public class ODS {
     private String theme;
     @DatabaseField(id = true)
     private int id_ODS;
-
+    ODS() {}
     public ODS(String theme) {
         this.theme = theme;
     }

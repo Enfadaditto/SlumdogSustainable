@@ -1,5 +1,6 @@
 package com.slumdogsustainable;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,10 +9,16 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 import com.slumdogsustainable.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Builder.CreadorDeJuego;
 import Builder.Juego;
 import Builder.JuegoBuilder;
 import Builder.JuegoRetoPregunta;
+import Domain_Layer.User;
+import Persistence.Repository;
+import Persistence.UserRepository;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,8 +29,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_pregunta);
+        new Task().execute();
 
-        JuegoBuilder retoPegunta = new JuegoRetoPregunta();
+        /*JuegoBuilder retoPegunta = new JuegoRetoPregunta();
         //Esto es lo que hace el director
        CreadorDeJuego creadorDeJuego = new CreadorDeJuego();
        creadorDeJuego.setJuegoBuilder(retoPegunta);
@@ -32,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
        creadorDeJuego.construirJuego();
        Juego juego = retoPegunta.getJuego();
 
-       
+
 
 
 
@@ -44,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         creadorDeJuego.construirJuego();
 
       //  Juego juegoActual = creadorDeJuego.getJuego();
-
+        +/
 
 
 
@@ -96,4 +104,28 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }*/
+
+
+    private class Task extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try
+            {
+                UserRepository s = new UserRepository();
+                List<User> listaprueba = new ArrayList<>();
+                listaprueba = s.obtenerTodos();
+                for(User u : listaprueba) {
+                   System.out.println(u.getNickname());
+                }
+            }
+            catch(Exception e)
+
+            {
+
+                System.out.println(e);
+
+            }
+            return null;
+        }
+    }
 }

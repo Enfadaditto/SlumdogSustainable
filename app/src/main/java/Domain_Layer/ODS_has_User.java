@@ -18,6 +18,7 @@ public class ODS_has_User {
     @DatabaseField(id = true)
     private int id_ODS;
 
+    ODS_has_User() {}
     public ODS_has_User(String user, int ods) {
         this.username = user;
         this.id_ODS = ods;

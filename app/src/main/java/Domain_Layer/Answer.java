@@ -14,6 +14,7 @@ public class Answer {
     @DatabaseField
     private Question question;
 
+    Answer() {}
     public Answer(String text, boolean hit) {
         this.text = text;
         this.hit = hit;

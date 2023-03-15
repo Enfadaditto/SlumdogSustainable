@@ -24,6 +24,7 @@
             android:id="@+id/botonRespuesta1"
             android:layout_width="306dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/boton_azul"
             android:gravity="center"
             android:text="Button" />
 
@@ -31,19 +32,21 @@
             android:id="@+id/botonRespuesta2"
             android:layout_width="302dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/boton_azul"
             android:text="Button" />
 
         <Button
             android:id="@+id/botonRespuesta3"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/boton_azul"
             android:text="Button" />
 
         <Button
             android:id="@+id/botonRespuesta4"
             android:layout_width="300dp"
             android:layout_height="48dp"
-            android:background="@drawable/background_questions"
+            android:background="@drawable/boton_azul"
             android:text="Button" />
     </LinearLayout>
 

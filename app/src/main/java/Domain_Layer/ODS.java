@@ -1,14 +1,16 @@
 package Domain_Layer;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.util.List;
 import java.util.Random;
-
+@DatabaseTable
 public class ODS {
-
+    @DatabaseField
     private String theme;
-
-    private List<Question> questions;
-    private ODS_has_User ODSUser;
+    @DatabaseField(id = true)
+    private int id_ODS;
 
     public ODS(String theme) {
         this.theme = theme;
@@ -22,17 +24,12 @@ public class ODS {
         this.theme = theme;
     }
 
-    public Question getOneQuestion() { return questions.get(new Random().nextInt(questions.size())); }
-
-    public void addQuestions(Question questions) {
-        this.questions.add(questions);
+    public void setId_ODS(int id_ODS) {
+        this.id_ODS = id_ODS;
     }
 
-    public ODS_has_User getODSUser() {
-        return ODSUser;
+    public int getId_ODS() {
+        return id_ODS;
     }
 
-    public void setODSUser(ODS_has_User ODSUser) {
-        this.ODSUser = ODSUser;
-    }
 }

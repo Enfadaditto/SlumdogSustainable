@@ -1,11 +1,17 @@
 package Domain_Layer;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable
 public class Answer {
-
+    @DatabaseField
     private String text;
+    @DatabaseField
     private boolean hit;
+    @DatabaseField(id = true)
     private String questionID;
-
+    @DatabaseField
     private Question question;
 
     public Answer(String text, boolean hit) {
@@ -37,11 +43,5 @@ public class Answer {
         this.questionID = questionID;
     }
 
-    public Question getQuestion() {
-        return question;
-    }
 
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
 }

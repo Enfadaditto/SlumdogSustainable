@@ -2,17 +2,26 @@ package Domain_Layer;
 
 import android.media.Image;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.util.List;
 
+import Persistence.DBConnection;
 import Persistence.UserRepository;
-
+@DatabaseTable
 public class User {
-
+    @DatabaseField (id = true)
     private String nickname;
+    @DatabaseField
     private String email;
+    @DatabaseField
     private String password;
+    @DatabaseField
     private int pointsAchieved;
+    @DatabaseField
     private float timeSpent;
+    @DatabaseField
     private Image icon;
 
     private List<ODS_has_User> ODSUser;
@@ -26,7 +35,7 @@ public class User {
     }
 
     public boolean checkPassword(String username, String password) {
-        return password == UserRepository.GetUserByNickName(username).password;
+        return password == new UserRepository(new DBConnection().getConnection()).GetUserByNickName(username).password;
     }
 
     public void addODSKnowledge(ODS_has_User newODSKnown) {

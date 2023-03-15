@@ -1,16 +1,24 @@
 package Domain_Layer;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.util.List;
 
-
+@DatabaseTable
 public class Question {
-
+    @DatabaseField
     private String statement;
+    @DatabaseField
     private int timeToAnswer;
+    @DatabaseField
     private int points;
+    @DatabaseField
     private String difficulty;
-
-    private ODS ods;
+    @DatabaseField
+    private int id_ODS;
+    @DatabaseField (id = true)
+    private int QuestionID;
     private List<Answer> answers;
 
     Question preguntaActual = new Question();
@@ -20,8 +28,8 @@ public class Question {
        this.timeToAnswer = 10;
        this.points= 100;
        this.difficulty = "1";
-       ODS odsPorDefecto = new ODS("tema1");
-       this.ods = odsPorDefecto;
+       // ODS odsPorDefecto = new ODS("tema1");
+       this.id_ODS = 1;
        Answer respuesta1 = new Answer("respuesta1", true);
        Answer respuesta2 = new Answer("respuesta2", false);
        Answer respuesta3 = new Answer("respuesta3", false);
@@ -35,12 +43,12 @@ public class Question {
        this.answers = listaRespuestas;
    }
 
-    public Question(String statement, int time, int points, String difficulty, ODS ods) {
+    public Question(String statement, int time, int points, String difficulty, int ods) {
         this.statement = statement;
         this.timeToAnswer = time;
         this.points = points;
         this.difficulty = difficulty;
-        this.ods = ods;
+        this.id_ODS = ods;
     }
 
     public void addAnswer(Answer answer) {
@@ -81,12 +89,12 @@ public class Question {
         this.difficulty = difficulty;
     }
 
-    public ODS getOds() {
-        return ods;
+    public int getOds() {
+        return id_ODS;
     }
 
-    public void setOds(ODS ods) {
-        this.ods = ods;
+    public void setOds(int ods) {
+        this.id_ODS = ods;
     }
 
     public Question getQuestion(){

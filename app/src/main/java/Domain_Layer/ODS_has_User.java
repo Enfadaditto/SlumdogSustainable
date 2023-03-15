@@ -1,24 +1,28 @@
 package Domain_Layer;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable
 public class ODS_has_User {
 
     private String ODSTheme;
-    private String userNickname;
-    private int rightGuesses;
-    private int wrongGuesses;
+    @DatabaseField
+    private int hits;
+    @DatabaseField
+    private int fails;
+
     private double rightGuessesPercent;
+    @DatabaseField(id = true)
+    private String username;
+    @DatabaseField(id = true)
+    private int id_ODS;
 
-    private User user;
-    private ODS ods;
-
-    public ODS_has_User(User user, ODS ods) {
-        this.user = user;
-        this.ods = ods;
-
-        this.ODSTheme = ods.getTheme();
-        this.userNickname = user.getNickname();
-        this.rightGuesses = 0;
-        this.wrongGuesses = 0;
+    public ODS_has_User(String user, int ods) {
+        this.username = user;
+        this.id_ODS = ods;
+        this.hits = 0;
+        this.fails = 0;
     }
 
     public String getODSTheme() {
@@ -30,46 +34,38 @@ public class ODS_has_User {
     }
 
     public String getUserNickname() {
-        return userNickname;
+        return username;
     }
 
     public void setUserNickname(String userNickname) {
-        this.userNickname = userNickname;
+        this.username = userNickname;
     }
 
     public int getRightGuesses() {
-        return rightGuesses;
+        return hits;
     }
 
     public void oneRightGuess() {
-        this.rightGuesses++;
+        this.hits++;
     }
 
     public int getWrongGuesses() {
-        return wrongGuesses;
+        return fails;
     }
 
     public void oneWrongGuess() {
-        this.wrongGuesses++;
+        this.fails++;
     }
 
-    public User getUser() {
-        return user;
+    public int getid_Ods() {
+        return id_ODS;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public ODS getOds() {
-        return ods;
-    }
-
-    public void setOds(ODS ods) {
-        this.ods = ods;
+    public void setid_Ods(int ods) {
+        this.id_ODS = ods;
     }
 
     public double getRigthGuesssesPercent() {
-        return this.rightGuesses / (this.rightGuesses + this.wrongGuesses) * 100;
+        return this.hits / (this.hits + this.fails) * 100;
     }
 }

@@ -101,6 +101,10 @@ public class Question {
         return preguntaActual;
     }
 
+    public List<Answer> getAnswers (){
+       return answers;
+    }
+
     public List<Question> getQuestionListByDifficulty(String difficulty){
 
         //implementar con la base de datos

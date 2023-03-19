@@ -17,7 +17,7 @@ import Builder.Juego;
 import Builder.JuegoBuilder;
 import Builder.JuegoRetoPregunta;
 import Domain_Layer.User;
-import Persistence.Repository;
+//import Persistence.Repository;
 import Persistence.UserRepository;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reto_pregunta);
+        setContentView(R.layout.inicio);
         new Task().execute();
 
         /*JuegoBuilder retoPegunta = new JuegoRetoPregunta();

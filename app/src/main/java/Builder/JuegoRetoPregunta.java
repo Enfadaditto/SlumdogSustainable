@@ -39,9 +39,6 @@ public class JuegoRetoPregunta extends JuegoBuilder {
     }
 
 
-    public void ejemplo(){}
-    public int suma(){
-        return 2;
-    }
+
 
 }

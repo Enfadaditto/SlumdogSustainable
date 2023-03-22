@@ -3,6 +3,7 @@ package Domain_Layer;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @DatabaseTable
@@ -21,7 +22,7 @@ public class Question {
     private int QuestionID;
     private List<Answer> answers;
 
-    Question preguntaActual = new Question();
+    Question preguntaActual;
 
    public Question(){
        this.statement = "pregunta por defecto";
@@ -34,11 +35,12 @@ public class Question {
        Answer respuesta2 = new Answer("respuesta2", false);
        Answer respuesta3 = new Answer("respuesta3", false);
        Answer respuesta4 = new Answer("respuesta4", false);
-       List<Answer> listaRespuestas = null;
-       listaRespuestas.add(respuesta1);
-       listaRespuestas.add(respuesta2);
-       listaRespuestas.add(respuesta3);
-       listaRespuestas.add(respuesta4);
+       List<Answer> listaRespuestas= new ArrayList<Answer>();
+
+       listaRespuestas.add(0,respuesta1);
+       listaRespuestas.add(1,respuesta2);
+       listaRespuestas.add(2,respuesta3);
+       listaRespuestas.add(3,respuesta4);
 
        this.answers = listaRespuestas;
    }
@@ -112,14 +114,17 @@ public class Question {
 
         List<Question> list = null;
 
-
         return list;
 
     }
 
-    public int numeroAleatorioDeLista(List<Question> lista){
+   /* public int numeroAleatorioDeLista(List<Question> lista){
+
+       if(lista.isEmpty()){
+           return 0;
+       }
 
        return (int)(Math.random()*lista.size());
-    }
+    }*/
 
 }

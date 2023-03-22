@@ -1,7 +1,11 @@
 package com.slumdogsustainable;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,24 +16,38 @@ import com.slumdogsustainable.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-import Builder.CreadorDeJuego;
-import Builder.Juego;
-import Builder.JuegoBuilder;
-import Builder.JuegoRetoPregunta;
 import Domain_Layer.User;
 //import Persistence.Repository;
 import Persistence.UserRepository;
+import Presentacion_layer.IUretoPregunta;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    Button botonInicio;
 
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inicio);
         new Task().execute();
+
+
+
+        botonInicio = (Button) findViewById(R.id.botonInicio);
+       botonInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, IUretoPregunta.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         /*JuegoBuilder retoPegunta = new JuegoRetoPregunta();
         //Esto es lo que hace el director

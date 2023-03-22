@@ -7,7 +7,7 @@
     android:background="@drawable/inicio_background">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/botonInicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/boton_verde"

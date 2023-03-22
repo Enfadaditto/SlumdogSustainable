@@ -25,11 +25,8 @@ public class IUretoPregunta extends AppCompatActivity {
     private static final String DIFICULTAD_DIFICIL  = "3";
 
 
-    Button botonRespuesta1 = (Button) findViewById(R.id.botonRespuesta1);
-    Button botonRespuesta2 = (Button) findViewById(R.id.botonRespuesta2);
-    Button botonRespuesta3 = (Button) findViewById(R.id.botonRespuesta3);
-    Button botonRespuesta4 = (Button) findViewById(R.id.botonRespuesta4);
-    Question preguntaActual = new Question();
+
+   Question preguntaActual = new Question();
 
     List<Question> listaPreguntasDifultad1 = preguntaActual.getQuestionListByDifficulty(DIFICULTAD_FACIL);
     List<Question> listaPreguntasDifultad2 = preguntaActual.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
@@ -51,16 +48,20 @@ public class IUretoPregunta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_pregunta);
 
+        Button botonRespuesta1 = (Button) findViewById(R.id.botonRespuesta1);
+        Button botonRespuesta2 = (Button) findViewById(R.id.botonRespuesta2);
+        Button botonRespuesta3 = (Button) findViewById(R.id.botonRespuesta3);
+        Button botonRespuesta4 = (Button) findViewById(R.id.botonRespuesta4);
 
         creadorDeJuego.setJuegoBuilder(retoPegunta);
         creadorDeJuego.construirJuego();
         Juego juego = retoPegunta.getJuego();
 
-        textoPregunta = findViewById(R.id.textoPregunta);
+       textoPregunta = findViewById(R.id.textoPregunta);
 
-        int indice = preguntaActual.numeroAleatorioDeLista(listaPreguntasDifultad1);
+        //int indice = preguntaActual.numeroAleatorioDeLista(listaPreguntasDifultad1);
 
-        preguntaActual = listaPreguntasDifultad1.get(indice);
+       // preguntaActual = listaPreguntasDifultad1.get(indice);
 
         textoPregunta.setText(preguntaActual.getStatement());
 
@@ -72,7 +73,7 @@ public class IUretoPregunta extends AppCompatActivity {
         //SET TIMER CON EL BUILDER
 
     }
-
+/*
     public int botonSelecionado(){
 
         if(botonRespuesta1.isPressed()){
@@ -96,6 +97,6 @@ public class IUretoPregunta extends AppCompatActivity {
         } else{
             //respuesta Incorrecta
         }
-  }
+  }*/
 
 }

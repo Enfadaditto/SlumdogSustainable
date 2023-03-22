@@ -25,20 +25,26 @@ public class IUretoPregunta extends AppCompatActivity {
     private static final String DIFICULTAD_DIFICIL  = "3";
 
 
+    Button botonRespuesta1;
+    Button botonRespuesta2;
+    Button botonRespuesta3;
+    Button botonRespuesta4;
 
    Question preguntaActual = new Question();
 
+   // se necesitan preguntas para que esto funcione
+    /*
     List<Question> listaPreguntasDifultad1 = preguntaActual.getQuestionListByDifficulty(DIFICULTAD_FACIL);
     List<Question> listaPreguntasDifultad2 = preguntaActual.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
     List<Question> listaPreguntasDifultad3 = preguntaActual.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);
     private TextView textoPregunta = null;
-
+     */
     int respuestasCorrectasContestadas = 0;
 
     int vida = 1;
 
-    JuegoBuilder retoPegunta = new JuegoRetoPregunta();
-    CreadorDeJuego creadorDeJuego = new CreadorDeJuego();
+  //  JuegoBuilder retoPegunta = new JuegoRetoPregunta();
+    //CreadorDeJuego creadorDeJuego = new CreadorDeJuego();
 
 
 
@@ -48,20 +54,21 @@ public class IUretoPregunta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_pregunta);
 
-        Button botonRespuesta1 = (Button) findViewById(R.id.botonRespuesta1);
-        Button botonRespuesta2 = (Button) findViewById(R.id.botonRespuesta2);
-        Button botonRespuesta3 = (Button) findViewById(R.id.botonRespuesta3);
-        Button botonRespuesta4 = (Button) findViewById(R.id.botonRespuesta4);
+        botonRespuesta1 = (Button) findViewById(R.id.botonRespuesta1);
+        botonRespuesta2 = (Button) findViewById(R.id.botonRespuesta2);
+        botonRespuesta3 = (Button) findViewById(R.id.botonRespuesta3);
+        botonRespuesta4 = (Button) findViewById(R.id.botonRespuesta4);
 
-        creadorDeJuego.setJuegoBuilder(retoPegunta);
-        creadorDeJuego.construirJuego();
-        Juego juego = retoPegunta.getJuego();
+       // creadorDeJuego.setJuegoBuilder(retoPegunta);
+        //creadorDeJuego.construirJuego();
+        //Juego juego = retoPegunta.getJuego();
 
+        /*
        textoPregunta = findViewById(R.id.textoPregunta);
 
-        //int indice = preguntaActual.numeroAleatorioDeLista(listaPreguntasDifultad1);
+        int indice = preguntaActual.numeroAleatorioDeLista(listaPreguntasDifultad1);
 
-       // preguntaActual = listaPreguntasDifultad1.get(indice);
+        preguntaActual = listaPreguntasDifultad1.get(indice);
 
         textoPregunta.setText(preguntaActual.getStatement());
 
@@ -70,33 +77,41 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta3.setText(preguntaActual.getAnswers().get(2).getText());
         botonRespuesta4.setText(preguntaActual.getAnswers().get(3).getText());
 
+
+         */
+
         //SET TIMER CON EL BUILDER
 
-    }
-/*
-    public int botonSelecionado(){
 
+
+
+    }
+
+    public boolean botonSeleccionado(){
+
+        int respuestaEscogida  = 0;
         if(botonRespuesta1.isPressed()){
-            return 0;
+            respuestaEscogida = 0;
+            System.out.println("vaya");
         }else if(botonRespuesta2.isPressed()){
-            return 1;
+            respuestaEscogida = 1;
         } else if (botonRespuesta3.isPressed()) {
-            return 2;
+            respuestaEscogida =  2;
         } else if (botonRespuesta4.isPressed()) {
-            return 3;
+             respuestaEscogida = 3;
         }
-        return 0;
+
+        return true;
+                //preguntaActual.getAnswers().get(respuestaEscogida).isCorrect();
 
     }
 
-  public void botonClicked(View v){
-        int preguntaEscogida = botonSelecionado();
+    public void onClick (View view){
+        if(botonSeleccionado()){
+            //campion de pantallan
 
-        if(preguntaActual.getAnswers().get(preguntaEscogida).isCorrect()){
-            // respuesta correcta
-        } else{
-            //respuesta Incorrecta
         }
-  }*/
+    }
+
 
 }

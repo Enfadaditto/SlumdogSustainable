@@ -2,6 +2,7 @@ package com.slumdogsustainable;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 import com.slumdogsustainable.databinding.ActivityMainBinding;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inicio);
-        new Task().execute();
 
+        new Task().execute();
 
 
         botonInicio = (Button) findViewById(R.id.botonInicio);
@@ -129,12 +131,17 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             try
             {
+                MediaPlayer music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
+                music.setLooping(true);
+                music.start();
+
                 UserRepository s = new UserRepository();
                 List<User> listaprueba = new ArrayList<>();
                 listaprueba = s.obtenerTodos();
                 for(User u : listaprueba) {
                    System.out.println(u.getNickname());
                 }
+
             }
             catch(Exception e)
 

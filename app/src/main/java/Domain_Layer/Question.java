@@ -107,15 +107,8 @@ public class Question {
        return answers;
     }
 
-    public List<Question> getQuestionListByDifficulty(String difficulty){
-
-        //implementar con la base de datos
-
-
-        List<Question> list = null;
-
-        return list;
-
+    public List<Question> getQuestionListByDifficulty(String dificultadFacil) {
+       return null;
     }
 
    /* public int numeroAleatorioDeLista(List<Question> lista){

@@ -28,6 +28,8 @@ public class IUuserRegister extends AppCompatActivity {
     private Button registerButton;
     private User userActual;
 
+
+
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

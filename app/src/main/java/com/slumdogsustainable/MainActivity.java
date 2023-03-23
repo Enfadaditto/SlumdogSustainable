@@ -23,6 +23,7 @@ import Domain_Layer.User;
 import Persistence.QuestionRepository;
 import Persistence.UserRepository;
 import Presentacion_layer.IUretoPregunta;
+import Presentacion_layer.IUuserLogin;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this, IUretoPregunta.class);
+                Intent intent = new Intent(MainActivity.this, IUuserLogin.class);
                 startActivity(intent);
             }
         });

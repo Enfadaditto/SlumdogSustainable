@@ -17,7 +17,7 @@ import Domain_Layer.User;
 public class IUuserLogin extends AppCompatActivity {
     // TODO: TODO AQUELLO QUE AHORA ESTE EN ROJO, UNA VEZ SE INTRODUZCAN LOS XML HABRA QUE RENOMBRARLOS
 
-    Button logInButton = (Button) findViewById(R.id.loginButton);
+    Button logInButton;
 
     private Image background;
 
@@ -29,19 +29,17 @@ public class IUuserLogin extends AppCompatActivity {
     private TextView signupErrorText;
     private User userActual;
 
-    public View.OnClickListener registerOnClick() {
+    public void registerOnClick() {
         setContentView(R.layout.register);
-        return null;
     }
 
-    public View.OnClickListener loginButtonOnClick() {
+    public void loginButtonOnClick() {
         if (checkPassword()) setContentView(R.layout.activity_main);
         else {
             signupErrorText.setVisibility(View.VISIBLE);
             usernameField.getText().clear();
             passwordField.getText().clear();
         }
-        return null;
     }
 
 
@@ -55,13 +53,14 @@ public class IUuserLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        signupErrorText.setVisibility(View.INVISIBLE);
+        // signupErrorText = findViewById(R.id.errorText);
+        // signupErrorText.setVisibility(View.INVISIBLE);
+        usernameField = findViewById(R.id.editTextTextPersonName3);
+        passwordField = findViewById(R.id.editTextTextPassword);
         usernameField.setText("");
         passwordField.setText("");
 
-        registerText = (TextView) findViewById(R.id.register);
-        registerText.setOnClickListener(registerOnClick());
-
-        logInButton.setOnClickListener(loginButtonOnClick());
+        logInButton = (Button) findViewById(R.id.loginButton);
+        registerText = (TextView) findViewById(R.id.register);;
     }
 }

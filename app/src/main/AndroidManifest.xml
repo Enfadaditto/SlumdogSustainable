@@ -17,6 +17,9 @@
             android:name="Presentacion_layer.IUretoPregunta"
             android:exported="true" />
         <activity
+            android:name="Presentacion_layer.IUuserLogin"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"

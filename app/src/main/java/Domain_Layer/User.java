@@ -7,6 +7,8 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.List;
 
+import Persistence.UserRepository;
+
 @DatabaseTable
 public class User {
     @DatabaseField (id = true)
@@ -34,8 +36,7 @@ public class User {
     }
 
     public boolean checkPassword(String username, String password) {
-        //return password == new UserRepository(new DBConnection().getConnection()).GetUserByNickName(username).password;
-        return false;
+        return new UserRepository().getUserByUsername(username).password.equals(password);
     }
 
     public void addODSKnowledge(ODS_has_User newODSKnown) {

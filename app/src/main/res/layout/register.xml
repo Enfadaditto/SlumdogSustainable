@@ -7,9 +7,10 @@
     android:background="@drawable/register">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iconSelector"
         android:layout_width="122dp"
         android:layout_height="129dp"
+        android:onClick="selectIcon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -19,7 +20,7 @@
         app:srcCompat="@drawable/user" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/nicknameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -30,10 +31,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.716"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/iconSelector" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName6"
+        android:id="@+id/emailField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
@@ -44,10 +45,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.716"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+        app:layout_constraintTop_toBottomOf="@+id/nicknameField" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName7"
+        android:id="@+id/passwordField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -58,10 +59,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.716"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6" />
+        app:layout_constraintTop_toBottomOf="@+id/emailField" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName8"
+        android:id="@+id/repeatPasswordField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -72,16 +73,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.716"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName7" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/boton_verde"
+        android:onClick="registerButtonOnClick"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8" />
+        app:layout_constraintTop_toBottomOf="@+id/repeatPasswordField" />
 </androidx.constraintlayout.widget.ConstraintLayout>

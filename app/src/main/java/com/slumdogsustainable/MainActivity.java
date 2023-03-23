@@ -24,6 +24,7 @@ import Persistence.QuestionRepository;
 import Persistence.UserRepository;
 import Presentacion_layer.IUretoPregunta;
 import Presentacion_layer.IUuserLogin;
+import Presentacion_layer.IUuserRegister;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.inicio);
 
         new Task().execute();
-
 
         botonInicio = (Button) findViewById(R.id.botonInicio);
        botonInicio.setOnClickListener(new View.OnClickListener() {

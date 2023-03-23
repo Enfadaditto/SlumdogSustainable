@@ -14,7 +14,7 @@ public class UserRepository extends Repository<User> {
         public User getUserByUsername(String username) {
                 List<User> users = this.obtenerTodos();
                 for (User user : users) {
-                        if (user.getNickname() == username) return user;
+                        if (user.getNickname().equals(username)) return user;
                 }
                 return null;
         }

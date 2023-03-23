@@ -1,7 +1,9 @@
 package Presentacion_layer;
 
+import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
@@ -15,28 +17,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import Domain_Layer.User;
 
 public class IUuserLogin extends AppCompatActivity {
-    // TODO: TODO AQUELLO QUE AHORA ESTE EN ROJO, UNA VEZ SE INTRODUZCAN LOS XML HABRA QUE RENOMBRARLOS
-
     Button logInButton;
-
     private Image background;
-
     private EditText usernameField;
     private EditText passwordField;
     private CheckBox showPassword;
-
     private TextView registerText;
     private TextView signupErrorText;
-    private User userActual;
+    private User userActual = new User("a", "b","c");
 
-    public void registerOnClick() {
-        setContentView(R.layout.register);
+    public void registerOnClick(View view) {
+        Intent intent = new Intent(IUuserLogin.this, IUuserRegister.class);
+        startActivity(intent);
     }
 
-    public void loginButtonOnClick() {
-        if (checkPassword()) setContentView(R.layout.activity_main);
+    public void loginButtonOnClick(View view) {
+        if (checkPassword()) {
+            Intent intent = new Intent(IUuserLogin.this, IUretoPregunta.class);
+            startActivity(intent);
+        }
         else {
-            signupErrorText.setVisibility(View.VISIBLE);
+            //signupErrorText.setVisibility(View.VISIBLE);
             usernameField.getText().clear();
             passwordField.getText().clear();
         }
@@ -44,8 +45,8 @@ public class IUuserLogin extends AppCompatActivity {
 
 
     public boolean checkPassword() {
-        String username = String.valueOf(usernameField.getText());
-        String password = String.valueOf(passwordField.getText());
+        String username = usernameField.getText().toString();
+        String password = passwordField.getText().toString();
         return this.userActual.checkPassword(username, password);
     }
 

@@ -17,9 +17,10 @@ import com.slumdogsustainable.databinding.ActivityMainBinding;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import Domain_Layer.Question;
 import Domain_Layer.User;
 //import Persistence.Repository;
+import Persistence.QuestionRepository;
 import Persistence.UserRepository;
 import Presentacion_layer.IUretoPregunta;
 
@@ -135,11 +136,12 @@ public class MainActivity extends AppCompatActivity {
                 music.setLooping(true);
                 music.start();
 
-                UserRepository s = new UserRepository();
-                List<User> listaprueba = new ArrayList<>();
-                listaprueba = s.obtenerTodos();
-                for(User u : listaprueba) {
-                   System.out.println(u.getNickname());
+                //prueba Questions
+                QuestionRepository f = new QuestionRepository();
+
+                List<Question> prueba2 = f.getQuestionListByDifficulty("Baja");
+                for(Question q : prueba2) {
+                    System.out.println(q.getStatement());
                 }
 
             }

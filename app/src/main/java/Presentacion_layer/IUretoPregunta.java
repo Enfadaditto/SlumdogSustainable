@@ -4,12 +4,15 @@ import android.view.View;
 import android.widget.Button;
 
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.slumdogsustainable.R;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import Builder.CreadorDeJuego;
@@ -17,6 +20,7 @@ import Builder.Juego;
 import Builder.JuegoBuilder;
 import Builder.JuegoRetoPregunta;
 import Domain_Layer.Question;
+import Persistence.QuestionRepository;
 
 public class IUretoPregunta extends AppCompatActivity {
 
@@ -24,26 +28,27 @@ public class IUretoPregunta extends AppCompatActivity {
     private static final String DIFICULTAD_MEDIA  = "2";
     private static final String DIFICULTAD_DIFICIL  = "3";
 
-
+    ImageView fondo_transparente;
+    RelativeLayout contenedor;
     Button botonRespuesta1;
     Button botonRespuesta2;
     Button botonRespuesta3;
     Button botonRespuesta4;
+    TextView puntos_totales_tx;
 
    Question preguntaActual = new Question();
 
-   // se necesitan preguntas para que esto funcione
-    /*
-    List<Question> listaPreguntasDifultad1 = preguntaActual.getQuestionListByDifficulty(DIFICULTAD_FACIL);
-    List<Question> listaPreguntasDifultad2 = preguntaActual.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
-    List<Question> listaPreguntasDifultad3 = preguntaActual.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);
+
     private TextView textoPregunta = null;
-     */
+
     int respuestasCorrectasContestadas = 0;
 
     int vida = 1;
 
-  //  JuegoBuilder retoPegunta = new JuegoRetoPregunta();
+    public IUretoPregunta() throws SQLException {
+    }
+
+    //  JuegoBuilder retoPegunta = new JuegoRetoPregunta();
     //CreadorDeJuego creadorDeJuego = new CreadorDeJuego();
 
 
@@ -54,6 +59,21 @@ public class IUretoPregunta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_pregunta);
 
+        try{
+
+            QuestionRepository preguntasEnBD = new QuestionRepository();
+            //se necesitan preguntas para que esto funcione
+
+            List<Question> listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
+            List<Question> listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
+            List<Question> listaPreguntasDifultad3 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);
+        }catch(Exception e){
+
+            System.out.println("peta");
+        }
+        contenedor = findViewById(R.id.contenedor_resp);
+        fondo_transparente = findViewById(R.id.fondo_t);
+        puntos_totales_tx = findViewById(R.id.puntos_total);
         botonRespuesta1 = (Button) findViewById(R.id.botonRespuesta1);
         botonRespuesta2 = (Button) findViewById(R.id.botonRespuesta2);
         botonRespuesta3 = (Button) findViewById(R.id.botonRespuesta3);
@@ -63,10 +83,11 @@ public class IUretoPregunta extends AppCompatActivity {
         //creadorDeJuego.construirJuego();
         //Juego juego = retoPegunta.getJuego();
 
-        /*
+/*
        textoPregunta = findViewById(R.id.textoPregunta);
 
-        int indice = preguntaActual.numeroAleatorioDeLista(listaPreguntasDifultad1);
+        int indice = 0;
+                //preguntaActual.numeroAleatorioDeLista(listaPreguntasDifultad1);
 
         preguntaActual = listaPreguntasDifultad1.get(indice);
 
@@ -76,9 +97,9 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta2.setText(preguntaActual.getAnswers().get(1).getText());
         botonRespuesta3.setText(preguntaActual.getAnswers().get(2).getText());
         botonRespuesta4.setText(preguntaActual.getAnswers().get(3).getText());
+*/
 
 
-         */
 
         //SET TIMER CON EL BUILDER
 
@@ -92,9 +113,10 @@ public class IUretoPregunta extends AppCompatActivity {
         int respuestaEscogida  = 0;
         if(botonRespuesta1.isPressed()){
             respuestaEscogida = 0;
-            System.out.println("vaya");
         }else if(botonRespuesta2.isPressed()){
             respuestaEscogida = 1;
+            contenedor.setVisibility(View.VISIBLE);
+            botonRespuesta2.setClickable(false);
         } else if (botonRespuesta3.isPressed()) {
             respuestaEscogida =  2;
         } else if (botonRespuesta4.isPressed()) {

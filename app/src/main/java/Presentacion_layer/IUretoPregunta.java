@@ -5,6 +5,7 @@ import android.widget.Button;
 
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -36,8 +37,9 @@ public class IUretoPregunta extends AppCompatActivity {
     Button botonRespuesta4;
     TextView puntos_totales_tx;
 
-   Question preguntaActual = new Question();
+    Question preguntaActual = new Question();
 
+    ProgressBar timeBar;
 
     private TextView textoPregunta = null;
 
@@ -79,6 +81,23 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta3 = (Button) findViewById(R.id.botonRespuesta3);
         botonRespuesta4 = (Button) findViewById(R.id.botonRespuesta4);
 
+        timeBar = findViewById(R.id.timeBar);
+
+        Runnable timeBarThread = new Runnable() {
+            @Override
+            public void run() {
+                synchronized (this) {
+                    for (int i = 0; i < 10000/*retoPegunta.getJuego().getTiempo()*/; i++) {
+                        try { wait(1); }
+                        catch (InterruptedException e) { throw new RuntimeException(e); }
+                        timeBar.incrementProgressBy(-1);
+                    }
+                }
+            }
+        };
+
+        new Thread(timeBarThread).start();
+
        // creadorDeJuego.setJuegoBuilder(retoPegunta);
         //creadorDeJuego.construirJuego();
         //Juego juego = retoPegunta.getJuego();
@@ -99,13 +118,7 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta4.setText(preguntaActual.getAnswers().get(3).getText());
 */
 
-
-
         //SET TIMER CON EL BUILDER
-
-
-
-
     }
 
     public boolean botonSeleccionado(){

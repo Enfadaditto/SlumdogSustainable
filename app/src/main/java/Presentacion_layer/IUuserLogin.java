@@ -27,6 +27,7 @@ public class IUuserLogin extends AppCompatActivity {
 
     private TextView registerText;
     private TextView signupErrorText;
+    private User userActual;
 
     public View.OnClickListener registerOnClick() {
         setContentView(R.layout.register);
@@ -47,7 +48,7 @@ public class IUuserLogin extends AppCompatActivity {
     public boolean checkPassword() {
         String username = String.valueOf(usernameField.getText());
         String password = String.valueOf(passwordField.getText());
-        return true; //User.checkPassword(username, password);
+        return this.userActual.checkPassword(username, password);
     }
 
     protected void onCreate(Bundle savedInstanceState) {

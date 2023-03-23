@@ -25,9 +25,9 @@ import Persistence.QuestionRepository;
 
 public class IUretoPregunta extends AppCompatActivity {
 
-    private static final String DIFICULTAD_FACIL  = "1";
-    private static final String DIFICULTAD_MEDIA  = "2";
-    private static final String DIFICULTAD_DIFICIL  = "3";
+    private static final String DIFICULTAD_FACIL  = "Baja";
+    private static final String DIFICULTAD_MEDIA  = "Media";
+    private static final String DIFICULTAD_DIFICIL  = "Alta";
 
     ImageView fondo_transparente;
     RelativeLayout contenedor;
@@ -61,18 +61,27 @@ public class IUretoPregunta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_pregunta);
 
-        try{
+        //Con esto ya puedes obtener las preguntas :)
+        new Thread(new Runnable() {
+            public void run(){
+                try {
+                    QuestionRepository preguntasEnBD = new QuestionRepository();
+                    List<Question> listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
+                    List<Question> listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
+                    List<Question> listaPreguntasDifultad3 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);
 
-            QuestionRepository preguntasEnBD = new QuestionRepository();
-            //se necesitan preguntas para que esto funcione
+                    System.out.println(listaPreguntasDifultad1);
+                    System.out.println(listaPreguntasDifultad2);
+                    System.out.println(listaPreguntasDifultad3);
+                }
+                catch(Exception e){
 
-            List<Question> listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
-            List<Question> listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
-            List<Question> listaPreguntasDifultad3 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);
-        }catch(Exception e){
+                    System.out.println(e);
+                }
+            }
+        }).start();
 
-            System.out.println("peta");
-        }
+
         contenedor = findViewById(R.id.contenedor_resp);
         fondo_transparente = findViewById(R.id.fondo_t);
         puntos_totales_tx = findViewById(R.id.puntos_total);

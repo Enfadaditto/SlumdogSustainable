@@ -136,12 +136,12 @@ public class IUretoPregunta extends AppCompatActivity {
 
 
         textoPregunta.setText(preguntaActual.getStatement());
-/*
+
         botonRespuesta1.setText(respuestasActuales.get(0).getText());
         botonRespuesta2.setText(respuestasActuales.get(1).getText());
         botonRespuesta3.setText(respuestasActuales.get(2).getText());
         botonRespuesta4.setText(respuestasActuales.get(3).getText());
-*/
+
  
     }
 

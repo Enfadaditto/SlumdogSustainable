@@ -29,9 +29,10 @@ public class QuestionRepository extends Repository<Question> {
     public List<Answer> getAnswers(Question q) throws SQLException {
         AnswerRepository AnswerRep = new AnswerRepository();
         List<Answer> list = AnswerRep.obtenerTodos();
+        System.out.println("Prueba" + list);
         List<Answer> resultlist = new ArrayList<>();
         for(Answer a : list) {
-            if(a.getQuestionID().equals(q.getQuestionID())) {
+            if(a.getQuestionID() == q.getQuestionID()) {
                 resultlist.add(a);
             }
         }

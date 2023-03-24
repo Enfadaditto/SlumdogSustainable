@@ -10,9 +10,8 @@ public class Answer {
     @DatabaseField
     private boolean hit;
     @DatabaseField(id = true)
-    private String questionID;
-    @DatabaseField
-    private Question question;
+    private int questionID;
+
 
     Answer() {}
     public Answer(String text, boolean hit) {
@@ -36,11 +35,11 @@ public class Answer {
         this.hit = hit;
     }
 
-    public String getQuestionID() {
+    public int getQuestionID() {
         return questionID;
     }
 
-    public void setQuestionID(String questionID) {
+    public void setQuestionID(int questionID) {
         this.questionID = questionID;
     }
 

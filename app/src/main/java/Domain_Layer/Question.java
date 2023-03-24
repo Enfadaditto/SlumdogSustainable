@@ -102,7 +102,9 @@ public class Question {
     public Question getQuestion(){
         return preguntaActual;
     }
-
+    public int getQuestionID(){
+        return preguntaActual.QuestionID;
+    }
     public List<Answer> getAnswers (){
        return answers;
     }

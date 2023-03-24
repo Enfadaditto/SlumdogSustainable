@@ -41,6 +41,8 @@ public class IUretoPregunta extends AppCompatActivity {
 
     ProgressBar timeBar;
 
+    List<Question> listaPreguntasDifultad1;
+
     private TextView textoPregunta = null;
 
     int respuestasCorrectasContestadas = 0;
@@ -65,14 +67,19 @@ public class IUretoPregunta extends AppCompatActivity {
         new Thread(new Runnable() {
             public void run(){
                 try {
+
+
                     QuestionRepository preguntasEnBD = new QuestionRepository();
-                    List<Question> listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
+                    listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
                     List<Question> listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
                     List<Question> listaPreguntasDifultad3 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);
 
                     System.out.println(listaPreguntasDifultad1);
                     System.out.println(listaPreguntasDifultad2);
                     System.out.println(listaPreguntasDifultad3);
+
+
+
                 }
                 catch(Exception e){
 
@@ -111,12 +118,25 @@ public class IUretoPregunta extends AppCompatActivity {
         //creadorDeJuego.construirJuego();
         //Juego juego = retoPegunta.getJuego();
 
-/*
+
+
        textoPregunta = findViewById(R.id.textoPregunta);
 
-        int indice = 0;
-                //preguntaActual.numeroAleatorioDeLista(listaPreguntasDifultad1);
 
+        //preguntaActual.numeroAleatorioDeLista(listaPreguntasDifultad1);
+
+        try {
+            Thread.sleep(10000); // pausa el hilo actual durante 10 segundos
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ponerTextoEnPantalla();
+
+        //SET TIMER CON EL BUILDER
+    }
+
+    private void ponerTextoEnPantalla() {
+        int indice = 0;
         preguntaActual = listaPreguntasDifultad1.get(indice);
 
         textoPregunta.setText(preguntaActual.getStatement());
@@ -125,9 +145,6 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta2.setText(preguntaActual.getAnswers().get(1).getText());
         botonRespuesta3.setText(preguntaActual.getAnswers().get(2).getText());
         botonRespuesta4.setText(preguntaActual.getAnswers().get(3).getText());
-*/
-
-        //SET TIMER CON EL BUILDER
     }
 
     public boolean botonSeleccionado(){

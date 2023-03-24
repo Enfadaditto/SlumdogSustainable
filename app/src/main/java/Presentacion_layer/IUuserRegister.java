@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Icon;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -14,12 +17,14 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.slumdogsustainable.R;
+import java.io.File;
+
 import Domain_Layer.User;
 import Persistence.UserRepository;
 
 public class IUuserRegister extends AppCompatActivity {
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int PICK_IMAGE_REQUEST = 1;
     private EditText nicknameField;
     private EditText emailField;
     private EditText passwordField;
@@ -30,7 +35,6 @@ public class IUuserRegister extends AppCompatActivity {
 
 
 
-    @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
@@ -55,36 +59,43 @@ public class IUuserRegister extends AppCompatActivity {
                     )
             );
         };
-        System.out.println("ASDFASDFASDFADS");
+        //enviar a pantalla de juego principal
     }
 
-    public void selectIcon(View view) {
-        Icon profileImage = throwRegisterDialog();
-        iconSelector.setImageIcon(profileImage);
-    }
+    public void selectIcon(View view) { throwRegisterDialog(); }
 
-    private Icon throwRegisterDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+    private void throwRegisterDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Select profile icon");
         builder.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 System.out.println("CAMERA");
             }
         });
-        builder.setNeutralButton("Storage", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Storage", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                System.out.println("STORAGE");
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivity(intent);
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                System.out.println("CANCEL");
             }
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
 
-        return null;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri uri = data.getData();
+            File image = new File(String.valueOf(uri));
+            System.out.println("ESTO ES LA URI:  " + uri.toString());
+            iconSelector.setImageBitmap(BitmapFactory.decodeFile(image.getAbsolutePath()));
+        }
     }
 
 }

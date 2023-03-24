@@ -1,5 +1,7 @@
 package Presentacion_layer;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.slumdogsustainable.R;
@@ -248,7 +251,26 @@ public class IUretoPregunta extends AppCompatActivity {
         }
     }
 
+    public void abandonOnClick(View view) { //metodo si el boton ABANDONAR se pulsa
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("¿Estas seguro que quieres abandonar?")
+                .setMessage("")
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Lógica cuando se presiona el botón Aceptar
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Lógica cuando se presiona el botón Cancelar
+                    }
+                });
+        alert.setCancelable(true);
 
+        AlertDialog dialog = alert.create(); dialog.show();
+    }
 //----------------Esto es de Raquel--------------------
             //contenedor.setVisibility(View.VISIBLE);
             //botonRespuesta2.setClickable(false);

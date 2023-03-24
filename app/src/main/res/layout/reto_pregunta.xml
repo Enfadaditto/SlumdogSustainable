@@ -21,19 +21,19 @@
 
     <TextView
         android:id="@+id/textoPregunta"
-        android:layout_width="260dp"
-        android:layout_height="148dp"
+        android:layout_width="319dp"
+        android:layout_height="240dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
-        android:text="TextView"
+        android:text="Cargando..."
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintHorizontal_bias="0.402"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.212" />
+        app:layout_constraintVertical_bias="0.189" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -52,10 +52,10 @@
         android:layout_height="380dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.479"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.803">
+        app:layout_constraintVertical_bias="0.828">
 
         <Button
             android:id="@+id/botonRespuesta1"
@@ -72,7 +72,7 @@
             android:background="@drawable/boton_azul"
             android:gravity="center"
             android:onClick="onClick"
-            android:text="Button" />
+            android:text="Cargando..." />
 
         <Button
             android:id="@+id/botonRespuesta2"
@@ -88,7 +88,7 @@
             android:layout_marginBottom="206dp"
             android:background="@drawable/boton_azul"
             android:onClick="onClick"
-            android:text="Button" />
+            android:text="Cargando..." />
 
         <Button
             android:id="@+id/botonRespuesta3"
@@ -104,9 +104,7 @@
             android:layout_marginBottom="136dp"
             android:background="@drawable/boton_azul"
             android:onClick="onClick"
-            android:text="Button"
-            android:visibility="visible"
-            tools:visibility="visible" />
+            android:text="Cargando..." />
 
         <Button
             android:id="@+id/botonRespuesta4"
@@ -122,7 +120,7 @@
             android:layout_marginBottom="56dp"
             android:background="@drawable/boton_azul"
             android:onClick="onClick"
-            android:text="Button" />
+            android:text="Cargando..." />
 
     </RelativeLayout>
 
@@ -137,8 +135,22 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="gone">
 
+        <TextView
+            android:id="@+id/puntosGanados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="193dp"
+            android:layout_marginTop="144dp"
+            android:layout_marginEnd="174dp"
+            android:layout_marginBottom="579dp"
+            android:text="TextView" />
+
         <Button
-            android:id="@+id/button"
+            android:id="@+id/botonConsolidar"
             android:layout_width="215dp"
             android:layout_height="49dp"
             android:layout_alignParentStart="true"
@@ -160,7 +172,7 @@
             app:srcCompat="@drawable/fondo_transparente" />
 
         <TextView
-            android:id="@+id/puntos_total"
+            android:id="@+id/puntosTotal"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -177,7 +189,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/botonSiguientePregunta"
             android:layout_width="262dp"
             android:layout_height="54dp"
             android:layout_alignParentStart="true"

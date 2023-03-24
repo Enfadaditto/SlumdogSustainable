@@ -1,9 +1,7 @@
 package Presentacion_layer;
 
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.view.View;
 import android.widget.Button;
 
@@ -40,7 +38,10 @@ public class IUretoPregunta extends AppCompatActivity {
     Button botonRespuesta2;
     Button botonRespuesta3;
     Button botonRespuesta4;
-    TextView puntos_totales_tx;
+    TextView puntosTotal;
+    Button botonConsolidar;
+    Button botonSiguientePregunta;
+    TextView puntosGanados;
 
     Question preguntaActual = new Question();
 
@@ -58,6 +59,8 @@ public class IUretoPregunta extends AppCompatActivity {
 
     int vida = 1;
 
+    boolean respuestaEscogida;
+
     public IUretoPregunta() throws SQLException {
     }
 
@@ -72,9 +75,47 @@ public class IUretoPregunta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_pregunta);
 
+        IniciarBaseDedatos();
+
         startTimer();
 
-        //Con esto ya puedes obtener las preguntas :)
+
+        textoPregunta = findViewById(R.id.textoPregunta);
+        puntosGanados = findViewById(R.id.puntosGanados);
+        contenedor = findViewById(R.id.contenedor_resp);
+        fondo_transparente = findViewById(R.id.fondo_t);
+        puntosTotal = findViewById(R.id.puntosTotal);
+        botonRespuesta1 = (Button) findViewById(R.id.botonRespuesta1);
+        botonRespuesta2 = (Button) findViewById(R.id.botonRespuesta2);
+        botonRespuesta3 = (Button) findViewById(R.id.botonRespuesta3);
+        botonRespuesta4 = (Button) findViewById(R.id.botonRespuesta4);
+        botonConsolidar = (Button) findViewById(R.id.botonConsolidar);
+        botonSiguientePregunta = (Button) findViewById(R.id.botonSiguientePregunta);
+
+
+
+
+        //------builder--------
+        JuegoBuilder retoPegunta = new JuegoRetoPregunta();
+        CreadorDeJuego creadorDeJuego = new CreadorDeJuego();
+        creadorDeJuego.setJuegoBuilder(retoPegunta);
+        //creadorDeJuego.construirJuego();
+        Juego juego = retoPegunta.getJuego();
+
+
+
+
+    }
+
+    private void RetrasoDe10Segundos() {
+        try {
+            Thread.sleep(10000); // pausa el hilo actual durante 10 segundos
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void IniciarBaseDedatos() {
         new Thread(new Runnable() {
             public void run(){
                 try {
@@ -108,7 +149,7 @@ public class IUretoPregunta extends AppCompatActivity {
 
         contenedor = findViewById(R.id.contenedor_resp);
         fondo_transparente = findViewById(R.id.fondo_t);
-        puntos_totales_tx = findViewById(R.id.puntos_total);
+        puntosTotal= findViewById(R.id.puntosTotal);
         botonRespuesta1 = (Button) findViewById(R.id.botonRespuesta1);
         botonRespuesta2 = (Button) findViewById(R.id.botonRespuesta2);
         botonRespuesta3 = (Button) findViewById(R.id.botonRespuesta3);
@@ -176,30 +217,39 @@ public class IUretoPregunta extends AppCompatActivity {
 
     public boolean botonSeleccionado(){
 
-        int respuestaEscogida  = 0;
+
         if(botonRespuesta1.isPressed()){
-            respuestaEscogida = 0;
+            respuestaEscogida = respuestasActuales.get(0).isCorrect();
         }else if(botonRespuesta2.isPressed()){
-            respuestaEscogida = 1;
-            contenedor.setVisibility(View.VISIBLE);
-            botonRespuesta2.setClickable(false);
+            respuestaEscogida = respuestasActuales.get(1).isCorrect();
+
         } else if (botonRespuesta3.isPressed()) {
-            respuestaEscogida =  2;
+            respuestaEscogida = respuestasActuales.get(2).isCorrect();
         } else if (botonRespuesta4.isPressed()) {
-             respuestaEscogida = 3;
+            respuestaEscogida = respuestasActuales.get(3).isCorrect();
         }
 
-        return true;
-                //preguntaActual.getAnswers().get(respuestaEscogida).isCorrect();
+        return respuestaEscogida;
 
     }
 
     public void onClick (View view){
         if(botonSeleccionado()){
             //campion de pantallan
+            if(respuestaEscogida){
+
+
+
+            }else{
+
+            }
+
 
         }
     }
 
 
+//----------------Esto es de Raquel--------------------
+            //contenedor.setVisibility(View.VISIBLE);
+            //botonRespuesta2.setClickable(false);
 }

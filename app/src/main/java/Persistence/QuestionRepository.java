@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Domain_Layer.Question;
-import Domain_Layer.User;
+import Domain_Layer.Answer;
 
 public class QuestionRepository extends Repository<Question> {
 
@@ -21,6 +21,18 @@ public class QuestionRepository extends Repository<Question> {
         for(Question q : list) {
             if(q.getDifficulty().equals(difficulty)) {
                 resultlist.add(q);
+            }
+        }
+        return resultlist;
+    }
+
+    public List<Answer> getAnswers(Question q) throws SQLException {
+        AnswerRepository AnswerRep = new AnswerRepository();
+        List<Answer> list = AnswerRep.obtenerTodos();
+        List<Answer> resultlist = new ArrayList<>();
+        for(Answer a : list) {
+            if(a.getQuestionID().equals(q.getQuestionID())) {
+                resultlist.add(a);
             }
         }
         return resultlist;

@@ -90,7 +90,11 @@ public class IUretoPregunta extends AppCompatActivity {
                     System.out.println(listaPreguntasDifultad1);
                     System.out.println(listaPreguntasDifultad2);
                     System.out.println(listaPreguntasDifultad3);
-
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            ponerTextoEnPantalla();
+                        }
+                    });
 
 
                 }
@@ -120,13 +124,15 @@ public class IUretoPregunta extends AppCompatActivity {
 
 
         //preguntaActual.numeroAleatorioDeLista(listaPreguntasDifultad1);
-
+        /*
         try {
             Thread.sleep(10000); // pausa el hilo actual durante 10 segundos
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ponerTextoEnPantalla();
+        */
+
+
 
         //SET TIMER CON EL BUILDER
     }
@@ -153,11 +159,6 @@ public class IUretoPregunta extends AppCompatActivity {
             @Override
             public void run() {
                 synchronized (this) {
-                    try {
-                        wait(10000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
                     for (int i = 0; i < 30000/*retoPegunta.getJuego().getTiempo()*/; i++) {
                         try { wait(1); }
                         catch (InterruptedException e) { throw new RuntimeException(e); }

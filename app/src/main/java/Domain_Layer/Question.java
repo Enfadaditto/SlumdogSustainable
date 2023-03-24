@@ -103,7 +103,7 @@ public class Question {
         return preguntaActual;
     }
     public int getQuestionID(){
-        return preguntaActual.QuestionID;
+        return this.QuestionID;
     }
     public List<Answer> getAnswers (){
        return answers;

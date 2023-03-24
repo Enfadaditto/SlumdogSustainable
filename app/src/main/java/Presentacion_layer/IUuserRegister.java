@@ -58,15 +58,12 @@ public class IUuserRegister extends AppCompatActivity {
         System.out.println("ASDFASDFASDFADS");
     }
 
-    /*
     public void selectIcon(View view) {
         Icon profileImage = throwRegisterDialog();
         iconSelector.setImageIcon(profileImage);
     }
-    */
 
-    //private Icon throwRegisterDialog() {
-    public void selectIcon(View view) {
+    private Icon throwRegisterDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
         builder.setTitle("Select profile icon");
         builder.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
@@ -87,7 +84,7 @@ public class IUuserRegister extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        //return null;
+        return null;
     }
 
 }

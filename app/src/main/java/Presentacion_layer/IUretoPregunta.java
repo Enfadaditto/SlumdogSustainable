@@ -1,5 +1,9 @@
 package Presentacion_layer;
 
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.view.View;
 import android.widget.Button;
 
@@ -63,6 +67,8 @@ public class IUretoPregunta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_pregunta);
 
+        startTimer();
+
         //Con esto ya puedes obtener las preguntas :)
         new Thread(new Runnable() {
             public void run(){
@@ -97,24 +103,7 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta3 = (Button) findViewById(R.id.botonRespuesta3);
         botonRespuesta4 = (Button) findViewById(R.id.botonRespuesta4);
 
-        timeBar = findViewById(R.id.timeBar);
-
-        Runnable timeBarThread = new Runnable() {
-            @Override
-            public void run() {
-                synchronized (this) {
-                    for (int i = 0; i < 10000/*retoPegunta.getJuego().getTiempo()*/; i++) {
-                        try { wait(1); }
-                        catch (InterruptedException e) { throw new RuntimeException(e); }
-                        timeBar.incrementProgressBy(-1);
-                    }
-                }
-            }
-        };
-
-        new Thread(timeBarThread).start();
-
-       // creadorDeJuego.setJuegoBuilder(retoPegunta);
+        // creadorDeJuego.setJuegoBuilder(retoPegunta);
         //creadorDeJuego.construirJuego();
         //Juego juego = retoPegunta.getJuego();
 
@@ -145,6 +134,26 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta2.setText(preguntaActual.getAnswers().get(1).getText());
         botonRespuesta3.setText(preguntaActual.getAnswers().get(2).getText());
         botonRespuesta4.setText(preguntaActual.getAnswers().get(3).getText());
+    }
+
+    private void startTimer() {
+        timeBar = findViewById(R.id.timeBar);
+
+        Runnable timeBarThread = new Runnable() {
+            @Override
+            public void run() {
+                synchronized (this) {
+                    for (int i = 0; i < 30000/*retoPegunta.getJuego().getTiempo()*/; i++) {
+                        try { wait(1); }
+                        catch (InterruptedException e) { throw new RuntimeException(e); }
+                        if (i   == 30000 / 3) { timeBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW)); }
+                        if (i == 30000*2 / 3) { timeBar.setProgressTintList(ColorStateList.valueOf(Color.RED)); }
+                        timeBar.incrementProgressBy(-1);
+                    }
+                }
+            }
+        };
+        new Thread(timeBarThread).start();
     }
 
     public boolean botonSeleccionado(){

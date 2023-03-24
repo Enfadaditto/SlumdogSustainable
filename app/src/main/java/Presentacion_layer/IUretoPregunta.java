@@ -24,6 +24,7 @@ import Builder.CreadorDeJuego;
 import Builder.Juego;
 import Builder.JuegoBuilder;
 import Builder.JuegoRetoPregunta;
+import Domain_Layer.Answer;
 import Domain_Layer.Question;
 import Persistence.QuestionRepository;
 
@@ -43,9 +44,13 @@ public class IUretoPregunta extends AppCompatActivity {
 
     Question preguntaActual = new Question();
 
+    List<Answer> respuestasActuales;
+
     ProgressBar timeBar;
 
     List<Question> listaPreguntasDifultad1;
+    List<Question> listaPreguntasDifultad2;
+    List<Question> listaPreguntasDifultad3;
 
     private TextView textoPregunta = null;
 
@@ -77,8 +82,10 @@ public class IUretoPregunta extends AppCompatActivity {
 
                     QuestionRepository preguntasEnBD = new QuestionRepository();
                     listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
-                    List<Question> listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
-                    List<Question> listaPreguntasDifultad3 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);
+                    listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
+                    listaPreguntasDifultad3 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);
+                    preguntaActual = listaPreguntasDifultad1.get(0);
+                    respuestasActuales = preguntasEnBD.getAnswers(preguntaActual);
 
                     System.out.println(listaPreguntasDifultad1);
                     System.out.println(listaPreguntasDifultad2);
@@ -126,14 +133,16 @@ public class IUretoPregunta extends AppCompatActivity {
 
     private void ponerTextoEnPantalla() {
         int indice = 0;
-        preguntaActual = listaPreguntasDifultad1.get(indice);
+
 
         textoPregunta.setText(preguntaActual.getStatement());
-
-        botonRespuesta1.setText(preguntaActual.getAnswers().get(0).getText());
-        botonRespuesta2.setText(preguntaActual.getAnswers().get(1).getText());
-        botonRespuesta3.setText(preguntaActual.getAnswers().get(2).getText());
-        botonRespuesta4.setText(preguntaActual.getAnswers().get(3).getText());
+/*
+        botonRespuesta1.setText(respuestasActuales.get(0).getText());
+        botonRespuesta2.setText(respuestasActuales.get(1).getText());
+        botonRespuesta3.setText(respuestasActuales.get(2).getText());
+        botonRespuesta4.setText(respuestasActuales.get(3).getText());
+*/
+ 
     }
 
     private void startTimer() {

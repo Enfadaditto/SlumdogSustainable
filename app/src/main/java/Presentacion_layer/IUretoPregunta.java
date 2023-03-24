@@ -138,15 +138,23 @@ public class IUretoPregunta extends AppCompatActivity {
 
     private void startTimer() {
         timeBar = findViewById(R.id.timeBar);
-
+        timeBar.setMax(30000); timeBar.setProgress(30000);
+        timeBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
         Runnable timeBarThread = new Runnable() {
             @Override
             public void run() {
                 synchronized (this) {
+                    try {
+                        wait(10000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                     for (int i = 0; i < 30000/*retoPegunta.getJuego().getTiempo()*/; i++) {
                         try { wait(1); }
                         catch (InterruptedException e) { throw new RuntimeException(e); }
-                        if (i   == 30000 / 3) { timeBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW)); }
+                        if (i == 30000 / 3)   {
+                            timeBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+                        }
                         if (i == 30000*2 / 3) { timeBar.setProgressTintList(ColorStateList.valueOf(Color.RED)); }
                         timeBar.incrementProgressBy(-1);
                     }

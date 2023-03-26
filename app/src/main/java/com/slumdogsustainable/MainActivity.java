@@ -22,6 +22,7 @@ import Domain_Layer.Question;
 import Domain_Layer.User;
 //import Persistence.Repository;
 import Persistence.QuestionRepository;
+import Persistence.Repository;
 import Persistence.UserRepository;
 import Presentacion_layer.IUretoPregunta;
 import Presentacion_layer.IUuserLogin;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //prueba Questions
                 QuestionRepository f = new QuestionRepository();
+
 
                 List<Question> prueba2 = f.getQuestionListByDifficulty("Baja");
                 for(Question q : prueba2) {

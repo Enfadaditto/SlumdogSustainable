@@ -26,7 +26,9 @@ public abstract class Repository<T> {
         public Dao<T, Integer> getDao(){
             return dao;
         }
-
+        public ConnectionSource getConnectionSource() {
+            return connectionSource;
+        }
         public T guardar(T entity){
             try {
                 this.getDao().create(entity);

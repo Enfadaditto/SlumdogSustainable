@@ -3,6 +3,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
+import com.j256.ormlite.support.ConnectionSource;
 
 import Domain_Layer.User;
 public class UserRepository extends Repository<User> {

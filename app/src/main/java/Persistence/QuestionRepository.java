@@ -1,5 +1,6 @@
 package Persistence;
 import com.j256.ormlite.support.ConnectionSource;
+import com.slumdogsustainable.MainActivity;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -32,7 +33,7 @@ public class QuestionRepository extends Repository<Question> {
     }
 
     public List<Answer> getAnswers(Question q) throws SQLException {
-        AnswerRepository AnswerRep = new AnswerRepository();
+        AnswerRepository AnswerRep = new AnswerRepository(MainActivity.conexion);
         List<Answer> list = AnswerRep.obtenerTodos();
         System.out.println("Prueba" + list);
         List<Answer> resultlist = new ArrayList<>();

@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
     public static ConnectionSource conexion;
+    public static MediaPlayer music;
     Button botonInicio;
 
 
@@ -59,13 +60,12 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             try
             {
-                MediaPlayer music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
+                music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
                 music.setLooping(true);
                 music.start();
 
                 //prueba Questions
                 QuestionRepository f = new QuestionRepository();
-
 
                 List<Question> prueba2 = f.getQuestionListByDifficulty("Baja");
                 for(Question q : prueba2) {

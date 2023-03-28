@@ -12,6 +12,17 @@ import java.util.List;
 public abstract class Repository<T> {
     private static ConnectionSource connectionSource;
     private Dao<T, Integer> dao;
+
+    public void init(Class myclass, ConnectionSource c) {
+        try {
+            connectionSource = c;
+            dao = DaoManager.createDao(connectionSource, myclass);
+
+        } catch (Exception e) {
+            System.out.println(e);
+
+        }
+    }
     public void init(Class myclass) {
         try {
             connectionSource = new JdbcConnectionSource(

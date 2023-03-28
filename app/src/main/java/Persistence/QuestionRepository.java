@@ -1,4 +1,6 @@
 package Persistence;
+import com.j256.ormlite.support.ConnectionSource;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +17,9 @@ public class QuestionRepository extends Repository<Question> {
         init(Question.class);
     }
 
+    public QuestionRepository(ConnectionSource c){
+        init(Question.class, c);
+    }
     public List<Question> getQuestionListByDifficulty(String difficulty) throws SQLException {
         List<Question> list = this.getDao().queryForAll();
         List<Question> resultlist = new ArrayList<>();

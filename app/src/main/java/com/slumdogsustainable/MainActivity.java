@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.ui.AppBarConfiguration;
 
+import com.j256.ormlite.support.ConnectionSource;
 import com.slumdogsustainable.databinding.ActivityMainBinding;
 
 import java.io.IOException;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+
+    public static ConnectionSource conexion;
     Button botonInicio;
 
 
@@ -39,19 +42,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.inicio);
+        setContentView(R.layout.loading);
 
         new Task().execute();
         
-        botonInicio = (Button) findViewById(R.id.botonInicio);
-       botonInicio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(MainActivity.this, IUretoPregunta.class);
-                startActivity(intent);
-            }
-        });
 
 
 
@@ -77,6 +71,24 @@ public class MainActivity extends AppCompatActivity {
                 for(Question q : prueba2) {
                     System.out.println(q.getStatement());
                 }
+                conexion = f.getConnectionSource();
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        setContentView(R.layout.inicio);
+                        botonInicio = (Button) findViewById(R.id.botonInicio);
+                        botonInicio.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                Intent intent = new Intent(MainActivity.this, IUretoPregunta.class);
+
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                });
+
+
 
             }
             catch(Exception e)

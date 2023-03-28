@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 import java.sql.SQLException;
@@ -124,7 +125,7 @@ public class IUretoPregunta extends AppCompatActivity {
                 try {
 
 
-                    QuestionRepository preguntasEnBD = new QuestionRepository();
+                    QuestionRepository preguntasEnBD = new QuestionRepository(MainActivity.conexion);
                     listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
                     listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
                     listaPreguntasDifultad3 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);

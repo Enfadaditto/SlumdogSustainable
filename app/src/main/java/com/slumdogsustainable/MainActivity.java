@@ -76,16 +76,17 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }
-
-                        setContentView(R.layout.inicio);
-                        botonInicio = (Button) findViewById(R.id.botonInicio);
-                        botonInicio.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(MainActivity.this, IUretoPregunta.class);
-                                startActivity(intent);
-                            }
-                        });
+                        else {
+                            setContentView(R.layout.inicio);
+                            botonInicio = (Button) findViewById(R.id.botonInicio);
+                            botonInicio.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(MainActivity.this, IUretoPregunta.class);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
                     }
                 });
             }

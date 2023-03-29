@@ -18,6 +18,10 @@ public class UserRepository extends Repository<User> {
         public UserRepository(ConnectionSource c){
                 init(User.class, c);
         }
+
+        public boolean checkPassword(String username, String password) {
+                return this.getUserByUsername(username).getPassword().equals(password);
+        }
         public User getUserByUsername(String username) {
                 List<User> users = this.obtenerTodos();
                 for (User user : users) {

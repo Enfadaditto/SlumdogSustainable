@@ -123,8 +123,6 @@ public class IUretoPregunta extends AppCompatActivity {
         new Thread(new Runnable() {
             public void run(){
                 try {
-
-
                     QuestionRepository preguntasEnBD = new QuestionRepository(MainActivity.conexion);
                     listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
                     listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import Domain_Layer.User;
+import Persistence.UserRepository;
 
 public class IUuserLogin extends AppCompatActivity {
     Button logInButton;
@@ -32,22 +33,37 @@ public class IUuserLogin extends AppCompatActivity {
     }
 
     public void loginButtonOnClick(View view) {
-        if (checkPassword()) {
-            Intent intent = new Intent(IUuserLogin.this, IUretoPregunta.class);
-            startActivity(intent);
-        }
-        else {
-            //signupErrorText.setVisibility(View.VISIBLE);
-            usernameField.getText().clear();
-            passwordField.getText().clear();
-        }
+        new Thread(new Runnable() {
+            public void run(){
+                try {
+                    if (checkPassword()) {
+                        MainActivity.user = new UserRepository(MainActivity.conexion).getUserByUsername(usernameField.getText().toString());
+                        Intent intent = new Intent(IUuserLogin.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
+                        //signupErrorText.setVisibility(View.VISIBLE);
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                usernameField.getText().clear();
+                                passwordField.getText().clear();
+                            }
+                        });
+                    }
+                }
+                catch(Exception e){System.out.println(e);
+                }
+            }
+        }).start();
+
     }
 
 
     public boolean checkPassword() {
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
-        return this.userActual.checkPassword(username, password);
+        return new UserRepository(MainActivity.conexion).checkPassword(username, password);
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,5 +79,6 @@ public class IUuserLogin extends AppCompatActivity {
 
         logInButton = (Button) findViewById(R.id.loginButton);
         registerText = (TextView) findViewById(R.id.register);;
+
     }
 }

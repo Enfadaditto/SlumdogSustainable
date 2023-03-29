@@ -32,9 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    public static ConnectionSource conexion; //Conexion a DB
+    public static MediaPlayer music; //MediaPlayer sonidos
+    public static User user;
 
-    public static ConnectionSource conexion;
-    public static MediaPlayer music;
     Button botonInicio;
 
 
@@ -44,13 +45,7 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading);
-
         new Task().execute();
-        
-
-
-
-
     }
 
 
@@ -64,40 +59,39 @@ public class MainActivity extends AppCompatActivity {
                 music.setLooping(true);
                 music.start();
 
-                //prueba Questions
-                QuestionRepository f = new QuestionRepository();
+                if(conexion == null) {
+                    //prueba Questions
+                    QuestionRepository f = new QuestionRepository();
 
-                List<Question> prueba2 = f.getQuestionListByDifficulty("Baja");
-                for(Question q : prueba2) {
-                    System.out.println(q.getStatement());
+                    List<Question> prueba2 = f.getQuestionListByDifficulty("Baja");
+                    for(Question q : prueba2) {
+                        System.out.println(q.getStatement());
+                    }
+                    conexion = f.getConnectionSource();
                 }
-                conexion = f.getConnectionSource();
                 runOnUiThread(new Runnable() {
                     public void run() {
+                        if(user == null) {
+                            Intent intent = new Intent(MainActivity.this, IUuserLogin.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
                         setContentView(R.layout.inicio);
                         botonInicio = (Button) findViewById(R.id.botonInicio);
                         botonInicio.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
                                 Intent intent = new Intent(MainActivity.this, IUretoPregunta.class);
-
                                 startActivity(intent);
                             }
                         });
                     }
                 });
-
-
-
             }
             catch(Exception e)
-
-
             {
-
                 System.out.println(e);
-
             }
             return null;
         }

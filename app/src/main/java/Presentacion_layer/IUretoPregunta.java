@@ -57,6 +57,9 @@ public class IUretoPregunta extends AppCompatActivity {
     List<Question> listaPreguntasDifultad2;
     List<Question> listaPreguntasDifultad3;
 
+    Runnable timeBarThread;
+
+    Juego juego;
     private TextView textoPregunta = null;
 
     int respuestasCorrectasContestadas = 0;
@@ -107,22 +110,16 @@ public class IUretoPregunta extends AppCompatActivity {
         Juego juego = retoPegunta.getJuego();
 
 
+        startTimer();
 
 
     }
-
-    private void RetrasoDe10Segundos() {
-        try {
-            Thread.sleep(10000); // pausa el hilo actual durante 10 segundos
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void IniciarBaseDedatos() {
+        private void IniciarBaseDedatos() {
         new Thread(new Runnable() {
             public void run(){
                 try {
+
+
                     QuestionRepository preguntasEnBD = new QuestionRepository(MainActivity.conexion);
                     listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
                     listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
@@ -195,20 +192,21 @@ public class IUretoPregunta extends AppCompatActivity {
     }
 
     private void startTimer() {
+        int tiempo = juego.getTiempo();
         timeBar = findViewById(R.id.timeBar);
-        timeBar.setMax(30000); timeBar.setProgress(30000);
+        timeBar.setMax(tiempo); timeBar.setProgress(tiempo);
         timeBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
-        Runnable timeBarThread = new Runnable() {
+         timeBarThread = new Runnable() {
             @Override
             public void run() {
                 synchronized (this) {
-                    for (int i = 0; i < 30000/*retoPegunta.getJuego().getTiempo()*/; i++) {
+                    for (int i = 0; i < tiempo/*retoPegunta.getJuego().getTiempo()*/; i++) {
                         try { wait(1); }
                         catch (InterruptedException e) { throw new RuntimeException(e); }
-                        if (i == 30000 / 3)   {
+                        if (i == tiempo / 3)   {
                             timeBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
                         }
-                        if (i == 30000*2 / 3) { timeBar.setProgressTintList(ColorStateList.valueOf(Color.RED)); }
+                        if (i == tiempo*2 / 3) { timeBar.setProgressTintList(ColorStateList.valueOf(Color.RED)); }
                         timeBar.incrementProgressBy(-1);
                     }
                 }
@@ -217,37 +215,74 @@ public class IUretoPregunta extends AppCompatActivity {
         new Thread(timeBarThread).start();
     }
 
-    public boolean botonSeleccionado(){
+    public int botonSeleccionado(){
 
-
+        int indice = 0;
         if(botonRespuesta1.isPressed()){
-            respuestaEscogida = respuestasActuales.get(0).isCorrect();
+            indice = 0;
+           // respuestaEscogida = respuestasActuales.get(0).isCorrect();
         }else if(botonRespuesta2.isPressed()){
-            respuestaEscogida = respuestasActuales.get(1).isCorrect();
-
+            indice = 1;
+            //respuestaEscogida = respuestasActuales.get(1).isCorrect();
         } else if (botonRespuesta3.isPressed()) {
-            respuestaEscogida = respuestasActuales.get(2).isCorrect();
+            indice = 2;
+           // respuestaEscogida = respuestasActuales.get(2).isCorrect();
         } else if (botonRespuesta4.isPressed()) {
-            respuestaEscogida = respuestasActuales.get(3).isCorrect();
+            indice = 3;
+            //respuestaEscogida = respuestasActuales.get(3).isCorrect();
         }
 
-        return respuestaEscogida;
+        return  indice;
+        //return respuestaEscogida;
 
     }
 
     public void onClick (View view){
-        if(botonSeleccionado()){
+        int indiceProvisional = botonSeleccionado();
+       // respuestaEscogida = respuestasActuales.get(indiceProvisional).isCorrect();
+
+        if(respuestasActuales.get(indiceProvisional).isCorrect()){
             //campion de pantallan
-            if(respuestaEscogida){
 
+            puntosGanados.setText("+100");
 
+            cambiarColorAVerde(indiceProvisional);
 
-            }else{
+            }else {
 
-            }
-
-
+            puntosGanados.setText("-200");
+            cambiarColorARojo(indiceProvisional);
         }
+
+
+    }
+
+    public void cambiarColorARojo(int botonEscogido){
+
+        if(botonEscogido == 0){
+            botonRespuesta1.setBackground(getDrawable(R.drawable.boton_rojo));
+        }else if(botonEscogido == 1){
+            botonRespuesta2.setBackground(getDrawable(R.drawable.boton_rojo));
+        }else if(botonEscogido == 2){
+            botonRespuesta3.setBackground(getDrawable(R.drawable.boton_rojo));
+        }else if(botonEscogido == 3){
+            botonRespuesta4.setBackground(getDrawable(R.drawable.boton_rojo));
+        }
+
+    }
+
+    public void cambiarColorAVerde(int botonEscogido){
+
+        if(botonEscogido == 0){
+            botonRespuesta1.setBackground(getDrawable(R.drawable.boton_verde));
+        }else if(botonEscogido == 1){
+            botonRespuesta2.setBackground(getDrawable(R.drawable.boton_verde));
+        }else if(botonEscogido == 2){
+            botonRespuesta3.setBackground(getDrawable(R.drawable.boton_verde));
+        }else if(botonEscogido == 3){
+            botonRespuesta4.setBackground(getDrawable(R.drawable.boton_verde));
+        }
+
     }
 
     public void abandonOnClick(View view) { //metodo si el boton ABANDONAR se pulsa

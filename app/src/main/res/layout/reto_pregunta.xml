@@ -21,8 +21,8 @@
 
     <TextView
         android:id="@+id/textoPregunta"
-        android:layout_width="319dp"
-        android:layout_height="240dp"
+        android:layout_width="267dp"
+        android:layout_height="233dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:text="Cargando..."
@@ -30,10 +30,9 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.402"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.189" />
+        app:layout_constraintVertical_bias="0.207" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -147,7 +146,9 @@
             android:layout_marginTop="144dp"
             android:layout_marginEnd="174dp"
             android:layout_marginBottom="579dp"
-            android:text="TextView" />
+            android:text="+100"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/botonConsolidar"

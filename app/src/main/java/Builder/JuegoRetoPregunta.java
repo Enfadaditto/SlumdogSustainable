@@ -6,7 +6,7 @@ import Domain_Layer.Question;
 
 public class JuegoRetoPregunta extends JuegoBuilder {
 
-    //public JuegoRetoPregunta(){ juego = new Juego(); }
+    public JuegoRetoPregunta(){ juego = new Juego(); }
 
     @Override
     public void buildDificultad() {
@@ -20,7 +20,7 @@ public class JuegoRetoPregunta extends JuegoBuilder {
 
     @Override
     public void buildTiempo() {
-        juego.setTiempo(10000); //10000ms = 10seg
+        juego.setTiempo(30000); //10000ms = 10seg
     }
 
     @Override

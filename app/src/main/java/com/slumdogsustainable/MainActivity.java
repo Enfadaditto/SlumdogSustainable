@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.loading);
+        setContentView(R.layout.inicio);
         new Task().execute();
     }
 
@@ -69,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                     conexion = f.getConnectionSource();
                 }
-                runOnUiThread(new Runnable() {
+               runOnUiThread(new Runnable() {
                     public void run() {
                         if(user == null) {
-                            Intent intent = new Intent(MainActivity.this, IUuserLogin.class);
+                           Intent intent = new Intent(MainActivity.this, IUretoPregunta.class);
                             startActivity(intent);
                             finish();
                         }

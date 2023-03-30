@@ -40,37 +40,29 @@ public class IUretoPregunta extends AppCompatActivity {
     ImageView fondo_transparente;
     RelativeLayout contenedor;
     Button botonRespuesta1;
-
     ImageView ods;
     Button botonRespuesta2;
     Button botonRespuesta3;
     Button botonRespuesta4;
-    TextView puntosTotal;
+    TextView textoPuntosTotal;
     Button botonConsolidar;
     Button botonSiguientePregunta;
-    TextView puntosGanados;
-
-
+    TextView textoPuntosGanados;
+    TextView textoContadorDePreguntas;
+    QuestionRepository preguntasEnBD ;
     Question preguntaActual = new Question();
-
     List<Answer> respuestasActuales;
-
     ProgressBar timeBar;
-
     List<Question> listaPreguntasDifultad1;
     List<Question> listaPreguntasDifultad2;
     List<Question> listaPreguntasDifultad3;
-
     Thread timeBarThread;
-
     Juego juego;
-    private TextView textoPregunta = null;
-
+    TextView textoPregunta = null;
     int respuestasCorrectasContestadas = 0;
-
     int vida = 1;
-
     boolean respuestaEscogida;
+    int puntosTotales = 0;
 
     public IUretoPregunta() throws SQLException {
     }
@@ -86,10 +78,10 @@ public class IUretoPregunta extends AppCompatActivity {
 
 
         textoPregunta = findViewById(R.id.textoPregunta);
-        puntosGanados = findViewById(R.id.puntosGanados);
+        textoPuntosGanados = findViewById(R.id.puntosGanados);
         contenedor = findViewById(R.id.contenedor_resp);
         //fondo_transparente = findViewById(R.id.fondo_t);
-        puntosTotal = findViewById(R.id.puntosTotal);
+        textoPuntosTotal = findViewById(R.id.puntosTotal);
         botonRespuesta1 = (Button) findViewById(R.id.botonRespuesta1);
         botonRespuesta2 = (Button) findViewById(R.id.botonRespuesta2);
         botonRespuesta3 = (Button) findViewById(R.id.botonRespuesta3);
@@ -97,6 +89,7 @@ public class IUretoPregunta extends AppCompatActivity {
         botonConsolidar = (Button) findViewById(R.id.botonConsolidar);
         ods = findViewById(R.id.imagen_ods);
         botonSiguientePregunta = (Button) findViewById(R.id.botonSiguientePregunta);
+        textoContadorDePreguntas = findViewById(R.id.textoContadorDePreguntas);
 
         //------builder--------
         JuegoBuilder retoPegunta = new JuegoRetoPregunta();
@@ -104,6 +97,9 @@ public class IUretoPregunta extends AppCompatActivity {
         creadorDeJuego.setJuegoBuilder(retoPegunta);
         creadorDeJuego.construirJuego();
         juego = retoPegunta.getJuego();
+
+        //juego.setNivel(2);
+        //System.out.println(juego.getPuntos());
 
         startTimer();
     }
@@ -114,20 +110,16 @@ public class IUretoPregunta extends AppCompatActivity {
                 try {
 
 
-                    QuestionRepository preguntasEnBD = new QuestionRepository(MainActivity.conexion);
+                    preguntasEnBD = new QuestionRepository(MainActivity.conexion);
                     listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
                     listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
                     listaPreguntasDifultad3 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);
                     preguntaActual = listaPreguntasDifultad1.get(1);
                     respuestasActuales = preguntasEnBD.getAnswers(preguntaActual);
 
-
-                    System.out.println(listaPreguntasDifultad1);
-                    System.out.println(listaPreguntasDifultad2);
-                    System.out.println(listaPreguntasDifultad3);
                     runOnUiThread(new Runnable() {
                         public void run() {
-                            ponerTextoEnPantalla();
+                           ponerTextoEnPantalla();
                         }
                     });
 
@@ -143,7 +135,7 @@ public class IUretoPregunta extends AppCompatActivity {
 
         contenedor = findViewById(R.id.contenedor_resp);
         //fondo_transparente = findViewById(R.id.fondo_t);
-        puntosTotal= findViewById(R.id.puntosTotal);
+        textoPuntosTotal= findViewById(R.id.puntosTotal);
         botonRespuesta1 = (Button) findViewById(R.id.botonRespuesta1);
         botonRespuesta2 = (Button) findViewById(R.id.botonRespuesta2);
         botonRespuesta3 = (Button) findViewById(R.id.botonRespuesta3);
@@ -241,13 +233,28 @@ public class IUretoPregunta extends AppCompatActivity {
 
     }
 
+    public void metodoBotonSiguiente(View v) throws SQLException {
+        if(respuestasCorrectasContestadas<=4){
+            preguntaActual = listaPreguntasDifultad1.get(2);
+        }else if(respuestasCorrectasContestadas>4 && respuestasCorrectasContestadas<=7){
+            preguntaActual = listaPreguntasDifultad2.get(0);
+        }else{
+            preguntaActual = listaPreguntasDifultad3.get(0);
+        }
+        //respuestasActuales = preguntasEnBD.getAnswers(preguntaActual);
+        ponerTextoEnPantalla();
+        quitarPantallaAciertoFallo();
+        poner_imagen_ods();
+    }
+
     public void onClick (View view){
         this.timeBarThread.interrupt();
         int indiceProvisional = botonSeleccionado();
-        // respuestaEscogida = respuestasActuales.get(indiceProvisional).isCorrect();
 
         if(respuestasActuales.get(indiceProvisional).isCorrect()){
+            respuestasCorrectasContestadas++;
             correctAnswer("+100", indiceProvisional);
+            incrementarTextoCantidadDeContestadas();
         }else {
             wrongAnswer("-200", indiceProvisional);
         }
@@ -273,13 +280,17 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta2.setClickable(true);
         botonRespuesta3.setClickable(true);
         botonRespuesta4.setClickable(true);
+        botonRespuesta1.setBackground(getDrawable(R.drawable.boton_azul));
+        botonRespuesta2.setBackground(getDrawable(R.drawable.boton_azul));
+        botonRespuesta3.setBackground(getDrawable(R.drawable.boton_azul));
+        botonRespuesta4.setBackground(getDrawable(R.drawable.boton_azul));
     }
     public void correctAnswer(String screenText, int index) {
-        puntosGanados.setText(screenText);
+        textoPuntosGanados.setText(screenText);
         cambiarColorAVerde(index);
     }
     public void wrongAnswer(String screenText, int index) {
-        puntosGanados.setText(screenText);
+        textoPuntosGanados.setText(screenText);
         cambiarColorARojo(index);
     }
 
@@ -309,6 +320,11 @@ public class IUretoPregunta extends AppCompatActivity {
             botonRespuesta4.setBackground(getDrawable(R.drawable.boton_verde));
         }
 
+    }
+
+    public void incrementarTextoCantidadDeContestadas(){
+
+        textoContadorDePreguntas.setText(respuestasCorrectasContestadas +"/10");
     }
 
     public void abandonOnClick(View view) { //metodo si el boton ABANDONAR se pulsa

@@ -21,6 +21,7 @@ import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import Builder.CreadorDeJuego;
@@ -29,6 +30,7 @@ import Builder.JuegoBuilder;
 import Builder.JuegoRetoPregunta;
 import Domain_Layer.Answer;
 import Domain_Layer.Question;
+import Persistence.AnswerRepository;
 import Persistence.QuestionRepository;
 
 public class IUretoPregunta extends AppCompatActivity {
@@ -52,6 +54,8 @@ public class IUretoPregunta extends AppCompatActivity {
     QuestionRepository preguntasEnBD ;
     Question preguntaActual = new Question();
     List<Answer> respuestasActuales;
+
+    List<Answer> listaRespuestas;
     ProgressBar timeBar;
     List<Question> listaPreguntasDifultad1;
     List<Question> listaPreguntasDifultad2;
@@ -111,10 +115,12 @@ public class IUretoPregunta extends AppCompatActivity {
 
 
                     preguntasEnBD = new QuestionRepository(MainActivity.conexion);
+                    listaRespuestas = new AnswerRepository(MainActivity.conexion).obtenerTodos();
                     listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
                     listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
                     listaPreguntasDifultad3 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);
                     preguntaActual = listaPreguntasDifultad1.get(1);
+                    respuestasActuales = getRespuestasPregunta(preguntaActual);
                     respuestasActuales = preguntasEnBD.getAnswers(preguntaActual);
 
                     runOnUiThread(new Runnable() {
@@ -163,10 +169,8 @@ public class IUretoPregunta extends AppCompatActivity {
 
         //SET TIMER CON EL BUILDER
     }
-
     private void ponerTextoEnPantalla() {
         int indice = 0;
-
 
         textoPregunta.setText(preguntaActual.getStatement());
 
@@ -175,8 +179,6 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta3.setText(respuestasActuales.get(2).getText());
         botonRespuesta4.setText(respuestasActuales.get(3).getText());
         poner_imagen_ods();
-
-
  
     }
     public void poner_imagen_ods(){
@@ -235,17 +237,18 @@ public class IUretoPregunta extends AppCompatActivity {
 
     public void metodoBotonSiguiente(View v) throws SQLException {
         if(respuestasCorrectasContestadas<=4){
-            preguntaActual = listaPreguntasDifultad1.get(2);
+            preguntaActual = listaPreguntasDifultad1.get(0);
         }else if(respuestasCorrectasContestadas>4 && respuestasCorrectasContestadas<=7){
             preguntaActual = listaPreguntasDifultad2.get(0);
         }else{
             preguntaActual = listaPreguntasDifultad3.get(0);
         }
-        //respuestasActuales = preguntasEnBD.getAnswers(preguntaActual);
+        respuestasActuales = getRespuestasPregunta(preguntaActual);
         ponerTextoEnPantalla();
         quitarPantallaAciertoFallo();
         poner_imagen_ods();
     }
+
 
     public void onClick (View view){
         this.timeBarThread.interrupt();
@@ -273,6 +276,16 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta3.setClickable(false);
         botonRespuesta4.setClickable(false);
 
+    }
+
+    public List<Answer> getRespuestasPregunta(Question q) {
+        List<Answer> resultlist = new ArrayList<>();
+        for(Answer a : listaRespuestas) {
+            if(a.getQuestionID() == q.getQuestionID()) {
+                resultlist.add(a);
+            }
+        }
+        return resultlist;
     }
     public void quitarPantallaAciertoFallo(){
         contenedor.setVisibility(View.GONE);

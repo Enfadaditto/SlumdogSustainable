@@ -252,20 +252,27 @@ public class IUretoPregunta extends AppCompatActivity {
             wrongAnswer("-200", indiceProvisional);
         }
 
-        contenedor.setVisibility(View.VISIBLE);
+        /*contenedor.setVisibility(View.VISIBLE);
         botonRespuesta1.setOnClickListener(null);
         botonRespuesta2.setOnClickListener(null);
         botonRespuesta3.setOnClickListener(null);
-        botonRespuesta4.setOnClickListener(null);
-
+        botonRespuesta4.setOnClickListener(null);*/
+        pantallaAciertoFallo();
     }
     public void pantallaAciertoFallo(){
         contenedor.setVisibility(View.VISIBLE);
-        botonRespuesta1.setOnClickListener(null);
-        botonRespuesta2.setOnClickListener(null);
-        botonRespuesta3.setOnClickListener(null);
-        botonRespuesta4.setOnClickListener(null);
+        botonRespuesta1.setClickable(false);
+        botonRespuesta2.setClickable(false);
+        botonRespuesta3.setClickable(false);
+        botonRespuesta4.setClickable(false);
 
+    }
+    public void quitarPantallaAciertoFallo(){
+        contenedor.setVisibility(View.GONE);
+        botonRespuesta1.setClickable(true);
+        botonRespuesta2.setClickable(true);
+        botonRespuesta3.setClickable(true);
+        botonRespuesta4.setClickable(true);
     }
     public void correctAnswer(String screenText, int index) {
         puntosGanados.setText(screenText);

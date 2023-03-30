@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.Button;
 
@@ -39,6 +40,8 @@ public class IUretoPregunta extends AppCompatActivity {
     ImageView fondo_transparente;
     RelativeLayout contenedor;
     Button botonRespuesta1;
+
+    ImageView ods;
     Button botonRespuesta2;
     Button botonRespuesta3;
     Button botonRespuesta4;
@@ -46,6 +49,7 @@ public class IUretoPregunta extends AppCompatActivity {
     Button botonConsolidar;
     Button botonSiguientePregunta;
     TextView puntosGanados;
+
 
     Question preguntaActual = new Question();
 
@@ -84,13 +88,14 @@ public class IUretoPregunta extends AppCompatActivity {
         textoPregunta = findViewById(R.id.textoPregunta);
         puntosGanados = findViewById(R.id.puntosGanados);
         contenedor = findViewById(R.id.contenedor_resp);
-        fondo_transparente = findViewById(R.id.fondo_t);
+        //fondo_transparente = findViewById(R.id.fondo_t);
         puntosTotal = findViewById(R.id.puntosTotal);
         botonRespuesta1 = (Button) findViewById(R.id.botonRespuesta1);
         botonRespuesta2 = (Button) findViewById(R.id.botonRespuesta2);
         botonRespuesta3 = (Button) findViewById(R.id.botonRespuesta3);
         botonRespuesta4 = (Button) findViewById(R.id.botonRespuesta4);
         botonConsolidar = (Button) findViewById(R.id.botonConsolidar);
+        ods = findViewById(R.id.imagen_ods);
         botonSiguientePregunta = (Button) findViewById(R.id.botonSiguientePregunta);
 
         //------builder--------
@@ -113,8 +118,9 @@ public class IUretoPregunta extends AppCompatActivity {
                     listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
                     listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
                     listaPreguntasDifultad3 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);
-                    preguntaActual = listaPreguntasDifultad1.get(0);
+                    preguntaActual = listaPreguntasDifultad1.get(1);
                     respuestasActuales = preguntasEnBD.getAnswers(preguntaActual);
+
 
                     System.out.println(listaPreguntasDifultad1);
                     System.out.println(listaPreguntasDifultad2);
@@ -136,7 +142,7 @@ public class IUretoPregunta extends AppCompatActivity {
 
 
         contenedor = findViewById(R.id.contenedor_resp);
-        fondo_transparente = findViewById(R.id.fondo_t);
+        //fondo_transparente = findViewById(R.id.fondo_t);
         puntosTotal= findViewById(R.id.puntosTotal);
         botonRespuesta1 = (Button) findViewById(R.id.botonRespuesta1);
         botonRespuesta2 = (Button) findViewById(R.id.botonRespuesta2);
@@ -176,8 +182,16 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta2.setText(respuestasActuales.get(1).getText());
         botonRespuesta3.setText(respuestasActuales.get(2).getText());
         botonRespuesta4.setText(respuestasActuales.get(3).getText());
+        poner_imagen_ods();
+
 
  
+    }
+    public void poner_imagen_ods(){
+        int numeroOds = preguntaActual.getOds();
+        int imagenId = getResources().getIdentifier("ods_" + numeroOds, "drawable", getPackageName());
+        Drawable imagen = getResources().getDrawable(imagenId);
+        ods.setImageDrawable(imagen);
     }
 
     private void startTimer() {
@@ -245,6 +259,14 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta4.setOnClickListener(null);
 
     }
+    public void pantallaAciertoFallo(){
+        contenedor.setVisibility(View.VISIBLE);
+        botonRespuesta1.setOnClickListener(null);
+        botonRespuesta2.setOnClickListener(null);
+        botonRespuesta3.setOnClickListener(null);
+        botonRespuesta4.setOnClickListener(null);
+
+    }
     public void correctAnswer(String screenText, int index) {
         puntosGanados.setText(screenText);
         cambiarColorAVerde(index);
@@ -302,7 +324,5 @@ public class IUretoPregunta extends AppCompatActivity {
 
         AlertDialog dialog = alert.create(); dialog.show();
     }
-//----------------Esto es de Raquel--------------------
-            //contenedor.setVisibility(View.VISIBLE);
-            //botonRespuesta2.setClickable(false);
+
 }

@@ -127,12 +127,12 @@
         android:id="@+id/contenedor_resp"
         android:layout_width="424dp"
         android:layout_height="742dp"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/puntosGanados"

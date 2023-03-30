@@ -57,7 +57,7 @@ public class IUretoPregunta extends AppCompatActivity {
     List<Question> listaPreguntasDifultad2;
     List<Question> listaPreguntasDifultad3;
 
-    Runnable timeBarThread;
+    Thread timeBarThread;
 
     Juego juego;
     private TextView textoPregunta = null;
@@ -74,17 +74,11 @@ public class IUretoPregunta extends AppCompatActivity {
     //  JuegoBuilder retoPegunta = new JuegoRetoPregunta();
     //CreadorDeJuego creadorDeJuego = new CreadorDeJuego();
 
-
-
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_pregunta);
 
         IniciarBaseDedatos();
-
-        startTimer();
 
 
         textoPregunta = findViewById(R.id.textoPregunta);
@@ -99,22 +93,17 @@ public class IUretoPregunta extends AppCompatActivity {
         botonConsolidar = (Button) findViewById(R.id.botonConsolidar);
         botonSiguientePregunta = (Button) findViewById(R.id.botonSiguientePregunta);
 
-
-
-
         //------builder--------
         JuegoBuilder retoPegunta = new JuegoRetoPregunta();
         CreadorDeJuego creadorDeJuego = new CreadorDeJuego();
         creadorDeJuego.setJuegoBuilder(retoPegunta);
-        //creadorDeJuego.construirJuego();
-        Juego juego = retoPegunta.getJuego();
-
+        creadorDeJuego.construirJuego();
+        juego = retoPegunta.getJuego();
 
         startTimer();
-
-
     }
-        private void IniciarBaseDedatos() {
+
+    private void IniciarBaseDedatos() {
         new Thread(new Runnable() {
             public void run(){
                 try {
@@ -160,7 +149,7 @@ public class IUretoPregunta extends AppCompatActivity {
 
 
 
-       textoPregunta = findViewById(R.id.textoPregunta);
+        textoPregunta = findViewById(R.id.textoPregunta);
 
 
         //preguntaActual.numeroAleatorioDeLista(listaPreguntasDifultad1);
@@ -196,27 +185,28 @@ public class IUretoPregunta extends AppCompatActivity {
         timeBar = findViewById(R.id.timeBar);
         timeBar.setMax(tiempo); timeBar.setProgress(tiempo);
         timeBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
-         timeBarThread = new Runnable() {
+        Runnable timeBarCode = new Runnable() {
             @Override
             public void run() {
                 synchronized (this) {
-                    for (int i = 0; i < tiempo/*retoPegunta.getJuego().getTiempo()*/; i++) {
+                    for (int i = 0; i < tiempo; i++) {
                         try { wait(1); }
-                        catch (InterruptedException e) { throw new RuntimeException(e); }
+                        catch (InterruptedException e) { return; }
                         if (i == tiempo / 3)   {
                             timeBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
                         }
                         if (i == tiempo*2 / 3) { timeBar.setProgressTintList(ColorStateList.valueOf(Color.RED)); }
                         timeBar.incrementProgressBy(-1);
                     }
+                    wrongAnswer("Se acabó el tiempo", -1);
                 }
             }
         };
-        new Thread(timeBarThread).start();
+        timeBarThread = new Thread(timeBarCode);
+        timeBarThread.start();
     }
 
     public int botonSeleccionado(){
-
         int indice = 0;
         if(botonRespuesta1.isPressed()){
             indice = 0;
@@ -238,23 +228,30 @@ public class IUretoPregunta extends AppCompatActivity {
     }
 
     public void onClick (View view){
+        this.timeBarThread.interrupt();
         int indiceProvisional = botonSeleccionado();
-       // respuestaEscogida = respuestasActuales.get(indiceProvisional).isCorrect();
+        // respuestaEscogida = respuestasActuales.get(indiceProvisional).isCorrect();
 
         if(respuestasActuales.get(indiceProvisional).isCorrect()){
-            //campion de pantallan
-
-            puntosGanados.setText("+100");
-
-            cambiarColorAVerde(indiceProvisional);
-
-            }else {
-
-            puntosGanados.setText("-200");
-            cambiarColorARojo(indiceProvisional);
+            correctAnswer("+100", indiceProvisional);
+        }else {
+            wrongAnswer("-200", indiceProvisional);
         }
 
+        contenedor.setVisibility(View.VISIBLE);
+        botonRespuesta1.setOnClickListener(null);
+        botonRespuesta2.setOnClickListener(null);
+        botonRespuesta3.setOnClickListener(null);
+        botonRespuesta4.setOnClickListener(null);
 
+    }
+    public void correctAnswer(String screenText, int index) {
+        puntosGanados.setText(screenText);
+        cambiarColorAVerde(index);
+    }
+    public void wrongAnswer(String screenText, int index) {
+        puntosGanados.setText(screenText);
+        cambiarColorARojo(index);
     }
 
     public void cambiarColorARojo(int botonEscogido){

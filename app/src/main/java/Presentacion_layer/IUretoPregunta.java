@@ -43,6 +43,7 @@ public class IUretoPregunta extends AppCompatActivity {
     RelativeLayout contenedor;
     Button botonRespuesta1;
     ImageView ods;
+    ImageView imagenCorazon;
     Button botonRespuesta2;
     Button botonRespuesta3;
     Button botonRespuesta4;
@@ -67,7 +68,9 @@ public class IUretoPregunta extends AppCompatActivity {
     int vida = 1;
     boolean respuestaEscogida;
     int puntosTotales = 0;
-
+    int nivel =1;
+    int puntosConsolidados;
+    boolean haConsolidado = false;
     public IUretoPregunta() throws SQLException {
     }
 
@@ -92,18 +95,18 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta4 = (Button) findViewById(R.id.botonRespuesta4);
         botonConsolidar = (Button) findViewById(R.id.botonConsolidar);
         ods = findViewById(R.id.imagen_ods);
+        imagenCorazon = findViewById(R.id.imagenCorazon);
         botonSiguientePregunta = (Button) findViewById(R.id.botonSiguientePregunta);
         textoContadorDePreguntas = findViewById(R.id.textoContadorDePreguntas);
+        contenedor = findViewById(R.id.contenedor_resp);
 
-        //------builder--------
+        //-------builder--------//
         JuegoBuilder retoPegunta = new JuegoRetoPregunta();
         CreadorDeJuego creadorDeJuego = new CreadorDeJuego();
         creadorDeJuego.setJuegoBuilder(retoPegunta);
         creadorDeJuego.construirJuego();
         juego = retoPegunta.getJuego();
 
-        //juego.setNivel(2);
-        //System.out.println(juego.getPuntos());
 
         startTimer();
     }
@@ -139,35 +142,6 @@ public class IUretoPregunta extends AppCompatActivity {
         }).start();
 
 
-        contenedor = findViewById(R.id.contenedor_resp);
-        //fondo_transparente = findViewById(R.id.fondo_t);
-        textoPuntosTotal= findViewById(R.id.puntosTotal);
-        botonRespuesta1 = (Button) findViewById(R.id.botonRespuesta1);
-        botonRespuesta2 = (Button) findViewById(R.id.botonRespuesta2);
-        botonRespuesta3 = (Button) findViewById(R.id.botonRespuesta3);
-        botonRespuesta4 = (Button) findViewById(R.id.botonRespuesta4);
-
-        // creadorDeJuego.setJuegoBuilder(retoPegunta);
-        //creadorDeJuego.construirJuego();
-        //Juego juego = retoPegunta.getJuego();
-
-
-
-        textoPregunta = findViewById(R.id.textoPregunta);
-
-
-        //preguntaActual.numeroAleatorioDeLista(listaPreguntasDifultad1);
-        /*
-        try {
-            Thread.sleep(10000); // pausa el hilo actual durante 10 segundos
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        */
-
-
-
-        //SET TIMER CON EL BUILDER
     }
     private void ponerTextoEnPantalla() {
         int indice = 0;
@@ -206,7 +180,7 @@ public class IUretoPregunta extends AppCompatActivity {
                         if (i == tiempo*2 / 3) { timeBar.setProgressTintList(ColorStateList.valueOf(Color.RED)); }
                         timeBar.incrementProgressBy(-1);
                     }
-                    wrongAnswer("Se acabó el tiempo", -1);
+                    wrongAnswer(2, -1);
                 }
             }
         };
@@ -240,33 +214,52 @@ public class IUretoPregunta extends AppCompatActivity {
             preguntaActual = listaPreguntasDifultad1.get(0);
         }else if(respuestasCorrectasContestadas>4 && respuestasCorrectasContestadas<=7){
             preguntaActual = listaPreguntasDifultad2.get(0);
+            nivel = 2;
         }else{
             preguntaActual = listaPreguntasDifultad3.get(0);
+            nivel = 3;
         }
         respuestasActuales = getRespuestasPregunta(preguntaActual);
         ponerTextoEnPantalla();
         quitarPantallaAciertoFallo();
         poner_imagen_ods();
+        startTimer();
     }
 
 
     public void onClick (View view){
         this.timeBarThread.interrupt();
         int indiceProvisional = botonSeleccionado();
+        int puntosASumar = juego.getPuntos()*nivel;
+
 
         if(respuestasActuales.get(indiceProvisional).isCorrect()){
             respuestasCorrectasContestadas++;
-            correctAnswer("+100", indiceProvisional);
+            puntosTotales += puntosASumar;
+            correctAnswer(puntosASumar, indiceProvisional);
             incrementarTextoCantidadDeContestadas();
+            visualizacionBotonConsolidar(true);
         }else {
-            wrongAnswer("-200", indiceProvisional);
+            puntosTotales -= puntosASumar*2;
+            wrongAnswer(puntosASumar*(-2), indiceProvisional);
+            vida--;
+            visualizacionBotonConsolidar(false);
+            imagenCorazon.setBackground(getDrawable(R.drawable.boton_rojo)); //Aqui va corazon roto
         }
 
-        /*contenedor.setVisibility(View.VISIBLE);
-        botonRespuesta1.setOnClickListener(null);
-        botonRespuesta2.setOnClickListener(null);
-        botonRespuesta3.setOnClickListener(null);
-        botonRespuesta4.setOnClickListener(null);*/
+        if(vida<0) {
+
+            puntosTotales = 0;
+            puntosConsolidados = 0;
+            System.out.println("--------GAME OVER-------------");
+            Intent intent = new Intent(IUretoPregunta.this, MainActivity.class); //Creo que esto tiene que llevar una pantalla de GAMEOVER
+            startActivity(intent);
+            finish();
+
+        }
+
+        textoPuntosTotal.setText("Puntos Totales = " + puntosTotales);
+
         pantallaAciertoFallo();
     }
     public void pantallaAciertoFallo(){
@@ -297,14 +290,43 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta2.setBackground(getDrawable(R.drawable.boton_azul));
         botonRespuesta3.setBackground(getDrawable(R.drawable.boton_azul));
         botonRespuesta4.setBackground(getDrawable(R.drawable.boton_azul));
+
     }
-    public void correctAnswer(String screenText, int index) {
-        textoPuntosGanados.setText(screenText);
+    public void correctAnswer(int screenText, int index) {
+        textoPuntosGanados.setText(screenText+"");
         cambiarColorAVerde(index);
     }
-    public void wrongAnswer(String screenText, int index) {
-        textoPuntosGanados.setText(screenText);
+    public void wrongAnswer(int screenText, int index) {
+        if (puntosTotales < 0){
+            puntosTotales = 0;
+            textoPuntosGanados.setText(puntosTotales+"");
+            cambiarColorARojo(index);
+        }else if(screenText == 2) {
+            textoPuntosGanados.setText(screenText+"Se acabo el tiempo");
+        }
+        textoPuntosGanados.setText(screenText+"");
         cambiarColorARojo(index);
+    }
+
+    public void visualizacionBotonConsolidar(Boolean respuestaCorrecta){
+
+        if(respuestaCorrecta && !haConsolidado){
+
+            botonConsolidar.setVisibility(View.VISIBLE);
+
+        }else{
+
+            botonConsolidar.setVisibility(View.INVISIBLE);
+
+        }
+
+    }
+    public void clickBotonConsolidar(View v){
+
+        haConsolidado = true;
+        botonConsolidar.setBackground(getDrawable(R.drawable.boton_verde));
+        puntosConsolidados = puntosTotales;
+
     }
 
     public void cambiarColorARojo(int botonEscogido){

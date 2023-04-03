@@ -29,5 +29,11 @@ public class UserRepository extends Repository<User> {
                 }
                 return null;
         }
+
+        public void addPointsToTotal(String username, int points) {
+            User thisUser = getUserByUsername(username);
+            thisUser.setPointsAchieved(thisUser.getPointsAchieved() + points);
+            this.guardar(thisUser);
+        }
 }
 

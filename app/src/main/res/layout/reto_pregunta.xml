@@ -202,16 +202,17 @@
 
         <TextView
             android:id="@+id/puntosGanados"
-            android:layout_width="82dp"
-            android:layout_height="53dp"
+            android:layout_width="208dp"
+            android:layout_height="43dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="193dp"
-            android:layout_marginTop="144dp"
-            android:layout_marginEnd="149dp"
-            android:layout_marginBottom="545dp"
+            android:layout_marginStart="106dp"
+            android:layout_marginTop="168dp"
+            android:layout_marginEnd="102dp"
+            android:layout_marginBottom="641dp"
+            android:gravity="center"
             android:text="+100"
             android:textColor="@color/white"
             android:textSize="20sp" />

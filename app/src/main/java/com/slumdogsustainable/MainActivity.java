@@ -61,13 +61,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if(conexion == null) {
                     //prueba Questions
-                    QuestionRepository f = new QuestionRepository();
-
-                    List<Question> prueba2 = f.getQuestionListByDifficulty("Baja");
-                    for(Question q : prueba2) {
-                        System.out.println(q.getStatement());
-                    }
-                    conexion = f.getConnectionSource();
+                    UserRepository u = new UserRepository();
+                    user = u.getUserByUsername("prueba");
+                    conexion = u.getConnectionSource();
                 }
                runOnUiThread(new Runnable() {
                     public void run() {

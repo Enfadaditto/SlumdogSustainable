@@ -35,6 +35,7 @@ import Domain_Layer.Answer;
 import Domain_Layer.Question;
 import Persistence.AnswerRepository;
 import Persistence.QuestionRepository;
+import Persistence.UserRepository;
 
 public class IUretoPregunta extends AppCompatActivity {
 
@@ -234,7 +235,11 @@ public class IUretoPregunta extends AppCompatActivity {
         } else if (respuestasCorrectasContestadas > 4 && respuestasCorrectasContestadas <= 7) {
             nivel = 2;
             preguntaActual = listaPreguntasDifultad2.get(j++);
-        } else {
+        } else if (respuestasCorrectasContestadas == 10){
+            leaveScene();
+            return;
+        }
+        else {
             nivel = 3;
             preguntaActual = listaPreguntasDifultad3.get(k++);
         }
@@ -347,6 +352,17 @@ public class IUretoPregunta extends AppCompatActivity {
 
     }
 
+    public void SavePoints(int Points) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                UserRepository u = new UserRepository(MainActivity.conexion);
+                MainActivity.user.setPointsAchieved(MainActivity.user.getPointsAchieved() + Points);
+                u.actualizar(MainActivity.user);
+            }
+        }).start();
+    }
+
     public void clickBotonConsolidar(View v) {
 
         haConsolidado = true;
@@ -387,7 +403,18 @@ public class IUretoPregunta extends AppCompatActivity {
 
         textoContadorDePreguntas.setText(respuestasCorrectasContestadas + "/10");
     }
-
+    public void leaveScene() {
+        MainActivity.music.stop();
+        if(respuestasCorrectasContestadas == 10) {
+            SavePoints(puntosTotales);
+        }
+        else {
+            SavePoints(puntosConsolidados);
+        }
+        Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
     public void abandonOnClick(View view) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("¿Estas seguro que quieres abandonar?")
@@ -395,10 +422,7 @@ public class IUretoPregunta extends AppCompatActivity {
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MainActivity.music.stop();
-                        Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        leaveScene();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

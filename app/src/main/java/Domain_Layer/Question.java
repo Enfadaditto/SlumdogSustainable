@@ -113,13 +113,9 @@ public class Question {
        return null;
     }
 
-   /* public int numeroAleatorioDeLista(List<Question> lista){
-
-       if(lista.isEmpty()){
-           return 0;
-       }
+    public int numeroAleatorioDeLista(List<Question> lista){
 
        return (int)(Math.random()*lista.size());
-    }*/
+    }
 
 }

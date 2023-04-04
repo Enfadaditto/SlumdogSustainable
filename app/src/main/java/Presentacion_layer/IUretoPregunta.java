@@ -71,6 +71,7 @@ public class IUretoPregunta extends AppCompatActivity {
     int nivel = 1;
     int puntosConsolidados;
     boolean haConsolidado = false;
+    int indiceDeListaParaPregunta;
 
     public IUretoPregunta() throws SQLException {
     }
@@ -123,7 +124,8 @@ public class IUretoPregunta extends AppCompatActivity {
                     listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
                     listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
                     listaPreguntasDifultad3 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);
-                    preguntaActual = listaPreguntasDifultad1.get(1);
+                    indiceDeListaParaPregunta =preguntaActual.numeroAleatorioDeLista(listaPreguntasDifultad1);
+                    preguntaActual = listaPreguntasDifultad1.get(indiceDeListaParaPregunta);
                     respuestasActuales = getRespuestasPregunta(preguntaActual);
                     respuestasActuales = preguntasEnBD.getAnswers(preguntaActual);
 
@@ -224,13 +226,13 @@ public class IUretoPregunta extends AppCompatActivity {
 
     public void metodoBotonSiguiente(View v) throws SQLException {
         if (respuestasCorrectasContestadas <= 4) {
-            preguntaActual = listaPreguntasDifultad1.get(0);
+            preguntaActual = listaPreguntasDifultad1.get(incrementarIndiceDeListaParaPreguntas());
         } else if (respuestasCorrectasContestadas > 4 && respuestasCorrectasContestadas <= 7) {
-            preguntaActual = listaPreguntasDifultad2.get(0);
             nivel = 2;
+            preguntaActual = listaPreguntasDifultad2.get(incrementarIndiceDeListaParaPreguntas());
         } else {
-            preguntaActual = listaPreguntasDifultad3.get(0);
             nivel = 3;
+            preguntaActual = listaPreguntasDifultad3.get(incrementarIndiceDeListaParaPreguntas());
         }
         respuestasActuales = getRespuestasPregunta(preguntaActual);
         ponerTextoEnPantalla();
@@ -311,8 +313,7 @@ public class IUretoPregunta extends AppCompatActivity {
 
         puntosTotales -= juego.getPuntos() * nivel * 2;
         if (puntosTotales < 0) puntosTotales = 0;
-
-        textoPuntosGanados.setText("-"+screenText + "");
+        textoPuntosGanados.setText(screenText + "");
         if (screenText == 2) {
             textoPuntosGanados.setText("Se acabo el tiempo");
         }
@@ -321,8 +322,8 @@ public class IUretoPregunta extends AppCompatActivity {
         textoPuntosTotal.setText("Puntos Totales = " + puntosTotales);
         visualizacionBotonConsolidar(false);
 
-        imagenCorazon.setBackground(getDrawable(R.drawable.corazon_roto)); //Aqui va corazon roto
-
+        //imagenCorazon.setBackground(getDrawable(R.drawable.corazon_roto)); //Aqui va corazon roto
+        imagenCorazon.setImageDrawable(getDrawable(R.drawable.corazon_roto));
         pantallaAciertoFallo();
     }
 
@@ -397,6 +398,19 @@ public class IUretoPregunta extends AppCompatActivity {
 
         AlertDialog dialog = alert.create();
         dialog.show();
+    }
+
+    public int incrementarIndiceDeListaParaPreguntas(){
+
+        indiceDeListaParaPregunta++;
+
+        if(listaPreguntasDifultad1.size() <= indiceDeListaParaPregunta && nivel == 1){
+            indiceDeListaParaPregunta = 0;
+        } else if(listaPreguntasDifultad2.size() <= indiceDeListaParaPregunta && nivel == 2){
+            indiceDeListaParaPregunta = 0;
+        } else if(listaPreguntasDifultad3.size() <= indiceDeListaParaPregunta && nivel == 3);
+
+        return indiceDeListaParaPregunta;
     }
 
 }

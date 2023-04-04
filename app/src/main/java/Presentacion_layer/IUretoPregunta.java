@@ -22,7 +22,9 @@ import com.slumdogsustainable.R;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import Builder.CreadorDeJuego;
 import Builder.Juego;
@@ -50,17 +52,14 @@ public class IUretoPregunta extends AppCompatActivity {
     TextView textoPuntosTotal;
     Button botonConsolidar;
     Button botonSiguientePregunta;
-    TextView textoPuntosGanados;
-    TextView textoContadorDePreguntas;
+    TextView textoPuntosGanados, textoContadorDePreguntas;
     QuestionRepository preguntasEnBD;
     Question preguntaActual = new Question();
     List<Answer> respuestasActuales;
-
+    int i = 0,j = 0,k = 0;
     List<Answer> listaRespuestas;
     ProgressBar timeBar;
-    List<Question> listaPreguntasDifultad1;
-    List<Question> listaPreguntasDifultad2;
-    List<Question> listaPreguntasDifultad3;
+    List<Question> listaPreguntasDifultad1, listaPreguntasDifultad2, listaPreguntasDifultad3;
     Thread timeBarThread;
     Juego juego;
     TextView textoPregunta = null;
@@ -124,8 +123,10 @@ public class IUretoPregunta extends AppCompatActivity {
                     listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
                     listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
                     listaPreguntasDifultad3 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);
-                    indiceDeListaParaPregunta =preguntaActual.numeroAleatorioDeLista(listaPreguntasDifultad1);
-                    preguntaActual = listaPreguntasDifultad1.get(indiceDeListaParaPregunta);
+                    Collections.shuffle(listaPreguntasDifultad1, new Random());
+                    Collections.shuffle(listaPreguntasDifultad2, new Random());
+                    Collections.shuffle(listaPreguntasDifultad3, new Random());
+                    preguntaActual = listaPreguntasDifultad1.get(i++);
                     respuestasActuales = getRespuestasPregunta(preguntaActual);
                     respuestasActuales = preguntasEnBD.getAnswers(preguntaActual);
 
@@ -226,13 +227,13 @@ public class IUretoPregunta extends AppCompatActivity {
 
     public void metodoBotonSiguiente(View v) throws SQLException {
         if (respuestasCorrectasContestadas <= 4) {
-            preguntaActual = listaPreguntasDifultad1.get(incrementarIndiceDeListaParaPreguntas());
+            preguntaActual = listaPreguntasDifultad1.get(i++);
         } else if (respuestasCorrectasContestadas > 4 && respuestasCorrectasContestadas <= 7) {
             nivel = 2;
-            preguntaActual = listaPreguntasDifultad2.get(incrementarIndiceDeListaParaPreguntas());
+            preguntaActual = listaPreguntasDifultad2.get(j++);
         } else {
             nivel = 3;
-            preguntaActual = listaPreguntasDifultad3.get(incrementarIndiceDeListaParaPreguntas());
+            preguntaActual = listaPreguntasDifultad3.get(k++);
         }
         respuestasActuales = getRespuestasPregunta(preguntaActual);
         ponerTextoEnPantalla();
@@ -399,18 +400,4 @@ public class IUretoPregunta extends AppCompatActivity {
         AlertDialog dialog = alert.create();
         dialog.show();
     }
-
-    public int incrementarIndiceDeListaParaPreguntas(){
-
-        indiceDeListaParaPregunta++;
-
-        if(listaPreguntasDifultad1.size() <= indiceDeListaParaPregunta && nivel == 1){
-            indiceDeListaParaPregunta = 0;
-        } else if(listaPreguntasDifultad2.size() <= indiceDeListaParaPregunta && nivel == 2){
-            indiceDeListaParaPregunta = 0;
-        } else if(listaPreguntasDifultad3.size() <= indiceDeListaParaPregunta && nivel == 3);
-
-        return indiceDeListaParaPregunta;
-    }
-
 }

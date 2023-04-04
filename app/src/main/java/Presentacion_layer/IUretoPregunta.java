@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.Button;
 
@@ -169,6 +170,8 @@ public class IUretoPregunta extends AppCompatActivity {
 
     private void startTimer() {
         int tiempo =juego.getTiempo();
+        MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.countdown);
+        MainActivity.music.start();
         timeBar = findViewById(R.id.timeBar);
         timeBar.setMax(tiempo);
         timeBar.setProgress(tiempo);
@@ -288,6 +291,9 @@ public class IUretoPregunta extends AppCompatActivity {
     }
 
     public void correctAnswer(int screenText, int index) {
+        MainActivity.music.stop();
+        MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.correctanswer);
+        MainActivity.music.start();
         respuestasCorrectasContestadas++;
         puntosTotales += juego.getPuntos() * nivel;
         textoPuntosGanados.setText("+"+screenText + "");
@@ -300,6 +306,9 @@ public class IUretoPregunta extends AppCompatActivity {
     }
 
     public void wrongAnswer(int screenText, int index) {
+        MainActivity.music.stop();
+        MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.wronganswer);
+        MainActivity.music.start();
         vida--;
         if (vida < 0) {
             puntosTotales = 0;
@@ -386,6 +395,7 @@ public class IUretoPregunta extends AppCompatActivity {
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.music.stop();
                         Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
                         startActivity(intent);
                         finish();

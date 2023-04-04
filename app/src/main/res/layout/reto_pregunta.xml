@@ -46,6 +46,20 @@
         app:layout_constraintVertical_bias="0.975"
         app:srcCompat="@drawable/corazon_vida" />
 
+    <TextView
+        android:id="@+id/textoContadorDePreguntas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0/10"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toStartOf="@+id/abandonar"
+        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.207"
+        tools:text="0/10" />
+
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="409dp"
@@ -169,18 +183,18 @@
 
         <TextView
             android:id="@+id/puntosTotal"
-            android:layout_width="250dp"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="107dp"
+            android:layout_marginStart="92dp"
             android:layout_marginTop="119dp"
-            android:layout_marginEnd="54dp"
-            android:layout_marginBottom="564dp"
+            android:layout_marginEnd="94dp"
+            android:layout_marginBottom="685dp"
             android:fontFamily="sans-serif-black"
-            android:text="PUNTUACIÓN TOTAL"
+            android:text="PUNTUACIÓN TOTAL = 0"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -231,19 +245,5 @@
         app:layout_constraintTop_toBottomOf="@+id/timeBar"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ods_0" />
-
-    <TextView
-        android:id="@+id/textoContadorDePreguntas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0/10"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
-        app:layout_constraintEnd_toStartOf="@+id/abandonar"
-        app:layout_constraintHorizontal_bias="0.026"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.207"
-        tools:text="0/10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -165,7 +165,7 @@ public class IUretoPregunta extends AppCompatActivity {
     }
 
     private void startTimer() {
-        int tiempo = 10000; //juego.getTiempo();
+        int tiempo =juego.getTiempo();
         timeBar = findViewById(R.id.timeBar);
         timeBar.setMax(tiempo);
         timeBar.setProgress(tiempo);
@@ -287,7 +287,8 @@ public class IUretoPregunta extends AppCompatActivity {
     public void correctAnswer(int screenText, int index) {
         respuestasCorrectasContestadas++;
         puntosTotales += juego.getPuntos() * nivel;
-        textoPuntosGanados.setText(screenText + "");
+        textoPuntosGanados.setText("+"+screenText + "");
+        textoPuntosTotal.setText("Puntos Totales = " + puntosTotales);
         cambiarColorAVerde(index);
         incrementarTextoCantidadDeContestadas();
         visualizacionBotonConsolidar(true);
@@ -311,14 +312,16 @@ public class IUretoPregunta extends AppCompatActivity {
         puntosTotales -= juego.getPuntos() * nivel * 2;
         if (puntosTotales < 0) puntosTotales = 0;
 
-        textoPuntosGanados.setText(screenText + "");
+        textoPuntosGanados.setText("-"+screenText + "");
         if (screenText == 2) {
             textoPuntosGanados.setText("Se acabo el tiempo");
         }
         if (index != -1) cambiarColorARojo(index);
 
+        textoPuntosTotal.setText("Puntos Totales = " + puntosTotales);
         visualizacionBotonConsolidar(false);
-        imagenCorazon.setBackground(getDrawable(R.drawable.boton_rojo)); //Aqui va corazon roto
+
+        imagenCorazon.setBackground(getDrawable(R.drawable.corazon_roto)); //Aqui va corazon roto
 
         pantallaAciertoFallo();
     }

@@ -45,8 +45,10 @@ public class IUretoPregunta extends AppCompatActivity {
 
     ImageView fondo_transparente;
     RelativeLayout contenedor;
+    RelativeLayout pantalla_final;
     Button botonRespuesta1;
     ImageView ods;
+    ImageView acierto_fallo;
     ImageView imagenCorazon;
     Button botonRespuesta2;
     Button botonRespuesta3;
@@ -90,6 +92,8 @@ public class IUretoPregunta extends AppCompatActivity {
         textoPregunta = findViewById(R.id.textoPregunta);
         textoPuntosGanados = findViewById(R.id.puntosGanados);
         contenedor = findViewById(R.id.contenedor_resp);
+        pantalla_final = findViewById(R.id.contenedor_final);
+        acierto_fallo = findViewById(R.id.imagen_acierto);
         //fondo_transparente = findViewById(R.id.fondo_t);
         textoPuntosTotal = findViewById(R.id.puntosTotal);
         botonRespuesta1 = (Button) findViewById(R.id.botonRespuesta1);
@@ -306,6 +310,7 @@ public class IUretoPregunta extends AppCompatActivity {
         cambiarColorAVerde(index);
         incrementarTextoCantidadDeContestadas();
         visualizacionBotonConsolidar(true);
+        acierto_fallo.setImageDrawable(getDrawable(R.drawable.felicitaciones_2));
 
         pantallaAciertoFallo();
     }
@@ -339,6 +344,7 @@ public class IUretoPregunta extends AppCompatActivity {
 
         //imagenCorazon.setBackground(getDrawable(R.drawable.corazon_roto)); //Aqui va corazon roto
         imagenCorazon.setImageDrawable(getDrawable(R.drawable.corazon_roto));
+        acierto_fallo.setImageDrawable(getDrawable(R.drawable.vuelve_intentar));
         pantallaAciertoFallo();
     }
 
@@ -414,6 +420,14 @@ public class IUretoPregunta extends AppCompatActivity {
         Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+    public void pantalla_final(){
+        pantalla_final.setVisibility(View.VISIBLE);
+        botonRespuesta1.setClickable(false);
+        botonRespuesta2.setClickable(false);
+        botonRespuesta3.setClickable(false);
+        botonRespuesta4.setClickable(false);
+
     }
     public void abandonOnClick(View view) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);

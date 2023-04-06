@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 
@@ -54,6 +55,10 @@ public class IUretoPregunta extends AppCompatActivity {
     Button botonRespuesta3;
     Button botonRespuesta4;
     TextView textoPuntosTotal;
+
+    TextView textPuntosAcumulados;
+
+    TextView textPuntosConsolidados;
     Button botonConsolidar;
     Button botonSiguientePregunta;
     TextView textoPuntosGanados, textoContadorDePreguntas;
@@ -63,12 +68,16 @@ public class IUretoPregunta extends AppCompatActivity {
     int i = 0,j = 0,k = 0;
     List<Answer> listaRespuestas;
     ProgressBar timeBar;
+
+    CountDownTimer mCountDownTimer;
     List<Question> listaPreguntasDifultad1, listaPreguntasDifultad2, listaPreguntasDifultad3;
     Thread timeBarThread;
     Juego juego;
     TextView textoPregunta = null;
     int respuestasCorrectasContestadas = 0;
     int vida = 1;
+
+    int timeCount = 0;
     boolean respuestaEscogida;
     int puntosTotales = 0;
     int nivel = 1;
@@ -88,7 +97,8 @@ public class IUretoPregunta extends AppCompatActivity {
 
         IniciarBaseDedatos();
 
-
+        textPuntosConsolidados = findViewById(R.id.textPuntosConsolidados);
+        textPuntosAcumulados = findViewById(R.id.textPuntosAcumulados);
         textoPregunta = findViewById(R.id.textoPregunta);
         textoPuntosGanados = findViewById(R.id.puntosGanados);
         contenedor = findViewById(R.id.contenedor_resp);
@@ -179,8 +189,9 @@ public class IUretoPregunta extends AppCompatActivity {
         MainActivity.music.start();
         timeBar = findViewById(R.id.timeBar);
         timeBar.setMax(tiempo);
-        timeBar.setProgress(tiempo);
+        //timeBar.setProgress(tiempo);
         timeBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        /*
         timeBarThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -210,6 +221,37 @@ public class IUretoPregunta extends AppCompatActivity {
             }
         });
         timeBarThread.start();
+        */
+
+        timeCount = tiempo;
+        timeBar.setProgress(tiempo);
+        mCountDownTimer=new CountDownTimer(tiempo,100) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeCount-=100;
+                if (timeCount == tiempo / 3) {
+                    timeBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+                }
+                if (timeCount == tiempo * 2 / 3) {
+                    timeBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+                }
+                timeBar.setProgress(timeCount);
+            }
+
+            @Override
+            public void onFinish() {
+                //Do what you want
+                timeCount++;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        wrongAnswer(2, -1);
+                    }
+                });
+            }
+        };
+        mCountDownTimer.start();
     }
 
     public int botonSeleccionado() {
@@ -255,7 +297,8 @@ public class IUretoPregunta extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        this.timeBarThread.interrupt();
+        mCountDownTimer.cancel();
+        //this.timeBarThread.interrupt();
         int indiceProvisional = botonSeleccionado();
 
         if (respuestasActuales.get(indiceProvisional).isCorrect()) {
@@ -307,6 +350,8 @@ public class IUretoPregunta extends AppCompatActivity {
         puntosTotales += juego.getPuntos() * nivel;
         textoPuntosGanados.setText("+"+screenText + "");
         textoPuntosTotal.setText("Puntos Totales = " + puntosTotales);
+
+
         cambiarColorAVerde(index);
         incrementarTextoCantidadDeContestadas();
         visualizacionBotonConsolidar(true);
@@ -374,7 +419,6 @@ public class IUretoPregunta extends AppCompatActivity {
         haConsolidado = true;
         botonConsolidar.setBackground(getDrawable(R.drawable.boton_verde));
         puntosConsolidados = puntosTotales;
-
     }
 
     public void cambiarColorARojo(int botonEscogido) {

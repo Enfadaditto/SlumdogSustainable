@@ -10,7 +10,7 @@
     <ProgressBar
         android:id="@+id/timeBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="418dp"
+        android:layout_width="0dp"
         android:layout_height="51dp"
         android:max="10000"
         android:progress="10000"
@@ -153,7 +153,7 @@
         app:srcCompat="@drawable/abandonar" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textPuntosConsolidados"
         android:layout_width="212dp"
         android:layout_height="18dp"
         android:text="Puntos consolidados: "
@@ -165,7 +165,7 @@
         app:layout_constraintVertical_bias="0.102" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textPuntosAcumulados"
         android:layout_width="215dp"
         android:layout_height="16dp"
         android:text="Puntos acumulados:"
@@ -194,6 +194,7 @@
         android:layout_width="416dp"
         android:layout_height="852dp"
         android:background="@drawable/fondo_transparente"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

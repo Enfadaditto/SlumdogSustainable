@@ -55,12 +55,7 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             try
             {
-                music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
-                music.setLooping(true);
-                music.start();
-
                 if(conexion == null) {
-                    //prueba Questions
                     UserRepository u = new UserRepository();
                     user = u.getUserByUsername("prueba");
                     conexion = u.getConnectionSource();
@@ -68,16 +63,20 @@ public class MainActivity extends AppCompatActivity {
                runOnUiThread(new Runnable() {
                     public void run() {
                         if(user == null) {
-                           Intent intent = new Intent(MainActivity.this, IUretoPregunta.class);
+                           Intent intent = new Intent(MainActivity.this, IUuserLogin.class);
                             startActivity(intent);
                             finish();
                         }
                         else {
+                            music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
+                            music.setLooping(true);
+                            music.start();
                             setContentView(R.layout.inicio);
                             botonInicio = (Button) findViewById(R.id.botonInicio);
                             botonInicio.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    music.stop();
                                     Intent intent = new Intent(MainActivity.this, IUretoPregunta.class);
                                     startActivity(intent);
                                 }

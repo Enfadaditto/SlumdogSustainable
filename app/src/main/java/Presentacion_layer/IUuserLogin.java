@@ -6,6 +6,7 @@ import com.slumdogsustainable.R;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,12 +19,13 @@ import Domain_Layer.User;
 import Persistence.UserRepository;
 
 public class IUuserLogin extends AppCompatActivity {
-    Button logInButton;
+    private Button logInButton;
+
+    private Button registerButton;
     private Image background;
     private EditText usernameField;
     private EditText passwordField;
     private CheckBox showPassword;
-    private TextView registerText;
     private TextView signupErrorText;
     private User userActual = new User("a", "b","c");
 
@@ -66,6 +68,15 @@ public class IUuserLogin extends AppCompatActivity {
         return new UserRepository(MainActivity.conexion).checkPassword(username, password);
     }
 
+    public void passwordButton(View view) {
+        if(passwordField.getTransformationMethod() == null) {
+            passwordField.setTransformationMethod(new PasswordTransformationMethod());
+        }
+
+        else {
+            passwordField.setTransformationMethod(null);
+        }
+    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
@@ -77,8 +88,8 @@ public class IUuserLogin extends AppCompatActivity {
         usernameField.setText("");
         passwordField.setText("");
 
-        logInButton = (Button) findViewById(R.id.loginButton);
-        registerText = (TextView) findViewById(R.id.register);;
+        logInButton = findViewById(R.id.loginButton);
+        registerButton = findViewById(R.id.RegisterButton);;
 
     }
 }

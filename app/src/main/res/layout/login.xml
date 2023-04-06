@@ -40,39 +40,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
 
-    <TextView
-        android:id="@+id/register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:onClick="registerOnClick"
-        android:text="R E G I S T R A R S E"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#D80000"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
-
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="184dp"
-        android:layout_height="48dp"
+        android:layout_width="220dp"
+        android:layout_height="59dp"
         android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
         android:background="@drawable/boton_verde"
         android:onClick="loginButtonOnClick"
         android:text="Iniciar Sesión"
         android:textAlignment="gravity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.583"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register"
-        app:layout_constraintVertical_bias="0.857" />
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.866" />
+
+    <Button
+        android:id="@+id/RegisterButton"
+        android:layout_width="170dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/boton_rojo"
+        android:onClick="registerOnClick"
+        android:text="Registrar"
+        android:textAlignment="gravity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.613"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.722" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -80,6 +79,7 @@
         android:layout_height="wrap_content"
         android:background="@android:drawable/divider_horizontal_bright"
         android:minHeight="48dp"
+        android:onClick="passwordButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

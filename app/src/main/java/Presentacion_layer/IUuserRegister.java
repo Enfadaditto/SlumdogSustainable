@@ -48,7 +48,10 @@ public class IUuserRegister extends AppCompatActivity {
     }
 
     public void registerButtonOnClick(View view) {
-        if (passwordField != repeatPasswordField) { return; /*errorLabel.setVisible(true)*/}
+        if (passwordField != repeatPasswordField) {
+            PasswordError();
+            return;
+            /*errorLabel.setVisible(true)*/}
         if (userActual.checkUsernameNotTaken(nicknameField.getText().toString())
             && userActual.passwordIsSafe(passwordField.getText().toString())) {
             new UserRepository().guardar(
@@ -60,6 +63,21 @@ public class IUuserRegister extends AppCompatActivity {
             );
         };
         //enviar a pantalla de juego principal
+    }
+
+    public void PasswordError() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Contraseñas diferentes")
+                .setCancelable(true)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ;
+                    }
+                });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
     }
 
     public void selectIcon(View view) { throwRegisterDialog(); }

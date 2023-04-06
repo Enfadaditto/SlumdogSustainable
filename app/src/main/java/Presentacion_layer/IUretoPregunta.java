@@ -461,6 +461,7 @@ public class IUretoPregunta extends AppCompatActivity {
         else {
             SavePoints(puntosConsolidados);
         }
+        mCountDownTimer.cancel();
         Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
         startActivity(intent);
         finish();

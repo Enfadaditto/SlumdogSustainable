@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
@@ -47,6 +48,7 @@ public class IUretoPregunta extends AppCompatActivity {
     ImageView fondo_transparente;
     RelativeLayout contenedor;
     RelativeLayout pantalla_final;
+    ConstraintLayout contenedor_principal;
     Button botonRespuesta1;
     ImageView ods;
     ImageView acierto_fallo;
@@ -101,6 +103,7 @@ public class IUretoPregunta extends AppCompatActivity {
         textPuntosAcumulados = findViewById(R.id.textPuntosAcumulados);
         textoPregunta = findViewById(R.id.textoPregunta);
         textoPuntosGanados = findViewById(R.id.puntosGanados);
+        contenedor_principal = findViewById(R.id.layout);
         contenedor = findViewById(R.id.contenedor_resp);
         pantalla_final = findViewById(R.id.contenedor_final);
         acierto_fallo = findViewById(R.id.imagen_acierto);
@@ -281,6 +284,7 @@ public class IUretoPregunta extends AppCompatActivity {
         } else if (respuestasCorrectasContestadas > 4 && respuestasCorrectasContestadas <= 7) {
             nivel = 2;
             preguntaActual = listaPreguntasDifultad2.get(j++);
+            contenedor_principal.setBackground(getDrawable(R.drawable.fondo_nivel_medio));
         } else if (respuestasCorrectasContestadas == 10){
             leaveScene();
             return;
@@ -288,6 +292,7 @@ public class IUretoPregunta extends AppCompatActivity {
         else {
             nivel = 3;
             preguntaActual = listaPreguntasDifultad3.get(k++);
+            contenedor_principal.setBackground(getDrawable(R.drawable.fondo_nivel_dificil));
         }
         respuestasActuales = getRespuestasPregunta(preguntaActual);
         ponerTextoEnPantalla();

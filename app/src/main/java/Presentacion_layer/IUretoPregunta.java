@@ -67,15 +67,17 @@ public class IUretoPregunta extends AppCompatActivity {
     QuestionRepository preguntasEnBD;
     Question preguntaActual = new Question();
     List<Answer> respuestasActuales;
-    int i = 0,j = 0,k = 0;
+    int indicePreguntasFacil = 0, indicePreguntasMedio = 0, indicePreguntasDificil = 0;
     List<Answer> listaRespuestas;
     ProgressBar timeBar;
-
+    ImageView abandonar;
     CountDownTimer mCountDownTimer;
     List<Question> listaPreguntasDifultad1, listaPreguntasDifultad2, listaPreguntasDifultad3;
     Thread timeBarThread;
     Juego juego;
     TextView textoPregunta = null;
+    ImageView imagenPantallaFinal;
+    TextView textoPuntosFinales;
     int respuestasCorrectasContestadas = 0;
     int vida = 1;
 
@@ -119,7 +121,9 @@ public class IUretoPregunta extends AppCompatActivity {
         botonSiguientePregunta = (Button) findViewById(R.id.botonSiguientePregunta);
         textoContadorDePreguntas = findViewById(R.id.textoContadorDePreguntas);
         contenedor = findViewById(R.id.contenedor_resp);
-
+        abandonar = findViewById(R.id.abandonar);
+        imagenPantallaFinal = findViewById(R.id.imagenPantallaFinal);
+        textoPuntosFinales = findViewById(R.id.textoPuntosFinales);
         //-------builder--------//
         JuegoBuilder retoPegunta = new JuegoRetoPregunta();
         CreadorDeJuego creadorDeJuego = new CreadorDeJuego();
@@ -127,7 +131,9 @@ public class IUretoPregunta extends AppCompatActivity {
         creadorDeJuego.construirJuego();
         juego = retoPegunta.getJuego();
 
-
+        textPuntosConsolidados.setVisibility(View.INVISIBLE);
+        abandonar.setVisibility(View.INVISIBLE);
+        textPuntosAcumulados.setVisibility(View.INVISIBLE);
         startTimer();
     }
 
@@ -145,7 +151,7 @@ public class IUretoPregunta extends AppCompatActivity {
                     Collections.shuffle(listaPreguntasDifultad1, new Random());
                     Collections.shuffle(listaPreguntasDifultad2, new Random());
                     Collections.shuffle(listaPreguntasDifultad3, new Random());
-                    preguntaActual = listaPreguntasDifultad1.get(i++);
+                    preguntaActual = listaPreguntasDifultad1.get(indicePreguntasFacil++);
                     respuestasActuales = getRespuestasPregunta(preguntaActual);
                     respuestasActuales = preguntasEnBD.getAnswers(preguntaActual);
 
@@ -279,39 +285,33 @@ public class IUretoPregunta extends AppCompatActivity {
         int indice = 0;
         if (botonRespuesta1.isPressed()) {
             indice = 0;
-            // respuestaEscogida = respuestasActuales.get(0).isCorrect();
         } else if (botonRespuesta2.isPressed()) {
             indice = 1;
-            //respuestaEscogida = respuestasActuales.get(1).isCorrect();
         } else if (botonRespuesta3.isPressed()) {
             indice = 2;
-            // respuestaEscogida = respuestasActuales.get(2).isCorrect();
         } else if (botonRespuesta4.isPressed()) {
             indice = 3;
-            //respuestaEscogida = respuestasActuales.get(3).isCorrect();
         }
-
         return indice;
-        //return respuestaEscogida;
-
     }
 
     public void metodoBotonSiguiente(View v) throws SQLException {
         if (respuestasCorrectasContestadas <= 4) {
-            preguntaActual = listaPreguntasDifultad1.get(i++);
+            preguntaActual = listaPreguntasDifultad1.get(indicePreguntasFacil++);
         } else if (respuestasCorrectasContestadas > 4 && respuestasCorrectasContestadas <= 7) {
             nivel = 2;
-            preguntaActual = listaPreguntasDifultad2.get(j++);
+            preguntaActual = listaPreguntasDifultad2.get(indicePreguntasMedio++);
             contenedor_principal.setBackground(getDrawable(R.drawable.fondo_nivel_medio));
         } else if (respuestasCorrectasContestadas == 10){
-            leaveScene();
+            guardarPuntuacion();
             return;
         }
         else {
             nivel = 3;
-            preguntaActual = listaPreguntasDifultad3.get(k++);
+            preguntaActual = listaPreguntasDifultad3.get(indicePreguntasDificil++);
             contenedor_principal.setBackground(getDrawable(R.drawable.fondo_nivel_dificil));
         }
+        textPuntosAcumulados.setVisibility(View.VISIBLE);
         respuestasActuales = getRespuestasPregunta(preguntaActual);
         ponerTextoEnPantalla();
         quitarPantallaAciertoFallo();
@@ -329,8 +329,8 @@ public class IUretoPregunta extends AppCompatActivity {
         } else {
             wrongAnswer(juego.getPuntos() * nivel * (-2), indiceProvisional);
         }
-
-        textoPuntosTotal.setText("Puntos Totales = " + puntosTotales);
+        textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
+        textPuntosAcumulados.setText("Puntos Totales: " + puntosTotales);
     }
 
     public void pantallaAciertoFallo() {
@@ -339,7 +339,6 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta2.setClickable(false);
         botonRespuesta3.setClickable(false);
         botonRespuesta4.setClickable(false);
-
     }
 
     public List<Answer> getRespuestasPregunta(Question q) {
@@ -371,9 +370,9 @@ public class IUretoPregunta extends AppCompatActivity {
         MainActivity.music.start();
         respuestasCorrectasContestadas++;
         puntosTotales += juego.getPuntos() * nivel;
-        textoPuntosGanados.setText("+"+screenText + "");
+        textoPuntosGanados.setText("+"+screenText + " puntos ganados!");
         textoPuntosTotal.setText("Puntos Totales = " + puntosTotales);
-
+        textPuntosAcumulados.setText("Puntos Totales: " + puntosTotales);
 
         cambiarColorAVerde(index);
         incrementarTextoCantidadDeContestadas();
@@ -390,27 +389,29 @@ public class IUretoPregunta extends AppCompatActivity {
         vida--;
         if (vida < 0) {
             puntosTotales = 0;
-            puntosConsolidados = 0;
-            System.out.println("--------GAME OVER-------------");
-            Intent intent = new Intent(IUretoPregunta.this, MainActivity.class); //Creo que esto tiene que llevar una pantalla de GAMEOVER
-            startActivity(intent);
+            //puntosConsolidados = 0;
+            imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.game_over));
+            textoPuntosFinales.setText("Puntos totales: 0");
+            pantalla_final();
+           // Intent intent = new Intent(IUretoPregunta.this, MainActivity.class); //Creo que esto tiene que llevar una pantalla de GAMEOVER
+           // startActivity(intent);
             finish();
 
-            return;
+            //return;
         }
 
         puntosTotales -= juego.getPuntos() * nivel * 2;
         if (puntosTotales < 0) puntosTotales = 0;
-        textoPuntosGanados.setText(screenText + "");
+        textoPuntosGanados.setText(screenText + " puntos perdidos ");
         if (screenText == 2) {
             textoPuntosGanados.setText("Se acabo el tiempo");
         }
         if (index != -1) cambiarColorARojo(index);
 
-        textoPuntosTotal.setText("Puntos Totales = " + puntosTotales);
+        textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
+        textPuntosAcumulados.setText("Puntos Totales: " + puntosTotales);
         visualizacionBotonConsolidar(false);
 
-        //imagenCorazon.setBackground(getDrawable(R.drawable.corazon_roto)); //Aqui va corazon roto
         imagenCorazon.setImageDrawable(getDrawable(R.drawable.corazon_roto));
         acierto_fallo.setImageDrawable(getDrawable(R.drawable.vuelve_intentar));
         pantallaAciertoFallo();
@@ -439,9 +440,12 @@ public class IUretoPregunta extends AppCompatActivity {
 
     public void clickBotonConsolidar(View v) {
 
+        textPuntosConsolidados.setVisibility(View.VISIBLE);
+        abandonar.setVisibility(View.VISIBLE);
         haConsolidado = true;
         botonConsolidar.setBackground(getDrawable(R.drawable.boton_verde));
         puntosConsolidados = puntosTotales;
+        textPuntosConsolidados.setText("Puntos consolidados: "+ puntosConsolidados);
     }
 
     public void cambiarColorARojo(int botonEscogido) {
@@ -476,7 +480,7 @@ public class IUretoPregunta extends AppCompatActivity {
 
         textoContadorDePreguntas.setText(respuestasCorrectasContestadas + "/10");
     }
-    public void leaveScene() {
+    public void guardarPuntuacion() {
         MainActivity.music.stop();
         if(respuestasCorrectasContestadas == 10) {
             SavePoints(puntosTotales);
@@ -485,8 +489,8 @@ public class IUretoPregunta extends AppCompatActivity {
             SavePoints(puntosConsolidados);
         }
         mCountDownTimer.cancel();
-        Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
+        //startActivity(intent);
         finish();
     }
     public void pantalla_final(){
@@ -504,7 +508,7 @@ public class IUretoPregunta extends AppCompatActivity {
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        leaveScene();
+                        guardarPuntuacion();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -515,5 +519,12 @@ public class IUretoPregunta extends AppCompatActivity {
 
         AlertDialog dialog = alert.create();
         dialog.show();
+    }
+
+    public void clickBotonTerminarPartida(View v){
+
+      //  Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
+       // startActivity(intent);
+
     }
 }

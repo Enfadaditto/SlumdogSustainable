@@ -168,15 +168,33 @@ public class IUretoPregunta extends AppCompatActivity {
 
     private void ponerTextoEnPantalla() {
         int indice = 0;
-
+        tamañoOriginal();
         textoPregunta.setText(preguntaActual.getStatement());
 
         botonRespuesta1.setText(respuestasActuales.get(0).getText());
         botonRespuesta2.setText(respuestasActuales.get(1).getText());
         botonRespuesta3.setText(respuestasActuales.get(2).getText());
         botonRespuesta4.setText(respuestasActuales.get(3).getText());
+        longitudRespuesta();
         poner_imagen_ods();
 
+    }
+    private void longitudRespuesta(){
+        Button[] botones = {botonRespuesta1, botonRespuesta2, botonRespuesta3, botonRespuesta4};
+        for(Button b : botones){
+            if(b.length() > 70){
+                b.setTextSize(12);
+                if(b.length() > 90){
+                    b.setTextSize(9);
+                }
+            }
+        }
+    }
+    public void tamañoOriginal(){
+        botonRespuesta1.setTextSize(14);
+        botonRespuesta2.setTextSize(14);
+        botonRespuesta3.setTextSize(14);
+        botonRespuesta4.setTextSize(14);
     }
 
     public void poner_imagen_ods() {

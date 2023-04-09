@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,6 +27,7 @@ import Domain_Layer.User;
 import Persistence.QuestionRepository;
 import Persistence.Repository;
 import Persistence.UserRepository;
+import Presentacion_layer.IUperfil;
 import Presentacion_layer.IUretoPregunta;
 import Presentacion_layer.IUuserLogin;
 
@@ -91,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    public void clickModificarPerfil(View view){
+        Intent intent = new Intent(MainActivity.this, IUperfil.class);
+        startActivity(intent);
     }
 
 }

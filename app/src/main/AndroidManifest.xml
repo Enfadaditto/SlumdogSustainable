@@ -26,6 +26,9 @@
             android:name="Presentacion_layer.IUuserRegister"
             android:exported="true" />
         <activity
+            android:name="Presentacion_layer.IUperfil"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"

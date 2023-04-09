@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.629" />
+        app:layout_constraintVertical_bias="0.695" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -29,4 +29,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.082"
         app:srcCompat="@drawable/mi_proyecto" />
+
+    <ImageView
+        android:id="@+id/botonPerfil"
+        android:layout_width="54dp"
+        android:layout_height="51dp"
+        android:onClick="clickModificarPerfil"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975"
+        app:srcCompat="@drawable/user" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

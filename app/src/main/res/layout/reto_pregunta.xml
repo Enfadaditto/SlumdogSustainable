@@ -285,8 +285,8 @@
 
     <RelativeLayout
         android:id="@+id/contenedor_final"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/fondo_transparente"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -296,6 +296,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:visibility="gone">
+
+        <Button
+            android:id="@+id/botonTerminarPartida"
+            android:layout_width="287dp"
+            android:layout_height="59dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="91dp"
+            android:layout_marginTop="554dp"
+            android:layout_marginEnd="98dp"
+            android:layout_marginBottom="129dp"
+            android:background="@drawable/boton_azul"
+            android:onClick="clickBotonTerminarPartida"
+            android:text="TERMINAR" />
 
         <ImageView
             android:id="@+id/imagenPantallaFinal"
@@ -329,21 +345,6 @@
             android:textColor="@color/white"
             android:textSize="24sp" />
 
-        <Button
-            android:id="@+id/botonTerminarPartida"
-            android:layout_width="222dp"
-            android:layout_height="47dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="91dp"
-            android:layout_marginTop="554dp"
-            android:layout_marginEnd="98dp"
-            android:layout_marginBottom="130dp"
-            android:background="@drawable/boton_verde"
-            android:onClick="clickBotonTerminarPartida"
-            android:text="TERMINAR" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

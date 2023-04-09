@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/user" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/nombreUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -36,7 +36,7 @@
         app:layout_constraintVertical_bias="0.11" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/contraseña"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -49,11 +49,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/nombreUsuario"
         app:layout_constraintVertical_bias="0.101" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/contraseñaRepe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -66,11 +66,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
+        app:layout_constraintTop_toBottomOf="@+id/contraseña"
         app:layout_constraintVertical_bias="0.11" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/cambiarContraseña"
         android:layout_width="196dp"
         android:layout_height="48dp"
         android:background="@drawable/boton_azul"
@@ -79,7 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.848"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4"
+        app:layout_constraintTop_toBottomOf="@+id/contraseñaRepe"
         app:layout_constraintVertical_bias="0.094" />
 
     <Button
@@ -91,5 +91,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/cambiarContraseña" />
 </androidx.constraintlayout.widget.ConstraintLayout>

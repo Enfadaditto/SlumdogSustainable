@@ -302,9 +302,9 @@ public class IUretoPregunta extends AppCompatActivity {
             nivel = 2;
             preguntaActual = listaPreguntasDifultad2.get(indicePreguntasMedio++);
             contenedor_principal.setBackground(getDrawable(R.drawable.fondo_nivel_medio));
-        } else if (respuestasCorrectasContestadas == 10){
-            guardarPuntuacion();
-            return;
+        } else if (respuestasCorrectasContestadas > 10){
+           // guardarPuntuacion();
+            //return;
         }
         else {
             nivel = 3;
@@ -379,7 +379,15 @@ public class IUretoPregunta extends AppCompatActivity {
         visualizacionBotonConsolidar(true);
         acierto_fallo.setImageDrawable(getDrawable(R.drawable.felicitaciones_2));
 
-        pantallaAciertoFallo();
+        if(respuestasCorrectasContestadas > 10){
+            imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.felicitaciones_2));
+            textoPuntosFinales.setText("Tu puntuacion final es de: " + puntosTotales);
+            pantalla_final();
+            guardarPuntuacion();
+        } else{
+
+            pantallaAciertoFallo();
+        }
     }
 
     public void wrongAnswer(int screenText, int index) {
@@ -402,6 +410,9 @@ public class IUretoPregunta extends AppCompatActivity {
 
         if(haConsolidado && vida == 0 ){
             puntosConsolidados -= nivel* juego.getPuntos()*2;
+            if(puntosConsolidados<0){
+                puntosConsolidados = 0;
+            }
             textPuntosConsolidados.setText("Puntos consolidados: "+ puntosConsolidados);
 
         }
@@ -495,9 +506,9 @@ public class IUretoPregunta extends AppCompatActivity {
             SavePoints(puntosConsolidados);
         }
         mCountDownTimer.cancel();
-        Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+       // Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
+        // startActivity(intent);
+        // finish();
     }
     public void pantalla_final(){
         pantalla_final.setVisibility(View.VISIBLE);
@@ -514,6 +525,9 @@ public class IUretoPregunta extends AppCompatActivity {
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.no_esta_mal));
+                        textoPuntosFinales.setText("Tu puntuacion final es de: " + puntosConsolidados);
+                        pantalla_final();
                         guardarPuntuacion();
                     }
                 })

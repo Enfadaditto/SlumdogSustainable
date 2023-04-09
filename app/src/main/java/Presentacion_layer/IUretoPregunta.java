@@ -78,7 +78,7 @@ public class IUretoPregunta extends AppCompatActivity {
     TextView textoPregunta = null;
     ImageView imagenPantallaFinal;
     TextView textoPuntosFinales;
-    int respuestasCorrectasContestadas = 0;
+    int respuestasCorrectasContestadas = 1;
     int vida = 1;
 
     int timeCount = 0;
@@ -395,9 +395,15 @@ public class IUretoPregunta extends AppCompatActivity {
             pantalla_final();
            // Intent intent = new Intent(IUretoPregunta.this, MainActivity.class); //Creo que esto tiene que llevar una pantalla de GAMEOVER
            // startActivity(intent);
-            finish();
+           // finish();
 
             //return;
+        }
+
+        if(haConsolidado && vida == 0 ){
+            puntosConsolidados -= nivel* juego.getPuntos()*2;
+            textPuntosConsolidados.setText("Puntos consolidados: "+ puntosConsolidados);
+
         }
 
         puntosTotales -= juego.getPuntos() * nivel * 2;
@@ -489,8 +495,8 @@ public class IUretoPregunta extends AppCompatActivity {
             SavePoints(puntosConsolidados);
         }
         mCountDownTimer.cancel();
-        //Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
+        startActivity(intent);
         finish();
     }
     public void pantalla_final(){
@@ -503,7 +509,7 @@ public class IUretoPregunta extends AppCompatActivity {
     }
     public void abandonOnClick(View view) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("¿Estas seguro que quieres abandonar?")
+        alert.setTitle("¿Estas seguro que quieres abandonar? Obtendras los puntos consolidados")
                 .setCancelable(true)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
@@ -523,8 +529,8 @@ public class IUretoPregunta extends AppCompatActivity {
 
     public void clickBotonTerminarPartida(View v){
 
-      //  Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
-       // startActivity(intent);
-
+        Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

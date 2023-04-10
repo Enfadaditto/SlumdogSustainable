@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 import java.io.File;
 
@@ -31,7 +34,7 @@ public class IUuserRegister extends AppCompatActivity {
     private EditText repeatPasswordField;
     private ImageView iconSelector;
     private Button registerButton;
-    private User userActual;
+    private User userActual = new User("a", "b","c", null);
 
 
 
@@ -48,21 +51,26 @@ public class IUuserRegister extends AppCompatActivity {
     }
 
     public void registerButtonOnClick(View view) {
-        if (passwordField != repeatPasswordField) {
+        if (!passwordField.getText().toString().equals(repeatPasswordField.getText().toString())) {
             PasswordError();
             return;
-            /*errorLabel.setVisible(true)*/}
+        }
         if (userActual.checkUsernameNotTaken(nicknameField.getText().toString())
             && userActual.passwordIsSafe(passwordField.getText().toString())) {
             new UserRepository().guardar(
                     new User(
                             nicknameField.getText().toString(),
                             emailField.getText().toString(),
-                            passwordField.getText().toString()
+                            passwordField.getText().toString(),
+                            ((BitmapDrawable) iconSelector.getDrawable()).getBitmap()
                     )
             );
-        };
-        //enviar a pantalla de juego principal
+        }
+
+        MainActivity.user = new UserRepository(MainActivity.conexion).getUserByUsername(nicknameField.getText().toString());
+        Intent intent = new Intent(IUuserRegister.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void PasswordError() {
@@ -84,19 +92,23 @@ public class IUuserRegister extends AppCompatActivity {
 
     private void throwRegisterDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select profile icon");
-        builder.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+        builder.setTitle("Seleccione su imagen");
+        builder.setPositiveButton("Cámara", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                System.out.println("CAMERA");
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(intent, 1);
+                }
             }
         });
-        builder.setNegativeButton("Storage", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Galeria", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivity(intent);
+                intent.setType("image/");
+                startActivityForResult(intent.createChooser(intent, "Seleccione su imagen"), 10);
             }
         });
-        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
             }
         });
@@ -108,11 +120,15 @@ public class IUuserRegister extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri uri = data.getData();
-            File image = new File(String.valueOf(uri));
-            System.out.println("ESTO ES LA URI:  " + uri.toString());
-            iconSelector.setImageBitmap(BitmapFactory.decodeFile(image.getAbsolutePath()));
+        if (requestCode == 10 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri path = data.getData();
+            iconSelector.setImageURI(path);
+        }
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            iconSelector.setImageBitmap(imageBitmap);
         }
     }
 

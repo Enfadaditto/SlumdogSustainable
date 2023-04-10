@@ -1,5 +1,6 @@
 package Domain_Layer;
 
+import android.graphics.Bitmap;
 import android.media.Image;
 
 import com.j256.ormlite.field.DatabaseField;
@@ -22,15 +23,16 @@ public class User {
     @DatabaseField
     private float timeSpent;
 
-    private Image icon;
+    private Bitmap icon;
 
     private List<ODS_has_User> ODSUser;
 
     User() {}
-    public User(String nick, String email, String password) {
+    public User(String nick, String email, String password, Bitmap icon) {
         this.nickname = nick;
         this.email = email;
         this.password = password;
+        this.icon = icon;
         this.pointsAchieved = 0;
         this.timeSpent = 0;
     }
@@ -90,11 +92,11 @@ public class User {
         this.timeSpent = timeSpent;
     }
 
-    public Image getIcon() {
+    public Bitmap getIcon() {
         return icon;
     }
 
-    public void setIcon(Image icon) {
+    public void setIcon(Bitmap icon) {
         this.icon = icon;
     }
 }

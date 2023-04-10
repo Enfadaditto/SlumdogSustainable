@@ -212,45 +212,13 @@ public class IUretoPregunta extends AppCompatActivity {
 
     private void startTimer() {
         int tiempo =juego.getTiempo();
+
         MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.countdown);
         MainActivity.music.start();
+        timeCount = tiempo;
         timeBar = findViewById(R.id.timeBar);
         timeBar.setMax(tiempo);
-        //timeBar.setProgress(tiempo);
         timeBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
-        /*
-        timeBarThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (this) {
-                    for (int i = 0; i < tiempo; i++) {
-                        try {
-                            wait(1);
-                        } catch (InterruptedException e) {
-                            return;
-                        }
-                        if (i == tiempo / 3) {
-                            timeBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
-                        }
-                        if (i == tiempo * 2 / 3) {
-                            timeBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
-                        }
-                        timeBar.incrementProgressBy(-1);
-                    }
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            wrongAnswer(2, -1);
-                        }
-                    });
-                }
-            }
-        });
-        timeBarThread.start();
-        */
-
-        timeCount = tiempo;
         timeBar.setProgress(tiempo);
         mCountDownTimer=new CountDownTimer(tiempo,100) {
 
@@ -268,7 +236,6 @@ public class IUretoPregunta extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                //Do what you want
                 timeCount++;
                 runOnUiThread(new Runnable() {
                     @Override
@@ -321,7 +288,6 @@ public class IUretoPregunta extends AppCompatActivity {
 
     public void onClick(View view) {
         mCountDownTimer.cancel();
-        //this.timeBarThread.interrupt();
         int indiceProvisional = botonSeleccionado();
 
         if (respuestasActuales.get(indiceProvisional).isCorrect()) {
@@ -329,6 +295,7 @@ public class IUretoPregunta extends AppCompatActivity {
         } else {
             wrongAnswer(juego.getPuntos() * nivel * (-2), indiceProvisional);
         }
+
         textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
         textPuntosAcumulados.setText("Puntos Totales: " + puntosTotales);
     }

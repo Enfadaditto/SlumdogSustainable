@@ -45,6 +45,7 @@ public class IUperfil extends AppCompatActivity{
     private EditText contraseña;
     private EditText contraseñaRepe;
     private Button cambiarContraseña;
+    private ImageView imagenPerfil;
 
 
 
@@ -56,9 +57,11 @@ public class IUperfil extends AppCompatActivity{
         setContentView(R.layout.perfil);
 
         nombreUsuario = findViewById(R.id.nombreUsuario);
+        nombreUsuario.setEnabled(false);
         contraseña = findViewById(R.id.contraseña);
         contraseñaRepe = findViewById(R.id.contraseñaRepe);
         cambiarContraseña = findViewById(R.id.cambiarContraseña);
+        imagenPerfil = findViewById(R.id.imagenPerfil);
         ponerDatosUsuario();;
 
 
@@ -67,15 +70,14 @@ public class IUperfil extends AppCompatActivity{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                UserRepository u = new UserRepository(MainActivity.conexion);
                 nombreUsuario.setText(MainActivity.user.getNickname());
-                contraseña.setText(MainActivity.user.getPassword());
-                contraseñaRepe.setText(MainActivity.user.getPassword());
-                u.actualizar(MainActivity.user);
+                contraseña.setText("");
+                contraseñaRepe.setText("");
             }
         }).start();
 
     }
+
 
 
     public void PasswordError() {
@@ -93,10 +95,24 @@ public class IUperfil extends AppCompatActivity{
         dialog.show();
     }
     public void cambiarContraseña(){
-        if (contraseña.getText() != contraseñaRepe.getText()) {
+        if (contraseña.getText() != contraseñaRepe.getText() || contraseña.getText() == null) {
             PasswordError();
             return;
             /*errorLabel.setVisible(true)*/}
+        if(MainActivity.user.passwordIsSafe(contraseña.getText().toString())){
+            UserRepository u = new UserRepository(MainActivity.conexion);
+            MainActivity.user.setPassword(contraseña.getText().toString());
+            u.actualizar(MainActivity.user);
+
+        }
+
+    }
+
+    public void cerrarSesion(){
+        MainActivity.user = null;
+        Intent intent = new Intent(IUperfil.this, IUuserLogin.class);
+        startActivity(intent);
+
 
     }
 

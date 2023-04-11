@@ -82,7 +82,7 @@ public class IUperfil extends AppCompatActivity{
 
     public void PasswordError() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Contraseñas diferentes")
+        alert.setTitle("Contraseñas diferentes o sin rellenar")
                 .setCancelable(true)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
@@ -94,7 +94,7 @@ public class IUperfil extends AppCompatActivity{
         AlertDialog dialog = alert.create();
         dialog.show();
     }
-    public void cambiarContraseña(){
+    public void cambiarContraseña(View view){
         if (contraseña.getText() != contraseñaRepe.getText() || contraseña.getText() == null) {
             PasswordError();
             return;
@@ -108,7 +108,7 @@ public class IUperfil extends AppCompatActivity{
 
     }
 
-    public void cerrarSesion(){
+    public void cerrarSesion(View view){
         MainActivity.user = null;
         Intent intent = new Intent(IUperfil.this, IUuserLogin.class);
         startActivity(intent);

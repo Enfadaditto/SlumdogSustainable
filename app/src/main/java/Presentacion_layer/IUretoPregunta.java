@@ -218,7 +218,6 @@ public class IUretoPregunta extends AppCompatActivity {
         MainActivity.music.start();
         timeCount = tiempo;
         timeBar = findViewById(R.id.timeBar);
-
         timeBar.bringToFront();
         timeBar.setMax(tiempo);
         timeBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
@@ -352,7 +351,7 @@ public class IUretoPregunta extends AppCompatActivity {
         MainActivity.music = MediaPlayer.create(getApplicationContext(), juego.getSonidoacierto());
         MainActivity.music.start();
 
-        startTimer(juego.getTiempoOpcion());
+
         respuestasCorrectasContestadas++;
         puntosTotales += juego.getPuntos() * nivel;
         textoPuntosGanados.setText("+"+screenText + " puntos ganados!");
@@ -370,10 +369,14 @@ public class IUretoPregunta extends AppCompatActivity {
             MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.winner);
             MainActivity.music.start();
             pantalla_final();
+            return;
         } else{
 
             pantallaAciertoFallo();
         }
+
+        startTimer(juego.getTiempoOpcion());
+
     }
 
     public void wrongAnswer(int screenText, int index) {
@@ -386,6 +389,8 @@ public class IUretoPregunta extends AppCompatActivity {
             puntosConsolidados = 0;
             imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.game_over));
             textoPuntosFinales.setText("Puntos totales: 0");
+            MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.loser);
+            MainActivity.music.start();
             pantalla_final();
             return;
         }

@@ -107,6 +107,8 @@ public class IUretoPregunta extends AppCompatActivity {
         textoPuntosGanados = findViewById(R.id.puntosGanados);
         contenedor_principal = findViewById(R.id.layout);
         contenedor = findViewById(R.id.contenedor_resp);
+
+
         pantalla_final = findViewById(R.id.contenedor_final);
         acierto_fallo = findViewById(R.id.imagen_acierto);
         //fondo_transparente = findViewById(R.id.fondo_t);
@@ -216,6 +218,8 @@ public class IUretoPregunta extends AppCompatActivity {
         MainActivity.music.start();
         timeCount = tiempo;
         timeBar = findViewById(R.id.timeBar);
+
+        timeBar.bringToFront();
         timeBar.setMax(tiempo);
         timeBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
         timeBar.setProgress(tiempo);

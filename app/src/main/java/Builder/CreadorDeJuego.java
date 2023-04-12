@@ -21,8 +21,7 @@ public class CreadorDeJuego {
         juegoBuilder.buildSonidoAcierto();
         juegoBuilder.buildSonidoFallo();
         juegoBuilder.buildTiempo();
-
-
+        juegoBuilder.buildTiempoOpcion();
     }
 
 }

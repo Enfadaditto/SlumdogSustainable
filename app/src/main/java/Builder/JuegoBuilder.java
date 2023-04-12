@@ -13,6 +13,8 @@ public abstract class JuegoBuilder {
    public abstract void buildDificultad();
     public abstract void buildNivel();
     public abstract void buildTiempo();
+
+    public abstract void buildTiempoOpcion();
     public abstract void buildSonidoAcierto();
     public abstract void buildSonidoFallo();
     public abstract void buildPuntos();

@@ -4,8 +4,10 @@ public class Juego {
     private String dificultad;
     private int nivel;
     private int tiempo;
-    private String sonidoacierto;
-    private String sonidofallo;
+
+    private int tiempoOpcion;
+    private int sonidoacierto;
+    private int sonidofallo;
     private int puntos;
 
     public String getDificultad() {
@@ -16,11 +18,11 @@ public class Juego {
         return tiempo;
     }
 
-    public String getSonidoacierto() {
+    public int getSonidoacierto() {
         return sonidoacierto;
     }
 
-    public String getSonidofallo() {
+    public int getSonidofallo() {
         return sonidofallo;
     }
 
@@ -45,11 +47,15 @@ public class Juego {
         this.tiempo = tiempo;
     }
 
-    public void setSonidoacierto(String sonidoacierto) {
+    public void setTiempoOpcion(int tiempo) {this.tiempoOpcion = tiempo;}
+
+    public int getTiempoOpcion() {return tiempoOpcion;}
+
+    public void setSonidoacierto(int sonidoacierto) {
         this.sonidoacierto = sonidoacierto;
     }
 
-    public void setSonidofallo(String sonidofallo) {
+    public void setSonidofallo(int sonidofallo) {
         this.sonidofallo = sonidofallo;
     }
 

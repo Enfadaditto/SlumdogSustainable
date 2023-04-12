@@ -1,5 +1,7 @@
 package Builder;
 
+import com.slumdogsustainable.R;
+
 import java.util.List;
 
 import Domain_Layer.Question;
@@ -24,13 +26,16 @@ public class JuegoRetoPregunta extends JuegoBuilder {
     }
 
     @Override
+    public void buildTiempoOpcion() {juego.setTiempoOpcion(15000);};
+
+    @Override
     public void buildSonidoAcierto() {
-        juego.setSonidoacierto("rutaSonidoAcierto");
+        juego.setSonidoacierto(R.raw.correctanswer);
     }
 
     @Override
     public void buildSonidoFallo() {
-        juego.setSonidofallo("rutaSonidoFallo");
+        juego.setSonidofallo(R.raw.wronganswer);
     }
 
     @Override

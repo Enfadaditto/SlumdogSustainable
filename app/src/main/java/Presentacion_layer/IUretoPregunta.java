@@ -134,7 +134,7 @@ public class IUretoPregunta extends AppCompatActivity {
         textPuntosConsolidados.setVisibility(View.INVISIBLE);
         abandonar.setVisibility(View.INVISIBLE);
         textPuntosAcumulados.setVisibility(View.INVISIBLE);
-        startTimer();
+        startTimer(juego.getTiempo());
     }
 
     private void IniciarBaseDedatos() {
@@ -210,9 +210,8 @@ public class IUretoPregunta extends AppCompatActivity {
         ods.setImageDrawable(imagen);
     }
 
-    private void startTimer() {
-        int tiempo =juego.getTiempo();
-
+    private void startTimer(int t) {
+        int tiempo =t;
         MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.countdown);
         MainActivity.music.start();
         timeCount = tiempo;
@@ -240,7 +239,21 @@ public class IUretoPregunta extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        wrongAnswer(2, -1);
+
+                        MainActivity.music.stop();
+
+                        if(tiempo == juego.getTiempo()) {
+                            wrongAnswer(2, -1);
+                        }
+
+                        else if(tiempo == juego.getTiempoOpcion()) {
+                            puntosTotales = 0;
+                            puntosConsolidados = 0;
+                            imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.game_over));
+                            textoPuntosFinales.setText("Puntos totales: 0");
+                            quitarPantallaAciertoFallo();
+                            botonSiguientePregunta.performClick();
+                        }
                     }
                 });
             }
@@ -281,7 +294,9 @@ public class IUretoPregunta extends AppCompatActivity {
         ponerTextoEnPantalla();
         quitarPantallaAciertoFallo();
         poner_imagen_ods();
-        startTimer();
+        mCountDownTimer.cancel();
+        MainActivity.music.stop();
+        startTimer(juego.getTiempo());
     }
 
     public void onClick(View view) {
@@ -293,7 +308,6 @@ public class IUretoPregunta extends AppCompatActivity {
         } else {
             wrongAnswer(juego.getPuntos() * nivel * (-2), indiceProvisional);
         }
-
         textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
         textPuntosAcumulados.setText("Puntos Totales: " + puntosTotales);
     }
@@ -331,8 +345,10 @@ public class IUretoPregunta extends AppCompatActivity {
 
     public void correctAnswer(int screenText, int index) {
         MainActivity.music.stop();
-        MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.correctanswer);
+        MainActivity.music = MediaPlayer.create(getApplicationContext(), juego.getSonidoacierto());
         MainActivity.music.start();
+
+        startTimer(juego.getTiempoOpcion());
         respuestasCorrectasContestadas++;
         puntosTotales += juego.getPuntos() * nivel;
         textoPuntosGanados.setText("+"+screenText + " puntos ganados!");
@@ -358,22 +374,18 @@ public class IUretoPregunta extends AppCompatActivity {
 
     public void wrongAnswer(int screenText, int index) {
         MainActivity.music.stop();
-        MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.wronganswer);
+        MainActivity.music = MediaPlayer.create(getApplicationContext(), juego.getSonidofallo());
         MainActivity.music.start();
         vida--;
         if (vida < 0) {
             puntosTotales = 0;
-            //puntosConsolidados = 0;
+            puntosConsolidados = 0;
             imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.game_over));
             textoPuntosFinales.setText("Puntos totales: 0");
             pantalla_final();
-           // Intent intent = new Intent(IUretoPregunta.this, MainActivity.class); //Creo que esto tiene que llevar una pantalla de GAMEOVER
-           // startActivity(intent);
-           // finish();
-
-            //return;
+            return;
         }
-
+        startTimer(juego.getTiempoOpcion());
         if(haConsolidado && vida == 0 ){
             puntosConsolidados -= nivel* juego.getPuntos()*2;
             if(puntosConsolidados<0){

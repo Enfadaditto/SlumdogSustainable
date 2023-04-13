@@ -500,6 +500,7 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta2.setClickable(false);
         botonRespuesta3.setClickable(false);
         botonRespuesta4.setClickable(false);
+        timeBar.setVisibility(View.INVISIBLE);
 
     }
     public void abandonOnClick(View view) {

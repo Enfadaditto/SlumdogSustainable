@@ -184,6 +184,7 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta3.setText(respuestasActuales.get(2).getText());
         botonRespuesta4.setText(respuestasActuales.get(3).getText());
         longitudRespuesta();
+        longitudTexto();
         poner_imagen_ods();
 
     }
@@ -198,11 +199,17 @@ public class IUretoPregunta extends AppCompatActivity {
             }
         }
     }
+    private void longitudTexto(){
+        if(textoPregunta.length() > 130){
+            textoPregunta.setTextSize(16);
+        }
+    }
     public void tamañoOriginal(){
         botonRespuesta1.setTextSize(14);
         botonRespuesta2.setTextSize(14);
         botonRespuesta3.setTextSize(14);
         botonRespuesta4.setTextSize(14);
+        textoPregunta.setTextSize(20);
     }
 
     public void poner_imagen_ods() {

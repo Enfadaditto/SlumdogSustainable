@@ -21,8 +21,8 @@
 
     <TextView
         android:id="@+id/textoPregunta"
-        android:layout_width="267dp"
-        android:layout_height="233dp"
+        android:layout_width="231dp"
+        android:layout_height="164dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:text="Cargando..."
@@ -30,9 +30,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.207" />
+        app:layout_constraintVertical_bias="0.221" />
 
     <ImageView
         android:id="@+id/imagenCorazon"
@@ -285,8 +286,8 @@
 
     <RelativeLayout
         android:id="@+id/contenedor_final"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="416dp"
+        android:layout_height="852dp"
         android:background="@drawable/fondo_transparente"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -297,34 +298,18 @@
         app:layout_constraintVertical_bias="0.0"
         tools:visibility="gone">
 
-        <Button
-            android:id="@+id/botonTerminarPartida"
-            android:layout_width="287dp"
-            android:layout_height="59dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="91dp"
-            android:layout_marginTop="554dp"
-            android:layout_marginEnd="98dp"
-            android:layout_marginBottom="129dp"
-            android:background="@drawable/boton_azul"
-            android:onClick="clickBotonTerminarPartida"
-            android:text="TERMINAR" />
-
         <ImageView
             android:id="@+id/imagenPantallaFinal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="357dp"
+            android:layout_height="139dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="-3dp"
-            android:layout_marginTop="118dp"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="511dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="61dp"
+            android:layout_marginEnd="43dp"
+            android:layout_marginBottom="652dp"
             app:srcCompat="@drawable/felicitaciones" />
 
         <TextView
@@ -335,15 +320,46 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="68dp"
-            android:layout_marginTop="294dp"
-            android:layout_marginEnd="65dp"
-            android:layout_marginBottom="361dp"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="295dp"
+            android:layout_marginEnd="67dp"
+            android:layout_marginBottom="360dp"
             android:fontFamily="sans-serif-black"
             android:text="PUNTOS TOTALES: "
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="24sp" />
+
+        <RelativeLayout
+            android:layout_width="294dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="553dp"
+            android:layout_marginEnd="61dp"
+            android:layout_marginBottom="85dp"
+            android:scaleType="fitXY">
+
+            <Button
+                android:id="@+id/botonTerminarPartida"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="68dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="98dp"
+                android:background="@drawable/boton_azul"
+                android:onClick="clickBotonTerminarPartida"
+                android:scaleType="fitXY"
+                android:text="TERMINAR" />
+        </RelativeLayout>
 
     </RelativeLayout>
 

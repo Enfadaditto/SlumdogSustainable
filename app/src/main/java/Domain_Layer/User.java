@@ -5,6 +5,7 @@ import android.media.Image;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.slumdogsustainable.MainActivity;
 
 import java.util.List;
 
@@ -38,11 +39,11 @@ public class User {
     }
 
     public boolean checkUsernameNotTaken(String username) {
-        return new UserRepository().getUserByUsername(username).equals(null);
+        return new UserRepository(MainActivity.conexion).getUserByUsername(username).equals(null);
     }
 
     public boolean checkPassword(String username, String password) {
-        return new UserRepository().getUserByUsername(username).password.equals(password);
+        return new UserRepository(MainActivity.conexion).getUserByUsername(username).password.equals(password);
     }
 
     public boolean passwordIsSafe(String password) {

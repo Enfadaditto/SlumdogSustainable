@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 if(conexion == null) {
                     UserRepository u = new UserRepository();
-                    user = u.getUserByUsername("prueba");
+                    //user = u.getUserByUsername("prueba");
                     conexion = u.getConnectionSource();
                 }
                runOnUiThread(new Runnable() {

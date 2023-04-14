@@ -1,6 +1,7 @@
 package Persistence;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import com.j256.ormlite.dao.Dao;
@@ -26,7 +27,11 @@ public class UserRepository extends Repository<User> {
                 return false;
         }
         public User getUserByUsername(String username) {
-                List<User> users = this.obtenerTodos();
+                List<User> users = null;
+                try {
+                        users = this.getDao().queryForAll();
+                } catch (SQLException e) { }
+
                 for (User user : users) {
                         if (user.getNickname().equals(username)) return user;
                 }

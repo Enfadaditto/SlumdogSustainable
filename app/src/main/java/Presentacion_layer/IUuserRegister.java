@@ -57,7 +57,7 @@ public class IUuserRegister extends AppCompatActivity {
         }
         if (userActual.checkUsernameNotTaken(nicknameField.getText().toString())
             && userActual.passwordIsSafe(passwordField.getText().toString())) {
-            new UserRepository().guardar(
+            new UserRepository(MainActivity.conexion).guardar(
                     new User(
                             nicknameField.getText().toString(),
                             emailField.getText().toString(),

@@ -216,7 +216,7 @@
             android:background="@drawable/boton_azul"
             android:minHeight="48dp"
             android:onClick="clickBotonConsolidar"
-            android:text="CONSOLIDAR" />
+            android:text="CONSOLIDAD Y CONTINUAR" />
 
         <TextView
             android:id="@+id/puntosTotal"
@@ -249,7 +249,7 @@
             android:layout_marginBottom="148dp"
             android:background="@drawable/boton_verde"
             android:onClick="metodoBotonSiguiente"
-            android:text="SIGUIENTE" />
+            android:text="CONTINUAR SIN CONSOLIDAR" />
 
         <TextView
             android:id="@+id/puntosGanados"

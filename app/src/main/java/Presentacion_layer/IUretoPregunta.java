@@ -107,8 +107,6 @@ public class IUretoPregunta extends AppCompatActivity {
         textoPuntosGanados = findViewById(R.id.puntosGanados);
         contenedor_principal = findViewById(R.id.layout);
         contenedor = findViewById(R.id.contenedor_resp);
-
-
         pantalla_final = findViewById(R.id.contenedor_final);
         acierto_fallo = findViewById(R.id.imagen_acierto);
         //fondo_transparente = findViewById(R.id.fondo_t);
@@ -370,6 +368,12 @@ public class IUretoPregunta extends AppCompatActivity {
         visualizacionBotonConsolidar(true);
         acierto_fallo.setImageDrawable(getDrawable(R.drawable.felicitaciones_2));
 
+        if(haConsolidado){
+            botonSiguientePregunta.setText("CONTINUAR");
+        }else {
+            botonSiguientePregunta.setText("CONTINUAR SIN CONSOLIDAR");
+        }
+
         if(respuestasCorrectasContestadas > 10){
             imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.felicitaciones_2));
             textoPuntosFinales.setText("Tu puntuacion final es de: " + puntosTotales);
@@ -418,7 +422,7 @@ public class IUretoPregunta extends AppCompatActivity {
             textoPuntosGanados.setText("Se acabo el tiempo");
         }
         if (index != -1) cambiarColorARojo(index);
-
+        botonSiguientePregunta.setText("CONTINUAR");
         textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
         textPuntosAcumulados.setText("Puntos Totales: " + puntosTotales);
         visualizacionBotonConsolidar(false);
@@ -457,6 +461,8 @@ public class IUretoPregunta extends AppCompatActivity {
         botonConsolidar.setBackground(getDrawable(R.drawable.boton_verde));
         puntosConsolidados = puntosTotales;
         textPuntosConsolidados.setText("Puntos consolidados: "+ puntosConsolidados);
+        botonSiguientePregunta.setText("CONTINUAR");
+        botonSiguientePregunta.performClick();
     }
 
     public void cambiarColorARojo(int botonEscogido) {
@@ -500,6 +506,7 @@ public class IUretoPregunta extends AppCompatActivity {
             SavePoints(puntosConsolidados);
         }
         mCountDownTimer.cancel();
+
     }
     public void pantalla_final(){
         pantalla_final.setVisibility(View.VISIBLE);
@@ -522,6 +529,7 @@ public class IUretoPregunta extends AppCompatActivity {
                         imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.no_esta_mal));
                         textoPuntosFinales.setText("Tu puntuacion final es de: " + puntosConsolidados);
                         pantalla_final();
+                        guardarPuntuacion();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

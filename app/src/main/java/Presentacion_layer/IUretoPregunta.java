@@ -529,7 +529,6 @@ public class IUretoPregunta extends AppCompatActivity {
                         imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.no_esta_mal));
                         textoPuntosFinales.setText("Tu puntuacion final es de: " + puntosConsolidados);
                         pantalla_final();
-                        guardarPuntuacion();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

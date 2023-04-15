@@ -91,7 +91,6 @@ public class IUretoPregunta extends AppCompatActivity {
 
     public IUretoPregunta() throws SQLException {
     }
-
     //  JuegoBuilder retoPegunta = new JuegoRetoPregunta();
     //CreadorDeJuego creadorDeJuego = new CreadorDeJuego();
 

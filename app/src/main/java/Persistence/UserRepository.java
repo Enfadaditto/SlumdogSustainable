@@ -1,12 +1,21 @@
 package Persistence;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
+import com.slumdogsustainable.MainActivity;
 
 import Domain_Layer.Question;
 import Domain_Layer.User;
@@ -21,17 +30,10 @@ public class UserRepository extends Repository<User> {
         }
 
         public boolean checkPassword(String username, String password) {
-                if(this.getUserByUsername(username) != null) {
-                        return this.getUserByUsername(username).getPassword().equals(password);
-                }
-                return false;
+                return this.getUserByUsername(username).getPassword().equals(password);
         }
         public User getUserByUsername(String username) {
-                List<User> users = null;
-                try {
-                        users = this.getDao().queryForAll();
-                } catch (SQLException e) { }
-
+                List<User> users = this.obtenerTodos();
                 for (User user : users) {
                         if (user.getNickname().equals(username)) return user;
                 }
@@ -41,7 +43,19 @@ public class UserRepository extends Repository<User> {
         public void addPointsToTotal(String username, int points) {
             User thisUser = getUserByUsername(username);
             thisUser.setPointsAchieved(thisUser.getPointsAchieved() + points);
-            this.guardar(thisUser);
+            this.actualizar(thisUser);
         }
+
+        public boolean checkUsernameNotTaken(String username) {
+                List<User> users = this.obtenerTodos();
+                List<String> userNicks = new ArrayList<>();
+                for (User u : users) userNicks.add(u.getNickname());
+                return !userNicks.contains(username);
+        }
+
+        public void saveUser(User user) {
+                this.guardar(user);
+        }
+
 }
 

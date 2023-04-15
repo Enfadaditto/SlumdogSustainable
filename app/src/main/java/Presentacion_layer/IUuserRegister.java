@@ -17,12 +17,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 import java.io.File;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 import Domain_Layer.User;
+import Persistence.AnswerRepository;
+import Persistence.QuestionRepository;
 import Persistence.UserRepository;
 
 public class IUuserRegister extends AppCompatActivity {
@@ -41,7 +47,7 @@ public class IUuserRegister extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
-
+        
         nicknameField = findViewById(R.id.nicknameField);
         emailField = findViewById(R.id.emailField);
         passwordField = findViewById(R.id.passwordField);
@@ -50,32 +56,67 @@ public class IUuserRegister extends AppCompatActivity {
         registerButton = findViewById(R.id.registerButton);
     }
 
-    public void registerButtonOnClick(View view) {
-        if (!passwordField.getText().toString().equals(repeatPasswordField.getText().toString())) {
-            PasswordError();
-            return;
-        }
-        if (userActual.checkUsernameNotTaken(nicknameField.getText().toString())
-            && userActual.passwordIsSafe(passwordField.getText().toString())) {
-            new UserRepository(MainActivity.conexion).guardar(
-                    new User(
-                            nicknameField.getText().toString(),
-                            emailField.getText().toString(),
-                            passwordField.getText().toString(),
-                            ((BitmapDrawable) iconSelector.getDrawable()).getBitmap()
-                    )
-            );
-        }
 
-        MainActivity.user = new UserRepository(MainActivity.conexion).getUserByUsername(nicknameField.getText().toString());
-        Intent intent = new Intent(IUuserRegister.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+    public void registerButtonOnClick(View view) {
+        new Thread(new Runnable() {
+            public void run(){
+                try {
+                    if (!new UserRepository(MainActivity.conexion).checkUsernameNotTaken(nicknameField.getText().toString())) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                ErrorAlert("Nombre de usuario en uso");
+                            }
+                        });
+                        return;
+                    }
+                    if (!passwordField.getText().toString().matches("^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\\-__+.]){1,}).{8,}$")) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                ErrorAlert("Tu contraseña da asco, duchate");
+                            }
+                        });
+                        return;
+                    }
+                    if (!passwordField.getText().toString().trim().equals(repeatPasswordField.getText().toString().trim())) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                ErrorAlert("Contraseñas diferentes");
+                            }
+                        });
+                        return;
+                    }
+                    if (!emailField.getText().toString().matches("^[\\w!#$%&amp;'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&amp;'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                ErrorAlert("Introduce un Email válido");
+                            }
+                        });
+                        return;
+                    }
+
+                    new UserRepository(MainActivity.conexion).saveUser(
+                            new User(
+                                    nicknameField.getText().toString(),
+                                    emailField.getText().toString(),
+                                    passwordField.getText().toString(),
+                                    ((BitmapDrawable) iconSelector.getDrawable()).getBitmap()
+                            )
+                    );
+
+                    MainActivity.user = new UserRepository(MainActivity.conexion).getUserByUsername(nicknameField.getText().toString());
+                    Intent intent = new Intent(IUuserRegister.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                catch(RuntimeException e){System.out.println(e);
+                }
+            }
+        }).start();
     }
 
-    public void PasswordError() {
+    public void ErrorAlert(String errorString) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Contraseñas diferentes")
+        alert.setTitle(errorString)
                 .setCancelable(true)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override

@@ -5,6 +5,7 @@ import android.media.Image;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.slumdogsustainable.MainActivity;
 
 import java.util.List;
 
@@ -37,16 +38,8 @@ public class User {
         this.timeSpent = 0;
     }
 
-    public boolean checkUsernameNotTaken(String username) {
-        return new UserRepository().getUserByUsername(username).equals(null);
-    }
-
-    public boolean checkPassword(String username, String password) {
-        return new UserRepository().getUserByUsername(username).password.equals(password);
-    }
-
     public boolean passwordIsSafe(String password) {
-        return  password.matches("^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z])");
+        return  password.matches("^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\\-__+.]){1,}).{8,}$");
     }
     public void addODSKnowledge(ODS_has_User newODSKnown) {
         this.ODSUser.add(newODSKnown);

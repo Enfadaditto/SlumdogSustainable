@@ -30,7 +30,10 @@ public class UserRepository extends Repository<User> {
         }
 
         public boolean checkPassword(String username, String password) {
-                return this.getUserByUsername(username).getPassword().equals(password);
+                if(this.getUserByUsername(username) != null) {
+                        return this.getUserByUsername(username).getPassword().equals(password);
+                }
+                return false;
         }
         public User getUserByUsername(String username) {
                 List<User> users = this.obtenerTodos();

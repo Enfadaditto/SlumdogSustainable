@@ -80,9 +80,9 @@ public class IUperfil extends AppCompatActivity{
 
 
 
-    public void PasswordError() {
+    public void PasswordError(String errorString) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Contraseñas diferentes o sin rellenar")
+        alert.setTitle(errorString)
                 .setCancelable(true)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
@@ -93,18 +93,35 @@ public class IUperfil extends AppCompatActivity{
         AlertDialog dialog = alert.create();
         dialog.show();
     }
-    public void cambiarContraseña(View view){
-        if (contraseña.getText() != contraseñaRepe.getText() || contraseña.getText() == null) {
-            PasswordError();
+    public void cambiarContraseña(View view) {
+        if (!contraseña.getText().toString().trim().equals(contraseñaRepe.getText().toString().trim())) {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    PasswordError("Contraseñas diferentes");
+                }
+            });
             return;
-            /*errorLabel.setVisible(true)*/}
-        if(MainActivity.user.passwordIsSafe(contraseña.getText().toString())){
-            UserRepository u = new UserRepository(MainActivity.conexion);
-            MainActivity.user.setPassword(contraseña.getText().toString());
-            u.actualizar(MainActivity.user);
+        }
+        if (!contraseña.getText().toString().matches("^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\\-__+.]){1,}).{8,}$")) {
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    PasswordError("Tu contraseña da asco, duchate");
+                }
+            });
+            return;
+        }
+            if (MainActivity.user.passwordIsSafe(contraseña.getText().toString())) {
+                /*UserRepository ups = new UserRepository(MainActivity.conexion);
+                User u = new UserRepository(MainActivity.conexion).getUserByUsername("prueba2");
+                u.setPassword(contraseña.getText().toString());
+
+                ups.actualizar(u);*/
+                Intent intent = new Intent(IUperfil.this, MainActivity.class);
+                startActivity(intent);
+
+
 
         }
-
     }
 
     public void cerrarSesion(View view){

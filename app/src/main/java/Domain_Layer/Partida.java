@@ -1,7 +1,6 @@
-package Builder;
+package Domain_Layer;
 
-public class Juego {
-    private String dificultad;
+public abstract class Partida {
     private int nivel;
     private int tiempo;
 
@@ -9,10 +8,6 @@ public class Juego {
     private int sonidoacierto;
     private int sonidofallo;
     private int puntos;
-
-    public String getDificultad() {
-        return dificultad;
-    }
 
     public int getTiempo() {
         return tiempo;
@@ -35,10 +30,6 @@ public class Juego {
     }
 
 
-    public void setDificultad(String dificultad) {
-        this.dificultad = dificultad;
-    }
-
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
@@ -47,9 +38,13 @@ public class Juego {
         this.tiempo = tiempo;
     }
 
-    public void setTiempoOpcion(int tiempo) {this.tiempoOpcion = tiempo;}
+    public void setTiempoOpcion(int tiempo) {
+        this.tiempoOpcion = tiempo;
+    }
 
-    public int getTiempoOpcion() {return tiempoOpcion;}
+    public int getTiempoOpcion() {
+        return tiempoOpcion;
+    }
 
     public void setSonidoacierto(int sonidoacierto) {
         this.sonidoacierto = sonidoacierto;

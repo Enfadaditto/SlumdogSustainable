@@ -55,7 +55,6 @@ public class UserRepository extends Repository<User> {
                 for (User u : users) userNicks.add(u.getNickname());
                 return !userNicks.contains(username);
         }
-
         public void saveUser(User user) {
                 this.guardar(user);
         }

@@ -1,22 +1,26 @@
 package Builder;
 
-public abstract class JuegoBuilder {
-  protected Juego juego;
+import Domain_Layer.Partida;
 
-  public void crearNuevoJuego() {
-        juego = new Juego();
-  }
-  public Juego getJuego(){
-      return juego;
-  }
+public abstract class PartidaBuilder {
 
-   public abstract void buildDificultad();
+    public abstract Partida getJuego();
+
     public abstract void buildNivel();
+
+    public abstract void buildRetosNivel1();
+
+    public abstract void buildRetosNivel2();
+
+    public abstract void buildRetosNivel3();
     public abstract void buildTiempo();
 
     public abstract void buildTiempoOpcion();
+
     public abstract void buildSonidoAcierto();
+
     public abstract void buildSonidoFallo();
+
     public abstract void buildPuntos();
 
 

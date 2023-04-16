@@ -1,27 +1,30 @@
 package Builder;
 
-public class CreadorDeJuego {
+import Domain_Layer.Partida;
 
-    private JuegoBuilder juegoBuilder;
+public class CreadorDePartida {
 
-    public void setJuegoBuilder(JuegoBuilder jb){
+    private PartidaBuilder juegoBuilder;
 
+    public void setJuegoBuilder(PartidaBuilder jb) {
         juegoBuilder = jb;
     }
 
-   public Juego getJuego(){
+    public Partida getJuego() {
         return juegoBuilder.getJuego();
     }
 
-    public void construirJuego(){
+    public void construirJuego() {
 
-        juegoBuilder.buildDificultad();
         juegoBuilder.buildNivel();
         juegoBuilder.buildPuntos();
         juegoBuilder.buildSonidoAcierto();
         juegoBuilder.buildSonidoFallo();
         juegoBuilder.buildTiempo();
         juegoBuilder.buildTiempoOpcion();
+        juegoBuilder.buildRetosNivel1();
+        juegoBuilder.buildRetosNivel2();
+        juegoBuilder.buildRetosNivel3();
     }
 
 }

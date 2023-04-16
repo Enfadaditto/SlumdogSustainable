@@ -23,15 +23,12 @@ import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
-import Builder.CreadorDeJuego;
-import Builder.Juego;
-import Builder.JuegoBuilder;
-import Builder.JuegoRetoPregunta;
+import Builder.BuilderPartidaRetoPregunta;
+import Builder.CreadorDePartida;
 import Domain_Layer.Answer;
+import Domain_Layer.PartidaRetoPregunta;
 import Domain_Layer.Question;
 import Persistence.AnswerRepository;
 import Persistence.QuestionRepository;
@@ -63,7 +60,6 @@ public class IUretoPregunta extends AppCompatActivity {
     Button botonSiguientePregunta;
     TextView textoPuntosGanados, textoContadorDePreguntas;
     QuestionRepository preguntasEnBD;
-    Question preguntaActual = new Question();
     List<Answer> respuestasActuales;
     int indicePreguntasFacil = 0, indicePreguntasMedio = 0, indicePreguntasDificil = 0;
     List<Answer> listaRespuestas;
@@ -71,8 +67,7 @@ public class IUretoPregunta extends AppCompatActivity {
     ImageView abandonar;
     CountDownTimer mCountDownTimer;
     List<Question> listaPreguntasDifultad1, listaPreguntasDifultad2, listaPreguntasDifultad3;
-    Thread timeBarThread;
-    Juego juego;
+    PartidaRetoPregunta juego;
     TextView textoPregunta = null;
     ImageView imagenPantallaFinal;
     TextView textoPuntosFinales;
@@ -108,22 +103,22 @@ public class IUretoPregunta extends AppCompatActivity {
         acierto_fallo = findViewById(R.id.imagen_acierto);
         //fondo_transparente = findViewById(R.id.fondo_t);
         textoPuntosTotal = findViewById(R.id.puntosTotal);
-        botonRespuesta1 = (Button) findViewById(R.id.botonRespuesta1);
-        botonRespuesta2 = (Button) findViewById(R.id.botonRespuesta2);
-        botonRespuesta3 = (Button) findViewById(R.id.botonRespuesta3);
-        botonRespuesta4 = (Button) findViewById(R.id.botonRespuesta4);
-        botonConsolidar = (Button) findViewById(R.id.botonConsolidar);
+        botonRespuesta1 = findViewById(R.id.botonRespuesta1);
+        botonRespuesta2 = findViewById(R.id.botonRespuesta2);
+        botonRespuesta3 = findViewById(R.id.botonRespuesta3);
+        botonRespuesta4 = findViewById(R.id.botonRespuesta4);
+        botonConsolidar = findViewById(R.id.botonConsolidar);
         ods = findViewById(R.id.imagen_ods);
         imagenCorazon = findViewById(R.id.imagenCorazon);
-        botonSiguientePregunta = (Button) findViewById(R.id.botonSiguientePregunta);
+        botonSiguientePregunta = findViewById(R.id.botonSiguientePregunta);
         textoContadorDePreguntas = findViewById(R.id.textoContadorDePreguntas);
         contenedor = findViewById(R.id.contenedor_resp);
         abandonar = findViewById(R.id.abandonar);
         imagenPantallaFinal = findViewById(R.id.imagenPantallaFinal);
         textoPuntosFinales = findViewById(R.id.textoPuntosFinales);
         //-------builder--------//
-        JuegoBuilder retoPegunta = new JuegoRetoPregunta();
-        CreadorDeJuego creadorDeJuego = new CreadorDeJuego();
+        BuilderPartidaRetoPregunta retoPegunta = new BuilderPartidaRetoPregunta();
+        CreadorDePartida creadorDeJuego = new CreadorDePartida();
         creadorDeJuego.setJuegoBuilder(retoPegunta);
         creadorDeJuego.construirJuego();
         juego = retoPegunta.getJuego();
@@ -138,20 +133,9 @@ public class IUretoPregunta extends AppCompatActivity {
         new Thread(new Runnable() {
             public void run() {
                 try {
-
-
-                    preguntasEnBD = new QuestionRepository(MainActivity.conexion);
                     listaRespuestas = new AnswerRepository(MainActivity.conexion).obtenerTodos();
-                    listaPreguntasDifultad1 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_FACIL);
-                    listaPreguntasDifultad2 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_MEDIA);
-                    listaPreguntasDifultad3 = preguntasEnBD.getQuestionListByDifficulty(DIFICULTAD_DIFICIL);
-                    Collections.shuffle(listaPreguntasDifultad1, new Random());
-                    Collections.shuffle(listaPreguntasDifultad2, new Random());
-                    Collections.shuffle(listaPreguntasDifultad3, new Random());
-                    preguntaActual = listaPreguntasDifultad1.get(indicePreguntasFacil++);
-                    respuestasActuales = QuestionRepository.getRespuestasPregunta(preguntaActual, listaRespuestas);
-                    respuestasActuales = preguntasEnBD.getAnswers(preguntaActual);
-
+                    juego.setPreguntaActual(juego.getPreguntasNivel1().get(indicePreguntasFacil++));
+                    respuestasActuales = QuestionRepository.getRespuestasPregunta(juego.getPreguntaActual(), listaRespuestas);
                     runOnUiThread(new Runnable() {
                         public void run() {
                             ponerTextoEnPantalla();
@@ -172,7 +156,7 @@ public class IUretoPregunta extends AppCompatActivity {
     private void ponerTextoEnPantalla() {
         int indice = 0;
         tamañoOriginal();
-        textoPregunta.setText(preguntaActual.getStatement());
+        textoPregunta.setText(juego.getPreguntaActual().getStatement());
 
         botonRespuesta1.setText(respuestasActuales.get(0).getText());
         botonRespuesta2.setText(respuestasActuales.get(1).getText());
@@ -211,7 +195,7 @@ public class IUretoPregunta extends AppCompatActivity {
     }
 
     public void poner_imagen_ods() {
-        int numeroOds = preguntaActual.getOds();
+        int numeroOds = juego.getPreguntaActual().getOds();
         int imagenId = getResources().getIdentifier("ods_" + numeroOds, "drawable", getPackageName());
         Drawable imagen = getResources().getDrawable(imagenId);
         ods.setImageDrawable(imagen);
@@ -283,18 +267,18 @@ public class IUretoPregunta extends AppCompatActivity {
 
     public void metodoBotonSiguiente(View v) throws SQLException {
         if (respuestasCorrectasContestadas <= 4) {
-            preguntaActual = listaPreguntasDifultad1.get(indicePreguntasFacil++);
+            juego.setPreguntaActual(juego.getPreguntasNivel1().get(indicePreguntasFacil++));
         } else if (respuestasCorrectasContestadas > 4 && respuestasCorrectasContestadas <= 7) {
             juego.setNivel(2);
-            preguntaActual = listaPreguntasDifultad2.get(indicePreguntasMedio++);
+            juego.setPreguntaActual(juego.getPreguntasNivel2().get(indicePreguntasMedio++));
             contenedor_principal.setBackground(getDrawable(R.drawable.fondo_nivel_medio));
         } else {
             juego.setNivel(3);
-            preguntaActual = listaPreguntasDifultad3.get(indicePreguntasDificil++);
+            juego.setPreguntaActual(juego.getPreguntasNivel3().get(indicePreguntasDificil++));
             contenedor_principal.setBackground(getDrawable(R.drawable.fondo_nivel_dificil));
         }
         textPuntosAcumulados.setVisibility(View.VISIBLE);
-        respuestasActuales = QuestionRepository.getRespuestasPregunta(preguntaActual, listaRespuestas);
+        respuestasActuales = QuestionRepository.getRespuestasPregunta(juego.getPreguntaActual(), listaRespuestas);
         ponerTextoEnPantalla();
         quitarPantallaAciertoFallo();
         poner_imagen_ods();

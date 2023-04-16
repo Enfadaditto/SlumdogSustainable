@@ -30,10 +30,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import Builder.CreadorDeJuego;
-import Builder.Juego;
-import Builder.JuegoBuilder;
-import Builder.JuegoRetoPregunta;
+
 import Domain_Layer.Answer;
 import Domain_Layer.Question;
 import Domain_Layer.User;

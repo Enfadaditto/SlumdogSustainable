@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                             music.setLooping(true);
                             music.start();
                             setContentView(R.layout.inicio);
-                            botonInicio = (Button) findViewById(R.id.botonInicio);
+                            botonInicio = findViewById(R.id.botonInicio);
                             botonInicio.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {

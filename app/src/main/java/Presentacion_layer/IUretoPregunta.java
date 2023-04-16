@@ -285,11 +285,11 @@ public class IUretoPregunta extends AppCompatActivity {
         if (respuestasCorrectasContestadas <= 4) {
             preguntaActual = listaPreguntasDifultad1.get(indicePreguntasFacil++);
         } else if (respuestasCorrectasContestadas > 4 && respuestasCorrectasContestadas <= 7) {
-            nivel = 2;
+            juego.setNivel(2);
             preguntaActual = listaPreguntasDifultad2.get(indicePreguntasMedio++);
             contenedor_principal.setBackground(getDrawable(R.drawable.fondo_nivel_medio));
         } else {
-            nivel = 3;
+            juego.setNivel(3);
             preguntaActual = listaPreguntasDifultad3.get(indicePreguntasDificil++);
             contenedor_principal.setBackground(getDrawable(R.drawable.fondo_nivel_dificil));
         }
@@ -308,9 +308,9 @@ public class IUretoPregunta extends AppCompatActivity {
         int indiceProvisional = botonSeleccionado();
 
         if (respuestasActuales.get(indiceProvisional).isCorrect()) {
-            correctAnswer(juego.getPuntos() * nivel, indiceProvisional);
+            correctAnswer(juego.getPuntos() * juego.getNivel(), indiceProvisional);
         } else {
-            wrongAnswer(juego.getPuntos() * nivel * (-2), indiceProvisional);
+            wrongAnswer(juego.getPuntos() * juego.getNivel() * (-2), indiceProvisional);
         }
         textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
         textPuntosAcumulados.setText("Puntos Totales: " + puntosTotales);
@@ -345,7 +345,7 @@ public class IUretoPregunta extends AppCompatActivity {
 
 
         respuestasCorrectasContestadas++;
-        puntosTotales += juego.getPuntos() * nivel;
+        puntosTotales += juego.getPuntos() * juego.getNivel();
         textoPuntosGanados.setText("+" + screenText + " puntos ganados!");
         textoPuntosTotal.setText("Puntos Totales = " + puntosTotales);
         textPuntosAcumulados.setText("Puntos Totales: " + puntosTotales);
@@ -394,7 +394,7 @@ public class IUretoPregunta extends AppCompatActivity {
         }
         startTimer(juego.getTiempoOpcion());
         if (haConsolidado && vida == 0) {
-            puntosConsolidados -= nivel * juego.getPuntos() * 2;
+            puntosConsolidados -= juego.getNivel() * juego.getPuntos() * 2;
             if (puntosConsolidados < 0) {
                 puntosConsolidados = 0;
             }
@@ -402,7 +402,7 @@ public class IUretoPregunta extends AppCompatActivity {
 
         }
 
-        puntosTotales -= juego.getPuntos() * nivel * 2;
+        puntosTotales -= juego.getPuntos() * juego.getNivel() * 2;
         if (puntosTotales < 0) puntosTotales = 0;
         textoPuntosGanados.setText(screenText + " puntos perdidos ");
         if (screenText == 2) {

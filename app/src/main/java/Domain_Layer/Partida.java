@@ -1,6 +1,6 @@
 package Domain_Layer;
 
-public abstract class Partida {
+public class Partida {
     private int nivel;
     private int tiempo;
 

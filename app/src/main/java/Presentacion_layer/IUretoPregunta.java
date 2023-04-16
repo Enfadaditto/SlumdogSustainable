@@ -35,12 +35,6 @@ import Persistence.QuestionRepository;
 import Persistence.UserRepository;
 
 public class IUretoPregunta extends AppCompatActivity {
-
-    private static final String DIFICULTAD_FACIL = "Baja";
-    private static final String DIFICULTAD_MEDIA = "Media";
-    private static final String DIFICULTAD_DIFICIL = "Alta";
-
-    ImageView fondo_transparente;
     RelativeLayout contenedor;
     RelativeLayout pantalla_final;
     ConstraintLayout contenedor_principal;
@@ -66,7 +60,6 @@ public class IUretoPregunta extends AppCompatActivity {
     ProgressBar timeBar;
     ImageView abandonar;
     CountDownTimer mCountDownTimer;
-    List<Question> listaPreguntasDifultad1, listaPreguntasDifultad2, listaPreguntasDifultad3;
     PartidaRetoPregunta juego;
     TextView textoPregunta = null;
     ImageView imagenPantallaFinal;
@@ -75,12 +68,9 @@ public class IUretoPregunta extends AppCompatActivity {
     int vida = 1;
 
     int timeCount = 0;
-    boolean respuestaEscogida;
     int puntosTotales = 0;
-    int nivel = 1;
     int puntosConsolidados;
     boolean haConsolidado = false;
-    int indiceDeListaParaPregunta;
 
     public IUretoPregunta() throws SQLException {
     }
@@ -101,7 +91,6 @@ public class IUretoPregunta extends AppCompatActivity {
         contenedor = findViewById(R.id.contenedor_resp);
         pantalla_final = findViewById(R.id.contenedor_final);
         acierto_fallo = findViewById(R.id.imagen_acierto);
-        //fondo_transparente = findViewById(R.id.fondo_t);
         textoPuntosTotal = findViewById(R.id.puntosTotal);
         botonRespuesta1 = findViewById(R.id.botonRespuesta1);
         botonRespuesta2 = findViewById(R.id.botonRespuesta2);
@@ -116,6 +105,8 @@ public class IUretoPregunta extends AppCompatActivity {
         abandonar = findViewById(R.id.abandonar);
         imagenPantallaFinal = findViewById(R.id.imagenPantallaFinal);
         textoPuntosFinales = findViewById(R.id.textoPuntosFinales);
+
+
         //-------builder--------//
         BuilderPartidaRetoPregunta retoPegunta = new BuilderPartidaRetoPregunta();
         CreadorDePartida creadorDeJuego = new CreadorDePartida();
@@ -135,7 +126,8 @@ public class IUretoPregunta extends AppCompatActivity {
                 try {
                     listaRespuestas = new AnswerRepository(MainActivity.conexion).obtenerTodos();
                     juego.setPreguntaActual(juego.getPreguntasNivel1().get(indicePreguntasFacil++));
-                    respuestasActuales = QuestionRepository.getRespuestasPregunta(juego.getPreguntaActual(), listaRespuestas);
+                    preguntasEnBD = new QuestionRepository();
+                    respuestasActuales = preguntasEnBD.getRespuestasPregunta(juego.getPreguntaActual());
                     runOnUiThread(new Runnable() {
                         public void run() {
                             ponerTextoEnPantalla();
@@ -154,10 +146,9 @@ public class IUretoPregunta extends AppCompatActivity {
     }
 
     private void ponerTextoEnPantalla() {
-        int indice = 0;
+
         tamañoOriginal();
         textoPregunta.setText(juego.getPreguntaActual().getStatement());
-
         botonRespuesta1.setText(respuestasActuales.get(0).getText());
         botonRespuesta2.setText(respuestasActuales.get(1).getText());
         botonRespuesta3.setText(respuestasActuales.get(2).getText());
@@ -278,7 +269,7 @@ public class IUretoPregunta extends AppCompatActivity {
             contenedor_principal.setBackground(getDrawable(R.drawable.fondo_nivel_dificil));
         }
         textPuntosAcumulados.setVisibility(View.VISIBLE);
-        respuestasActuales = QuestionRepository.getRespuestasPregunta(juego.getPreguntaActual(), listaRespuestas);
+        respuestasActuales = preguntasEnBD.getRespuestasPregunta(juego.getPreguntaActual());
         ponerTextoEnPantalla();
         quitarPantallaAciertoFallo();
         poner_imagen_ods();

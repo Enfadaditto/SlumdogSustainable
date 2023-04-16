@@ -13,9 +13,10 @@ import Domain_Layer.Question;
 import Domain_Layer.Answer;
 
 public class QuestionRepository extends Repository<Question> {
-
+    List<Answer> listaRespuestas;
     public QuestionRepository(){
         init(Question.class);
+        listaRespuestas = new AnswerRepository(MainActivity.conexion).obtenerTodos();
     }
 
     public QuestionRepository(ConnectionSource c){
@@ -32,20 +33,7 @@ public class QuestionRepository extends Repository<Question> {
         return resultlist;
     }
 
-    public List<Answer> getAnswers(Question q) throws SQLException {
-        AnswerRepository AnswerRep = new AnswerRepository(MainActivity.conexion);
-        List<Answer> list = AnswerRep.obtenerTodos();
-        System.out.println("Prueba" + list);
-        List<Answer> resultlist = new ArrayList<>();
-        for(Answer a : list) {
-            if(a.getQuestionID() == q.getQuestionID()) {
-                resultlist.add(a);
-            }
-        }
-        return resultlist;
-    }
-
-    public static List<Answer> getRespuestasPregunta(Question q, List<Answer> listaRespuestas) {
+    public List<Answer> getRespuestasPregunta(Question q) {
         List<Answer> resultlist = new ArrayList<>();
         for (Answer a : listaRespuestas) {
             if (a.getQuestionID() == q.getQuestionID()) {

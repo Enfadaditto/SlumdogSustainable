@@ -43,12 +43,6 @@ public class UserRepository extends Repository<User> {
                 return null;
         }
 
-        public void addPointsToTotal(String username, int points) {
-            User thisUser = getUserByUsername(username);
-            thisUser.setPointsAchieved(thisUser.getPointsAchieved() + points);
-            this.actualizar(thisUser);
-        }
-
         public boolean checkUsernameNotTaken(String username) {
                 List<User> users = this.obtenerTodos();
                 List<String> userNicks = new ArrayList<>();

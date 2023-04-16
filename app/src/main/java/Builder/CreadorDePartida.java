@@ -1,12 +1,10 @@
 package Builder;
 
-import Domain_Layer.Partida;
-
 public class CreadorDePartida {
 
-    private PartidaBuilder juegoBuilder;
+    private BuilderPartida juegoBuilder;
 
-    public void setJuegoBuilder(PartidaBuilder jb) {
+    public void setJuegoBuilder(BuilderPartida jb) {
         juegoBuilder = jb;
     }
 

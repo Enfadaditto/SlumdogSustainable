@@ -7,10 +7,9 @@ import java.util.Collections;
 import java.util.Random;
 
 import Domain_Layer.PartidaRetoPregunta;
-import Persistence.AnswerRepository;
 import Persistence.QuestionRepository;
 
-public class BuilderPartidaRetoPregunta extends PartidaBuilder {
+public class BuilderPartidaRetoPregunta extends BuilderPartida {
 
     protected PartidaRetoPregunta juego;
 

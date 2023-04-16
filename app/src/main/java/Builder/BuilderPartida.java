@@ -2,7 +2,7 @@ package Builder;
 
 import Domain_Layer.Partida;
 
-public abstract class PartidaBuilder {
+public abstract class BuilderPartida {
 
     public abstract Partida getJuego();
 

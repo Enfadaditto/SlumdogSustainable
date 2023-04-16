@@ -29,7 +29,7 @@ public class IUuserLogin extends AppCompatActivity {
     private EditText passwordField;
     private CheckBox showPassword;
     private TextView signupErrorText;
-    private User userActual = new User("a", "b","c", null);
+    private final User userActual = new User("a", "b","c", null);
 
     public void registerOnClick(View view) {
         Intent intent = new Intent(IUuserLogin.this, IUuserRegister.class);
@@ -71,7 +71,6 @@ public class IUuserLogin extends AppCompatActivity {
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ;
                     }
                 });
 
@@ -105,7 +104,7 @@ public class IUuserLogin extends AppCompatActivity {
         passwordField.setText("");
 
         logInButton = findViewById(R.id.loginButton);
-        registerButton = findViewById(R.id.RegisterButton);;
+        registerButton = findViewById(R.id.RegisterButton);
 
     }
 }

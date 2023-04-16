@@ -26,7 +26,7 @@ public class JuegoRetoPregunta extends JuegoBuilder {
     }
 
     @Override
-    public void buildTiempoOpcion() {juego.setTiempoOpcion(15000);};
+    public void buildTiempoOpcion() {juego.setTiempoOpcion(15000);}
 
     @Override
     public void buildSonidoAcierto() {

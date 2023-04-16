@@ -6,11 +6,10 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
-
-import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -24,7 +23,6 @@ import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -151,7 +149,7 @@ public class IUretoPregunta extends AppCompatActivity {
                     Collections.shuffle(listaPreguntasDifultad2, new Random());
                     Collections.shuffle(listaPreguntasDifultad3, new Random());
                     preguntaActual = listaPreguntasDifultad1.get(indicePreguntasFacil++);
-                    respuestasActuales = getRespuestasPregunta(preguntaActual);
+                    respuestasActuales = QuestionRepository.getRespuestasPregunta(preguntaActual, listaRespuestas);
                     respuestasActuales = preguntasEnBD.getAnswers(preguntaActual);
 
                     runOnUiThread(new Runnable() {
@@ -185,23 +183,26 @@ public class IUretoPregunta extends AppCompatActivity {
         poner_imagen_ods();
 
     }
-    private void longitudRespuesta(){
+
+    private void longitudRespuesta() {
         Button[] botones = {botonRespuesta1, botonRespuesta2, botonRespuesta3, botonRespuesta4};
-        for(Button b : botones){
-            if(b.length() > 70){
+        for (Button b : botones) {
+            if (b.length() > 70) {
                 b.setTextSize(12);
-                if(b.length() > 90){
+                if (b.length() > 90) {
                     b.setTextSize(9);
                 }
             }
         }
     }
-    private void longitudTexto(){
-        if(textoPregunta.length() > 130){
+
+    private void longitudTexto() {
+        if (textoPregunta.length() > 130) {
             textoPregunta.setTextSize(16);
         }
     }
-    public void tamañoOriginal(){
+
+    public void tamañoOriginal() {
         botonRespuesta1.setTextSize(14);
         botonRespuesta2.setTextSize(14);
         botonRespuesta3.setTextSize(14);
@@ -217,7 +218,7 @@ public class IUretoPregunta extends AppCompatActivity {
     }
 
     private void startTimer(int t) {
-        int tiempo =t;
+        int tiempo = t;
         MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.countdown);
         MainActivity.music.start();
         timeCount = tiempo;
@@ -226,11 +227,11 @@ public class IUretoPregunta extends AppCompatActivity {
         timeBar.setMax(tiempo);
         timeBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
         timeBar.setProgress(tiempo);
-        mCountDownTimer=new CountDownTimer(tiempo,100) {
+        mCountDownTimer = new CountDownTimer(tiempo, 100) {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                timeCount-=100;
+                timeCount -= 100;
                 if (timeCount == tiempo / 3) {
                     timeBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
                 }
@@ -249,11 +250,9 @@ public class IUretoPregunta extends AppCompatActivity {
 
                         MainActivity.music.stop();
 
-                        if(tiempo == juego.getTiempo()) {
+                        if (tiempo == juego.getTiempo()) {
                             wrongAnswer(2, -1);
-                        }
-
-                        else if(tiempo == juego.getTiempoOpcion()) {
+                        } else if (tiempo == juego.getTiempoOpcion()) {
                             puntosTotales = 0;
                             puntosConsolidados = 0;
                             imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.game_over));
@@ -289,15 +288,13 @@ public class IUretoPregunta extends AppCompatActivity {
             nivel = 2;
             preguntaActual = listaPreguntasDifultad2.get(indicePreguntasMedio++);
             contenedor_principal.setBackground(getDrawable(R.drawable.fondo_nivel_medio));
-        }
-
-        else {
+        } else {
             nivel = 3;
             preguntaActual = listaPreguntasDifultad3.get(indicePreguntasDificil++);
             contenedor_principal.setBackground(getDrawable(R.drawable.fondo_nivel_dificil));
         }
         textPuntosAcumulados.setVisibility(View.VISIBLE);
-        respuestasActuales = getRespuestasPregunta(preguntaActual);
+        respuestasActuales = QuestionRepository.getRespuestasPregunta(preguntaActual, listaRespuestas);
         ponerTextoEnPantalla();
         quitarPantallaAciertoFallo();
         poner_imagen_ods();
@@ -327,15 +324,6 @@ public class IUretoPregunta extends AppCompatActivity {
         botonRespuesta4.setClickable(false);
     }
 
-    public List<Answer> getRespuestasPregunta(Question q) {
-        List<Answer> resultlist = new ArrayList<>();
-        for (Answer a : listaRespuestas) {
-            if (a.getQuestionID() == q.getQuestionID()) {
-                resultlist.add(a);
-            }
-        }
-        return resultlist;
-    }
 
     public void quitarPantallaAciertoFallo() {
         contenedor.setVisibility(View.GONE);
@@ -358,7 +346,7 @@ public class IUretoPregunta extends AppCompatActivity {
 
         respuestasCorrectasContestadas++;
         puntosTotales += juego.getPuntos() * nivel;
-        textoPuntosGanados.setText("+"+screenText + " puntos ganados!");
+        textoPuntosGanados.setText("+" + screenText + " puntos ganados!");
         textoPuntosTotal.setText("Puntos Totales = " + puntosTotales);
         textPuntosAcumulados.setText("Puntos Totales: " + puntosTotales);
 
@@ -367,20 +355,20 @@ public class IUretoPregunta extends AppCompatActivity {
         visualizacionBotonConsolidar(true);
         acierto_fallo.setImageDrawable(getDrawable(R.drawable.felicitaciones_2));
 
-        if(haConsolidado){
+        if (haConsolidado) {
             botonSiguientePregunta.setText("CONTINUAR");
-        }else {
+        } else {
             botonSiguientePregunta.setText("CONTINUAR SIN CONSOLIDAR");
         }
 
-        if(respuestasCorrectasContestadas > 10){
+        if (respuestasCorrectasContestadas > 10) {
             imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.felicitaciones_2));
             textoPuntosFinales.setText("Tu puntuacion final es de: " + puntosTotales);
             MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.winner);
             MainActivity.music.start();
             pantalla_final();
             return;
-        } else{
+        } else {
 
             pantallaAciertoFallo();
         }
@@ -405,12 +393,12 @@ public class IUretoPregunta extends AppCompatActivity {
             return;
         }
         startTimer(juego.getTiempoOpcion());
-        if(haConsolidado && vida == 0 ){
-            puntosConsolidados -= nivel* juego.getPuntos()*2;
-            if(puntosConsolidados<0){
+        if (haConsolidado && vida == 0) {
+            puntosConsolidados -= nivel * juego.getPuntos() * 2;
+            if (puntosConsolidados < 0) {
                 puntosConsolidados = 0;
             }
-            textPuntosConsolidados.setText("Puntos consolidados: "+ puntosConsolidados);
+            textPuntosConsolidados.setText("Puntos consolidados: " + puntosConsolidados);
 
         }
 
@@ -453,13 +441,12 @@ public class IUretoPregunta extends AppCompatActivity {
     }
 
     public void clickBotonConsolidar(View v) {
-
         textPuntosConsolidados.setVisibility(View.VISIBLE);
         abandonar.setVisibility(View.VISIBLE);
         haConsolidado = true;
         botonConsolidar.setBackground(getDrawable(R.drawable.boton_verde));
         puntosConsolidados = puntosTotales;
-        textPuntosConsolidados.setText("Puntos consolidados: "+ puntosConsolidados);
+        textPuntosConsolidados.setText("Puntos consolidados: " + puntosConsolidados);
         botonSiguientePregunta.setText("CONTINUAR");
         botonSiguientePregunta.performClick();
     }
@@ -496,18 +483,19 @@ public class IUretoPregunta extends AppCompatActivity {
 
         textoContadorDePreguntas.setText(respuestasCorrectasContestadas + "/10");
     }
+
     public void guardarPuntuacion() {
         MainActivity.music.stop();
-        if(respuestasCorrectasContestadas > 10) {
+        if (respuestasCorrectasContestadas > 10) {
             SavePoints(puntosTotales);
-        }
-        else {
+        } else {
             SavePoints(puntosConsolidados);
         }
         mCountDownTimer.cancel();
 
     }
-    public void pantalla_final(){
+
+    public void pantalla_final() {
         pantalla_final.setVisibility(View.VISIBLE);
         botonRespuesta1.setClickable(false);
         botonRespuesta2.setClickable(false);
@@ -516,6 +504,7 @@ public class IUretoPregunta extends AppCompatActivity {
         timeBar.setVisibility(View.INVISIBLE);
 
     }
+
     public void abandonOnClick(View view) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("¿Estas seguro que quieres abandonar? Obtendras los puntos consolidados")
@@ -540,7 +529,7 @@ public class IUretoPregunta extends AppCompatActivity {
         dialog.show();
     }
 
-    public void clickBotonTerminarPartida(View v){
+    public void clickBotonTerminarPartida(View v) {
         guardarPuntuacion();
         Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
         startActivity(intent);
@@ -548,5 +537,6 @@ public class IUretoPregunta extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {
+    }
 }

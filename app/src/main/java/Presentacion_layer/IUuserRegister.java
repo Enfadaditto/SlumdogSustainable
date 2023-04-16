@@ -40,7 +40,7 @@ public class IUuserRegister extends AppCompatActivity {
     private EditText repeatPasswordField;
     private ImageView iconSelector;
     private Button registerButton;
-    private User userActual = new User("a", "b","c", null);
+    private final User userActual = new User("a", "b","c", null);
 
 
 
@@ -121,7 +121,6 @@ public class IUuserRegister extends AppCompatActivity {
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ;
                     }
                 });
 
@@ -146,7 +145,7 @@ public class IUuserRegister extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int id) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 intent.setType("image/");
-                startActivityForResult(intent.createChooser(intent, "Seleccione su imagen"), 10);
+                startActivityForResult(Intent.createChooser(intent, "Seleccione su imagen"), 10);
             }
         });
         builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {

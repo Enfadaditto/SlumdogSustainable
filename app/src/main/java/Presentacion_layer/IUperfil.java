@@ -62,7 +62,7 @@ public class IUperfil extends AppCompatActivity{
         contraseñaRepe = findViewById(R.id.contraseñaRepe);
         cambiarContraseña = findViewById(R.id.cambiarContraseña);
         imagenPerfil = findViewById(R.id.imagenPerfil);
-        ponerDatosUsuario();;
+        ponerDatosUsuario();
 
 
     }
@@ -87,7 +87,6 @@ public class IUperfil extends AppCompatActivity{
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ;
                     }
                 });
 

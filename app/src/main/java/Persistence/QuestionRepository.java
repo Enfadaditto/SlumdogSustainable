@@ -44,4 +44,14 @@ public class QuestionRepository extends Repository<Question> {
         }
         return resultlist;
     }
+
+    public static List<Answer> getRespuestasPregunta(Question q, List<Answer> listaRespuestas) {
+        List<Answer> resultlist = new ArrayList<>();
+        for (Answer a : listaRespuestas) {
+            if (a.getQuestionID() == q.getQuestionID()) {
+                resultlist.add(a);
+            }
+        }
+        return resultlist;
+    }
 }

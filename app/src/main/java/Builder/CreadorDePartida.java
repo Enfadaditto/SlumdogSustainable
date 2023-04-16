@@ -10,10 +10,6 @@ public class CreadorDePartida {
         juegoBuilder = jb;
     }
 
-    public Partida getJuego() {
-        return juegoBuilder.getJuego();
-    }
-
     public void construirJuego() {
 
         juegoBuilder.buildNivel();

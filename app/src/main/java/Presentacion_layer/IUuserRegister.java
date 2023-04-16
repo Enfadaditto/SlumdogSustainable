@@ -107,9 +107,7 @@ public class IUuserRegister extends AppCompatActivity {
                     Intent intent = new Intent(IUuserRegister.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                }
-                catch(RuntimeException e){System.out.println(e);
-                }
+                } catch (RuntimeException e) {System.out.println(e);}
             }
         }).start();
     }

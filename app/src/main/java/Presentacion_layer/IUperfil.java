@@ -107,7 +107,7 @@ public class IUperfil extends AppCompatActivity{
             });
             return;
         }
-            if (MainActivity.user.passwordIsSafe(contraseña.getText().toString())) {
+        if (MainActivity.user.passwordIsSafe(contraseña.getText().toString())) {
                 /*UserRepository ups = new UserRepository(MainActivity.conexion);
                 User u = new UserRepository(MainActivity.conexion).getUserByUsername("prueba2");
                 u.setPassword(contraseña.getText().toString());
@@ -125,8 +125,7 @@ public class IUperfil extends AppCompatActivity{
         MainActivity.user = null;
         Intent intent = new Intent(IUperfil.this, IUuserLogin.class);
         startActivity(intent);
-
-
+        finish();
     }
 
 }

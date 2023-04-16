@@ -108,17 +108,36 @@ public class IUperfil extends AppCompatActivity{
             return;
         }
             if (MainActivity.user.passwordIsSafe(contraseña.getText().toString())) {
-                /*UserRepository ups = new UserRepository(MainActivity.conexion);
-                User u = new UserRepository(MainActivity.conexion).getUserByUsername("prueba2");
-                u.setPassword(contraseña.getText().toString());
+                /*UserRepository u = new UserRepository(MainActivity.conexion);
+                User userActual = MainActivity.user;
+                userActual.setPassword(contraseña.getText().toString());
 
-                ups.actualizar(u);*/
+                u.actualizar(userActual);*/
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            cambiarContraseña(MainActivity.user, contraseña.getText().toString());
+                        }catch (Exception e){
+
+                        }
+                    }
+                }).start();
+
+
                 Intent intent = new Intent(IUperfil.this, MainActivity.class);
                 startActivity(intent);
 
 
 
         }
+    }
+    public void cambiarContraseña(User usuarioActual, String contraseña){
+        usuarioActual.setPassword(contraseña);
+        UserRepository s = new UserRepository((MainActivity.conexion));
+        s.actualizar(usuarioActual);
+
+
     }
 
     public void cerrarSesion(View view){

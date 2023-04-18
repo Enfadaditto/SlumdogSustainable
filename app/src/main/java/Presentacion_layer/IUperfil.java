@@ -49,7 +49,6 @@ public class IUperfil extends AppCompatActivity{
 
 
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.perfil);
 
@@ -60,16 +59,14 @@ public class IUperfil extends AppCompatActivity{
         cambiarContraseña = findViewById(R.id.cambiarContraseña);
         imagenPerfil = findViewById(R.id.imagenPerfil);
         ponerDatosUsuario();
-
-
     }
+
     public void ponerDatosUsuario(){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 nombreUsuario.setText(MainActivity.user.getNickname());
-                contraseña.setText("");
-                contraseñaRepe.setText("");
+                if (MainActivity.user.getIcon() != null) imagenPerfil.setImageBitmap(MainActivity.user.getIcon());
             }
         }).start();
 
@@ -102,24 +99,17 @@ public class IUperfil extends AppCompatActivity{
         if (!contraseña.getText().toString().matches("^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\\-__+.]){1,}).{8,}$")) {
             runOnUiThread(new Runnable() {
                 public void run() {
-                    PasswordError("Tu contraseña da asco, duchate");
+                    PasswordError("Tu contraseña no es lo suficientemente segura");
                 }
             });
             return;
         }
-        if (MainActivity.user.passwordIsSafe(contraseña.getText().toString())) {
-                /*UserRepository ups = new UserRepository(MainActivity.conexion);
-                User u = new UserRepository(MainActivity.conexion).getUserByUsername("prueba2");
-                u.setPassword(contraseña.getText().toString());
 
-                ups.actualizar(u);*/
-                Intent intent = new Intent(IUperfil.this, MainActivity.class);
-                startActivity(intent);
-
-
-
-        }
+        Intent intent = new Intent(IUperfil.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
+
 
     public void cerrarSesion(View view){
         MainActivity.user = null;

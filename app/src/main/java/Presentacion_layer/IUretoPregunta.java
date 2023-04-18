@@ -352,11 +352,20 @@ public class IUretoPregunta extends AppCompatActivity {
 
     }
 
+    public int getCorrectOption() {
+        for(int i = 0; i <= respuestasActuales.size(); i++) {
+            if(respuestasActuales.get(i).isCorrect()) {return i;}
+        }
+        return -1;
+    }
+
     public void wrongAnswer(int screenText, int index) {
         MainActivity.music.stop();
         MainActivity.music = MediaPlayer.create(getApplicationContext(), juego.getSonidofallo());
         MainActivity.music.start();
         vida--;
+        if(getCorrectOption() != -1) {cambiarColorAVerde(getCorrectOption());}
+        if (index != -1) cambiarColorARojo(index);
         if (vida < 0) {
             puntosTotales = 0;
             puntosConsolidados = 0;
@@ -383,7 +392,6 @@ public class IUretoPregunta extends AppCompatActivity {
         if (screenText == 2) {
             textoPuntosGanados.setText("Se acabo el tiempo");
         }
-        if (index != -1) cambiarColorARojo(index);
         botonSiguientePregunta.setText("CONTINUAR");
         textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
         textPuntosAcumulados.setText("Puntos Totales: " + puntosTotales);

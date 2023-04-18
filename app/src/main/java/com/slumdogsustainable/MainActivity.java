@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                runOnUiThread(new Runnable() {
                     public void run() {
                         if(user == null) {
-                           Intent intent = new Intent(MainActivity.this, IUuserLogin.class);
+                            Intent intent = new Intent(MainActivity.this, IUuserLogin.class);
                             startActivity(intent);
                             finish();
                         }

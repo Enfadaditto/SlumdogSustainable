@@ -71,9 +71,7 @@ public class IUuserRegister extends AppCompatActivity {
                     }
                     if (!passwordField.getText().toString().matches("^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\\-__+.]){1,}).{8,}$")) {
                         runOnUiThread(new Runnable() {
-                            public void run() {
-                                ErrorAlert("Tu contraseña da asco, duchate");
-                            }
+                            public void run() { ErrorAlert("Tu contraseña no es lo suficientemente segura"); }
                         });
                         return;
                     }
@@ -107,9 +105,7 @@ public class IUuserRegister extends AppCompatActivity {
                     Intent intent = new Intent(IUuserRegister.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                }
-                catch(RuntimeException e){System.out.println(e);
-                }
+                } catch (RuntimeException e) {System.out.println(e);}
             }
         }).start();
     }

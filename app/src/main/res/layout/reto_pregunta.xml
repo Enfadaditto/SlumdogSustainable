@@ -193,13 +193,13 @@
         android:id="@+id/contenedor_resp"
         android:layout_width="416dp"
         android:layout_height="852dp"
-        android:background="@drawable/fondo_transparente"
+        android:background="#CC0E0E0E"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <Button
             android:id="@+id/botonConsolidar"
@@ -210,9 +210,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="80dp"
-            android:layout_marginTop="581dp"
+            android:layout_marginTop="606dp"
             android:layout_marginEnd="83dp"
-            android:layout_marginBottom="221dp"
+            android:layout_marginBottom="196dp"
             android:background="@drawable/boton_azul"
             android:minHeight="48dp"
             android:onClick="clickBotonConsolidar"
@@ -244,9 +244,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="62dp"
-            android:layout_marginTop="645dp"
+            android:layout_marginTop="695dp"
             android:layout_marginEnd="67dp"
-            android:layout_marginBottom="148dp"
+            android:layout_marginBottom="103dp"
             android:background="@drawable/boton_verde"
             android:onClick="metodoBotonSiguiente"
             android:text="CONTINUAR SIN CONSOLIDAR" />
@@ -288,7 +288,7 @@
         android:id="@+id/contenedor_final"
         android:layout_width="416dp"
         android:layout_height="852dp"
-        android:background="@drawable/fondo_transparente"
+        android:background="#CC0E0E0E"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

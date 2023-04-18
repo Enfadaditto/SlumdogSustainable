@@ -115,6 +115,7 @@ public class IUperfil extends AppCompatActivity{
 
         Intent intent = new Intent(IUperfil.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void cambiarContraseña(User usuarioActual, String contraseña){

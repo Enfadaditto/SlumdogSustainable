@@ -244,9 +244,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="62dp"
-            android:layout_marginTop="695dp"
+            android:layout_marginTop="690dp"
             android:layout_marginEnd="67dp"
-            android:layout_marginBottom="103dp"
+            android:layout_marginBottom="98dp"
             android:background="@drawable/boton_verde"
             android:onClick="metodoBotonSiguiente"
             android:text="CONTINUAR SIN CONSOLIDAR" />

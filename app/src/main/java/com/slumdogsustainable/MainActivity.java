@@ -21,12 +21,15 @@ import com.slumdogsustainable.databinding.ActivityMainBinding;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import Domain_Layer.PartidaRetoPregunta;
 import Domain_Layer.Question;
 import Domain_Layer.User;
 //import Persistence.Repository;
 import Persistence.QuestionRepository;
 import Persistence.Repository;
 import Persistence.UserRepository;
+import Presentacion_layer.ControllerPartidaPregunta;
 import Presentacion_layer.IUperfil;
 import Presentacion_layer.IUretoPregunta;
 import Presentacion_layer.IUuserLogin;
@@ -79,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     music.stop();
-                                    Intent intent = new Intent(MainActivity.this, IUretoPregunta.class);
+                                    Intent intent = new Intent(MainActivity.this, ControllerPartidaPregunta.class);
                                     startActivity(intent);
                                 }
                             });

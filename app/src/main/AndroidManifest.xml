@@ -32,6 +32,10 @@
         <activity
             android:name="Presentacion_layer.ControllerPartidaPregunta"
             android:exported="true" />
+
+        <activity
+            android:name="Presentacion_layer.IUretoFrase"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

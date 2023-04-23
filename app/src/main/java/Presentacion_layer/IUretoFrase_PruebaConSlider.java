@@ -2,7 +2,6 @@ package Presentacion_layer;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -12,8 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.slumdogsustainable.R;
-
-import org.w3c.dom.Text;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +24,7 @@ public class IUretoFrase_PruebaConSlider extends AppCompatActivity {
     char[] fraseProblema;
     List<Character> listadoCaracteresFrase;
     TextView textoFraseProblema;
-    TextView selectedTextView;
+    DFTextView selectedTextView;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -57,26 +54,45 @@ public class IUretoFrase_PruebaConSlider extends AppCompatActivity {
             boton.setTextSize(48);
             boton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    selectedTextView.setText(((Button) v).getText());
+                    if(comprobarFraseCorrecta((Button) v, selectedTextView)) {
+                        letrasLayout.removeView(v);
+                    }
                 }
             });
             letrasLayout.addView(boton);
         }
     }
 
+    private boolean comprobarFraseCorrecta(Button botonPulsado, DFTextView selectedTextView) {
+        char letraPulsada = botonPulsado.getText().charAt(0);
+        char letraSolucion = selectedTextView.getLetra();
+        if (letraPulsada != letraSolucion) {
+            textoFraseProblema.setText("Fallo");
+            return false;
+        }
+        else {
+            textoFraseProblema.setText("");
+            selectedTextView.setText(letraSolucion+"");
+            return true;
+        }
+    }
+
     private void ponerFrasePorPantalla() {
         //textoFraseProblema.setText(String.valueOf(fraseProblema));
+        int index = 0;
         for (char letra : fraseProblema) {
-            TextView letraTV = new TextView(this);
+            DFTextView letraTV = new DFTextView(this, index);
+            letraTV.setLetra(frase.getFrase().toCharArray()[index]);
             letraTV.setLayoutParams(layoutFraseProblema.getLayoutParams());
             letraTV.setText(letra+"");
             letraTV.setTextSize(70);
             letraTV.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if(((TextView) v).getText() != " ") selectedTextView = letraTV;
+                    if(((DFTextView) v).getText() != " ") selectedTextView = letraTV;
                 }
             });
             layoutFraseProblema.addView(letraTV);
+            index++;
         }
     }
 

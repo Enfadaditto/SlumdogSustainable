@@ -42,7 +42,16 @@ public class Frase extends Partida {
         this.id_frase = id_frase;
     }
 
-    public char[] fraseProblema(@NonNull String frase) {
+    public List<Character> letrasDeLaFrase() {
+        List<Character> listadoCaracteres = new ArrayList<>();
+        char[] fraseCaracteres = this.frase.toCharArray();
+        for(char letra : fraseCaracteres) {
+            if (!listadoCaracteres.contains(letra)) listadoCaracteres.add(letra);
+        }
+
+        return listadoCaracteres;
+    }
+    public char[] fraseProblema() {
         char[] fraseResultado = this.frase.toCharArray();
         int modificadorDificultad = (int) Math.ceil((40 - this.getNivel()*10) * this.frase.replace(" ", "").length()) - 1;
         List<Integer> posicionesMostrarLetra = new ArrayList<>();

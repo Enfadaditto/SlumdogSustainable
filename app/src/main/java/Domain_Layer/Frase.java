@@ -1,8 +1,14 @@
 package Domain_Layer;
 
+import androidx.annotation.NonNull;
+
 import com.j256.ormlite.field.DatabaseField;
 
-public class Frase {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class Frase extends Partida {
     @DatabaseField(id = true)
     private int id_frase;
 
@@ -10,6 +16,8 @@ public class Frase {
     private String frase;
     @DatabaseField
     private int id_ODS;
+
+    private char[] fraseConHuecos;
 
     Frase() {}
 
@@ -34,5 +42,25 @@ public class Frase {
     }
     public void setId_frase(int id_frase) {
         this.id_frase = id_frase;
+    }
+
+    public char[] fraseProblema(@NonNull String frase) {
+        char[] fraseResultado = this.frase.toCharArray();
+        int modificadorDificultad = (int) Math.ceil((40 - this.getNivel()*10) * this.frase.replace(" ", "").length()) - 1;
+
+        List<Integer> posicionesMostrarLetra = new ArrayList<>();
+        int i = 0;
+        while (i < modificadorDificultad) {
+            int posicionMostrar = (int) Math.floor(Math.random()*(fraseResultado.length));
+            if (!posicionesMostrarLetra.contains(posicionMostrar) && fraseResultado[posicionMostrar] != ' ') {
+                posicionesMostrarLetra.add(posicionMostrar); i++;
+            }
+        }
+
+        for (int j = 0; j < fraseResultado.length; j++) {
+            if (!posicionesMostrarLetra.contains(j) && fraseResultado[j] != ' ') fraseResultado[j] = '_';
+        }
+
+        return fraseResultado;
     }
 }

@@ -23,6 +23,9 @@
             android:name="Presentacion_layer.IUuserLogin"
             android:exported="true" />
         <activity
+        android:name="Presentacion_layer.IUretoAhorcado"
+        android:exported="true" />
+        <activity
             android:name="Presentacion_layer.IUuserRegister"
             android:exported="true" />
         <activity

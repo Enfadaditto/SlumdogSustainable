@@ -31,6 +31,7 @@ import Persistence.Repository;
 import Persistence.UserRepository;
 import Presentacion_layer.ControllerPartidaPregunta;
 import Presentacion_layer.IUperfil;
+import Presentacion_layer.IUretoAhorcado;
 import Presentacion_layer.IUretoFrase;
 import Presentacion_layer.IUretoFrase_PruebaConSlider;
 import Presentacion_layer.IUretoPregunta;

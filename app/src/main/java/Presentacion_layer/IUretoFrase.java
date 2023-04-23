@@ -32,7 +32,7 @@ public class IUretoFrase extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_frase);
         b = (Button)findViewById(R.id.J);
-        l = (LinearLayout) findViewById(R.id.nolose);
+        l = (LinearLayout) findViewById(R.id.principal);
 
         fraseProblema = frase.fraseProblema();
         listadoCaracteresFrase = frase.letrasDeLaFrase();

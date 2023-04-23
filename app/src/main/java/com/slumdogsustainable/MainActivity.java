@@ -31,6 +31,7 @@ import Persistence.Repository;
 import Persistence.UserRepository;
 import Presentacion_layer.ControllerPartidaPregunta;
 import Presentacion_layer.IUperfil;
+import Presentacion_layer.IUretoFrase;
 import Presentacion_layer.IUretoPregunta;
 import Presentacion_layer.IUuserLogin;
 
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 if(conexion == null) {
                     UserRepository u = new UserRepository();
-                    //user = u.getUserByUsername("prueba");
+                    user = u.getUserByUsername("prueba");
                     conexion = u.getConnectionSource();
                 }
                runOnUiThread(new Runnable() {

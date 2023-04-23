@@ -17,8 +17,6 @@ public class Frase extends Partida {
     @DatabaseField
     private int id_ODS;
 
-    private char[] fraseConHuecos;
-
     Frase() {}
 
     public Frase(String frase, int id_ODS) {
@@ -47,7 +45,6 @@ public class Frase extends Partida {
     public char[] fraseProblema(@NonNull String frase) {
         char[] fraseResultado = this.frase.toCharArray();
         int modificadorDificultad = (int) Math.ceil((40 - this.getNivel()*10) * this.frase.replace(" ", "").length()) - 1;
-
         List<Integer> posicionesMostrarLetra = new ArrayList<>();
         int i = 0;
         while (i < modificadorDificultad) {

@@ -1,19 +1,18 @@
 package Presentacion_layer;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.slumdogsustainable.R;
+
+import java.util.List;
+
+import Domain_Layer.Frase;
 
 public class IUretoFrase extends AppCompatActivity {
 
@@ -24,15 +23,19 @@ public class IUretoFrase extends AppCompatActivity {
     float x,y;
 
     float dx,dy;
+    Frase frase;
+    char[] fraseProblema;
+    List<Character> listadoCaracteresFrase;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_frase);
         b = (Button)findViewById(R.id.J);
-        l = (LinearLayout) findViewById(R.id.principal);
+        l = (LinearLayout) findViewById(R.id.nolose);
 
-
-
+        fraseProblema = frase.fraseProblema();
+        listadoCaracteresFrase = frase.letrasDeLaFrase();
     }
 
 

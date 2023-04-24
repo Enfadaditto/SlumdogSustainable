@@ -33,7 +33,7 @@
             android:exported="true" />
 
         <activity
-            android:name="Presentacion_layer.ControllerPartidaPregunta"
+            android:name="Presentacion_layer.MediadorDeRetos"
             android:exported="true" />
 
         <activity

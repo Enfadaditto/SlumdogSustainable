@@ -4,20 +4,19 @@ import static java.lang.Thread.sleep;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.slumdogsustainable.MainActivity;
+import com.slumdogsustainable.R;
 
 import Builder.BuilderPartidaRetoPregunta;
 import Builder.CreadorDePartida;
 import Domain_Layer.PartidaRetoPregunta;
-import Persistence.AnswerRepository;
-import Persistence.QuestionRepository;
 
-public class ControllerPartidaPregunta extends AppCompatActivity {
+public class MediadorDeRetos extends AppCompatActivity {
     int vidas = 1;
     int ronda = 1;
 
@@ -30,6 +29,10 @@ public class ControllerPartidaPregunta extends AppCompatActivity {
     int puntosTotales;
 
     int puntosConsolidados;
+    Button botonRetoPregunta;
+    Button botonRetoAhorcado;
+    Button botonRetoFrase;
+    Button botonRetoMixto;
 
     boolean haConsolidado = false;
     public final static int REQUESTCODE = 100;
@@ -38,6 +41,20 @@ public class ControllerPartidaPregunta extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.seleccion_reto);
+
+        botonRetoAhorcado = findViewById(R.id.botonRetoAhorcado);
+        botonRetoPregunta = findViewById(R.id.botonRetoPregunta);
+        botonRetoFrase = findViewById(R.id.botonRetoFrase);
+        botonRetoMixto = findViewById(R.id.botonRetoMixto);
+
+
+
+
+    }
+
+
+    public void clickBotonRetoPregunta(View v){
         retoPregunta = new BuilderPartidaRetoPregunta();
         CreadorDePartida creadorDeJuego = new CreadorDePartida();
         creadorDeJuego.setJuegoBuilder(retoPregunta);
@@ -45,32 +62,29 @@ public class ControllerPartidaPregunta extends AppCompatActivity {
         juego = retoPregunta.getJuego();
         juego.setPreguntaActual(juego.getPreguntasNivel1().get(indicePreguntasFacil++));
         siguienteReto();
-
-
     }
-
 
     public void siguienteReto() {
         if(vidas < 0 || ronda > 10) {finish();}
         else if(ronda <= 4){
             juego.setPreguntaActual(juego.getPreguntasNivel1().get(indicePreguntasFacil++));
-            pasarDatos();
+            pasarDatosRetoPregunta();
         }
 
         else if(ronda > 4 && ronda <= 7) {
             juego.setNivel(2);
             juego.setPreguntaActual(juego.getPreguntasNivel2().get(indicePreguntasMedio++));
-            pasarDatos();
+            pasarDatosRetoPregunta();
         }
 
         else {
             juego.setNivel(3);
             juego.setPreguntaActual(juego.getPreguntasNivel3().get(indicePreguntasDificil++));
-            pasarDatos();
+            pasarDatosRetoPregunta();
         }
     }
 
-    public void pasarDatos() {
+    public void pasarDatosRetoPregunta() {
         Intent I = new Intent(getApplicationContext(), IUretoPregunta.class);
         Bundle b = new Bundle();
         b.putInt("idPregunta", juego.getPreguntaActual().getQuestionID());

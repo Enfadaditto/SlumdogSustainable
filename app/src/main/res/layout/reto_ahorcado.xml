@@ -28,7 +28,7 @@
         app:layout_constraintVertical_bias="1.0">
 
         <Button
-            android:id="@+id/M"
+            android:id="@+id/botonM"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -40,10 +40,11 @@
             android:layout_marginEnd="111dp"
             android:layout_marginBottom="145dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="M" />
 
         <Button
-            android:id="@+id/N"
+            android:id="@+id/botonN"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -55,10 +56,11 @@
             android:layout_marginEnd="146dp"
             android:layout_marginBottom="145dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="N" />
 
         <Button
-            android:id="@+id/B"
+            android:id="@+id/botonB"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -70,11 +72,12 @@
             android:layout_marginEnd="181dp"
             android:layout_marginBottom="145dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:ignore="TouchTargetSizeCheck"
             tools:text="B" />
 
         <Button
-            android:id="@+id/V"
+            android:id="@+id/botonV"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -86,10 +89,11 @@
             android:layout_marginEnd="217dp"
             android:layout_marginBottom="145dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="V" />
 
         <Button
-            android:id="@+id/C"
+            android:id="@+id/botonC"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -101,10 +105,11 @@
             android:layout_marginEnd="252dp"
             android:layout_marginBottom="145dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="C" />
 
         <Button
-            android:id="@+id/Z"
+            android:id="@+id/botonZ"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -116,11 +121,12 @@
             android:layout_marginEnd="321dp"
             android:layout_marginBottom="145dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck"
             tools:text="Z" />
 
         <Button
-            android:id="@+id/X"
+            android:id="@+id/botonX"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -132,10 +138,11 @@
             android:layout_marginEnd="286dp"
             android:layout_marginBottom="145dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="X" />
 
         <Button
-            android:id="@+id/Ñ"
+            android:id="@+id/botonÑ"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -147,10 +154,11 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="187dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="Ñ" />
 
         <Button
-            android:id="@+id/L"
+            android:id="@+id/botonL"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -162,10 +170,11 @@
             android:layout_marginEnd="58dp"
             android:layout_marginBottom="187dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="L" />
 
         <Button
-            android:id="@+id/K"
+            android:id="@+id/botonK"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -177,11 +186,12 @@
             android:layout_marginEnd="93dp"
             android:layout_marginBottom="187dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:ignore="TouchTargetSizeCheck"
             tools:text="K" />
 
         <Button
-            android:id="@+id/J"
+            android:id="@+id/botonJ"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -193,10 +203,11 @@
             android:layout_marginEnd="129dp"
             android:layout_marginBottom="187dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="J" />
 
         <Button
-            android:id="@+id/H"
+            android:id="@+id/botonH"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -208,10 +219,11 @@
             android:layout_marginEnd="164dp"
             android:layout_marginBottom="187dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="H" />
 
         <Button
-            android:id="@+id/G"
+            android:id="@+id/botonG"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -223,10 +235,11 @@
             android:layout_marginEnd="199dp"
             android:layout_marginBottom="187dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="G" />
 
         <Button
-            android:id="@+id/F"
+            android:id="@+id/botonF"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -238,10 +251,11 @@
             android:layout_marginEnd="234dp"
             android:layout_marginBottom="187dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="F" />
 
         <Button
-            android:id="@+id/D"
+            android:id="@+id/botonD"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -253,10 +267,11 @@
             android:layout_marginEnd="269dp"
             android:layout_marginBottom="187dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="D" />
 
         <Button
-            android:id="@+id/A"
+            android:id="@+id/botonA"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -268,10 +283,11 @@
             android:layout_marginEnd="338dp"
             android:layout_marginBottom="187dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="A" />
 
         <Button
-            android:id="@+id/S"
+            android:id="@+id/botonS"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -283,10 +299,11 @@
             android:layout_marginEnd="304dp"
             android:layout_marginBottom="187dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="S" />
 
         <Button
-            android:id="@+id/P"
+            android:id="@+id/botonP"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -298,10 +315,11 @@
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="228dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="P" />
 
         <Button
-            android:id="@+id/O"
+            android:id="@+id/botonO"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -313,10 +331,11 @@
             android:layout_marginEnd="65dp"
             android:layout_marginBottom="228dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="O" />
 
         <Button
-            android:id="@+id/I"
+            android:id="@+id/botonI"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -328,11 +347,12 @@
             android:layout_marginEnd="100dp"
             android:layout_marginBottom="228dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:ignore="TouchTargetSizeCheck"
             tools:text="I" />
 
         <Button
-            android:id="@+id/U"
+            android:id="@+id/botonU"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -344,10 +364,11 @@
             android:layout_marginEnd="135dp"
             android:layout_marginBottom="228dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="U" />
 
         <Button
-            android:id="@+id/Q"
+            android:id="@+id/botonQ"
             android:layout_width="35dp"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -358,11 +379,12 @@
             android:layout_marginTop="86dp"
             android:layout_marginEnd="345dp"
             android:layout_marginBottom="228dp"
+            android:onClick="botonSelecionado"
             android:text="Q"
             tools:ignore="TouchTargetSizeCheck" />
 
         <Button
-            android:id="@+id/W"
+            android:id="@+id/botonW"
             android:layout_width="35dp"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -373,11 +395,12 @@
             android:layout_marginTop="86dp"
             android:layout_marginEnd="310dp"
             android:layout_marginBottom="228dp"
+            android:onClick="botonSelecionado"
             android:text="W"
             tools:ignore="TouchTargetSizeCheck" />
 
         <Button
-            android:id="@+id/E"
+            android:id="@+id/botonE"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -389,11 +412,12 @@
             android:layout_marginEnd="275dp"
             android:layout_marginBottom="228dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             android:text="E"
             tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
         <Button
-            android:id="@+id/R"
+            android:id="@+id/botonR"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -405,10 +429,11 @@
             android:layout_marginEnd="240dp"
             android:layout_marginBottom="228dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="R" />
 
         <Button
-            android:id="@+id/Y"
+            android:id="@+id/botonY"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -420,10 +445,11 @@
             android:layout_marginEnd="170dp"
             android:layout_marginBottom="228dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:text="Y" />
 
         <Button
-            android:id="@+id/T"
+            android:id="@+id/botonT"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -435,6 +461,7 @@
             android:layout_marginEnd="205dp"
             android:layout_marginBottom="228dp"
             android:minHeight="40dp"
+            android:onClick="botonSelecionado"
             tools:ignore="TouchTargetSizeCheck"
             tools:text="T" />
 

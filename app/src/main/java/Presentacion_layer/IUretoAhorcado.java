@@ -1,8 +1,10 @@
 package Presentacion_layer;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -46,18 +48,20 @@ public class IUretoAhorcado extends AppCompatActivity {
     Button botonSeleccionado24;
     Button botonSeleccionado25;
     Button botonSeleccionado26;
+    ImageView imagenAhorcado;
 
 
 
 
     int imax =0;
-    char[] letrasEncontradas = new char[2];
+    int errores = 0;
+    char[] letrasEncontradas = new char[20];
     char[] fraseACompletar;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_ahorcado);
 
-
+        imagenAhorcado = findViewById(R.id.imagenAhorcado);
         botonSeleccionado1 = (Button)findViewById(R.id.botonA);
         botonSeleccionado2= (Button)findViewById(R.id.botonB);
         botonSeleccionado3 = (Button)findViewById(R.id.botonC);
@@ -118,14 +122,21 @@ public class IUretoAhorcado extends AppCompatActivity {
     public void validarLetra(String letraSeleccionada, Button botonSelccionado){
         if (fraseAhorcado.contains(letraSeleccionada)){
             //letra correcta
-            botonSelccionado.setBackground(getDrawable(R.drawable.boton_verde));
+            botonSelccionado.setBackground(getDrawable(R.drawable.boton_teclado_verde));
             letrasEncontradas[imax++]= StringToChar(letraSeleccionada);
             sustituirLetra(letraSeleccionada);
         }else {
             //letra incorrecta
-            botonSelccionado.setBackground(getDrawable(R.drawable.boton_rojo));
+            botonSelccionado.setBackground(getDrawable(R.drawable.boton_teclado_rojo));
+            errores++;
+            ponerImagenAhorcado();
         }
         botonSelccionado.setEnabled(false);
+    }
+    public void ponerImagenAhorcado(){
+        int Ahorcado = getResources().getIdentifier("ahorcado_" + errores, "drawable", getPackageName());
+        Drawable imagen = getResources().getDrawable(Ahorcado);
+        imagenAhorcado.setImageDrawable(imagen);
     }
 
     public void sustituirLetra(String letraSeleccionada){

@@ -13,9 +13,9 @@ public class ODS_has_User {
     private int fails;
 
     private double rightGuessesPercent;
-    @DatabaseField(id = true)
+    @DatabaseField
     private String username;
-    @DatabaseField(id = true)
+    @DatabaseField
     private int id_ODS;
 
     ODS_has_User() {}
@@ -24,6 +24,13 @@ public class ODS_has_User {
         this.id_ODS = ods;
         this.hits = 0;
         this.fails = 0;
+    }
+
+    public ODS_has_User(String user, int ods, int hits, int fails) {
+        this.username = user;
+        this.id_ODS = ods;
+        this.hits = hits;
+        this.fails = fails;
     }
 
     public String getODSTheme() {
@@ -66,7 +73,17 @@ public class ODS_has_User {
         this.id_ODS = ods;
     }
 
-    public double getRigthGuesssesPercent() {
-        return this.hits / (this.hits + this.fails) * 100;
+    public double getRightGuesssesPercent() {
+        return (100 * this.hits / (this.hits + this.fails));
+    }
+
+    public static class tuplaStats {
+        public double percentage;
+        public int idOds;
+
+        public tuplaStats(double p, int i) {
+            percentage = p;
+            idOds = i;
+        }
     }
 }

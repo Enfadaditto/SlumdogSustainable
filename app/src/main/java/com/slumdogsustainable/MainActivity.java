@@ -16,8 +16,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import com.j256.ormlite.support.ConnectionSource;
 
 
+import Domain_Layer.ODS_has_User;
 import Domain_Layer.User;
 //import Persistence.Repository;
+import Persistence.ODS_URepository;
 import Persistence.UserRepository;
 import Presentacion_layer.IUEstadisticas;
 import Presentacion_layer.IUperfil;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     UserRepository u = new UserRepository();
                     user = u.getUserByUsername("prueba");
                     conexion = u.getConnectionSource();
+                    //cargarODS();
                 }
                runOnUiThread(new Runnable() {
                     public void run() {
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                             finish();
                         }
                         else {
+
                             music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
                             music.setLooping(true);
                             music.start();

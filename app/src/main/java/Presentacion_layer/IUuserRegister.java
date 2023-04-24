@@ -26,8 +26,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import Domain_Layer.ODS_has_User;
 import Domain_Layer.User;
 import Persistence.AnswerRepository;
+import Persistence.ODS_URepository;
 import Persistence.QuestionRepository;
 import Persistence.UserRepository;
 
@@ -100,7 +102,7 @@ public class IUuserRegister extends AppCompatActivity {
                                     ((BitmapDrawable) iconSelector.getDrawable()).getBitmap()
                             )
                     );
-
+                    cargarODSUser(nicknameField.getText().toString());
                     MainActivity.user = new UserRepository(MainActivity.conexion).getUserByUsername(nicknameField.getText().toString());
                     Intent intent = new Intent(IUuserRegister.this, MainActivity.class);
                     startActivity(intent);
@@ -165,6 +167,13 @@ public class IUuserRegister extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             iconSelector.setImageBitmap(imageBitmap);
+        }
+    }
+
+    public void cargarODSUser(String nickname) {
+        ODS_URepository ODS = new ODS_URepository(MainActivity.conexion);
+        for(int i = 0; i < 18; i++) {
+            ODS.guardar(new ODS_has_User(nickname, i, 80, 20));
         }
     }
 

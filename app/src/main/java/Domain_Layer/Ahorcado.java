@@ -15,12 +15,24 @@ public class Ahorcado {
     @DatabaseField
     private int id_ODS;
 
+    @DatabaseField
+    private String Dificultad;
+
     Ahorcado() {}
 
-    public Ahorcado(String enunciado, String palabra, int id_ODS) {
+    public Ahorcado(String enunciado, String palabra, int id_ODS, String Dificultad) {
         this.palabra = palabra;
         this.enunciado = enunciado;
         this.id_ODS = id_ODS;
+        this.Dificultad = Dificultad;
+    }
+
+    public String getDificultad() {
+        return Dificultad;
+    }
+
+    public void setDificultad(String dificultad) {
+        Dificultad = dificultad;
     }
 
     public int getId_ODS() {

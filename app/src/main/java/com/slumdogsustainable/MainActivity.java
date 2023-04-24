@@ -14,11 +14,12 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.j256.ormlite.support.ConnectionSource;
-import com.slumdogsustainable.databinding.ActivityMainBinding;
+
 
 import Domain_Layer.User;
 //import Persistence.Repository;
 import Persistence.UserRepository;
+import Presentacion_layer.IUEstadisticas;
 import Presentacion_layer.IUperfil;
 import Presentacion_layer.IUretoAhorcado;
 import Presentacion_layer.IUuserLogin;
@@ -27,7 +28,7 @@ import Presentacion_layer.MediadorDeRetos;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
+
     public static ConnectionSource conexion; //Conexion a DB
     public static MediaPlayer music; //MediaPlayer sonidos
     public static User user;
@@ -92,6 +93,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, IUperfil.class);
         startActivity(intent);
         finish();
+    }
+
+    public void clickEstadisticas(View view){
+        Intent intent = new Intent(MainActivity.this, IUEstadisticas.class);
+        startActivity(intent);
     }
 
 }

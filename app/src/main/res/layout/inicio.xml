@@ -43,4 +43,17 @@
         app:layout_constraintVertical_bias="0.975"
         app:srcCompat="@drawable/user" />
 
+    <ImageView
+        android:id="@+id/botonEstadisticas"
+        android:layout_width="54dp"
+        android:layout_height="51dp"
+        android:onClick="clickEstadisticas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.021"
+        app:srcCompat="@drawable/statistics" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

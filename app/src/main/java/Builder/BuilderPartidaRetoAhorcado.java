@@ -1,11 +1,21 @@
 package Builder;
 
+import com.slumdogsustainable.MainActivity;
+import com.slumdogsustainable.R;
+
+import java.util.Collections;
+import java.util.Random;
+
+import Domain_Layer.Ahorcado;
 import Domain_Layer.Partida;
 import Domain_Layer.PartidaRetoAhorcado;
 import Domain_Layer.PartidaRetoPregunta;
+import Persistence.AhorcadoRepository;
+import Persistence.QuestionRepository;
 
 public class BuilderPartidaRetoAhorcado extends BuilderPartida{
 
+    public Thread hilo;
     protected PartidaRetoAhorcado juego;
 
     public PartidaRetoAhorcado getJuego() {
@@ -16,40 +26,94 @@ public class BuilderPartidaRetoAhorcado extends BuilderPartida{
         juego = new PartidaRetoAhorcado();
     }
 
-    public void buildNivel(){
+    public void buildRetosNivel1() {
+        hilo = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
+                    juego.setPalabrasNivel1(preguntasEnBD.getAhorcadoListByDifficulty("Baja"));
+                    Collections.shuffle(juego.getPalabraNivel1(), new Random());
+                } catch (Exception e) {
+
+                    System.out.println(e);
+                }
+            }
+        });
+        hilo.start();
+        try {
+            hilo.join();
+        } catch(Exception e) {}
+    }
+
+    public void buildRetosNivel2() {
+        hilo = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
+                    juego.setPalabrasNivel2(preguntasEnBD.getAhorcadoListByDifficulty("Media"));
+                    Collections.shuffle(juego.getPalabraNivel2(), new Random());
+                } catch (Exception e) {
+
+                    System.out.println(e);
+                }
+            }
+        });
+        hilo.start();
+        try {
+            hilo.join();
+        } catch(Exception e) {}
+    }
+
+    public void buildRetosNivel3() {
+        hilo = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
+                    juego.setPalabrasNivel3(preguntasEnBD.getAhorcadoListByDifficulty("Alta"));
+                    Collections.shuffle(juego.getPalabraNivel3(), new Random());
+                } catch (Exception e) {
+
+                    System.out.println(e);
+                }
+            }
+        });
+        hilo.start();
+        try {
+            hilo.join();
+        } catch(Exception e) {}
+    }
+
+    @Override
+    public void buildNivel() {
+        juego.setNivel(1);
+    }
+
+    @Override
+    public void buildTiempo() {
+        juego.setTiempo(120000); //10000ms = 10seg
 
     }
 
-    public void buildRetosNivel1(){
-
+    @Override
+    public void buildTiempoOpcion() {
+        juego.setTiempoOpcion(15000);
     }
 
-    public void buildRetosNivel2(){
-
+    @Override
+    public void buildSonidoAcierto() {
+        juego.setSonidoacierto(R.raw.correctanswer);
     }
 
-    public void buildRetosNivel3(){
-
-    }
-    public void buildTiempo(){
-
+    @Override
+    public void buildSonidoFallo() {
+        juego.setSonidofallo(R.raw.wronganswer);
     }
 
-    public void buildTiempoOpcion(){
-
+    @Override
+    public void buildPuntos() {
+        juego.setPuntos(5000 * juego.getNivel());
     }
 
-    public void buildSonidoAcierto(){
-
-    }
-
-    public void buildSonidoFallo(){
-
-    }
-
-    public void buildPuntos(){
-
-    }
 
 
 }

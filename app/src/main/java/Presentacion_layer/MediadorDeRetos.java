@@ -6,27 +6,34 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
+import Builder.BuilderPartidaRetoAhorcado;
 import Builder.BuilderPartidaRetoPregunta;
 import Builder.CreadorDePartida;
+import Domain_Layer.Partida;
+import Domain_Layer.PartidaRetoAhorcado;
 import Domain_Layer.PartidaRetoPregunta;
 
 public class MediadorDeRetos extends AppCompatActivity {
     int vidas = 1;
     int ronda = 1;
 
+    TextView textoPrueba1;
+    TextView textoPrueba2;
     int indicePreguntasFacil = 0;
 
     int indicePreguntasDificil = 0;
 
     int indicePreguntasMedio = 0;
-    PartidaRetoPregunta juego;
+    PartidaRetoPregunta juegoRetoPregunta;
+    PartidaRetoAhorcado juegoRetoAhorcado;
+
     int puntosTotales;
 
     int puntosConsolidados;
@@ -34,10 +41,14 @@ public class MediadorDeRetos extends AppCompatActivity {
     Button botonRetoAhorcado;
     Button botonRetoFrase;
     Button botonRetoMixto;
+    boolean retoPreguntaEscogido = false;
+    boolean retoAhorcadoEscogido = false;
+    boolean retoMixtoEscogido;
 
     boolean haConsolidado = false;
     public final static int REQUESTCODE = 100;
     BuilderPartidaRetoPregunta retoPregunta;
+    BuilderPartidaRetoAhorcado retoAhorcado;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -51,57 +62,88 @@ public class MediadorDeRetos extends AppCompatActivity {
 
 
 
-
     }
 
     public void clickBotonRetoAhorcado(View v){
-        Intent intent = new Intent(MediadorDeRetos.this, IUretoAhorcado.class);//ControllerPartidaPregunta.class);
-        startActivity(intent);
+        retoAhorcado = new BuilderPartidaRetoAhorcado();
+        CreadorDePartida creadorDeJuego = new CreadorDePartida();
+        creadorDeJuego.setJuegoBuilder(retoAhorcado);
+        creadorDeJuego.construirJuego();
+        juegoRetoAhorcado= retoAhorcado.getJuego();
+        juegoRetoAhorcado.setPalabra(juegoRetoAhorcado.getPalabraNivel1().get(indicePreguntasFacil++));
+        siguienteReto();
     }
     public void clickBotonRetoPregunta(View v){
+        retoPreguntaEscogido = true;
         retoPregunta = new BuilderPartidaRetoPregunta();
         CreadorDePartida creadorDeJuego = new CreadorDePartida();
         creadorDeJuego.setJuegoBuilder(retoPregunta);
         creadorDeJuego.construirJuego();
-        juego = retoPregunta.getJuego();
-        juego.setPreguntaActual(juego.getPreguntasNivel1().get(indicePreguntasFacil++));
+        juegoRetoPregunta = retoPregunta.getJuego();
+        juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel1().get(indicePreguntasFacil++));
         siguienteReto();
     }
 
     public void siguienteReto() {
         if(vidas < 0 || ronda > 10) {finish();}
         else if(ronda <= 4){
-            juego.setPreguntaActual(juego.getPreguntasNivel1().get(indicePreguntasFacil++));
-            pasarDatosRetoPregunta();
+            juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel1().get(indicePreguntasFacil++));
         }
 
         else if(ronda > 4 && ronda <= 7) {
-            juego.setNivel(2);
-            juego.setPreguntaActual(juego.getPreguntasNivel2().get(indicePreguntasMedio++));
-            pasarDatosRetoPregunta();
+            juegoRetoPregunta.setNivel(2);
+            juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel2().get(indicePreguntasMedio++));
         }
 
         else {
-            juego.setNivel(3);
-            juego.setPreguntaActual(juego.getPreguntasNivel3().get(indicePreguntasDificil++));
-            pasarDatosRetoPregunta();
+            juegoRetoPregunta.setNivel(3);
+            juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel3().get(indicePreguntasDificil++));
         }
+
+        if(retoAhorcadoEscogido){
+            pasarDatosRetoAhorcado();
+        } else if (retoPreguntaEscogido) {
+            pasarDatosRetoPregunta();
+        }else{
+            //reto Mixto
+        }
+
+
+
     }
 
-    public void pasarDatosRetoPregunta() {
-        Intent I = new Intent(getApplicationContext(), IUretoPregunta.class);
+    public void pasarDatosRetoAhorcado(){
+        Intent I = new Intent(getApplicationContext(), IUretoAhorcado.class);
         Bundle b = new Bundle();
-        b.putInt("idPregunta", juego.getPreguntaActual().getQuestionID());
+        b.putString("palabra", juegoRetoAhorcado.getPalabra());
         b.putInt("PuntosTotales", puntosTotales);
         b.putInt("PuntosConsolidados", puntosConsolidados);
         b.putInt("Vidas", vidas);
         b.putInt("Ronda", ronda);
         b.putBoolean("haConsolidado", haConsolidado);
-        b.putInt("TiempoOpcion", juego.getTiempoOpcion());
-        b.putInt("Tiempo", juego.getTiempo());
-        b.putInt("Nivel", juego.getNivel());
-        b.putInt("SonidoFallo", juego.getSonidofallo());
-        b.putInt("SonidoAcierto", juego.getSonidoacierto());
+        b.putInt("TiempoOpcion", juegoRetoAhorcado.getTiempoOpcion());
+        b.putInt("Tiempo", juegoRetoAhorcado.getTiempo());
+        b.putInt("Nivel", juegoRetoAhorcado.getNivel());
+        b.putInt("SonidoFallo", juegoRetoAhorcado.getSonidofallo());
+        b.putInt("SonidoAcierto", juegoRetoAhorcado.getSonidoacierto());
+        I.putExtras(b);
+        startActivityForResult(I, REQUESTCODE);
+    }
+
+    public void pasarDatosRetoPregunta() {
+        Intent I = new Intent(getApplicationContext(), IUretoPregunta.class);
+        Bundle b = new Bundle();
+        b.putInt("idPregunta", juegoRetoPregunta.getPreguntaActual().getQuestionID());
+        b.putInt("PuntosTotales", puntosTotales);
+        b.putInt("PuntosConsolidados", puntosConsolidados);
+        b.putInt("Vidas", vidas);
+        b.putInt("Ronda", ronda);
+        b.putBoolean("haConsolidado", haConsolidado);
+        b.putInt("TiempoOpcion", juegoRetoPregunta.getTiempoOpcion());
+        b.putInt("Tiempo", juegoRetoPregunta.getTiempo());
+        b.putInt("Nivel", juegoRetoPregunta.getNivel());
+        b.putInt("SonidoFallo", juegoRetoPregunta.getSonidofallo());
+        b.putInt("SonidoAcierto", juegoRetoPregunta.getSonidoacierto());
         I.putExtras(b);
         startActivityForResult(I, REQUESTCODE);
     }
@@ -110,16 +152,16 @@ public class MediadorDeRetos extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUESTCODE) {
             if(resultCode == RESULT_OK) {
-                puntosTotales += juego.getPuntos() * juego.getNivel();
+                puntosTotales += juegoRetoPregunta.getPuntos() * juegoRetoPregunta.getNivel();
                 ronda++;
             }
             else if(resultCode == RESULT_CANCELED) {
-                puntosTotales += juego.getPuntos() * juego.getNivel() * (-2);
+                puntosTotales += juegoRetoPregunta.getPuntos() * juegoRetoPregunta.getNivel() * (-2);
                 if(puntosTotales < 0) {puntosTotales = 0;}
                 vidas--;
             }
             else if(resultCode == RESULT_FIRST_USER) {
-                puntosTotales += juego.getPuntos() * juego.getNivel();
+                puntosTotales += juegoRetoPregunta.getPuntos() * juegoRetoPregunta.getNivel();
                 puntosConsolidados = puntosTotales;
                 haConsolidado = true;
                 ronda++;

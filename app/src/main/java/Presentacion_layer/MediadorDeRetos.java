@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 import Builder.BuilderPartidaRetoPregunta;
@@ -53,7 +54,10 @@ public class MediadorDeRetos extends AppCompatActivity {
 
     }
 
-
+    public void clickBotonRetoAhorcado(View v){
+        Intent intent = new Intent(MediadorDeRetos.this, IUretoAhorcado.class);//ControllerPartidaPregunta.class);
+        startActivity(intent);
+    }
     public void clickBotonRetoPregunta(View v){
         retoPregunta = new BuilderPartidaRetoPregunta();
         CreadorDePartida creadorDeJuego = new CreadorDePartida();

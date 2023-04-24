@@ -17,70 +17,139 @@ public class IUretoAhorcado extends AppCompatActivity {
 
     Ahorcado ahorcado;
     String fraseAhorcado;
-    String fraseProvisional = "";
+    String fraseEnBarrasBajas = "";
     TextView texto_fraseADescubir;
     Button botonSeleccionado;
-    LinearLayout l;
+    Button botonSeleccionado1;
+    Button botonSeleccionado2;
+    Button botonSeleccionado3;
+    Button botonSeleccionado4;
+    Button botonSeleccionado5;
+    Button botonSeleccionado6;
+    Button botonSeleccionado7;
+    Button botonSeleccionado8;
+    Button botonSeleccionado9;
+    Button botonSeleccionado10;
+    Button botonSeleccionado11;
+    Button botonSeleccionado12;
+    Button botonSeleccionado13;
+    Button botonSeleccionado19;
+    Button botonSeleccionado14;
+    Button botonSeleccionado15;
+    Button botonSeleccionado16;
+    Button botonSeleccionado17;
+    Button botonSeleccionado18;
+    Button botonSeleccionado20;
+    Button botonSeleccionado21;
+    Button botonSeleccionado22;
+    Button botonSeleccionado23;
+    Button botonSeleccionado24;
+    Button botonSeleccionado25;
+    Button botonSeleccionado26;
 
 
+
+
+    int imax =0;
+    char[] letrasEncontradas = new char[2];
+    char[] fraseACompletar;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_ahorcado);
-/*
-
-        botonSeleccionado = (Button)findViewById(R.id.A);
-        botonSeleccionado = (Button)findViewById(R.id.B);
-        botonSeleccionado = (Button)findViewById(R.id.C);
-        botonSeleccionado = (Button)findViewById(R.id.D);
-        botonSeleccionado = (Button)findViewById(R.id.E);
-        botonSeleccionado = (Button)findViewById(R.id.F);
-        botonSeleccionado = (Button)findViewById(R.id.G);
-        botonSeleccionado = (Button)findViewById(R.id.H);
-        botonSeleccionado = (Button)findViewById(R.id.I);
-        botonSeleccionado = (Button)findViewById(R.id.J);
-        botonSeleccionado = (Button)findViewById(R.id.K);
-        botonSeleccionado = (Button)findViewById(R.id.L);
-        botonSeleccionado = (Button)findViewById(R.id.M);
-        botonSeleccionado = (Button)findViewById(R.id.N);
-        botonSeleccionado = (Button)findViewById(R.id.O);
-        botonSeleccionado = (Button)findViewById(R.id.P);
-        botonSeleccionado = (Button)findViewById(R.id.Q);
-        botonSeleccionado = (Button)findViewById(R.id.R);
-        botonSeleccionado = (Button)findViewById(R.id.S);
-        botonSeleccionado = (Button)findViewById(R.id.T);
-        botonSeleccionado = (Button)findViewById(R.id.U);
-        botonSeleccionado = (Button)findViewById(R.id.V);
-        botonSeleccionado = (Button)findViewById(R.id.W);
-        botonSeleccionado = (Button)findViewById(R.id.X);
-        botonSeleccionado = (Button)findViewById(R.id.Y);
-        botonSeleccionado = (Button)findViewById(R.id.Z);
 
 
-        l = (LinearLayout) findViewById(R.id.keyboard);
+        botonSeleccionado1 = (Button)findViewById(R.id.botonA);
+        botonSeleccionado2= (Button)findViewById(R.id.botonB);
+        botonSeleccionado3 = (Button)findViewById(R.id.botonC);
+        botonSeleccionado4= (Button)findViewById(R.id.botonD);
+        botonSeleccionado5 = (Button)findViewById(R.id.botonE);
+        botonSeleccionado6= (Button)findViewById(R.id.botonF);
+        botonSeleccionado7 = (Button)findViewById(R.id.botonG);
+        botonSeleccionado8 = (Button)findViewById(R.id.botonH);
+        botonSeleccionado9 = (Button)findViewById(R.id.botonI);
+        botonSeleccionado10 = (Button)findViewById(R.id.botonJ);
+        botonSeleccionado11 = (Button)findViewById(R.id.botonK);
+        botonSeleccionado12 = (Button)findViewById(R.id.botonL);
+        botonSeleccionado13 = (Button)findViewById(R.id.botonM);
+        botonSeleccionado14 = (Button)findViewById(R.id.botonN);
+        botonSeleccionado15 = (Button)findViewById(R.id.botonO);
+        botonSeleccionado16 = (Button)findViewById(R.id.botonP);
+        botonSeleccionado17 = (Button)findViewById(R.id.botonQ);
+        botonSeleccionado18 = (Button)findViewById(R.id.botonR);
+        botonSeleccionado19 = (Button)findViewById(R.id.botonS);
+        botonSeleccionado20 = (Button)findViewById(R.id.botonT);
+        botonSeleccionado21 = (Button)findViewById(R.id.botonU);
+        botonSeleccionado22 = (Button)findViewById(R.id.botonV);
+        botonSeleccionado23 = (Button)findViewById(R.id.botonW);
+        botonSeleccionado24 = (Button)findViewById(R.id.botonX);
+        botonSeleccionado25 = (Button)findViewById(R.id.botonY);
+        botonSeleccionado26 = (Button)findViewById(R.id.botonZ);
 
 
 
- */
-
-
-
+        botonSeleccionado = (Button)findViewById(R.id.botonA);
         texto_fraseADescubir = findViewById(R.id.texto_fraseADescubir);
         //fraseAhorcado = ahorcado.getPalabra();
-        fraseAhorcado = "papa";
-
+        fraseAhorcado = "PAPAS CON QUESO";
+        fraseACompletar = new char [fraseAhorcado.length()];
         for(int i = 0; i<fraseAhorcado.length();i++){
+            if(fraseAhorcado.charAt(i) == ' '){
+                fraseACompletar[i]= ' ';
+            }else{
+                fraseACompletar[i]= '_';
+            }
 
-            fraseProvisional+= "_ ";
+           fraseEnBarrasBajas += fraseACompletar[i]+" ";
+        }
+        texto_fraseADescubir.setText(fraseEnBarrasBajas.trim());
 
         }
-        texto_fraseADescubir.setText(fraseProvisional.trim());
+
         //IniciarBaseDedatos();
-    }
+
 
     public void botonSelecionado(View v){
+        String letraSeleccionada= "";
+        Button b = (Button) v;
+        letraSeleccionada = String.valueOf(((Button) v).getText());
+        validarLetra(letraSeleccionada, b);
+    }
 
+    public void validarLetra(String letraSeleccionada, Button botonSelccionado){
+        if (fraseAhorcado.contains(letraSeleccionada)){
+            //letra correcta
+            botonSelccionado.setBackground(getDrawable(R.drawable.boton_verde));
+            letrasEncontradas[imax++]= StringToChar(letraSeleccionada);
+            sustituirLetra(letraSeleccionada);
+        }else {
+            //letra incorrecta
+            botonSelccionado.setBackground(getDrawable(R.drawable.boton_rojo));
+        }
+        botonSelccionado.setEnabled(false);
+    }
 
+    public void sustituirLetra(String letraSeleccionada){
 
+        String textoEnPantalla= "";
+        for(int i = 0; i<letrasEncontradas.length;i++){
+            for(int j =0 ;j<fraseAhorcado.length(); j++){
+
+                if(letrasEncontradas[i]==fraseAhorcado.charAt(j)){
+                    fraseACompletar[j] = fraseAhorcado.charAt(j);
+                }
+
+            }
+        }
+            fraseEnBarrasBajas="";
+       for(int i =0 ;i<fraseAhorcado.length(); i++){
+            fraseEnBarrasBajas += fraseACompletar[i]+" ";
+        }
+
+        texto_fraseADescubir.setText(fraseEnBarrasBajas.trim());
+    }
+
+    public static char StringToChar(String s) {
+        return s.charAt(0);
     }
 /*
     private void IniciarBaseDedatos() {

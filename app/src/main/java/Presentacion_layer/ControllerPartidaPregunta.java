@@ -43,11 +43,6 @@ public class ControllerPartidaPregunta extends AppCompatActivity {
         creadorDeJuego.setJuegoBuilder(retoPregunta);
         creadorDeJuego.construirJuego();
         juego = retoPregunta.getJuego();
-        try {
-            sleep(350);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         juego.setPreguntaActual(juego.getPreguntasNivel1().get(indicePreguntasFacil++));
         siguienteReto();
 

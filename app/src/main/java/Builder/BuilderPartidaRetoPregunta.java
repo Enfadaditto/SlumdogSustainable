@@ -11,6 +11,8 @@ import Persistence.QuestionRepository;
 
 public class BuilderPartidaRetoPregunta extends BuilderPartida {
 
+    public Thread hilo;
+
     protected PartidaRetoPregunta juego;
 
     public PartidaRetoPregunta getJuego() {
@@ -22,7 +24,7 @@ public class BuilderPartidaRetoPregunta extends BuilderPartida {
     }
 
     public void buildRetosNivel1() {
-        new Thread(new Runnable() {
+        hilo = new Thread(new Runnable() {
             public void run() {
                 try {
                     QuestionRepository preguntasEnBD = new QuestionRepository(MainActivity.conexion);
@@ -33,11 +35,15 @@ public class BuilderPartidaRetoPregunta extends BuilderPartida {
                     System.out.println(e);
                 }
             }
-        }).start();
+        });
+        hilo.start();
+        try {
+            hilo.join();
+        } catch(Exception e) {}
     }
 
     public void buildRetosNivel2() {
-        new Thread(new Runnable() {
+        hilo = new Thread(new Runnable() {
             public void run() {
                 try {
                     QuestionRepository preguntasEnBD = new QuestionRepository(MainActivity.conexion);
@@ -48,11 +54,15 @@ public class BuilderPartidaRetoPregunta extends BuilderPartida {
                     System.out.println(e);
                 }
             }
-        }).start();
+        });
+        hilo.start();
+        try {
+            hilo.join();
+        } catch(Exception e) {}
     }
 
     public void buildRetosNivel3() {
-        new Thread(new Runnable() {
+        hilo = new Thread(new Runnable() {
             public void run() {
                 try {
                     QuestionRepository preguntasEnBD = new QuestionRepository(MainActivity.conexion);
@@ -63,8 +73,13 @@ public class BuilderPartidaRetoPregunta extends BuilderPartida {
                     System.out.println(e);
                 }
             }
-        }).start();
+        });
+        hilo.start();
+        try {
+            hilo.join();
+        } catch(Exception e) {}
     }
+
     @Override
     public void buildNivel() {
         juego.setNivel(1);
@@ -73,6 +88,7 @@ public class BuilderPartidaRetoPregunta extends BuilderPartida {
     @Override
     public void buildTiempo() {
         juego.setTiempo(30000); //10000ms = 10seg
+
     }
 
     @Override

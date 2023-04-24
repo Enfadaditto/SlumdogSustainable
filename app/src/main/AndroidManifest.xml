@@ -37,9 +37,6 @@
             android:exported="true" />
 
         <activity
-            android:name="Presentacion_layer.IUretoFrase"
-            android:exported="true" />
-        <activity
             android:name="Presentacion_layer.IUretoFrase_PruebaConSlider"
             android:exported="true" />
         <activity

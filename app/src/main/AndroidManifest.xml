@@ -18,18 +18,22 @@
         tools:targetApi="31">
         <activity
             android:name="Presentacion_layer.IUretoPregunta"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name="Presentacion_layer.IUuserLogin"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
         android:name="Presentacion_layer.IUretoAhorcado"
         android:exported="true" />
         <activity
             android:name="Presentacion_layer.IUuserRegister"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name="Presentacion_layer.IUperfil"
+            android:screenOrientation="portrait"
             android:exported="true" />
 
         <activity
@@ -37,7 +41,8 @@
             android:exported="true" />
 
         <activity
-            android:name="Presentacion_layer.IUretoFrase_PruebaConSlider"
+            android:name="Presentacion_layer.IUretoFrase"
+            android:screenOrientation="landscape"
             android:exported="true" />
 
         <activity
@@ -45,6 +50,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.SlumdogSustainable.NoActionBar">

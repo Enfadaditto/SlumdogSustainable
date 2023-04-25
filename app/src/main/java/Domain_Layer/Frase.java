@@ -21,6 +21,8 @@ public class Frase extends Partida {
     private String Dificultad;
 
 
+    private char[] fraseProblema;
+
     Frase() {}
 
     public Frase(String frase, int id_ODS, String Dificultad) {
@@ -57,29 +59,48 @@ public class Frase extends Partida {
 
     public List<Character> letrasDeLaFrase() {
         List<Character> listadoCaracteres = new ArrayList<>();
-        char[] fraseCaracteres = this.frase.toCharArray();
+        char[] fraseCaracteres = sacarFraseParaBotones(this.frase.toCharArray());
         for(char letra : fraseCaracteres) {
-            if (!listadoCaracteres.contains(letra) && letra != ' ') listadoCaracteres.add(letra);
+            if ((letra+"").matches("[A-Z]*") || (letra+"").matches("[a-z]*")) listadoCaracteres.add(letra);
         }
 
         return listadoCaracteres;
     }
-    public char[] fraseProblema() {
+    public void fraseProblema() {
         char[] fraseResultado = this.frase.toCharArray();
-        int modificadorDificultad = (int) Math.ceil(/*(40 - this.getNivel()*10)*/0.3 * this.frase.replace(" ", "").length()) - 1;
+        int modificadorDificultad = (int) Math.ceil(/*(40 - this.getNivel()*10)*/ 0.3 * this.frase.replace(" ", "").length()) - 1;
         List<Integer> posicionesMostrarLetra = new ArrayList<>();
         int i = 0;
         while (i < modificadorDificultad) {
             int posicionMostrar = (int) Math.floor(Math.random()*(fraseResultado.length));
-            if (!posicionesMostrarLetra.contains(posicionMostrar) && fraseResultado[posicionMostrar] != ' ') {
+            if (!posicionesMostrarLetra.contains(posicionMostrar) &&
+                    ((fraseResultado[posicionMostrar]+"").matches("[A-Z]*") ||
+                    (fraseResultado[posicionMostrar]+"").matches("[a-z]*"))) {
                 posicionesMostrarLetra.add(posicionMostrar); i++;
             }
         }
 
         for (int j = 0; j < fraseResultado.length; j++) {
-            if (!posicionesMostrarLetra.contains(j) && fraseResultado[j] != ' ') fraseResultado[j] = '_';
+            if (!posicionesMostrarLetra.contains(j) &&
+                    ((fraseResultado[j]+"").matches("[A-Z]*") ||
+               (fraseResultado[j]+"").matches("[a-z]*")))
+
+                fraseResultado[j] = '_';
         }
 
-        return fraseResultado;
+        this.fraseProblema = fraseResultado;
+    }
+
+    public char[] sacarFraseParaBotones(char[] frase) {
+        char[] returnFrase = frase;
+        for (int i = 0; i < frase.length; i++){
+            if (frase[i] == this.fraseProblema[i]) returnFrase[i]=' ';
+        }
+        return returnFrase;
+    }
+
+    public char[] getFraseProblema() {
+        if (this.fraseProblema == null) fraseProblema();
+        return fraseProblema;
     }
 }

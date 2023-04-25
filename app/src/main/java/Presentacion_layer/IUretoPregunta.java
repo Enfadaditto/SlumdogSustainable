@@ -137,7 +137,7 @@ public class IUretoPregunta extends AppCompatActivity {
             public void run() {
                 try {
                     listaRespuestas = new AnswerRepository(MainActivity.conexion).obtenerTodos();
-                    preguntasEnBD = new QuestionRepository();
+                    preguntasEnBD = new QuestionRepository(MainActivity.conexion);
                     preguntaActual = preguntasEnBD.obtener(QuestionID);
                     respuestasActuales = preguntasEnBD.getRespuestasPregunta(preguntaActual);
 

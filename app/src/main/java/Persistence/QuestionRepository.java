@@ -21,6 +21,7 @@ public class QuestionRepository extends Repository<Question> {
 
     public QuestionRepository(ConnectionSource c){
         init(Question.class, c);
+        listaRespuestas = new AnswerRepository(MainActivity.conexion).obtenerTodos();
     }
     public List<Question> getQuestionListByDifficulty(String difficulty) throws SQLException {
         List<Question> list = this.getDao().queryForAll();

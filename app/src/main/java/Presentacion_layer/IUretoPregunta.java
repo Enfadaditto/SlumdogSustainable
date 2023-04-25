@@ -98,7 +98,6 @@ public class IUretoPregunta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_pregunta);
 
-        IniciarBaseDedatos();
 
         textPuntosConsolidados = findViewById(R.id.textPuntosConsolidados);
         textPuntosAcumulados = findViewById(R.id.textPuntosAcumulados);
@@ -123,30 +122,33 @@ public class IUretoPregunta extends AppCompatActivity {
         imagenPantallaFinal = findViewById(R.id.imagenPantallaFinal);
         textoPuntosFinales = findViewById(R.id.textoPuntosFinales);
 
-
         CargarDatos();
+        try {
+            IniciarBaseDedatos();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        ponerTextoEnPantalla();
         startTimer(Tiempo);
     }
 
-    private void IniciarBaseDedatos() {
-        new Thread(new Runnable() {
+    private void IniciarBaseDedatos() throws InterruptedException {
+        Thread t = new Thread(new Runnable() {
             public void run() {
                 try {
                     listaRespuestas = new AnswerRepository(MainActivity.conexion).obtenerTodos();
                     preguntasEnBD = new QuestionRepository();
                     preguntaActual = preguntasEnBD.obtener(QuestionID);
                     respuestasActuales = preguntasEnBD.getRespuestasPregunta(preguntaActual);
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            ponerTextoEnPantalla();
-                        }
-                    });
+
                 } catch (Exception e) {
 
                     System.out.println(e);
                 }
             }
-        }).start();
+        });
+        t.start();
+        t.join();
 
 
     }

@@ -21,7 +21,7 @@ public class Ahorcado {
 
 
 
-    public Ahorcado(ConnectionSource conexion) {}
+    public Ahorcado() {}
 
     public Ahorcado(String enunciado, String palabra, int id_ODS, String Dificultad) {
         this.palabra = palabra;

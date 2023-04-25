@@ -4,32 +4,36 @@ import java.util.List;
 
 public class PartidaRetoAhorcado extends Partida{
 
-    private String palabra;
-    private List<String> palabrasNivel1;
-    private List<String> palabrasNivel2;
-    private List<String> palabrasNivel3;
+    private Ahorcado ahorcadoActual;
+    private List<Ahorcado> palabrasNivel1;
+    private List<Ahorcado> palabrasNivel2;
+    private List<Ahorcado> palabrasNivel3;
 
-    public String getPalabra(){ return this.palabra; }
-    public List<String> getPalabraNivel1() {
-        return this.palabrasNivel1;
-    }
-    public List<String> getPalabraNivel2() {
-        return this.palabrasNivel2;
-    }
-    public List<String> getPalabraNivel3() {
-        return this.palabrasNivel3;
+    public List<Ahorcado> getPalabrasNivel1() {
+        return palabrasNivel1;
     }
 
-    public void setPalabra(String palabra) {
-        this.palabra = palabra;
+    public List<Ahorcado> getPalabrasNivel2() {
+        return palabrasNivel2;
     }
-    public void setPalabrasNivel1(List<String> palabrasNivel1) {
+
+    public List<Ahorcado> getPalabrasNivel3() {
+        return palabrasNivel3;
+    }
+
+
+    public Ahorcado getAhorcado(){ return this.ahorcadoActual; }
+
+    public void setAhorcado(Ahorcado ahorcado) {
+        this.ahorcadoActual = ahorcado;
+    }
+    public void setPalabrasNivel1(List<Ahorcado> palabrasNivel1) {
         this.palabrasNivel1 = palabrasNivel1;
     }
-    public void setPalabrasNivel2(List<String> palabrasNivel2) {
+    public void setPalabrasNivel2(List<Ahorcado> palabrasNivel2) {
         this.palabrasNivel2 = palabrasNivel2;
     }
-    public void setPalabrasNivel3(List<String> palabrasNivel3) {
+    public void setPalabrasNivel3(List<Ahorcado> palabrasNivel3) {
         this.palabrasNivel3 = palabrasNivel3;
     }
 }

@@ -32,7 +32,7 @@ public class BuilderPartidaRetoAhorcado extends BuilderPartida{
                 try {
                     AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
                     juego.setPalabrasNivel1(preguntasEnBD.getAhorcadoListByDifficulty("Baja"));
-                    Collections.shuffle(juego.getPalabraNivel1(), new Random());
+                    Collections.shuffle(juego.getPalabrasNivel1(), new Random());
                 } catch (Exception e) {
 
                     System.out.println(e);
@@ -51,7 +51,7 @@ public class BuilderPartidaRetoAhorcado extends BuilderPartida{
                 try {
                     AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
                     juego.setPalabrasNivel2(preguntasEnBD.getAhorcadoListByDifficulty("Media"));
-                    Collections.shuffle(juego.getPalabraNivel2(), new Random());
+                    Collections.shuffle(juego.getPalabrasNivel2(), new Random());
                 } catch (Exception e) {
 
                     System.out.println(e);
@@ -70,7 +70,7 @@ public class BuilderPartidaRetoAhorcado extends BuilderPartida{
                 try {
                     AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
                     juego.setPalabrasNivel3(preguntasEnBD.getAhorcadoListByDifficulty("Alta"));
-                    Collections.shuffle(juego.getPalabraNivel3(), new Random());
+                    Collections.shuffle(juego.getPalabrasNivel3(), new Random());
                 } catch (Exception e) {
 
                     System.out.println(e);

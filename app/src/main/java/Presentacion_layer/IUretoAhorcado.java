@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
+import org.w3c.dom.Text;
+
 import Domain_Layer.Ahorcado;
 
 
@@ -58,6 +60,8 @@ public class IUretoAhorcado extends AppCompatActivity {
     ProgressBar timeBar2;
     CountDownTimer mCountDownTimer;
 
+    TextView enunciado;
+
 
 
 
@@ -71,7 +75,7 @@ public class IUretoAhorcado extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_ahorcado);
 
-
+        enunciado = (TextView)findViewById(R.id.enunciado);
         imagenAhorcado = findViewById(R.id.imagenAhorcado);
         botonSeleccionado1 = (Button)findViewById(R.id.botonA);
         botonSeleccionado2= (Button)findViewById(R.id.botonB);
@@ -105,7 +109,10 @@ public class IUretoAhorcado extends AppCompatActivity {
         botonSeleccionado = (Button)findViewById(R.id.botonA);
         texto_fraseADescubir = findViewById(R.id.texto_fraseADescubir);
         //fraseAhorcado = ahorcado.getPalabra();
-        fraseAhorcado = "PAPAS CON QUESO";
+        cargarDatos();
+        //fraseAhorcado = "PAPAS CON QUESO";
+
+        System.out.println(fraseAhorcado);
         fraseACompletar = new char [fraseAhorcado.length()];
         for(int i = 0; i<fraseAhorcado.length();i++){
             if(fraseAhorcado.charAt(i) == ' '){
@@ -122,6 +129,16 @@ public class IUretoAhorcado extends AppCompatActivity {
 
         //IniciarBaseDedatos();
 
+    public void cargarDatos() {
+        Bundle extras = getIntent().getExtras();
+
+        fraseAhorcado = extras.getString("palabraAhorcado").toUpperCase();;
+        String enunciadoString = extras.getString("enunciadoAhorcado");
+        enunciado.setText(enunciadoString);
+
+        Tiempo = extras.getInt("Tiempo");
+
+    }
 
     public void botonSelecionado(View v){
         String letraSeleccionada= "";

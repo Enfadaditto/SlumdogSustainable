@@ -20,12 +20,12 @@ public class AhorcadoRepository extends Repository<Ahorcado>{
         init(Ahorcado.class,c);
     }
 
-    public List<String> getAhorcadoListByDifficulty(String difficulty) throws SQLException {
+    public List<Ahorcado> getAhorcadoListByDifficulty(String difficulty) throws SQLException {
         List<Ahorcado> list = this.getDao().queryForAll();
-        List<String> resultlist = new ArrayList<>();
+        List<Ahorcado> resultlist = new ArrayList<>();
         for(Ahorcado q : list) {
             if(q.getDifficulty().equals(difficulty)) {
-                resultlist.add(q.getPalabra());
+                resultlist.add(q);
             }
         }
         return resultlist;

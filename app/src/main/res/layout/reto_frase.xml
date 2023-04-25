@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D7E0E4">
+    android:background="@drawable/fondo_horizonal">
 
     <ProgressBar
         android:id="@+id/timeBar3"
@@ -41,103 +41,22 @@
     <RelativeLayout
         android:layout_width="729dp"
         android:layout_height="336dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="2dp">
+        tools:layout_editor_absoluteX="-3dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonx6"
             android:layout_width="49dp"
             android:layout_height="54dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="630dp"
-            android:layout_marginBottom="202dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="49dp"
-            android:layout_height="54dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="109dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="571dp"
-            android:layout_marginBottom="202dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="49dp"
-            android:layout_height="54dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="168dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="512dp"
-            android:layout_marginBottom="202dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="49dp"
-            android:layout_height="54dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="227dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="453dp"
-            android:layout_marginBottom="202dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="49dp"
-            android:layout_height="54dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="287dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="393dp"
-            android:layout_marginBottom="202dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="49dp"
-            android:layout_height="54dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="347dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="333dp"
-            android:layout_marginBottom="202dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="375dp"
+            android:layout_marginTop="154dp"
+            android:layout_marginEnd="305dp"
+            android:layout_marginBottom="128dp"
+            android:background="@drawable/boton_panel_vacio"
             android:textSize="24sp" />
 
         <Button
@@ -148,28 +67,105 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="406dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="274dp"
-            android:layout_marginBottom="202dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="434dp"
+            android:layout_marginTop="93dp"
+            android:layout_marginEnd="246dp"
+            android:layout_marginBottom="189dp"
+            android:background="@drawable/boton_panel"
+            android:text="O"
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/button"
             android:layout_width="49dp"
             android:layout_height="54dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="465dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="215dp"
-            android:layout_marginBottom="202dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="78dp"
+            android:layout_marginTop="93dp"
+            android:layout_marginEnd="602dp"
+            android:layout_marginBottom="189dp"
+            android:background="@drawable/boton_panel_vacio"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="49dp"
+            android:layout_height="54dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="137dp"
+            android:layout_marginTop="93dp"
+            android:layout_marginEnd="543dp"
+            android:layout_marginBottom="189dp"
+            android:background="@drawable/boton_panel_vacio"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="49dp"
+            android:layout_height="54dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="196dp"
+            android:layout_marginTop="93dp"
+            android:layout_marginEnd="484dp"
+            android:layout_marginBottom="189dp"
+            android:background="@drawable/boton_panel_vacio"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="49dp"
+            android:layout_height="54dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="255dp"
+            android:layout_marginTop="93dp"
+            android:layout_marginEnd="425dp"
+            android:layout_marginBottom="189dp"
+            android:background="@drawable/boton_panel"
+            android:text="R"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="49dp"
+            android:layout_height="54dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="315dp"
+            android:layout_marginTop="93dp"
+            android:layout_marginEnd="365dp"
+            android:layout_marginBottom="189dp"
+            android:background="@drawable/boton_panel"
+            android:text="E"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="49dp"
+            android:layout_height="54dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="375dp"
+            android:layout_marginTop="93dp"
+            android:layout_marginEnd="305dp"
+            android:layout_marginBottom="189dp"
+            android:background="@drawable/boton_panel"
+            android:text="T"
             android:textSize="24sp" />
 
         <Button
@@ -180,12 +176,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="524dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="156dp"
-            android:layout_marginBottom="202dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="552dp"
+            android:layout_marginTop="93dp"
+            android:layout_marginEnd="128dp"
+            android:layout_marginBottom="189dp"
+            android:background="@drawable/boton_panel_vacio"
             android:textSize="24sp" />
 
         <Button
@@ -196,12 +191,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="582dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="98dp"
-            android:layout_marginBottom="202dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="610dp"
+            android:layout_marginTop="93dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginBottom="189dp"
+            android:background="@drawable/boton_panel_vacio"
             android:textSize="24sp" />
 
         <Button
@@ -212,12 +206,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="141dp"
-            android:layout_marginEnd="630dp"
-            android:layout_marginBottom="141dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="78dp"
+            android:layout_marginTop="154dp"
+            android:layout_marginEnd="602dp"
+            android:layout_marginBottom="128dp"
+            android:background="@drawable/boton_panel_vacio"
             android:textSize="24sp" />
 
         <Button
@@ -228,12 +221,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="109dp"
-            android:layout_marginTop="141dp"
-            android:layout_marginEnd="571dp"
-            android:layout_marginBottom="141dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="137dp"
+            android:layout_marginTop="154dp"
+            android:layout_marginEnd="543dp"
+            android:layout_marginBottom="128dp"
+            android:background="@drawable/boton_panel_vacio"
             android:textSize="24sp" />
 
         <Button
@@ -244,12 +236,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="168dp"
-            android:layout_marginTop="141dp"
-            android:layout_marginEnd="512dp"
-            android:layout_marginBottom="141dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="196dp"
+            android:layout_marginTop="154dp"
+            android:layout_marginEnd="484dp"
+            android:layout_marginBottom="128dp"
+            android:background="@drawable/boton_panel"
+            android:text="D"
             android:textSize="24sp" />
 
         <Button
@@ -260,12 +252,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="227dp"
-            android:layout_marginTop="141dp"
-            android:layout_marginEnd="453dp"
-            android:layout_marginBottom="141dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="255dp"
+            android:layout_marginTop="154dp"
+            android:layout_marginEnd="425dp"
+            android:layout_marginBottom="128dp"
+            android:background="@drawable/boton_panel"
+            android:text="E"
             android:textSize="24sp" />
 
         <Button
@@ -276,44 +268,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="287dp"
-            android:layout_marginTop="141dp"
-            android:layout_marginEnd="393dp"
-            android:layout_marginBottom="141dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/buttonx6"
-            android:layout_width="49dp"
-            android:layout_height="54dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="347dp"
-            android:layout_marginTop="141dp"
-            android:layout_marginEnd="333dp"
-            android:layout_marginBottom="141dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/buttonx7"
-            android:layout_width="49dp"
-            android:layout_height="54dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="406dp"
-            android:layout_marginTop="141dp"
-            android:layout_marginEnd="274dp"
-            android:layout_marginBottom="141dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="315dp"
+            android:layout_marginTop="154dp"
+            android:layout_marginEnd="365dp"
+            android:layout_marginBottom="128dp"
+            android:background="@drawable/boton_panel_vacio"
             android:textSize="24sp" />
 
         <Button
@@ -324,11 +283,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="465dp"
-            android:layout_marginTop="141dp"
-            android:layout_marginEnd="215dp"
-            android:layout_marginBottom="141dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
+            android:layout_marginStart="493dp"
+            android:layout_marginTop="154dp"
+            android:layout_marginEnd="187dp"
+            android:layout_marginBottom="128dp"
+            android:background="@drawable/boton_panel"
             android:text="A"
             android:textSize="24sp" />
 
@@ -340,12 +299,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="524dp"
-            android:layout_marginTop="141dp"
-            android:layout_marginEnd="156dp"
-            android:layout_marginBottom="141dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="552dp"
+            android:layout_marginTop="154dp"
+            android:layout_marginEnd="128dp"
+            android:layout_marginBottom="128dp"
+            android:background="@drawable/boton_panel_vacio"
             android:textSize="24sp" />
 
         <Button
@@ -356,12 +314,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="582dp"
-            android:layout_marginTop="141dp"
-            android:layout_marginEnd="98dp"
-            android:layout_marginBottom="141dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="610dp"
+            android:layout_marginTop="154dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginBottom="128dp"
+            android:background="@drawable/boton_panel_vacio"
             android:textSize="24sp" />
 
         <Button
@@ -372,12 +329,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="201dp"
-            android:layout_marginEnd="630dp"
-            android:layout_marginBottom="81dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="78dp"
+            android:layout_marginTop="214dp"
+            android:layout_marginEnd="602dp"
+            android:layout_marginBottom="68dp"
+            android:background="@drawable/boton_panel_vacio"
             android:textSize="24sp" />
 
         <Button
@@ -388,12 +344,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="109dp"
-            android:layout_marginTop="201dp"
-            android:layout_marginEnd="571dp"
-            android:layout_marginBottom="81dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="137dp"
+            android:layout_marginTop="214dp"
+            android:layout_marginEnd="543dp"
+            android:layout_marginBottom="68dp"
+            android:background="@drawable/boton_panel_vacio"
             android:textSize="24sp" />
 
         <Button
@@ -404,12 +359,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="168dp"
-            android:layout_marginTop="201dp"
-            android:layout_marginEnd="512dp"
-            android:layout_marginBottom="81dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="196dp"
+            android:layout_marginTop="214dp"
+            android:layout_marginEnd="484dp"
+            android:layout_marginBottom="68dp"
+            android:background="@drawable/boton_panel_vacio"
             android:textSize="24sp" />
 
         <Button
@@ -420,12 +374,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="227dp"
-            android:layout_marginTop="201dp"
-            android:layout_marginEnd="453dp"
-            android:layout_marginBottom="81dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="255dp"
+            android:layout_marginTop="214dp"
+            android:layout_marginEnd="425dp"
+            android:layout_marginBottom="68dp"
+            android:background="@drawable/boton_panel"
+            android:text="F"
             android:textSize="24sp" />
 
         <Button
@@ -436,29 +390,29 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="287dp"
-            android:layout_marginTop="201dp"
-            android:layout_marginEnd="393dp"
-            android:layout_marginBottom="81dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="315dp"
+            android:layout_marginTop="214dp"
+            android:layout_marginEnd="365dp"
+            android:layout_marginBottom="68dp"
+            android:background="@drawable/boton_panel"
+            android:text="R"
             android:textSize="24sp" />
 
         <Button
-        android:id="@+id/buttony5"
-        android:layout_width="49dp"
-        android:layout_height="54dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="347dp"
-        android:layout_marginTop="201dp"
-        android:layout_marginEnd="333dp"
-        android:layout_marginBottom="81dp"
-        android:background="?android:attr/scrollbarThumbHorizontal"
-        android:text="A"
-        android:textSize="24sp" />
+            android:id="@+id/buttony5"
+            android:layout_width="49dp"
+            android:layout_height="54dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="375dp"
+            android:layout_marginTop="214dp"
+            android:layout_marginEnd="305dp"
+            android:layout_marginBottom="68dp"
+            android:background="@drawable/boton_panel"
+            android:text="A"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/buttony6"
@@ -468,12 +422,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="406dp"
-            android:layout_marginTop="201dp"
-            android:layout_marginEnd="274dp"
-            android:layout_marginBottom="81dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="434dp"
+            android:layout_marginTop="214dp"
+            android:layout_marginEnd="246dp"
+            android:layout_marginBottom="68dp"
+            android:background="@drawable/boton_panel"
+            android:text="S"
             android:textSize="24sp" />
 
         <Button
@@ -484,12 +438,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="465dp"
-            android:layout_marginTop="201dp"
-            android:layout_marginEnd="215dp"
-            android:layout_marginBottom="81dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="493dp"
+            android:layout_marginTop="214dp"
+            android:layout_marginEnd="187dp"
+            android:layout_marginBottom="68dp"
+            android:background="@drawable/boton_panel"
+            android:text="E"
             android:textSize="24sp" />
 
         <Button
@@ -500,12 +454,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="524dp"
-            android:layout_marginTop="201dp"
-            android:layout_marginEnd="156dp"
-            android:layout_marginBottom="81dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="552dp"
+            android:layout_marginTop="214dp"
+            android:layout_marginEnd="128dp"
+            android:layout_marginBottom="68dp"
+            android:background="@drawable/boton_panel_vacio"
             android:textSize="24sp" />
 
         <Button
@@ -516,12 +469,43 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="582dp"
-            android:layout_marginTop="201dp"
-            android:layout_marginEnd="98dp"
-            android:layout_marginBottom="81dp"
-            android:background="?android:attr/scrollbarThumbHorizontal"
-            android:text="A"
+            android:layout_marginStart="610dp"
+            android:layout_marginTop="214dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginBottom="68dp"
+            android:background="@drawable/boton_panel_vacio"
             android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="49dp"
+            android:layout_height="54dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="493dp"
+            android:layout_marginTop="93dp"
+            android:layout_marginEnd="187dp"
+            android:layout_marginBottom="189dp"
+            android:background="@drawable/boton_panel_vacio"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/buttonx7"
+            android:layout_width="49dp"
+            android:layout_height="54dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="434dp"
+            android:layout_marginTop="154dp"
+            android:layout_marginEnd="246dp"
+            android:layout_marginBottom="128dp"
+            android:background="@drawable/boton_panel"
+            android:text="L"
+            android:textSize="24sp" />
+
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,7 +32,7 @@ public class IUretoFrase_PruebaConSlider extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_frase_con_horizontal_slider);
 
-        frase = new Frase("Probando Frase", 0);
+        frase = new Frase("Probando Frase", 0, "Baja");
 
         letrasLayout = (LinearLayout) findViewById(R.id.letrasLayout);
         textoFraseProblema = (TextView) findViewById(R.id.TextoFraseProblema);

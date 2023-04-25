@@ -1,6 +1,7 @@
 package Domain_Layer;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.support.ConnectionSource;
 
 public class Ahorcado {
     @DatabaseField(id = true)
@@ -15,12 +16,18 @@ public class Ahorcado {
     @DatabaseField
     private int id_ODS;
 
-    Ahorcado() {}
+    @DatabaseField
+    private String dificultad;
 
-    public Ahorcado(String enunciado, String palabra, int id_ODS) {
+
+
+    public Ahorcado(ConnectionSource conexion) {}
+
+    public Ahorcado(String enunciado, String palabra, int id_ODS, String Dificultad) {
         this.palabra = palabra;
         this.enunciado = enunciado;
         this.id_ODS = id_ODS;
+        this.dificultad = Dificultad;
     }
 
     public int getId_ODS() {
@@ -41,6 +48,14 @@ public class Ahorcado {
 
     public String getPalabra() {
         return palabra;
+    }
+
+    public String getDifficulty() {
+        return dificultad;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.dificultad = difficulty;
     }
 
     public void setIdAhorcado(int idAhorcado) {

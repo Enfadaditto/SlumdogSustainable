@@ -17,11 +17,24 @@ public class Frase extends Partida {
     @DatabaseField
     private int id_ODS;
 
+    @DatabaseField
+    private String Dificultad;
+
+
     Frase() {}
 
-    public Frase(String frase, int id_ODS) {
+    public Frase(String frase, int id_ODS, String Dificultad) {
         this.frase = frase;
         this.id_ODS = id_ODS;
+        this.Dificultad = Dificultad;
+    }
+
+    public String getDificultad() {
+        return Dificultad;
+    }
+
+    public void setDificultad(String dificultad) {
+        Dificultad = dificultad;
     }
     public int getId_ODS() {
         return id_ODS;

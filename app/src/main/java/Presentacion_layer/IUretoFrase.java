@@ -67,6 +67,7 @@ public class IUretoFrase extends AppCompatActivity {
                 ComenzarReto();
                 letrasLayout.setVisibility(View.VISIBLE);
                 descripcionFrase.setText("DESCRIPCION");
+                descripcionFrase.setOnClickListener(null);
             }
         });
     }
@@ -123,17 +124,36 @@ public class IUretoFrase extends AppCompatActivity {
     }
 
     private void ponerFrasePorPantalla() {
-        int index = 0;
+        int indice = 0;
         String[] palabras = String.valueOf(fraseProblema).split(" ");
+        String[] palabrasSolucion = String.valueOf(frase.getFrase()).split(" ");;
 
-        for (int i = 0; i < fraseProblema.length; i++) {
-            Button boton = (Button) panelDescubrirFrase.getChildAt(i);
-            DFButton botonSolucion = new DFButton(boton, frase.getFrase().toCharArray()[index]);
-            boton.setText(fraseProblema[i] + "");
-            if ((fraseProblema[i] + "").matches("[A-Z]*") ||
-                    (fraseProblema[i] + "").matches("[a-z]*"))
+        for (int i = 0; i < palabras.length; i++) {
+            if (i == -1) return;
+            System.out.println(palabras[i] + " :: " + palabrasSolucion[i]);
+            indice = escribirPalabra(palabras[i].toCharArray(), palabrasSolucion[i].toCharArray(), indice);
+            indice++;
+        }
+
+    }
+
+    private int escribirPalabra(char[] palabraActual, char[] palabraActualSolucion, int indice) {
+        System.out.println("indice inicio frase: "+ indice);
+        System.out.println("indice: " + indice);
+        if ((indice % 10 + palabraActual.length) > 10 ) {
+            if (indice < 10) return escribirPalabra(palabraActual, palabraActualSolucion,10);
+            else if (indice < 20) return escribirPalabra(palabraActual, palabraActualSolucion,20);
+            else return -1;
+        }
+
+        for (int i = 0; i < palabraActual.length; i++) {
+            Button boton = (Button) panelDescubrirFrase.getChildAt(indice + i);
+            DFButton botonSolucion = new DFButton(boton, palabraActualSolucion[i]);
+            boton.setText(palabraActual[i] + "");
+            if ((palabraActual[i] + "").matches("[A-Z]*") ||
+                    (palabraActual[i] + "").matches("[a-z]*"))
                 boton.setBackgroundColor(Color.LTGRAY);
-            else if (fraseProblema[i] == '_') {
+            else if (palabraActual[i] == '_') {
                 boton.setBackgroundColor(Color.WHITE);
                 boton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -150,28 +170,7 @@ public class IUretoFrase extends AppCompatActivity {
                 boton.setBackground(getDrawable(R.drawable.botones_teclado));
                 boton.setClickable(false);
             }
-            index++;
         }
-
-    }
-
-    public void GuideAlert() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("PULSE FUERA DEL RECUADRO PARA EMPEZAR")
-                .setCancelable(true);
-
-        alert.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                for (int i = 0; i < panelDescubrirFrase.getChildCount(); i++) {
-                    ((Button) panelDescubrirFrase.getChildAt(i)).setText("");
-                    ((Button) panelDescubrirFrase.getChildAt(i)).setBackground(getDrawable(R.drawable.botones_teclado));
-
-                    ponerFrasePorPantalla();
-                }
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
+        return indice += palabraActual.length;
     }
 }

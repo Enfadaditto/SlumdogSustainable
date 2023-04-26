@@ -47,6 +47,7 @@
 
         <activity
             android:name="Presentacion_layer.IUEstadisticas"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

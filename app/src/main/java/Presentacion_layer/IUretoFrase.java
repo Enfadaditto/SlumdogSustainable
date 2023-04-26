@@ -39,14 +39,14 @@ public class IUretoFrase extends AppCompatActivity {
     TextView descripcionFrase;
     boolean ultimaAcertada;
 
-    @SuppressLint("MissingInflatedId")
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_frase);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
-        frase = new Frase("Probando frase, (ODS 14)", 0, "Facil");
+        frase = new Frase("   Reto     de  la     frase", 0, "Facil");
 
         letrasLayout = (LinearLayout) findViewById(R.id.letrasLayout);
         panelDescubrirFrase = (RelativeLayout) findViewById(R.id.panelDescubrirFrase);

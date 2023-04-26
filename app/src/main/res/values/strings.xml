@@ -10,4 +10,10 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_reto_pregunta_ejemplo1">RetoPreguntaEjemplo1</string>
+
+
+    <string-array name="graficas">
+        <item>Porcentaje de aciertos por ODS</item>
+        <item>Aciertos totales por ODS</item>
+    </string-array>
 </resources>

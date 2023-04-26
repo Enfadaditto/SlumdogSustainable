@@ -52,22 +52,6 @@
         app:layout_constraintVertical_bias="0.346">
 
         <Button
-            android:id="@+id/buttonx8"
-            android:layout_width="49dp"
-            android:layout_height="54dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="486dp"
-            android:layout_marginTop="154dp"
-            android:layout_marginEnd="194dp"
-            android:layout_marginBottom="128dp"
-            android:background="@drawable/boton_panel"
-            android:text="A"
-            android:textSize="24sp" />
-
-        <Button
             android:id="@+id/button"
             android:layout_width="49dp"
             android:layout_height="54dp"
@@ -330,6 +314,22 @@
             android:textSize="24sp" />
 
         <Button
+            android:id="@+id/buttonx8"
+            android:layout_width="49dp"
+            android:layout_height="54dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="486dp"
+            android:layout_marginTop="154dp"
+            android:layout_marginEnd="194dp"
+            android:layout_marginBottom="128dp"
+            android:background="@drawable/boton_panel"
+            android:text="A"
+            android:textSize="24sp" />
+
+        <Button
             android:id="@+id/buttonx9"
             android:layout_width="49dp"
             android:layout_height="54dp"
@@ -517,7 +517,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/descripcionFrase"
         android:layout_width="702dp"
         android:layout_height="47dp"
         android:fontFamily="sans-serif-condensed"

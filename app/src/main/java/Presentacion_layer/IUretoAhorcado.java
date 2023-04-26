@@ -10,7 +10,6 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,8 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
-
-import org.w3c.dom.Text;
 
 import Domain_Layer.Ahorcado;
 
@@ -60,24 +57,35 @@ public class IUretoAhorcado extends AppCompatActivity {
     ImageView imagenAhorcado;
     ProgressBar timeBar2;
     CountDownTimer mCountDownTimer;
-
+    TextView textoPuntosAcumulados;
+    TextView textoPuntosConsolidados;
+    TextView textoEnunciado;
     TextView enunciado;
-
-
-
-
+    ImageView imagenOds;
+    int vida;
+    ProgressBar timeBar;
+    TextView textoNumeroDeReto;
+    int TiempoOpcion;
     int imax =0;
     int timeCount = 0;
     int Tiempo = 120000;
     int errores = 0;
     char[] letrasEncontradas = new char[20];
     char[] fraseACompletar;
+    int cantidadRetosContestados;
+    boolean haConsolidado;
+    int nivel;
+    int SonidoFallo;
+
+    int SonidoAcierto;
+    int numeroOds;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_ahorcado);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        enunciado = (TextView)findViewById(R.id.enunciado);
+        enunciado = (TextView)findViewById(R.id.textoEnunciado);
         imagenAhorcado = findViewById(R.id.imagenAhorcado);
         botonSeleccionado1 = (Button)findViewById(R.id.botonA);
         botonSeleccionado2= (Button)findViewById(R.id.botonB);
@@ -105,8 +113,11 @@ public class IUretoAhorcado extends AppCompatActivity {
         botonSeleccionado24 = (Button)findViewById(R.id.botonX);
         botonSeleccionado25 = (Button)findViewById(R.id.botonY);
         botonSeleccionado26 = (Button)findViewById(R.id.botonZ);
-
-
+        textoPuntosAcumulados = findViewById(R.id.textoPuntosAcumulados);
+        textoEnunciado = findViewById(R.id.textoEnunciado);
+        textoPuntosConsolidados = findViewById(R.id.textoPuntosConsolidados);
+        textoNumeroDeReto = findViewById(R.id.textoNumeroDeReto);
+        imagenOds = findViewById(R.id.imagenOds);
 
         botonSeleccionado = (Button)findViewById(R.id.botonA);
         texto_fraseADescubir = findViewById(R.id.texto_fraseADescubir);
@@ -127,9 +138,62 @@ public class IUretoAhorcado extends AppCompatActivity {
         }
         texto_fraseADescubir.setText(fraseEnBarrasBajas.trim());
 
+
+        startTimer(Tiempo);
         }
 
-        //IniciarBaseDedatos();
+    private void startTimer(int t) {
+        int tiempo = t;
+        MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.countdown);
+        MainActivity.music.start();
+        timeCount = tiempo;
+        timeBar = findViewById(R.id.timeBar2);
+        timeBar.bringToFront();
+        timeBar.setMax(tiempo);
+        timeBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        timeBar.setProgress(tiempo);
+        mCountDownTimer = new CountDownTimer(tiempo, 100) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeCount -= 100;
+                if (timeCount == tiempo / 3) {
+                    timeBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+                }
+                if (timeCount == tiempo * 2 / 3) {
+                    timeBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));
+                }
+                timeBar.setProgress(timeCount);
+            }
+
+            @Override
+            public void onFinish() {
+                timeCount++;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        MainActivity.music.stop();
+
+                        if (tiempo == Tiempo) {
+                            //Se acabo el tiempo, marcar como mala
+                           // wrongAnswer(2, -1);
+                        } else if (tiempo == TiempoOpcion) {
+                           /* puntosTotales = 0;
+                            puntosConsolidados = 0;
+                            imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.game_over));
+                            textoPuntosFinales.setText("Puntos totales: 0");
+                            quitarPantallaAciertoFallo();
+                            botonSiguientePregunta.performClick();
+
+                            */
+                        }
+                    }
+                });
+            }
+        };
+        mCountDownTimer.start();
+    }
 
     public void cargarDatos() {
         Bundle extras = getIntent().getExtras();
@@ -137,9 +201,23 @@ public class IUretoAhorcado extends AppCompatActivity {
         fraseAhorcado = extras.getString("palabraAhorcado").toUpperCase();;
         String enunciadoString = extras.getString("enunciadoAhorcado");
         enunciado.setText(enunciadoString);
-
+        vida = extras.getInt("Vidas");
+        cantidadRetosContestados = extras.getInt("Ronda");
+        haConsolidado = extras.getBoolean("haConsolidado");
         Tiempo = extras.getInt("Tiempo");
-
+        TiempoOpcion = extras.getInt("TiempoOpcion");
+        nivel = extras.getInt("Nivel");
+        SonidoAcierto = extras.getInt("SonidoAcierto");
+        SonidoFallo = extras.getInt("SonidoFallo");
+        Tiempo = extras.getInt("Tiempo");
+        errores = extras.getInt("erroresRetoAhorcado");
+        numeroOds = extras.getInt("odsAhorcado");
+        poner_imagen_ods();
+    }
+    public void poner_imagen_ods() {
+        int imagenId = getResources().getIdentifier("ods_" + numeroOds, "drawable", getPackageName());
+        Drawable imagen = getResources().getDrawable(imagenId);
+        imagenOds.setImageDrawable(imagen);
     }
 
     public void botonSelecionado(View v){

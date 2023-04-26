@@ -9,6 +9,8 @@ public class PartidaRetoAhorcado extends Partida{
     private List<Ahorcado> palabrasNivel2;
     private List<Ahorcado> palabrasNivel3;
 
+    private int erroresRetoAhorcado;
+
     public List<Ahorcado> getPalabrasNivel1() {
         return palabrasNivel1;
     }
@@ -35,6 +37,14 @@ public class PartidaRetoAhorcado extends Partida{
     }
     public void setPalabrasNivel3(List<Ahorcado> palabrasNivel3) {
         this.palabrasNivel3 = palabrasNivel3;
+    }
+
+    public int getErroresRetoAhorcado() {
+        return erroresRetoAhorcado;
+    }
+
+    public void setErroresRetoAhorcado(int erroresRetoAhorcado) {
+        this.erroresRetoAhorcado = erroresRetoAhorcado;
     }
 }
 

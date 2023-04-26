@@ -27,6 +27,7 @@ public class BuilderPartidaRetoAhorcado extends BuilderPartida{
     }
 
     public void buildRetosNivel1() {
+
         hilo = new Thread(new Runnable() {
             public void run() {
                 try {
@@ -45,8 +46,11 @@ public class BuilderPartidaRetoAhorcado extends BuilderPartida{
         } catch(Exception e) {}
     }
 
+
+
     public void buildRetosNivel2() {
-        hilo = new Thread(new Runnable() {
+
+      hilo = new Thread(new Runnable() {
             public void run() {
                 try {
                     AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
@@ -62,9 +66,12 @@ public class BuilderPartidaRetoAhorcado extends BuilderPartida{
         try {
             hilo.join();
         } catch(Exception e) {}
+
+
     }
 
     public void buildRetosNivel3() {
+
         hilo = new Thread(new Runnable() {
             public void run() {
                 try {
@@ -81,6 +88,8 @@ public class BuilderPartidaRetoAhorcado extends BuilderPartida{
         try {
             hilo.join();
         } catch(Exception e) {}
+
+
     }
 
     @Override

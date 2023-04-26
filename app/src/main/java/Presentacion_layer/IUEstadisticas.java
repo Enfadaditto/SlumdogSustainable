@@ -5,6 +5,10 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -41,15 +45,54 @@ public class IUEstadisticas extends AppCompatActivity {
 
     TextView puntosText;
 
+    RelativeLayout chartLayout;
+
+    Spinner selector;
+
+    TextView tiempoText;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.estadisticas);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        barChart = findViewById(R.id.barChart);
+        chartLayout = (RelativeLayout) findViewById(R.id.chartsLayout);
+        selector = (Spinner) findViewById(R.id.selectorGrafica);
+
         puntosText = (TextView) findViewById(R.id.puntosTextview);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         puntosText.setText(puntosText.getText() + Integer.toString(MainActivity.user.getPointsAchieved()));
+
+        selector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Your code here
+                if(position == 0) {
+                    //borrar PieChart del Layout
+                    createDiagramChart();}
+                if(position == 1) {
+                    chartLayout.removeView(barChart);
+                    //crear PieChart
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
+    }
+
+
+    public void createDiagramChart() {
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT
+        );
+        barChart = new BarChart(this.getApplicationContext());
+        barChart.setLayoutParams(layoutParams);
+        chartLayout.addView(barChart);
         barChart.setDrawBarShadow(false);
         barChart.getDescription().setEnabled(false);
         barChart.setMaxVisibleValueCount(100);
@@ -64,8 +107,8 @@ public class IUEstadisticas extends AppCompatActivity {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
 
+    }
     public void addEntries() throws InterruptedException {
         ArrayList<BarEntry> entries = new ArrayList<>();
         Thread t = new Thread(new Runnable() {
@@ -117,26 +160,9 @@ public class IUEstadisticas extends AppCompatActivity {
         });
         t.start();
         t.join();
-        /*
-        entries.add(new BarEntry(0, 43));
-        entries.add(new BarEntry(1, 82));
-        entries.add(new BarEntry(2, 61));
-        entries.add(new BarEntry(3, 12));
-        entries.add(new BarEntry(4, 18));
-        entries.add(new BarEntry(5, 36));
-        entries.add(new BarEntry(6, 78));
-        entries.add(new BarEntry(7, 52));
-        entries.add(new BarEntry(8, 61));
-        entries.add(new BarEntry(9, 36));
-        entries.add(new BarEntry(10, 87));
-        entries.add(new BarEntry(11, 95));
-        entries.add(new BarEntry(12, 43));
-        entries.add(new BarEntry(13, 56));
-        entries.add(new BarEntry(14, 76));
-        entries.add(new BarEntry(15, 61));
-        entries.add(new BarEntry(16, 23));
-        entries.add(new BarEntry(17, 93));*/
     }
+
+
     public class PercentValueFormatter extends ValueFormatter {
         private DecimalFormat mFormat;
 

@@ -5,6 +5,7 @@ import com.slumdogsustainable.R;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.media.Image;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
@@ -95,6 +96,7 @@ public class IUuserLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // signupErrorText = findViewById(R.id.errorText);
         // signupErrorText.setVisibility(View.INVISIBLE);

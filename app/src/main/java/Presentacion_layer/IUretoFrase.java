@@ -3,6 +3,7 @@ package Presentacion_layer;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.SyncAdapterType;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,7 @@ public class IUretoFrase extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_frase);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
 
         // SE VA A CAMBIAR LA IDEA PARA AÑADIR LA FRASE PROBLEMA EN UN PANEL DE MUCHOS BOTONES

@@ -2,6 +2,7 @@ package Presentacion_layer;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -97,7 +98,7 @@ public class IUretoPregunta extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_pregunta);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         textPuntosConsolidados = findViewById(R.id.textPuntosConsolidados);
         textPuntosAcumulados = findViewById(R.id.textPuntosAcumulados);

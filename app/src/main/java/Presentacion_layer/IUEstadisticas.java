@@ -1,5 +1,6 @@
 package Presentacion_layer;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
@@ -44,6 +45,8 @@ public class IUEstadisticas extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.estadisticas);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         barChart = findViewById(R.id.barChart);
         puntosText = (TextView) findViewById(R.id.puntosTextview);
         puntosText.setText(puntosText.getText() + Integer.toString(MainActivity.user.getPointsAchieved()));

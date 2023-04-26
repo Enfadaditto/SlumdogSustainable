@@ -3,6 +3,7 @@ package Presentacion_layer;
 import static java.lang.Thread.sleep;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -54,6 +55,7 @@ public class MediadorDeRetos extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seleccion_reto);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         botonRetoAhorcado = findViewById(R.id.botonRetoAhorcado);
         botonRetoPregunta = findViewById(R.id.botonRetoPregunta);

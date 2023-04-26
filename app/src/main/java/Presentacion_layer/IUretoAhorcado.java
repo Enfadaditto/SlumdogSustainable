@@ -61,6 +61,7 @@ public class IUretoAhorcado extends AppCompatActivity {
     TextView textoPuntosConsolidados;
     TextView textoEnunciado;
     TextView enunciado;
+    ImageView imagenOds;
     int vida;
     ProgressBar timeBar;
     TextView textoNumeroDeReto;
@@ -77,6 +78,7 @@ public class IUretoAhorcado extends AppCompatActivity {
     int SonidoFallo;
 
     int SonidoAcierto;
+    int numeroOds;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +117,7 @@ public class IUretoAhorcado extends AppCompatActivity {
         textoEnunciado = findViewById(R.id.textoEnunciado);
         textoPuntosConsolidados = findViewById(R.id.textoPuntosConsolidados);
         textoNumeroDeReto = findViewById(R.id.textoNumeroDeReto);
+        imagenOds = findViewById(R.id.imagenOds);
 
         botonSeleccionado = (Button)findViewById(R.id.botonA);
         texto_fraseADescubir = findViewById(R.id.texto_fraseADescubir);
@@ -208,7 +211,13 @@ public class IUretoAhorcado extends AppCompatActivity {
         SonidoFallo = extras.getInt("SonidoFallo");
         Tiempo = extras.getInt("Tiempo");
         errores = extras.getInt("erroresRetoAhorcado");
-
+        numeroOds = extras.getInt("odsAhorcado");
+        poner_imagen_ods();
+    }
+    public void poner_imagen_ods() {
+        int imagenId = getResources().getIdentifier("ods_" + numeroOds, "drawable", getPackageName());
+        Drawable imagen = getResources().getDrawable(imagenId);
+        imagenOds.setImageDrawable(imagen);
     }
 
     public void botonSelecionado(View v){

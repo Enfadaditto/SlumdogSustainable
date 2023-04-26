@@ -136,6 +136,7 @@ public class MediadorDeRetos extends AppCompatActivity {
         b.putInt("Tiempo", juegoRetoAhorcado.getTiempo());
         b.putInt("Vidas", vidas);
         b.putInt("erroresRetoAhorcado", juegoRetoAhorcado.getErroresRetoAhorcado());
+        b.putInt("odsAhorcado", juegoRetoAhorcado.getAhorcado().getId_ODS());
         I.putExtras(b);
         startActivityForResult(I, REQUESTCODE);
     }

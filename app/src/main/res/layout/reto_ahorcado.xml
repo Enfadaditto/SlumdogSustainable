@@ -24,12 +24,14 @@
     <RelativeLayout
         android:layout_width="409dp"
         android:layout_height="354dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="gone">
 
         <Button
             android:id="@+id/botonG"
@@ -531,7 +533,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.268"
-        app:srcCompat="@drawable/ahorcado_10" />
+        app:srcCompat="@android:drawable/list_selector_background" />
 
     <TextView
         android:id="@+id/textoEnunciado"
@@ -543,9 +545,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/imagenAhorcado"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.572"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.833" />
+        app:layout_constraintVertical_bias="0.904" />
 
     <TextView
         android:id="@+id/textoPuntosAcumulados"
@@ -633,10 +636,129 @@
         android:text="1/10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.041"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.074" />
+        app:layout_constraintVertical_bias="0.146" />
+
+    <ImageView
+        android:id="@+id/imagenOds"
+        android:layout_width="79dp"
+        android:layout_height="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ods_0" />
+
+    <ImageView
+        android:id="@+id/imagenPistaAhorcado"
+        android:layout_width="33dp"
+        android:layout_height="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.086"
+        app:srcCompat="@drawable/pista" />
+
+    <RelativeLayout
+        android:id="@+id/contenedor_resp"
+        android:layout_width="416dp"
+        android:layout_height="852dp"
+        android:background="#CC0E0E0E"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
+
+        <Button
+            android:id="@+id/botonConsolidar"
+            android:layout_width="253dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="606dp"
+            android:layout_marginEnd="83dp"
+            android:layout_marginBottom="196dp"
+            android:background="@drawable/boton_azul"
+            android:minHeight="48dp"
+            android:onClick="clickBotonConsolidar"
+            android:text="CONSOLIDAD Y CONTINUAR" />
+
+        <TextView
+            android:id="@+id/puntosTotal"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="95dp"
+            android:layout_marginTop="279dp"
+            android:layout_marginEnd="91dp"
+            android:layout_marginBottom="525dp"
+            android:fontFamily="sans-serif-black"
+            android:text="PUNTUACIÓN TOTAL = 0"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/botonSiguientePregunta"
+            android:layout_width="287dp"
+            android:layout_height="59dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="62dp"
+            android:layout_marginTop="690dp"
+            android:layout_marginEnd="67dp"
+            android:layout_marginBottom="98dp"
+            android:background="@drawable/boton_verde"
+            android:onClick="metodoBotonSiguiente"
+            android:text="CONTINUAR SIN CONSOLIDAR" />
+
+        <TextView
+            android:id="@+id/puntosGanados"
+            android:layout_width="208dp"
+            android:layout_height="43dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="106dp"
+            android:layout_marginTop="393dp"
+            android:layout_marginEnd="102dp"
+            android:layout_marginBottom="416dp"
+            android:gravity="center"
+            android:text="+100"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imagen_acierto"
+            android:layout_width="299dp"
+            android:layout_height="96dp"
+            android:layout_alignBottom="@+id/botonSiguientePregunta"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="58dp"
+            android:layout_marginTop="101dp"
+            android:layout_marginEnd="59dp"
+            android:layout_marginBottom="507dp"
+            app:srcCompat="@drawable/felicitaciones_2" />
+
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

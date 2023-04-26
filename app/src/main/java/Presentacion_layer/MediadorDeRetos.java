@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 import Builder.BuilderPartidaRetoAhorcado;
@@ -45,6 +46,7 @@ public class MediadorDeRetos extends AppCompatActivity {
     boolean retoPreguntaEscogido = false;
     boolean retoAhorcadoEscogido = false;
     boolean retoMixtoEscogido;
+    int erroresRetoAhorcado;
 
     boolean haConsolidado = false;
     public final static int REQUESTCODE = 100;
@@ -73,6 +75,9 @@ public class MediadorDeRetos extends AppCompatActivity {
         creadorDeJuego.construirJuego();
         juegoRetoAhorcado= retoAhorcado.getJuego();
         siguienteRetoAhorcado();
+       // Intent intent = new Intent(MediadorDeRetos.this, IUretoAhorcado.class);
+        //startActivity(intent);
+
     }
     public void clickBotonRetoPregunta(View v){
         retoPreguntaEscogido = true;
@@ -106,15 +111,18 @@ public class MediadorDeRetos extends AppCompatActivity {
         if(vidas < 0 || ronda > 10) {finish();}
         else if(ronda <= 4){
             juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabrasNivel1().get(indicePreguntasFacil++));
+            juegoRetoAhorcado.setErroresRetoAhorcado(0);
         }
 
         else if(ronda > 4 && ronda <= 7) {
             juegoRetoPregunta.setNivel(2);
+            juegoRetoAhorcado.setErroresRetoAhorcado(3);
             juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabrasNivel2().get(indicePreguntasMedio++));
         }
 
         else {
             juegoRetoPregunta.setNivel(3);
+            juegoRetoAhorcado.setErroresRetoAhorcado(5);
             juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabrasNivel3().get(indicePreguntasDificil++));
         }
         pasarDatosRetoAhorcado();
@@ -126,6 +134,9 @@ public class MediadorDeRetos extends AppCompatActivity {
         b.putString("palabraAhorcado", juegoRetoAhorcado.getAhorcado().getPalabra());
         b.putString("enunciadoAhorcado", juegoRetoAhorcado.getAhorcado().getEnunciado());
         b.putInt("Tiempo", juegoRetoAhorcado.getTiempo());
+        b.putInt("Vidas", vidas);
+        b.putInt("erroresRetoAhorcado", juegoRetoAhorcado.getErroresRetoAhorcado());
+        b.putInt("odsAhorcado", juegoRetoAhorcado.getAhorcado().getId_ODS());
         I.putExtras(b);
         startActivityForResult(I, REQUESTCODE);
     }

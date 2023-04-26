@@ -6,25 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/tiempoTextview"
+        android:layout_width="198dp"
+        android:layout_height="57dp"
+        android:text="Tiempo de juego: 20h"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/chartsLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.882"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.538" />
+
     <RelativeLayout
-        android:id="@+id/relativeLayout2"
+        android:id="@+id/chartsLayout"
         android:layout_width="match_parent"
+        android:background="#B8E7E1"
         android:layout_height="match_parent"
         android:layout_marginTop="250dp"
-        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChart"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#B8E7E1">
-
-        </com.github.mikephil.charting.charts.BarChart>
-    </RelativeLayout>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/puntosTextview"
@@ -33,7 +38,7 @@
         android:text="Puntos totales: "
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/chartsLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.88"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,18 +61,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="353dp"
-        android:layout_height="36dp"
-        android:text="Porcentaje de acierto por ODS:"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
+    <Spinner
+        android:id="@+id/selectorGrafica"
+        android:layout_width="383dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="1dp"
+        android:entries="@array/graficas"
+        android:minHeight="48dp"
+        android:textAlignment="inherit"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/chartsLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.943" />
+        app:layout_constraintVertical_bias="0.915" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,7 @@
         android:id="@+id/tiempoTextview"
         android:layout_width="198dp"
         android:layout_height="57dp"
-        android:text="Tiempo de juego: 20h"
+        android:text="Tiempo de juego: "
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/chartsLayout"

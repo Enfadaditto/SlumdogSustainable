@@ -73,15 +73,15 @@ public class ODS_has_User {
         this.id_ODS = ods;
     }
 
-    public double getRightGuesssesPercent() {
-        return (100 * this.hits / (this.hits + this.fails));
+    public float getRightGuesssesPercent() {
+        return (100 * (float) this.hits / (this.hits + this.fails));
     }
 
     public static class tuplaStats {
-        public double percentage;
+        public float percentage;
         public int idOds;
 
-        public tuplaStats(double p, int i) {
+        public tuplaStats(float p, int i) {
             percentage = p;
             idOds = i;
         }

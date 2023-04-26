@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -23,6 +24,9 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
@@ -51,6 +55,8 @@ public class IUEstadisticas extends AppCompatActivity {
 
     TextView tiempoText;
 
+    PieChart pieChart;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,22 +64,23 @@ public class IUEstadisticas extends AppCompatActivity {
 
         chartLayout = (RelativeLayout) findViewById(R.id.chartsLayout);
         selector = (Spinner) findViewById(R.id.selectorGrafica);
-
+        tiempoText = findViewById(R.id.tiempoTextview);
         puntosText = (TextView) findViewById(R.id.puntosTextview);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         puntosText.setText(puntosText.getText() + Integer.toString(MainActivity.user.getPointsAchieved()));
+        tiempoText.setText(tiempoText.getText() + String.format("%.2f", ((float)MainActivity.user.getTimeSpent() / 60)) + "h");
 
         selector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Your code here
                 if(position == 0) {
-                    //borrar PieChart del Layout
+                    chartLayout.removeView(pieChart);
                     createDiagramChart();}
                 if(position == 1) {
                     chartLayout.removeView(barChart);
-                    //crear PieChart
+                    createPieChart();
                 }
             }
 
@@ -84,7 +91,33 @@ public class IUEstadisticas extends AppCompatActivity {
         });
     }
 
-
+    public void createPieChart() {
+        pieChart = new PieChart(this.getApplicationContext());
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT
+        );
+        pieChart.setLayoutParams(layoutParams);
+        chartLayout.addView(pieChart);
+        pieChart.setUsePercentValues(true);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setExtraOffsets(5, 10, 5, 5);
+        pieChart.setDragDecelerationFrictionCoef(0.95f);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.setTransparentCircleRadius(61f);
+        pieChart.setEntryLabelTextSize(12f);
+        pieChart.setEntryLabelColor(Color.BLACK);
+        pieChart.setDrawEntryLabels(true);
+        pieChart.setRotationAngle(0);
+        pieChart.setRotationEnabled(true);
+        pieChart.animateY(1000);
+        try {
+            addEntriesPie();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void createDiagramChart() {
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -103,13 +136,38 @@ public class IUEstadisticas extends AppCompatActivity {
         barChart.getXAxis().setEnabled(true);
         barChart.animateY(1000);
         try {
-            addEntries();
+            addEntriesBar();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
     }
-    public void addEntries() throws InterruptedException {
+    public void addEntriesPie() throws InterruptedException {
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<PieEntry> entries = new ArrayList<>();
+                ODS_URepository ODS = new ODS_URepository(MainActivity.conexion);
+                List <ODS_has_User> aux = ODS.getAllhits(MainActivity.user);
+                entries.add(new PieEntry(aux.get(0).getRightGuesses(), "General"));
+                for(int i = 1; i < 18; i++) {
+                    entries.add(new PieEntry(aux.get(i).getRightGuesses(), "ODS " + i));
+                }
+                PieDataSet dataSet = new PieDataSet(entries, "ODS");
+                dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                dataSet.setValueTextColor(Color.BLACK);
+                dataSet.setValueTextSize(12f);
+                PieData p = new PieData(dataSet);
+                pieChart.getLegend().setEnabled(false);
+                pieChart.setData(p);
+                barChart.refreshDrawableState();
+                barChart.invalidate();
+            }
+        });
+        t.start();
+        t.join();
+    }
+    public void addEntriesBar() throws InterruptedException {
         ArrayList<BarEntry> entries = new ArrayList<>();
         Thread t = new Thread(new Runnable() {
             @Override
@@ -117,8 +175,7 @@ public class IUEstadisticas extends AppCompatActivity {
                 ODS_URepository ODS = new ODS_URepository(MainActivity.conexion);
                 List<ODS_has_User.tuplaStats> aux = ODS.getPercentagebyUser(MainActivity.user);
                 for(int i = 0; i < 18; i++) {
-                    entries.add(new BarEntry(aux.get(i).idOds, (int) aux.get(i).percentage));
-
+                    entries.add(new BarEntry(aux.get(i).idOds, aux.get(i).percentage));
                 }
                 BarDataSet dataSet = new BarDataSet(entries, "ODS");
                 dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
@@ -144,7 +201,6 @@ public class IUEstadisticas extends AppCompatActivity {
                 barChart.getAxisLeft().setDrawGridLines(false);
                 barChart.getAxisRight().setDrawGridLines(false);
                 barChart.getLegend().setEnabled(false);
-
                 barChart.setVisibleXRangeMaximum(6);
                 barChart.setExtraTopOffset(5);
                 barChart.getXAxis().setTextSize(14);

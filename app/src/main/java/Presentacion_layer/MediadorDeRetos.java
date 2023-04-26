@@ -21,6 +21,8 @@ import Builder.CreadorDePartida;
 import Domain_Layer.Partida;
 import Domain_Layer.PartidaRetoAhorcado;
 import Domain_Layer.PartidaRetoPregunta;
+import Domain_Layer.User;
+import Persistence.ODS_URepository;
 
 public class MediadorDeRetos extends AppCompatActivity {
     int vidas = 1;
@@ -165,20 +167,31 @@ public class MediadorDeRetos extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 puntosTotales += juegoRetoPregunta.getPuntos() * juegoRetoPregunta.getNivel();
                 ronda++;
+                updateHitsFailsODS(true, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
             }
             else if(resultCode == RESULT_CANCELED) {
                 puntosTotales += juegoRetoPregunta.getPuntos() * juegoRetoPregunta.getNivel() * (-2);
                 if(puntosTotales < 0) {puntosTotales = 0;}
                 vidas--;
+                updateHitsFailsODS(false, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
             }
             else if(resultCode == RESULT_FIRST_USER) {
                 puntosTotales += juegoRetoPregunta.getPuntos() * juegoRetoPregunta.getNivel();
                 puntosConsolidados = puntosTotales;
                 haConsolidado = true;
                 ronda++;
+                updateHitsFailsODS(true, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
             }
             siguienteRetoPregunta();
         }
     }
-
+    public void updateHitsFailsODS(boolean hit, int idODS, User u) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ODS_URepository ODS = new ODS_URepository(MainActivity.conexion);
+                ODS.updateODS(hit, idODS, u);
+            }
+        }).start();
+    }
 }

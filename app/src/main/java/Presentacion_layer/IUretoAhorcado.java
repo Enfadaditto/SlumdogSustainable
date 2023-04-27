@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
+import java.util.Random;
+
 import Domain_Layer.Ahorcado;
 
 
@@ -55,11 +57,13 @@ public class IUretoAhorcado extends AppCompatActivity {
     Button botonSeleccionado25;
     Button botonSeleccionado26;
     ImageView imagenAhorcado;
+    ImageView imagenPista;
     ProgressBar timeBar2;
     CountDownTimer mCountDownTimer;
     TextView textoPuntosAcumulados;
     TextView textoPuntosConsolidados;
     TextView textoEnunciado;
+    TextView contadorBombillas;
     TextView enunciado;
     ImageView imagenOds;
     int vida;
@@ -79,6 +83,7 @@ public class IUretoAhorcado extends AppCompatActivity {
 
     int SonidoAcierto;
     int numeroOds;
+    int pistas = 3;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,11 +118,13 @@ public class IUretoAhorcado extends AppCompatActivity {
         botonSeleccionado24 = (Button)findViewById(R.id.botonX);
         botonSeleccionado25 = (Button)findViewById(R.id.botonY);
         botonSeleccionado26 = (Button)findViewById(R.id.botonZ);
+        contadorBombillas = findViewById(R.id.contadorBombillas);
         textoPuntosAcumulados = findViewById(R.id.textoPuntosAcumulados);
         textoEnunciado = findViewById(R.id.textoEnunciado);
         textoPuntosConsolidados = findViewById(R.id.textoPuntosConsolidados);
         textoNumeroDeReto = findViewById(R.id.textoNumeroDeReto);
         imagenOds = findViewById(R.id.imagenOds);
+        imagenPista = findViewById(R.id.imagenPistaPregunta);
 
         botonSeleccionado = (Button)findViewById(R.id.botonA);
         texto_fraseADescubir = findViewById(R.id.texto_fraseADescubir);
@@ -265,6 +272,33 @@ public class IUretoAhorcado extends AppCompatActivity {
         }
 
         texto_fraseADescubir.setText(fraseEnBarrasBajas.trim());
+    }
+    public void utilizarPista(View view){
+        //falta modificar puntuación
+        Random aleatorio = new Random();
+        int aleatorios = aleatorio.nextInt(fraseAhorcado.length());
+        //String letraAleatoria = String.valueOf(fraseAhorcado.charAt(aleatorios));
+
+
+        for(int j =0 ;j<fraseAhorcado.length(); j++) {
+
+            if (fraseAhorcado.charAt(aleatorios) == fraseAhorcado.charAt(j)) {
+                fraseACompletar[j] = fraseAhorcado.charAt(j);
+            }
+        }
+        fraseEnBarrasBajas="";
+        for(int i =0 ;i<fraseAhorcado.length(); i++){
+            fraseEnBarrasBajas += fraseACompletar[i]+" ";
+        }
+
+        texto_fraseADescubir.setText(fraseEnBarrasBajas.trim());
+        imagenPista.setVisibility(View.GONE);
+        pistas --;
+        //contadorBombillas.setText(pistas + "/3");
+        contadorBombillas.setVisibility(View.GONE);
+
+
+
     }
 
     public static char StringToChar(String s) {

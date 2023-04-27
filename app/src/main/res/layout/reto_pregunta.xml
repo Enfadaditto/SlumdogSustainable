@@ -363,4 +363,28 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/imagenPistaPregunta"
+        android:layout_width="33dp"
+        android:layout_height="35dp"
+        android:onClick="pistaRetoPregunta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.317"
+        app:srcCompat="@drawable/pista" />
+    <TextView
+        android:id="@+id/contadorBombillas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3/3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.372" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

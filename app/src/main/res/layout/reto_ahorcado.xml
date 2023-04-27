@@ -557,10 +557,10 @@
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/textoEnunciado"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.412"
+        app:layout_constraintHorizontal_bias="0.391"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.172" />
+        app:layout_constraintVertical_bias="0.081" />
 
     <TextView
         android:id="@+id/textoPuntosConsolidados"
@@ -571,10 +571,10 @@
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/textoEnunciado"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.597"
+        app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.758" />
+        app:layout_constraintVertical_bias="0.756" />
 
     <TextView
         android:id="@+id/textView6"
@@ -632,12 +632,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1/10"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textoEnunciado"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.146" />
+        app:layout_constraintVertical_bias="0.6" />
 
     <ImageView
         android:id="@+id/imagenOds"
@@ -652,15 +652,16 @@
         app:srcCompat="@drawable/ods_0" />
 
     <ImageView
-        android:id="@+id/imagenPistaAhorcado"
+        android:id="@+id/imagenPistaPregunta"
         android:layout_width="33dp"
         android:layout_height="35dp"
+        android:onClick="utilizarPista"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintHorizontal_bias="0.026"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.086"
+        app:layout_constraintVertical_bias="0.317"
         app:srcCompat="@drawable/pista" />
 
     <RelativeLayout
@@ -836,6 +837,18 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/contadorBombillas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3/3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.372" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

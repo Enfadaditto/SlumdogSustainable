@@ -24,7 +24,12 @@ import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import Builder.BuilderPartidaRetoPregunta;
 import Builder.CreadorDePartida;
@@ -47,6 +52,8 @@ public class IUretoPregunta extends AppCompatActivity {
     Button botonRespuesta3;
     Button botonRespuesta4;
     TextView textoPuntosTotal;
+    ImageView imagenPista;
+    TextView contadorBombillas;
 
     TextView textPuntosAcumulados;
 
@@ -122,6 +129,8 @@ public class IUretoPregunta extends AppCompatActivity {
         abandonar = findViewById(R.id.abandonar);
         imagenPantallaFinal = findViewById(R.id.imagenPantallaFinal);
         textoPuntosFinales = findViewById(R.id.textoPuntosFinales);
+        imagenPista = findViewById(R.id.imagenPistaPregunta);
+        contadorBombillas = findViewById(R.id.contadorBombillas);
 
         CargarDatos();
         try {
@@ -521,6 +530,28 @@ public class IUretoPregunta extends AppCompatActivity {
         dialog.show();
     }
 
+    public void pistaRetoPregunta(View view){
+        int correctAnswerIndex = -1;
+        List<Button> botonesRespuesta = new ArrayList<>();
+        botonesRespuesta.add(botonRespuesta1);
+        botonesRespuesta.add(botonRespuesta2);
+        botonesRespuesta.add(botonRespuesta3);
+        botonesRespuesta.add(botonRespuesta4);
+
+
+        for (int i = 0; i < respuestasActuales.size(); i++) {
+            if (respuestasActuales.get(i).isCorrect()) {
+                correctAnswerIndex = i;
+                botonesRespuesta.remove(i);
+                break;
+            }
+        }
+        Collections.shuffle(botonesRespuesta);
+        botonesRespuesta.get(1).setBackground(getDrawable(R.drawable.boton_rojo));
+        botonesRespuesta.get(2).setBackground(getDrawable(R.drawable.boton_rojo));
+
+
+    }
     public void clickBotonTerminarPartida(View v) {
         guardarPuntuacion();
         Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);

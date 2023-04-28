@@ -71,6 +71,7 @@ public class MediadorDeRetos extends AppCompatActivity {
     }
 
     public void clickBotonRetoAhorcado(View v){
+        retoAhorcadoEscogido = true;
         retoAhorcado = new BuilderPartidaRetoAhorcado();
         CreadorDePartida creadorDeJuego = new CreadorDePartida();
         creadorDeJuego.setJuegoBuilder(retoAhorcado);
@@ -135,8 +136,16 @@ public class MediadorDeRetos extends AppCompatActivity {
         Bundle b = new Bundle();
         b.putString("palabraAhorcado", juegoRetoAhorcado.getAhorcado().getPalabra());
         b.putString("enunciadoAhorcado", juegoRetoAhorcado.getAhorcado().getEnunciado());
-        b.putInt("Tiempo", juegoRetoAhorcado.getTiempo());
+        b.putInt("PuntosTotales", puntosTotales);
+        b.putInt("PuntosConsolidados", puntosConsolidados);
         b.putInt("Vidas", vidas);
+        b.putInt("Ronda", ronda);
+        b.putBoolean("haConsolidado", haConsolidado);
+        b.putInt("TiempoOpcion", juegoRetoAhorcado.getTiempoOpcion());
+        b.putInt("Tiempo", juegoRetoAhorcado.getTiempo());
+        b.putInt("Nivel", juegoRetoAhorcado.getNivel());
+        b.putInt("SonidoFallo", juegoRetoAhorcado.getSonidofallo());
+        b.putInt("SonidoAcierto", juegoRetoAhorcado.getSonidoacierto());
         b.putInt("erroresRetoAhorcado", juegoRetoAhorcado.getErroresRetoAhorcado());
         b.putInt("odsAhorcado", juegoRetoAhorcado.getAhorcado().getId_ODS());
         I.putExtras(b);
@@ -163,26 +172,50 @@ public class MediadorDeRetos extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUESTCODE) {
-            if(resultCode == RESULT_OK) {
-                puntosTotales += juegoRetoPregunta.getPuntos() * juegoRetoPregunta.getNivel();
-                ronda++;
-                updateHitsFailsODS(true, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
+        if(retoPreguntaEscogido) {
+            if (requestCode == REQUESTCODE) {
+                if (resultCode == RESULT_OK) {
+                    puntosTotales += juegoRetoPregunta.getPuntos() * juegoRetoPregunta.getNivel();
+                    ronda++;
+                    updateHitsFailsODS(true, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
+                } else if (resultCode == RESULT_CANCELED) {
+                    puntosTotales += juegoRetoPregunta.getPuntos() * juegoRetoPregunta.getNivel() * (-2);
+                    if (puntosTotales < 0) {
+                        puntosTotales = 0;
+                    }
+                    vidas--;
+                    updateHitsFailsODS(false, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
+                } else if (resultCode == RESULT_FIRST_USER) {
+                    puntosTotales += juegoRetoPregunta.getPuntos() * juegoRetoPregunta.getNivel();
+                    puntosConsolidados = puntosTotales;
+                    haConsolidado = true;
+                    ronda++;
+                    updateHitsFailsODS(true, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
+                }
+                siguienteRetoPregunta();
             }
-            else if(resultCode == RESULT_CANCELED) {
-                puntosTotales += juegoRetoPregunta.getPuntos() * juegoRetoPregunta.getNivel() * (-2);
-                if(puntosTotales < 0) {puntosTotales = 0;}
-                vidas--;
-                updateHitsFailsODS(false, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
-            }
-            else if(resultCode == RESULT_FIRST_USER) {
-                puntosTotales += juegoRetoPregunta.getPuntos() * juegoRetoPregunta.getNivel();
-                puntosConsolidados = puntosTotales;
-                haConsolidado = true;
-                ronda++;
-                updateHitsFailsODS(true, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
-            }
-            siguienteRetoPregunta();
+        } else if (retoAhorcadoEscogido) {
+            if (requestCode == REQUESTCODE) {
+                if (resultCode == RESULT_OK) {
+                    puntosTotales += juegoRetoAhorcado.getPuntos() * juegoRetoAhorcado.getNivel();
+                    ronda++;
+                    //updateHitsFailsODS(true, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
+                } else if (resultCode == RESULT_CANCELED) {
+                    puntosTotales += juegoRetoAhorcado.getPuntos() * juegoRetoAhorcado.getNivel() * (-2);
+                    if (puntosTotales < 0) {
+                        puntosTotales = 0;
+                    }
+                    vidas--;
+                    //updateHitsFailsODS(false, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
+                } else if (resultCode == RESULT_FIRST_USER) {
+                    puntosTotales += juegoRetoAhorcado.getPuntos() * juegoRetoAhorcado.getNivel();
+                    puntosConsolidados = puntosTotales;
+                    haConsolidado = true;
+                    ronda++;
+                    //updateHitsFailsODS(true, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
+                }
+                siguienteRetoAhorcado();
+        }
         }
     }
     public void updateHitsFailsODS(boolean hit, int idODS, User u) {

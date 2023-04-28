@@ -120,7 +120,7 @@ public class BuilderPartidaRetoAhorcado extends BuilderPartida{
 
     @Override
     public void buildPuntos() {
-        juego.setPuntos(5000 * juego.getNivel());
+        juego.setPuntos(100 * juego.getNivel());
     }
 
 

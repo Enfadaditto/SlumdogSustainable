@@ -365,7 +365,6 @@ public class IUretoPregunta extends AppCompatActivity {
         puntosTotales += 100 * Nivel;
         textoPuntosGanados.setText("+" + screenText + " puntos ganados!");
         textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
-
         cambiarColorAVerde(index);
         visualizacionBotonConsolidar(true);
         acierto_fallo.setImageDrawable(getDrawable(R.drawable.felicitaciones_2));

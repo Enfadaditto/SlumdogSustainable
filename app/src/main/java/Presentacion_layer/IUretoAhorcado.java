@@ -1,5 +1,6 @@
 package Presentacion_layer;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -11,12 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
+
+import java.sql.SQLException;
 
 import java.util.Random;
 
@@ -83,6 +88,21 @@ public class IUretoAhorcado extends AppCompatActivity {
 
     int SonidoAcierto;
     int numeroOds;
+    boolean Acierto;
+    int puntosTotales;
+    Button botonConsolidar;
+    ImageView acierto_fallo;
+    Button botonSiguientePregunta;
+    ImageView imagenPantallaFinal;
+    TextView textoPuntosFinales;
+    ConstraintLayout contenedor_principal;
+    RelativeLayout contenedor;
+    RelativeLayout pantalla_final;
+    String enunciadoString;
+    int puntosConsolidados;
+    int contadorAciertos=0;
+    TextView textoPuntosGanados;
+    TextView textoPuntosTotal;
     int pistas = 3;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,13 +146,27 @@ public class IUretoAhorcado extends AppCompatActivity {
         imagenOds = findViewById(R.id.imagenOds);
         imagenPista = findViewById(R.id.imagenPistaPregunta);
 
+        botonConsolidar = findViewById(R.id.botonConsolidar);
+        acierto_fallo = findViewById(R.id.imagen_acierto);
+        botonSiguientePregunta = findViewById(R.id.botonSiguientePregunta);
+        imagenPantallaFinal = findViewById(R.id.imagenPantallaFinal);
+        textoPuntosFinales = findViewById(R.id.textoPuntosFinales);
         botonSeleccionado = (Button)findViewById(R.id.botonA);
         texto_fraseADescubir = findViewById(R.id.texto_fraseADescubir);
-        //fraseAhorcado = ahorcado.getPalabra();
-        cargarDatos();
-        //fraseAhorcado = "PAPAS CON QUESO";
+        contenedor = findViewById(R.id.contenedor_resp);
+        imagenPantallaFinal = findViewById(R.id.imagenPantallaFinal);
+        pantalla_final = findViewById(R.id.contenedor_final);
+        textoPuntosGanados = findViewById(R.id.puntosGanados);
+        textoPuntosTotal = findViewById(R.id.puntosTotal);
 
-        System.out.println(fraseAhorcado);
+        cargarDatos();
+
+        startTimer(Tiempo);
+
+        ponerTextosEnPantalla();
+    }
+
+    private void ponerTextosEnPantalla() {
         fraseACompletar = new char [fraseAhorcado.length()];
         for(int i = 0; i<fraseAhorcado.length();i++){
             if(fraseAhorcado.charAt(i) == ' '){
@@ -146,8 +180,10 @@ public class IUretoAhorcado extends AppCompatActivity {
         texto_fraseADescubir.setText(fraseEnBarrasBajas.trim());
 
 
-        startTimer(Tiempo);
-        }
+        enunciado.setText(enunciadoString);
+        textoPuntosAcumulados.setText("Puntos: "+puntosTotales);
+        textoPuntosConsolidados.setText("Puntos consolidados: "+ puntosConsolidados);
+    }
 
     private void startTimer(int t) {
         int tiempo = t;
@@ -184,7 +220,7 @@ public class IUretoAhorcado extends AppCompatActivity {
 
                         if (tiempo == Tiempo) {
                             //Se acabo el tiempo, marcar como mala
-                           // wrongAnswer(2, -1);
+                            terminoMal(1, true);
                         } else if (tiempo == TiempoOpcion) {
                            /* puntosTotales = 0;
                             puntosConsolidados = 0;
@@ -206,17 +242,17 @@ public class IUretoAhorcado extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         fraseAhorcado = extras.getString("palabraAhorcado").toUpperCase();;
-        String enunciadoString = extras.getString("enunciadoAhorcado");
-        enunciado.setText(enunciadoString);
+        enunciadoString = extras.getString("enunciadoAhorcado");
+        puntosTotales = extras.getInt("PuntosTotales");
+        puntosConsolidados = extras.getInt("PuntosConsolidados");
         vida = extras.getInt("Vidas");
         cantidadRetosContestados = extras.getInt("Ronda");
         haConsolidado = extras.getBoolean("haConsolidado");
-        Tiempo = extras.getInt("Tiempo");
         TiempoOpcion = extras.getInt("TiempoOpcion");
-        nivel = extras.getInt("Nivel");
-        SonidoAcierto = extras.getInt("SonidoAcierto");
-        SonidoFallo = extras.getInt("SonidoFallo");
         Tiempo = extras.getInt("Tiempo");
+        nivel = extras.getInt("Nivel");
+        SonidoFallo = extras.getInt("SonidoFallo");
+        SonidoAcierto = extras.getInt("SonidoAcierto");
         errores = extras.getInt("erroresRetoAhorcado");
         numeroOds = extras.getInt("odsAhorcado");
         poner_imagen_ods();
@@ -231,20 +267,31 @@ public class IUretoAhorcado extends AppCompatActivity {
         String letraSeleccionada= "";
         Button b = (Button) v;
         letraSeleccionada = String.valueOf(((Button) v).getText());
-        validarLetra(letraSeleccionada, b);
+        validarLetraSeleccionada(letraSeleccionada, b);
     }
 
-    public void validarLetra(String letraSeleccionada, Button botonSelccionado){
+    public void validarLetraSeleccionada(String letraSeleccionada, Button botonSelccionado){
         if (fraseAhorcado.contains(letraSeleccionada)){
             //letra correcta
+            MainActivity.music.stop();
+            MainActivity.music = MediaPlayer.create(getApplicationContext(), SonidoAcierto);
+            MainActivity.music.start();
+
             botonSelccionado.setBackground(getDrawable(R.drawable.boton_teclado_verde));
             letrasEncontradas[imax++]= StringToChar(letraSeleccionada);
             sustituirLetra(letraSeleccionada);
+            terminoBien(comprobarSiTermino());
         }else {
             //letra incorrecta
+            MainActivity.music.stop();
+            MainActivity.music = MediaPlayer.create(getApplicationContext(), SonidoFallo);
+            MainActivity.music.start();
+
             botonSelccionado.setBackground(getDrawable(R.drawable.boton_teclado_rojo));
             errores++;
             ponerImagenAhorcado();
+
+            terminoMal(0, revisarCantidadErrores());
         }
         botonSelccionado.setEnabled(false);
     }
@@ -304,33 +351,127 @@ public class IUretoAhorcado extends AppCompatActivity {
     public static char StringToChar(String s) {
         return s.charAt(0);
     }
-/*
-    private void IniciarBaseDedatos() {
-        new Thread(new Runnable() {
-            public void run() {
-                try {
 
-                    ahorcado = new Ahorcado();
-                    preguntasEnBD = new QuestionRepository();
-                    preguntaActual = preguntasEnBD.obtener(QuestionID);
-                    respuestasActuales = preguntasEnBD.getRespuestasPregunta(preguntaActual);
+    public void metodoBotonSiguiente(View v) throws SQLException {
+        mCountDownTimer.cancel();
+        MainActivity.music.stop();
+        Intent t = new Intent();
+        t.putExtra("Acierto", Acierto);
+        if(haConsolidado) {
+            setResult(RESULT_FIRST_USER);
+        }
+        else if (Acierto) {setResult(RESULT_OK);}
+        else {setResult(RESULT_CANCELED);}
+
+        finish();
+    }
 
 
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            //ponerTextoEnPantalla();
-                        }
-                    });
-                } catch (Exception e) {
+    public void pantallaAciertoFallo() {
+        contenedor.setVisibility(View.VISIBLE);
+    }
 
-                    System.out.println(e);
-                }
-            }
-        }).start();
+    public void visualizacionBotonConsolidar(Boolean respuestaCorrecta) {
 
+        if (respuestaCorrecta && !haConsolidado) {
+            botonConsolidar.setVisibility(View.VISIBLE);
+        } else {
+            botonConsolidar.setVisibility(View.INVISIBLE);
+        }
+
+    }
+    public void pantalla_final() {
+        pantalla_final.setVisibility(View.VISIBLE);
+
+        timeBar.setVisibility(View.INVISIBLE);
 
     }
 
- */
+    public boolean comprobarSiTermino(){
 
-}
+        for (int i = 0; i < fraseACompletar.length; i++) {
+            if(fraseACompletar[i]=='_'){
+               return false;
+
+            }
+
+        }
+       return true;
+    }
+    public void terminoBien(boolean haTerminado){
+        if(haTerminado){
+            Acierto = true;
+
+
+            cantidadRetosContestados++;
+            puntosTotales += 100 * nivel;
+            // textoPuntosGanados.setText("+" + screenText + " puntos ganados!");
+            // textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
+
+
+            visualizacionBotonConsolidar(true);
+            acierto_fallo.setImageDrawable(getDrawable(R.drawable.felicitaciones_2));
+
+            if (haConsolidado) {
+                botonSiguientePregunta.setText("CONTINUAR");
+            } else {
+                botonSiguientePregunta.setText("CONTINUAR SIN CONSOLIDAR");
+            }
+
+            if (cantidadRetosContestados > 10) {
+                imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.felicitaciones_2));
+                textoPuntosFinales.setText("Tu puntuacion final es de: " + puntosTotales);
+                MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.winner);
+                MainActivity.music.start();
+                pantalla_final();
+                return;
+            } else {
+
+                pantallaAciertoFallo();
+            }
+
+            startTimer(TiempoOpcion);
+
+        }
+    }
+    public boolean revisarCantidadErrores(){
+
+        return errores == 10;
+
+    }
+
+    public void terminoMal(int tipo, boolean haTerminado) {
+
+
+        if (haTerminado) {
+            vida--;
+            if (vida < 0) {
+                puntosTotales = 0;
+                puntosConsolidados = 0;
+                imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.game_over));
+                textoPuntosFinales.setText("Puntos totales: 0");
+                MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.loser);
+                MainActivity.music.start();
+                pantalla_final();
+                return;
+            }
+            startTimer(TiempoOpcion);
+
+            puntosTotales -= 100 * nivel * 2;
+            if (puntosTotales < 0) puntosTotales = 0;
+            textoPuntosGanados.setText(100 * nivel + (-2) + " puntos perdidos ");
+            if (tipo == 2) {
+                textoPuntosGanados.setText("Se acabo el tiempo");
+            }
+            botonSiguientePregunta.setText("CONTINUAR");
+            textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
+            visualizacionBotonConsolidar(false);
+
+            acierto_fallo.setImageDrawable(getDrawable(R.drawable.vuelve_intentar));
+            pantallaAciertoFallo();
+        }
+    }
+
+    }
+
+

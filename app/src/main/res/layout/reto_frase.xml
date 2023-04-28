@@ -531,4 +531,172 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timeBar3"
         app:layout_constraintVertical_bias="0.07" />
+
+    <RelativeLayout
+        android:id="@+id/contenedor_resp"
+        android:layout_width="734dp"
+        android:layout_height="424dp"
+        android:background="#CC0E0E0E"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.453"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.034"
+        tools:visibility="gone">
+
+        <TextView
+            android:id="@+id/puntosTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="138dp"
+            android:layout_marginEnd="88dp"
+            android:layout_marginBottom="247dp"
+            android:fontFamily="sans-serif-black"
+            android:text="PUNTUACIÓN TOTAL = 0"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/botonSiguientePregunta"
+            android:layout_width="248dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="245dp"
+            android:layout_marginTop="345dp"
+            android:layout_marginEnd="241dp"
+            android:layout_marginBottom="45dp"
+            android:background="@drawable/boton_verde"
+            android:onClick="metodoBotonSiguiente"
+            android:text="CONTINUAR SIN CONSOLIDAR" />
+
+        <ImageView
+            android:id="@+id/imagen_acierto"
+            android:layout_width="379dp"
+            android:layout_height="62dp"
+            android:layout_alignBottom="@+id/botonSiguientePregunta"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="178dp"
+            android:layout_marginTop="57dp"
+            android:layout_marginBottom="261dp"
+            app:srcCompat="@drawable/felicitaciones_2" />
+
+        <TextView
+            android:id="@+id/puntosGanados"
+            android:layout_width="597dp"
+            android:layout_height="41dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="193dp"
+            android:layout_marginEnd="68dp"
+            android:layout_marginBottom="190dp"
+            android:gravity="center"
+            android:text="+100"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/botonConsolidar"
+            android:layout_width="213dp"
+            android:layout_height="23dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="262dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginBottom="101dp"
+            android:background="@drawable/boton_azul"
+            android:minHeight="100dp"
+            android:onClick="clickBotonConsolidar"
+            android:text="CONSOLIDAD Y CONTINUAR"
+            android:visibility="gone"
+            tools:visibility="gone" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/contenedor_final"
+        android:layout_width="734dp"
+        android:layout_height="418dp"
+        android:background="#CC0E0E0E"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imagenPantallaFinal"
+            android:layout_width="534dp"
+            android:layout_height="68dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="99dp"
+            android:layout_marginTop="54dp"
+            android:layout_marginBottom="296dp"
+            app:srcCompat="@drawable/felicitaciones" />
+
+        <TextView
+            android:id="@+id/textoPuntosFinales"
+            android:layout_width="370dp"
+            android:layout_height="44dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="210dp"
+            android:layout_marginBottom="164dp"
+            android:fontFamily="sans-serif-black"
+            android:text="PUNTOS TOTALES: "
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/botonTerminarPartida"
+            android:layout_width="129dp"
+            android:layout_height="23dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="303dp"
+            android:layout_marginTop="347dp"
+            android:layout_marginEnd="302dp"
+            android:layout_marginBottom="48dp"
+            android:background="@drawable/boton_azul"
+            android:onClick="clickBotonTerminarPartida"
+            android:scaleType="fitXY"
+            android:text="TERMINAR" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="61dp"
+        android:layout_height="58dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.501"
+        app:srcCompat="@drawable/ods_0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,10 +3,16 @@ package Domain_Layer;
 import androidx.annotation.NonNull;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.slumdogsustainable.MainActivity;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import Persistence.FraseRepository;
 
 public class Frase extends Partida {
     @DatabaseField(id = true)
@@ -17,18 +23,18 @@ public class Frase extends Partida {
     @DatabaseField
     private int id_ODS;
 
-    @DatabaseField
     private String Dificultad;
 
-
+    @DatabaseField
+    private String Descripcion;
     private char[] fraseProblema;
 
     Frase() {}
 
-    public Frase(String frase, int id_ODS, String Dificultad) {
+    public Frase(String frase, int id_ODS, String descripcion) {
         this.frase = frase;
         this.id_ODS = id_ODS;
-        this.Dificultad = Dificultad;
+        this.Descripcion = descripcion;
     }
 
     public String getDificultad() {
@@ -102,5 +108,24 @@ public class Frase extends Partida {
     public char[] getFraseProblema() {
         if (this.fraseProblema == null) fraseProblema();
         return fraseProblema;
+    }
+
+    public String getDescripcion() {
+        return Descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        Descripcion = descripcion;
+    }
+
+    public Frase getFraseDB() {
+        FraseRepository fr = new FraseRepository(MainActivity.conexion);
+        List<Frase> listFrase = new ArrayList<>();
+        try {
+            listFrase = new ArrayList<>(fr.getListadoFrase());
+        } catch (SQLException e) {}
+
+        Collections.shuffle(listFrase);
+        return listFrase.get(0);
     }
 }

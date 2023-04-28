@@ -16,10 +16,12 @@ import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 import Builder.BuilderPartidaRetoAhorcado;
+import Builder.BuilderPartidaRetoDescubrirFrase;
 import Builder.BuilderPartidaRetoPregunta;
 import Builder.CreadorDePartida;
 import Domain_Layer.Partida;
 import Domain_Layer.PartidaRetoAhorcado;
+import Domain_Layer.PartidaRetoDescubrirFrase;
 import Domain_Layer.PartidaRetoPregunta;
 import Domain_Layer.User;
 import Persistence.ODS_URepository;
@@ -39,6 +41,8 @@ public class MediadorDeRetos extends AppCompatActivity {
     PartidaRetoPregunta juegoRetoPregunta;
     PartidaRetoAhorcado juegoRetoAhorcado;
 
+    PartidaRetoDescubrirFrase juegoRetoDescubrirFrase;
+
     int puntosTotales;
 
     int puntosConsolidados;
@@ -48,6 +52,7 @@ public class MediadorDeRetos extends AppCompatActivity {
     Button botonRetoMixto;
     boolean retoPreguntaEscogido = false;
     boolean retoAhorcadoEscogido = false;
+    boolean retoDescubrirFraseEscogido = false;
     boolean retoMixtoEscogido;
     int erroresRetoAhorcado;
 
@@ -55,6 +60,7 @@ public class MediadorDeRetos extends AppCompatActivity {
     public final static int REQUESTCODE = 100;
     BuilderPartidaRetoPregunta retoPregunta;
     BuilderPartidaRetoAhorcado retoAhorcado;
+    BuilderPartidaRetoDescubrirFrase retoDescubrirFrase;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -66,8 +72,6 @@ public class MediadorDeRetos extends AppCompatActivity {
         botonRetoPregunta = findViewById(R.id.botonRetoPregunta);
         botonRetoFrase = findViewById(R.id.botonRetoFrase);
         botonRetoMixto = findViewById(R.id.botonRetoMixto);
-
-
 
     }
 
@@ -101,6 +105,16 @@ public class MediadorDeRetos extends AppCompatActivity {
         creadorDeJuego.construirJuego();
         juegoRetoPregunta = retoPregunta.getJuego();
         siguienteRetoPregunta();
+    }
+
+    public void clickBotonRetoDescubrirFrase(View v){
+        retoDescubrirFraseEscogido = true;
+        retoDescubrirFrase = new BuilderPartidaRetoDescubrirFrase();
+        CreadorDePartida creadorDeJuego = new CreadorDePartida();
+        creadorDeJuego.setJuegoBuilder(retoDescubrirFrase);
+        creadorDeJuego.construirJuego();
+        juegoRetoDescubrirFrase = retoDescubrirFrase.getJuego();
+        siguienteRetoDescubrirFrase();
     }
 
     public void siguienteRetoPregunta() {
@@ -149,6 +163,25 @@ public class MediadorDeRetos extends AppCompatActivity {
         pasarDatosRetoAhorcado();
     }
 
+    public void siguienteRetoDescubrirFrase() {
+        if(vidas < 0 || ronda > 10) {finish();}
+        else if(ronda <= 4){
+            juegoRetoDescubrirFrase.setNivel(1);
+            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indicePreguntasFacil++));
+        }
+
+        else if(ronda > 4 && ronda <= 7) {
+            juegoRetoDescubrirFrase.setNivel(2);
+            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indicePreguntasMedio++));
+        }
+
+        else {
+            juegoRetoDescubrirFrase.setNivel(3);
+            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indicePreguntasDificil++));
+        }
+        pasarDatosRetoDescubrirFrase();
+    }
+
     public void pasarDatosRetoAhorcado(){
         Intent I = new Intent(getApplicationContext(), IUretoAhorcado.class);
         Bundle b = new Bundle();
@@ -187,6 +220,26 @@ public class MediadorDeRetos extends AppCompatActivity {
         I.putExtras(b);
         startActivityForResult(I, REQUESTCODE);
     }
+
+    public void pasarDatosRetoDescubrirFrase() {
+        Intent I = new Intent(getApplicationContext(), IUretoFrase.class);
+        Bundle b = new Bundle();
+        b.putString("fraseEnunciado", juegoRetoDescubrirFrase.getFraseActual().getFrase());
+        b.putString("descripcionEnunciado", juegoRetoDescubrirFrase.getFraseActual().getDescripcion());
+        b.putInt("PuntosTotales", puntosTotales);
+        b.putInt("PuntosConsolidados", puntosConsolidados);
+        b.putInt("Vidas", vidas);
+        b.putInt("Ronda", ronda);
+        b.putBoolean("haConsolidado", haConsolidado);
+        b.putInt("TiempoOpcion", juegoRetoDescubrirFrase.getTiempoOpcion());
+        b.putInt("Tiempo", juegoRetoDescubrirFrase.getTiempo());
+        b.putInt("Nivel", juegoRetoDescubrirFrase.getNivel());
+        b.putInt("SonidoFallo", juegoRetoDescubrirFrase.getSonidofallo());
+        b.putInt("SonidoAcierto", juegoRetoDescubrirFrase.getSonidoacierto());
+        I.putExtras(b);
+        startActivityForResult(I, REQUESTCODE);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

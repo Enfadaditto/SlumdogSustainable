@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.SyncAdapterType;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,14 +40,20 @@ public class IUretoFrase extends AppCompatActivity {
     TextView descripcionFrase;
     boolean ultimaAcertada;
 
+    String fraseEnunciado;
+    String descripcionEnunciado;
+    int PuntosTotales, PuntosConsolidados, Vidas, Ronda;
+    boolean haConsolidado;
+    int TiempoOpcion, Tiempo, Nivel, SonidoFallo, SonidoAcierto;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_frase);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-
-        frase = new Frase("   Reto     de  la     frase", 0, "Facil");
+        frase = new Frase("", 0, "");
+        cargarDatos();
 
         letrasLayout = (LinearLayout) findViewById(R.id.letrasLayout);
         panelDescubrirFrase = (RelativeLayout) findViewById(R.id.panelDescubrirFrase);
@@ -60,17 +67,40 @@ public class IUretoFrase extends AppCompatActivity {
         rellenarLetrasLayout(listadoCaracteresFrase);
         letrasLayout.setVisibility(View.INVISIBLE);
 
-        descripcionFrase.setText("Haz click aqui para comenzar");
+        descripcionFrase.setText("Haz click AQUI para comenzar");
         descripcionFrase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ComenzarReto();
                 letrasLayout.setVisibility(View.VISIBLE);
-                descripcionFrase.setText("DESCRIPCION");
+                descripcionFrase.setText(descripcionEnunciado);
                 descripcionFrase.setOnClickListener(null);
             }
         });
+        casillaElegidaSolucion = new DFButton(new Button(this), '*');
     }
+
+    public void cargarDatos() {
+        Bundle extras = getIntent().getExtras();
+
+        fraseEnunciado = extras.getString("fraseEnunciado");
+        descripcionEnunciado = extras.getString("descripcionEnunciado");
+        PuntosTotales = extras.getInt("PuntosTotales");
+        PuntosConsolidados = extras.getInt("PuntosConsolidados");
+        Vidas = extras.getInt("Vidas");
+        Ronda = extras.getInt("Ronda");
+        haConsolidado = extras.getBoolean("haConsolidado");
+        Tiempo = extras.getInt("Tiempo");
+        TiempoOpcion = extras.getInt("TiempoOpcion");
+        Nivel = extras.getInt("Nivel");
+        SonidoAcierto = extras.getInt("SonidoAcierto");
+        SonidoFallo = extras.getInt("SonidoFallo");
+        Tiempo = extras.getInt("Tiempo");
+
+        frase.setFrase(fraseEnunciado);
+        //poner_imagen_ods();
+    }
+
 
     private void ComenzarReto() {
         for (int i = 0; i < panelDescubrirFrase.getChildCount(); i++) {
@@ -78,7 +108,7 @@ public class IUretoFrase extends AppCompatActivity {
             ((Button) panelDescubrirFrase.getChildAt(i)).setBackground(getDrawable(R.drawable.botones_teclado));
         }
         ponerFrasePorPantalla();
-        //COMENZAR TIEMPO
+        //startTimer()
     }
 
     private void rellenarLetrasLayout(List<Character> listado)  {
@@ -140,10 +170,14 @@ public class IUretoFrase extends AppCompatActivity {
     private int escribirPalabra(char[] palabraActual, char[] palabraActualSolucion, int indice) {
         System.out.println("indice inicio frase: "+ indice);
         System.out.println("indice: " + indice);
-        if ((indice % 10 + palabraActual.length) > 10 ) {
+        //panelDescubrirFrase.getChildCount()/3
+        if (((indice % 10) + palabraActual.length) > 10 ) {
             if (indice < 10) return escribirPalabra(palabraActual, palabraActualSolucion,10);
             else if (indice < 20) return escribirPalabra(palabraActual, palabraActualSolucion,20);
-            else return -1;
+            else {
+                System.out.println("NO SE ESCRIBIÓ ESTA PALABRA");
+                return -1;
+            }
         }
 
         for (int i = 0; i < palabraActual.length; i++) {

@@ -25,6 +25,7 @@ import Persistence.UserRepository;
 import Presentacion_layer.IUEstadisticas;
 import Presentacion_layer.IUperfil;
 import Presentacion_layer.IUretoAhorcado;
+import Presentacion_layer.IUretoFrase;
 import Presentacion_layer.IUuserLogin;
 import Presentacion_layer.MediadorDeRetos;
 

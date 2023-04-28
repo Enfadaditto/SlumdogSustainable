@@ -44,6 +44,7 @@
         android:layout_height="44dp"
         android:background="@drawable/boton_azul"
         android:fontFamily="monospace"
+        android:onClick="clickBotonRetoDescubrirFrase"
         android:text="Reto Frase"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

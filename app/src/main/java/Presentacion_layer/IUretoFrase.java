@@ -105,7 +105,7 @@ public class IUretoFrase extends AppCompatActivity {
     private void ComenzarReto() {
         for (int i = 0; i < panelDescubrirFrase.getChildCount(); i++) {
             ((Button) panelDescubrirFrase.getChildAt(i)).setText("");
-            ((Button) panelDescubrirFrase.getChildAt(i)).setBackground(getDrawable(R.drawable.botones_teclado));
+            ((Button) panelDescubrirFrase.getChildAt(i)).setBackground(getDrawable(R.drawable.boton_panel_vacio));
         }
         ponerFrasePorPantalla();
         //startTimer()
@@ -185,7 +185,7 @@ public class IUretoFrase extends AppCompatActivity {
                     (palabraActual[i] + "").matches("[a-z]*"))
                 boton.setBackgroundColor(Color.LTGRAY);
             else if (palabraActual[i] == '_') {
-                boton.setBackgroundColor(Color.WHITE);
+                boton.setBackground(getDrawable(R.drawable.boton_panel));
                 boton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -168,29 +168,15 @@ public class IUretoFrase extends AppCompatActivity {
     }
 
     private int escribirPalabra(char[] palabraActual, char[] palabraActualSolucion, int indice) {
-        System.out.println("indice inicio frase: "+ indice);
-        System.out.println("indice: " + indice + " % " + panelDescubrirFrase.getChildCount()/3 + " = " + (indice % (panelDescubrirFrase.getChildCount()/3)));
-        System.out.println("Va a ocupar " + palabraActual.length + " paneles");
-        System.out.println((indice % (panelDescubrirFrase.getChildCount()/3)) + " + " + palabraActual.length + " = " + ((indice % (panelDescubrirFrase.getChildCount()/3)) + palabraActual.length));
-        System.out.println("¿Es esto mayor que " + (panelDescubrirFrase.getChildCount()/3) + "?");
         if (((indice % (panelDescubrirFrase.getChildCount()/3)) + palabraActual.length) > (panelDescubrirFrase.getChildCount()/3) ) {
-            System.out.println("SI");
-            //Si el numero de la fila que este mas el largo de la palabra supera el largo de la frase:
             if (indice < (panelDescubrirFrase.getChildCount()/3))
-                //Si la palabra se encuentra en la primera fila
                 return escribirPalabra(palabraActual, palabraActualSolucion,(panelDescubrirFrase.getChildCount()/3));
-                    //Prueba en la segunda
             else if (indice < 2*(panelDescubrirFrase.getChildCount()/3))
-                //Si la palabra se encuentra en la segunda fila
                 return escribirPalabra(palabraActual, palabraActualSolucion,2*(panelDescubrirFrase.getChildCount()/3));
-                    //Prueba en la tercera
-            else {
-                System.out.println("NO SE ESCRIBIÓ ESTA PALABRA");
+            else
                 return -1;
-            }
         }
-        System.out.println("NO");
-        System.out.println("SE ESCRIBE PALABRA");
+
         for (int i = 0; i < palabraActual.length; i++) {
             Button boton = (Button) panelDescubrirFrase.getChildAt(indice + i);
             DFButton botonSolucion = new DFButton(boton, palabraActualSolucion[i]);
@@ -207,7 +193,7 @@ public class IUretoFrase extends AppCompatActivity {
                         ultimaAcertada = false;
                         casillaElegida = boton;
                         casillaElegidaSolucion = botonSolucion;
-                        casillaElegida.setBackgroundColor(Color.LTGRAY);//COLOR PULSADO
+                        casillaElegida.setBackgroundColor(Color.LTGRAY);
                     }
                 });
             }

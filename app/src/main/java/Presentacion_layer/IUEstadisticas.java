@@ -42,6 +42,7 @@ import java.util.List;
 
 import Domain_Layer.ODS_has_User;
 import Persistence.ODS_URepository;
+import Persistence.UserRepository;
 
 
 public class IUEstadisticas extends AppCompatActivity {
@@ -54,6 +55,14 @@ public class IUEstadisticas extends AppCompatActivity {
     Spinner selector;
 
     TextView tiempoText;
+
+    TextView totalGames;
+
+    TextView gamesLost;
+
+    TextView gamesWon;
+
+    TextView timeSpent;
 
     PieChart pieChart;
 
@@ -77,10 +86,18 @@ public class IUEstadisticas extends AppCompatActivity {
                 // Your code here
                 if(position == 0) {
                     chartLayout.removeView(pieChart);
+                    chartLayout.removeView(gamesWon);
                     createDiagramChart();}
                 if(position == 1) {
                     chartLayout.removeView(barChart);
+                    chartLayout.removeView(gamesWon);
                     createPieChart();
+                }
+
+                if(position == 2) {
+                    chartLayout.removeView(barChart);
+                    chartLayout.removeView(pieChart);
+                    createGameStats();
                 }
             }
 
@@ -89,6 +106,31 @@ public class IUEstadisticas extends AppCompatActivity {
                 // Do nothing
             }
         });
+    }
+
+    public void createGameStats() {
+        gamesWon = new TextView(this.getApplicationContext());
+        gamesLost = new TextView(this.getApplicationContext());
+        totalGames = new TextView(this.getApplicationContext());
+        timeSpent = new TextView(this.getApplicationContext());
+
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT
+        );
+        gamesWon.setLayoutParams(layoutParams);
+        gamesLost.setLayoutParams(layoutParams);
+        totalGames.setLayoutParams(layoutParams);
+        timeSpent.setLayoutParams(layoutParams);
+        gamesWon.setText("Juegos ganados: " + MainActivity.user.getGamesAchieved() + "\n" +
+                "Juegos perdidos: " + MainActivity.user.getGamesFailed() + "\n" +
+                "Juegos Totales: " + (MainActivity.user.getGamesFailed() + MainActivity.user.getGamesAchieved()) + "\n" +
+                "Tiempo total: " + MainActivity.user.getTimeSpent()
+
+
+        );
+        chartLayout.addView(gamesWon);
+
     }
 
     public void createPieChart() {

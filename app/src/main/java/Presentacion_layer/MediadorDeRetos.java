@@ -23,6 +23,7 @@ import Domain_Layer.PartidaRetoAhorcado;
 import Domain_Layer.PartidaRetoPregunta;
 import Domain_Layer.User;
 import Persistence.ODS_URepository;
+import Persistence.UserRepository;
 
 public class MediadorDeRetos extends AppCompatActivity {
     int vidas = 1;
@@ -70,6 +71,16 @@ public class MediadorDeRetos extends AppCompatActivity {
 
     }
 
+    public void updateGamesandTime(Boolean won, int time) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Llegamos aquí");
+                UserRepository u = new UserRepository(MainActivity.conexion);
+                u.updateGamesandTime(won, time);
+            }
+        }).start();
+    }
     public void clickBotonRetoAhorcado(View v){
         retoAhorcadoEscogido = true;
         retoAhorcado = new BuilderPartidaRetoAhorcado();
@@ -93,7 +104,14 @@ public class MediadorDeRetos extends AppCompatActivity {
     }
 
     public void siguienteRetoPregunta() {
-        if(vidas < 0 || ronda > 10) {finish();}
+        if(ronda > 10) {
+            updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
+            finish();
+        }
+        if(vidas < 0) {
+            updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
+            finish();
+        }
         else if(ronda <= 4){
             juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel1().get(indicePreguntasFacil++));
         }

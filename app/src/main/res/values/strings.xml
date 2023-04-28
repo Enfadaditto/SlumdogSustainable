@@ -15,5 +15,6 @@
     <string-array name="graficas">
         <item>Porcentaje de aciertos por ODS</item>
         <item>Aciertos totales por ODS expresado en %</item>
+        <item>Estadísticas de partida</item>
     </string-array>
 </resources>

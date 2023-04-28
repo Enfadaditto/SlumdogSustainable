@@ -24,6 +24,12 @@ public class User {
     @DatabaseField
     private float timeSpent;
 
+    @DatabaseField
+    private int gamesAchieved;
+
+    @DatabaseField
+    private int gamesFailed;
+
     private Bitmap icon;
 
     private List<ODS_has_User> ODSUser;
@@ -36,6 +42,22 @@ public class User {
         this.icon = icon;
         this.pointsAchieved = 0;
         this.timeSpent = 0;
+    }
+
+    public int getGamesAchieved() {
+        return gamesAchieved;
+    }
+
+    public int getGamesFailed() {
+        return gamesFailed;
+    }
+
+    public void setGamesAchieved(int gamesAchieved) {
+        this.gamesAchieved = gamesAchieved;
+    }
+
+    public void setGamesFailed(int gamesFailed) {
+        this.gamesFailed = gamesFailed;
     }
 
     public boolean passwordIsSafe(String password) {

@@ -125,7 +125,7 @@ public class IUEstadisticas extends AppCompatActivity {
         gamesWon.setText("Juegos ganados: " + MainActivity.user.getGamesAchieved() + "\n" + "\n" +
                 "Juegos perdidos: " + MainActivity.user.getGamesFailed() + "\n" + "\n" +
                 "Juegos Totales: " + (MainActivity.user.getGamesFailed() + MainActivity.user.getGamesAchieved()) + "\n" + "\n" +
-                "Tiempo total: " + MainActivity.user.getTimeSpent()
+                "Tiempo total: " + MainActivity.user.getTimeSpent() + " minutos"
 
 
         );

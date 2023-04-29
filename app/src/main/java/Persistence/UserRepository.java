@@ -30,14 +30,14 @@ public class UserRepository extends Repository<User> {
         }
 
         public void updateGamesandTime(Boolean b, int time) {
-                if(b) {
-                        MainActivity.user.setGamesAchieved(MainActivity.user.getGamesAchieved() + 1);
-                }
-                else {
-                        MainActivity.user.setGamesAchieved(MainActivity.user.getGamesAchieved() - 1);
-                }
                 try {
-                        MainActivity.user.setTimeSpent(MainActivity.user.getTimeSpent() + time);
+                        if(b) {
+                                MainActivity.user.setGamesAchieved(MainActivity.user.getGamesAchieved() + 1);
+                        }
+                        else {
+                                MainActivity.user.setGamesFailed(MainActivity.user.getGamesFailed() + 1);
+                        }
+                        MainActivity.user.setTimeSpent(MainActivity.user.getTimeSpent() + ((float) time) / 60000);
                         this.getDao().update(MainActivity.user);
                 } catch (SQLException e) {
                         throw new RuntimeException(e);

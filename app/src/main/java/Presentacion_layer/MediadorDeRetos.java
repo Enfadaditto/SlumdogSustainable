@@ -79,7 +79,6 @@ public class MediadorDeRetos extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println("Llegamos aquí");
                 UserRepository u = new UserRepository(MainActivity.conexion);
                 u.updateGamesandTime(won, time);
             }
@@ -121,10 +120,12 @@ public class MediadorDeRetos extends AppCompatActivity {
         if(ronda > 10) {
             updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
             finish();
+            return;
         }
         if(vidas < 0) {
             updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
             finish();
+            return;
         }
         else if(ronda <= 4){
             juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel1().get(indicePreguntasFacil++));

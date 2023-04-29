@@ -88,7 +88,6 @@ public class BuilderPartidaRetoPregunta extends BuilderPartida {
     @Override
     public void buildTiempo() {
         juego.setTiempo(30000); //10000ms = 10seg
-
     }
 
     @Override

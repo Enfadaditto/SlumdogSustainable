@@ -553,8 +553,10 @@ public class IUretoPregunta extends AppCompatActivity {
     }
     public void clickBotonTerminarPartida(View v) {
         guardarPuntuacion();
-        Intent intent = new Intent(IUretoPregunta.this, MainActivity.class);
-        startActivity(intent);
+        Intent t = new Intent();
+        t.putExtra("Acierto", Acierto);
+        if (Acierto) {setResult(RESULT_OK);}
+        else setResult(RESULT_CANCELED);
         finish();
     }
 

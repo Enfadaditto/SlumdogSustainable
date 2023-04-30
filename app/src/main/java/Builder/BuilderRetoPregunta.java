@@ -6,34 +6,30 @@ import com.slumdogsustainable.R;
 import java.util.Collections;
 import java.util.Random;
 
-import Domain_Layer.Ahorcado;
-import Domain_Layer.Partida;
-import Domain_Layer.PartidaRetoAhorcado;
-import Domain_Layer.PartidaRetoPregunta;
-import Persistence.AhorcadoRepository;
+import Domain_Layer.RetoPregunta;
 import Persistence.QuestionRepository;
 
-public class BuilderPartidaRetoAhorcado extends BuilderPartida{
+public class BuilderRetoPregunta extends BuilderReto {
 
     public Thread hilo;
-    protected PartidaRetoAhorcado juego;
 
-    public PartidaRetoAhorcado getJuego() {
+    protected RetoPregunta juego;
+
+    public RetoPregunta getJuego() {
         return juego;
     }
 
-    public BuilderPartidaRetoAhorcado() {
-        juego = new PartidaRetoAhorcado();
+    public BuilderRetoPregunta() {
+        juego = new RetoPregunta();
     }
 
     public void buildRetosNivel1() {
-
         hilo = new Thread(new Runnable() {
             public void run() {
                 try {
-                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
-                    juego.setPalabrasNivel1(preguntasEnBD.getAhorcadoListByDifficulty("Baja"));
-                    Collections.shuffle(juego.getPalabrasNivel1(), new Random());
+                    QuestionRepository preguntasEnBD = new QuestionRepository(MainActivity.conexion);
+                    juego.setPreguntasNivel1(preguntasEnBD.getQuestionListByDifficulty("Baja"));
+                    Collections.shuffle(juego.getPreguntasNivel1(), new Random());
                 } catch (Exception e) {
 
                     System.out.println(e);
@@ -46,16 +42,13 @@ public class BuilderPartidaRetoAhorcado extends BuilderPartida{
         } catch(Exception e) {}
     }
 
-
-
     public void buildRetosNivel2() {
-
-      hilo = new Thread(new Runnable() {
+        hilo = new Thread(new Runnable() {
             public void run() {
                 try {
-                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
-                    juego.setPalabrasNivel2(preguntasEnBD.getAhorcadoListByDifficulty("Media"));
-                    Collections.shuffle(juego.getPalabrasNivel2(), new Random());
+                    QuestionRepository preguntasEnBD = new QuestionRepository(MainActivity.conexion);
+                    juego.setPreguntasNivel2(preguntasEnBD.getQuestionListByDifficulty("Media"));
+                    Collections.shuffle(juego.getPreguntasNivel2(), new Random());
                 } catch (Exception e) {
 
                     System.out.println(e);
@@ -66,18 +59,15 @@ public class BuilderPartidaRetoAhorcado extends BuilderPartida{
         try {
             hilo.join();
         } catch(Exception e) {}
-
-
     }
 
     public void buildRetosNivel3() {
-
         hilo = new Thread(new Runnable() {
             public void run() {
                 try {
-                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
-                    juego.setPalabrasNivel3(preguntasEnBD.getAhorcadoListByDifficulty("Alta"));
-                    Collections.shuffle(juego.getPalabrasNivel3(), new Random());
+                    QuestionRepository preguntasEnBD = new QuestionRepository(MainActivity.conexion);
+                    juego.setPreguntasNivel3(preguntasEnBD.getQuestionListByDifficulty("Alta"));
+                    Collections.shuffle(juego.getPreguntasNivel3(), new Random());
                 } catch (Exception e) {
 
                     System.out.println(e);
@@ -88,8 +78,6 @@ public class BuilderPartidaRetoAhorcado extends BuilderPartida{
         try {
             hilo.join();
         } catch(Exception e) {}
-
-
     }
 
     @Override
@@ -99,8 +87,7 @@ public class BuilderPartidaRetoAhorcado extends BuilderPartida{
 
     @Override
     public void buildTiempo() {
-        juego.setTiempo(120000); //10000ms = 10seg
-
+        juego.setTiempo(30000); //10000ms = 10seg
     }
 
     @Override
@@ -122,7 +109,6 @@ public class BuilderPartidaRetoAhorcado extends BuilderPartida{
     public void buildPuntos() {
         juego.setPuntos(100 * juego.getNivel());
     }
-
 
 
 }

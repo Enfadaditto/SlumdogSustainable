@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
@@ -87,10 +88,16 @@ public class IUEstadisticas extends AppCompatActivity {
                 if(position == 0) {
                     chartLayout.removeView(pieChart);
                     chartLayout.removeView(gamesWon);
+                    chartLayout.removeView(totalGames);
+                    chartLayout.removeView(gamesLost);
+                    chartLayout.removeView(timeSpent);
                     createDiagramChart();}
                 if(position == 1) {
                     chartLayout.removeView(barChart);
                     chartLayout.removeView(gamesWon);
+                    chartLayout.removeView(totalGames);
+                    chartLayout.removeView(gamesLost);
+                    chartLayout.removeView(timeSpent);
                     createPieChart();
                 }
 
@@ -109,27 +116,56 @@ public class IUEstadisticas extends AppCompatActivity {
     }
 
     public void createGameStats() {
-        gamesWon = new TextView(this.getApplicationContext());
-        gamesLost = new TextView(this.getApplicationContext());
-        totalGames = new TextView(this.getApplicationContext());
-        timeSpent = new TextView(this.getApplicationContext());
+        gamesWon = new TextView(this);
+        gamesLost = new TextView(this);
+        totalGames = new TextView(this);
+        timeSpent = new TextView(this);
+
+        gamesWon.setId(View.generateViewId());
+        gamesLost.setId(View.generateViewId());
+        totalGames.setId(View.generateViewId());
+        timeSpent.setId(View.generateViewId());
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.MATCH_PARENT
+                RelativeLayout.LayoutParams.WRAP_CONTENT
         );
-        gamesWon.setLayoutParams(layoutParams);
-        gamesLost.setLayoutParams(layoutParams);
-        totalGames.setLayoutParams(layoutParams);
-        timeSpent.setLayoutParams(layoutParams);
-        gamesWon.setText("Juegos ganados: " + MainActivity.user.getGamesAchieved() + "\n" + "\n" +
-                "Juegos perdidos: " + MainActivity.user.getGamesFailed() + "\n" + "\n" +
-                "Juegos Totales: " + (MainActivity.user.getGamesFailed() + MainActivity.user.getGamesAchieved()) + "\n" + "\n" +
-                "Tiempo total: " + MainActivity.user.getTimeSpent() + " minutos"
 
-
+        RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
         );
-        chartLayout.addView(gamesWon);
+
+        RelativeLayout.LayoutParams layoutParams2 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+
+        RelativeLayout.LayoutParams layoutParams3 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        gamesWon.setText("Juegos ganados: " + MainActivity.user.getGamesAchieved());
+        gamesLost.setText("Juegos perdidos: " + MainActivity.user.getGamesFailed());
+        totalGames.setText("Juegos totales: " + (MainActivity.user.getGamesFailed() + MainActivity.user.getGamesAchieved()));
+        timeSpent.setText( "Tiempo total: " + MainActivity.user.getTimeSpent() + " minutos");
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        layoutParams.setMargins(36, 100, 0, 0);
+        gamesWon.setTextSize(24);
+        layoutParams1.addRule(RelativeLayout.BELOW, gamesWon.getId());
+        layoutParams1.setMargins(36, 100, 0, 0);
+        gamesLost.setTextSize(24);
+        layoutParams2.addRule(RelativeLayout.BELOW, gamesLost.getId());
+        layoutParams2.setMargins(36, 100, 0, 0);
+        totalGames.setTextSize(24);
+        layoutParams3.addRule(RelativeLayout.BELOW, totalGames.getId());
+        layoutParams3.setMargins(36, 100, 0, 0);
+        timeSpent.setTextSize(24);
+
+        chartLayout.addView(gamesWon,layoutParams);
+        chartLayout.addView(gamesLost, layoutParams1);
+        chartLayout.addView(totalGames, layoutParams2);
+        chartLayout.addView(timeSpent, layoutParams3);
 
     }
 

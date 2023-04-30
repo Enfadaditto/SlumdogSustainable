@@ -25,16 +25,10 @@ import com.slumdogsustainable.R;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
-import Builder.BuilderPartidaRetoPregunta;
-import Builder.CreadorDePartida;
 import Domain_Layer.Answer;
-import Domain_Layer.PartidaRetoPregunta;
 import Domain_Layer.Question;
 import Persistence.AnswerRepository;
 import Persistence.QuestionRepository;

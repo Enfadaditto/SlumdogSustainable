@@ -2,7 +2,7 @@ package Domain_Layer;
 
 import java.util.List;
 
-public class PartidaRetoAhorcado extends Partida{
+public class RetoAhorcado extends Reto {
 
     private Ahorcado ahorcadoActual;
     private List<Ahorcado> palabrasNivel1;

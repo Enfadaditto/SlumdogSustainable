@@ -15,14 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
-import Builder.BuilderPartidaRetoAhorcado;
-import Builder.BuilderPartidaRetoDescubrirFrase;
-import Builder.BuilderPartidaRetoPregunta;
-import Builder.CreadorDePartida;
-import Domain_Layer.Partida;
-import Domain_Layer.PartidaRetoAhorcado;
-import Domain_Layer.PartidaRetoDescubrirFrase;
-import Domain_Layer.PartidaRetoPregunta;
+import Builder.BuilderRetoAhorcado;
+import Builder.BuilderRetoDescubrirFrase;
+import Builder.BuilderRetoPregunta;
+import Builder.Director;
+import Domain_Layer.RetoAhorcado;
+import Domain_Layer.RetoDescubrirFrase;
+import Domain_Layer.RetoPregunta;
 import Domain_Layer.User;
 import Persistence.ODS_URepository;
 import Persistence.UserRepository;
@@ -38,10 +37,10 @@ public class MediadorDeRetos extends AppCompatActivity {
     int indicePreguntasDificil = 0;
 
     int indicePreguntasMedio = 0;
-    PartidaRetoPregunta juegoRetoPregunta;
-    PartidaRetoAhorcado juegoRetoAhorcado;
+    RetoPregunta juegoRetoPregunta;
+    RetoAhorcado juegoRetoAhorcado;
 
-    PartidaRetoDescubrirFrase juegoRetoDescubrirFrase;
+    RetoDescubrirFrase juegoRetoDescubrirFrase;
 
     int puntosTotales;
 
@@ -58,9 +57,9 @@ public class MediadorDeRetos extends AppCompatActivity {
 
     boolean haConsolidado = false;
     public final static int REQUESTCODE = 100;
-    BuilderPartidaRetoPregunta retoPregunta;
-    BuilderPartidaRetoAhorcado retoAhorcado;
-    BuilderPartidaRetoDescubrirFrase retoDescubrirFrase;
+    BuilderRetoPregunta retoPregunta;
+    BuilderRetoAhorcado retoAhorcado;
+    BuilderRetoDescubrirFrase retoDescubrirFrase;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -88,8 +87,8 @@ public class MediadorDeRetos extends AppCompatActivity {
         MainActivity.music.stop();
         MainActivity.background.start();
         retoAhorcadoEscogido = true;
-        retoAhorcado = new BuilderPartidaRetoAhorcado();
-        CreadorDePartida creadorDeJuego = new CreadorDePartida();
+        retoAhorcado = new BuilderRetoAhorcado();
+        Director creadorDeJuego = new Director();
         creadorDeJuego.setJuegoBuilder(retoAhorcado);
         creadorDeJuego.construirJuego();
         juegoRetoAhorcado= retoAhorcado.getJuego();
@@ -102,8 +101,8 @@ public class MediadorDeRetos extends AppCompatActivity {
         MainActivity.music.stop();
         MainActivity.background.start();
         retoPreguntaEscogido = true;
-        retoPregunta = new BuilderPartidaRetoPregunta();
-        CreadorDePartida creadorDeJuego = new CreadorDePartida();
+        retoPregunta = new BuilderRetoPregunta();
+        Director creadorDeJuego = new Director();
         creadorDeJuego.setJuegoBuilder(retoPregunta);
         creadorDeJuego.construirJuego();
         juegoRetoPregunta = retoPregunta.getJuego();
@@ -114,8 +113,8 @@ public class MediadorDeRetos extends AppCompatActivity {
         MainActivity.music.stop();
         MainActivity.background.start();
         retoDescubrirFraseEscogido = true;
-        retoDescubrirFrase = new BuilderPartidaRetoDescubrirFrase();
-        CreadorDePartida creadorDeJuego = new CreadorDePartida();
+        retoDescubrirFrase = new BuilderRetoDescubrirFrase();
+        Director creadorDeJuego = new Director();
         creadorDeJuego.setJuegoBuilder(retoDescubrirFrase);
         creadorDeJuego.construirJuego();
         juegoRetoDescubrirFrase = retoDescubrirFrase.getJuego();

@@ -6,17 +6,16 @@ import com.slumdogsustainable.R;
 import java.util.Collections;
 import java.util.Random;
 
-import Domain_Layer.PartidaRetoDescubrirFrase;
-import Persistence.AhorcadoRepository;
+import Domain_Layer.RetoDescubrirFrase;
 import Persistence.FraseRepository;
 
-public class BuilderPartidaRetoDescubrirFrase extends BuilderPartida {
+public class BuilderRetoDescubrirFrase extends BuilderReto {
     public Thread hilo;
-    protected PartidaRetoDescubrirFrase juego;
+    protected RetoDescubrirFrase juego;
 
-    public PartidaRetoDescubrirFrase getJuego() {return juego;}
+    public RetoDescubrirFrase getJuego() {return juego;}
 
-    public BuilderPartidaRetoDescubrirFrase() { juego = new PartidaRetoDescubrirFrase(); }
+    public BuilderRetoDescubrirFrase() { juego = new RetoDescubrirFrase(); }
 
     @Override
     public void buildNivel() {

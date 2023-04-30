@@ -1,10 +1,10 @@
 package Builder;
 
-import Domain_Layer.Partida;
+import Domain_Layer.Reto;
 
-public abstract class BuilderPartida {
+public abstract class BuilderReto {
 
-    public abstract Partida getJuego();
+    public abstract Reto getJuego();
 
     public abstract void buildNivel();
 

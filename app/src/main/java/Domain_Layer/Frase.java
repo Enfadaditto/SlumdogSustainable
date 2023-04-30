@@ -1,20 +1,16 @@
 package Domain_Layer;
 
-import androidx.annotation.NonNull;
-
 import com.j256.ormlite.field.DatabaseField;
 import com.slumdogsustainable.MainActivity;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import Persistence.FraseRepository;
 
-public class Frase extends Partida {
+public class Frase extends Reto {
     @DatabaseField(id = true)
     private int id_frase;
 

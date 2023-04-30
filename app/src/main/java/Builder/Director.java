@@ -1,10 +1,10 @@
 package Builder;
 
-public class CreadorDePartida {
+public class Director {
 
-    private BuilderPartida juegoBuilder;
+    private BuilderReto juegoBuilder;
 
-    public void setJuegoBuilder(BuilderPartida jb) {
+    public void setJuegoBuilder(BuilderReto jb) {
         juegoBuilder = jb;
     }
 

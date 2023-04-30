@@ -1,6 +1,6 @@
 package Domain_Layer;
 
-public class Partida {
+public class Reto {
     private int nivel;
     private int tiempo;
 

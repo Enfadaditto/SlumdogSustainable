@@ -2,7 +2,7 @@ package Domain_Layer;
 
 import java.util.List;
 
-public class PartidaRetoDescubrirFrase extends Partida{
+public class RetoDescubrirFrase extends Reto {
 
     private Frase fraseEnunciado;
 

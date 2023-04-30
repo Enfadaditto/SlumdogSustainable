@@ -6,30 +6,30 @@ import com.slumdogsustainable.R;
 import java.util.Collections;
 import java.util.Random;
 
-import Domain_Layer.PartidaRetoPregunta;
-import Persistence.QuestionRepository;
+import Domain_Layer.RetoAhorcado;
+import Persistence.AhorcadoRepository;
 
-public class BuilderPartidaRetoPregunta extends BuilderPartida {
+public class BuilderRetoAhorcado extends BuilderReto {
 
     public Thread hilo;
+    protected RetoAhorcado juego;
 
-    protected PartidaRetoPregunta juego;
-
-    public PartidaRetoPregunta getJuego() {
+    public RetoAhorcado getJuego() {
         return juego;
     }
 
-    public BuilderPartidaRetoPregunta() {
-        juego = new PartidaRetoPregunta();
+    public BuilderRetoAhorcado() {
+        juego = new RetoAhorcado();
     }
 
     public void buildRetosNivel1() {
+
         hilo = new Thread(new Runnable() {
             public void run() {
                 try {
-                    QuestionRepository preguntasEnBD = new QuestionRepository(MainActivity.conexion);
-                    juego.setPreguntasNivel1(preguntasEnBD.getQuestionListByDifficulty("Baja"));
-                    Collections.shuffle(juego.getPreguntasNivel1(), new Random());
+                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
+                    juego.setPalabrasNivel1(preguntasEnBD.getAhorcadoListByDifficulty("Baja"));
+                    Collections.shuffle(juego.getPalabrasNivel1(), new Random());
                 } catch (Exception e) {
 
                     System.out.println(e);
@@ -42,13 +42,16 @@ public class BuilderPartidaRetoPregunta extends BuilderPartida {
         } catch(Exception e) {}
     }
 
+
+
     public void buildRetosNivel2() {
-        hilo = new Thread(new Runnable() {
+
+      hilo = new Thread(new Runnable() {
             public void run() {
                 try {
-                    QuestionRepository preguntasEnBD = new QuestionRepository(MainActivity.conexion);
-                    juego.setPreguntasNivel2(preguntasEnBD.getQuestionListByDifficulty("Media"));
-                    Collections.shuffle(juego.getPreguntasNivel2(), new Random());
+                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
+                    juego.setPalabrasNivel2(preguntasEnBD.getAhorcadoListByDifficulty("Media"));
+                    Collections.shuffle(juego.getPalabrasNivel2(), new Random());
                 } catch (Exception e) {
 
                     System.out.println(e);
@@ -59,15 +62,18 @@ public class BuilderPartidaRetoPregunta extends BuilderPartida {
         try {
             hilo.join();
         } catch(Exception e) {}
+
+
     }
 
     public void buildRetosNivel3() {
+
         hilo = new Thread(new Runnable() {
             public void run() {
                 try {
-                    QuestionRepository preguntasEnBD = new QuestionRepository(MainActivity.conexion);
-                    juego.setPreguntasNivel3(preguntasEnBD.getQuestionListByDifficulty("Alta"));
-                    Collections.shuffle(juego.getPreguntasNivel3(), new Random());
+                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
+                    juego.setPalabrasNivel3(preguntasEnBD.getAhorcadoListByDifficulty("Alta"));
+                    Collections.shuffle(juego.getPalabrasNivel3(), new Random());
                 } catch (Exception e) {
 
                     System.out.println(e);
@@ -78,6 +84,8 @@ public class BuilderPartidaRetoPregunta extends BuilderPartida {
         try {
             hilo.join();
         } catch(Exception e) {}
+
+
     }
 
     @Override
@@ -87,7 +95,8 @@ public class BuilderPartidaRetoPregunta extends BuilderPartida {
 
     @Override
     public void buildTiempo() {
-        juego.setTiempo(30000); //10000ms = 10seg
+        juego.setTiempo(120000); //10000ms = 10seg
+
     }
 
     @Override
@@ -109,6 +118,7 @@ public class BuilderPartidaRetoPregunta extends BuilderPartida {
     public void buildPuntos() {
         juego.setPuntos(100 * juego.getNivel());
     }
+
 
 
 }

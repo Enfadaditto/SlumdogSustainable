@@ -85,6 +85,8 @@ public class MediadorDeRetos extends AppCompatActivity {
         }).start();
     }
     public void clickBotonRetoAhorcado(View v){
+        MainActivity.music.stop();
+        MainActivity.background.start();
         retoAhorcadoEscogido = true;
         retoAhorcado = new BuilderPartidaRetoAhorcado();
         CreadorDePartida creadorDeJuego = new CreadorDePartida();
@@ -97,6 +99,8 @@ public class MediadorDeRetos extends AppCompatActivity {
 
     }
     public void clickBotonRetoPregunta(View v){
+        MainActivity.music.stop();
+        MainActivity.background.start();
         retoPreguntaEscogido = true;
         retoPregunta = new BuilderPartidaRetoPregunta();
         CreadorDePartida creadorDeJuego = new CreadorDePartida();
@@ -107,6 +111,8 @@ public class MediadorDeRetos extends AppCompatActivity {
     }
 
     public void clickBotonRetoDescubrirFrase(View v){
+        MainActivity.music.stop();
+        MainActivity.background.start();
         retoDescubrirFraseEscogido = true;
         retoDescubrirFrase = new BuilderPartidaRetoDescubrirFrase();
         CreadorDePartida creadorDeJuego = new CreadorDePartida();

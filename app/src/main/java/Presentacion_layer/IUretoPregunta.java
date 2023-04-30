@@ -106,6 +106,7 @@ public class IUretoPregunta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_pregunta);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        MainActivity.background.start();
 
         textPuntosConsolidados = findViewById(R.id.textPuntosConsolidados);
         textPuntosAcumulados = findViewById(R.id.textPuntosAcumulados);
@@ -324,6 +325,7 @@ public class IUretoPregunta extends AppCompatActivity {
 
     public void onClick(View view) {
         mCountDownTimer.cancel();
+        MainActivity.background.pause();
         int indiceProvisional = botonSeleccionado();
 
         if (respuestasActuales.get(indiceProvisional).isCorrect()) {

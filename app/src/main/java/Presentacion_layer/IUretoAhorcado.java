@@ -109,6 +109,7 @@ public class IUretoAhorcado extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reto_ahorcado);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        MainActivity.background.start();
 
         enunciado = (TextView)findViewById(R.id.textoEnunciado);
         imagenAhorcado = findViewById(R.id.imagenAhorcado);
@@ -400,6 +401,7 @@ public class IUretoAhorcado extends AppCompatActivity {
     }
     public void terminoBien(boolean haTerminado){
         if(haTerminado){
+            MainActivity.background.pause();
             Acierto = true;
 
 
@@ -444,6 +446,7 @@ public class IUretoAhorcado extends AppCompatActivity {
 
 
         if (haTerminado) {
+            MainActivity.background.pause();
             vida--;
             if (vida < 0) {
                 puntosTotales = 0;

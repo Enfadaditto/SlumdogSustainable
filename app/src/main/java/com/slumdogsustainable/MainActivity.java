@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static ConnectionSource conexion; //Conexion a DB
     public static MediaPlayer music; //MediaPlayer sonidos
+    public static MediaPlayer background; //Mediaplayer fondo
     public static User user;
 
     Button botonInicio;
@@ -50,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
+        MainActivity.music.start();
+    }
 
     private class Task extends AsyncTask<Void, Void, Void> {
         @Override
@@ -72,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
                         else {
 
                             music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
+                            background = MediaPlayer.create(getApplicationContext(), R.raw.backgroundmusic);
+                            background.setLooping(true);
                             music.setLooping(true);
                             music.start();
                             setContentView(R.layout.inicio);
@@ -79,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
                             botonInicio.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    music.stop();
                                     Intent intent = new Intent(MainActivity.this, MediadorDeRetos.class);//ControllerPartidaPregunta.class);
                                     startActivity(intent);
                                 }

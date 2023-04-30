@@ -144,7 +144,18 @@ public class MediadorDeRetos extends AppCompatActivity {
     }
 
     public void siguienteRetoAhorcado() {
-        if(vidas < 0 || ronda > 10) {finish();}
+        if(ronda > 10) {
+            updateGamesandTime(true, juegoRetoAhorcado.getTiempo() * 10);
+            finish();
+            System.out.println("Entra aquí");
+            return;
+        }
+        if(vidas < 0) {
+            updateGamesandTime(false, juegoRetoAhorcado.getTiempo() * ronda);
+            finish();
+            System.out.println("O entra aquí");
+            return;
+        }
         else if(ronda <= 4){
             juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabrasNivel1().get(indicePreguntasFacil++));
             juegoRetoAhorcado.setErroresRetoAhorcado(0);
@@ -271,20 +282,20 @@ public class MediadorDeRetos extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     puntosTotales += juegoRetoAhorcado.getPuntos() * juegoRetoAhorcado.getNivel();
                     ronda++;
-                    //updateHitsFailsODS(true, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
+                    updateHitsFailsODS(true, juegoRetoAhorcado.getAhorcado().getId_ODS() , MainActivity.user);
                 } else if (resultCode == RESULT_CANCELED) {
                     puntosTotales += juegoRetoAhorcado.getPuntos() * juegoRetoAhorcado.getNivel() * (-2);
                     if (puntosTotales < 0) {
                         puntosTotales = 0;
                     }
                     vidas--;
-                    //updateHitsFailsODS(false, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
+                    updateHitsFailsODS(false, juegoRetoAhorcado.getAhorcado().getId_ODS() , MainActivity.user);
                 } else if (resultCode == RESULT_FIRST_USER) {
                     puntosTotales += juegoRetoAhorcado.getPuntos() * juegoRetoAhorcado.getNivel();
                     puntosConsolidados = puntosTotales;
                     haConsolidado = true;
                     ronda++;
-                    //updateHitsFailsODS(true, juegoRetoPregunta.getPreguntaActual().getOds(), MainActivity.user);
+                    updateHitsFailsODS(true, juegoRetoAhorcado.getAhorcado().getId_ODS() , MainActivity.user);
                 }
                 siguienteRetoAhorcado();
         }

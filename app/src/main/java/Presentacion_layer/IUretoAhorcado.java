@@ -472,6 +472,14 @@ public class IUretoAhorcado extends AppCompatActivity {
         }
     }
 
+    public void clickBotonTerminarPartida(View v) {
+        Intent t = new Intent();
+        t.putExtra("Acierto", Acierto);
+        if (Acierto) {setResult(RESULT_OK);}
+        else setResult(RESULT_CANCELED);
+        finish();
+    }
+
     }
 
 

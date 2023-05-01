@@ -136,6 +136,18 @@
             android:onClick="onClick"
             android:text="Cargando..." />
 
+        <TextView
+            android:id="@+id/puntosPregunta"
+            android:layout_width="183dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="69dp"
+            android:layout_marginEnd="157dp"
+            android:layout_marginBottom="348dp"
+            android:textColor="@color/black" />
+
     </RelativeLayout>
 
     <ImageView
@@ -199,7 +211,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <Button
             android:id="@+id/botonConsolidar"

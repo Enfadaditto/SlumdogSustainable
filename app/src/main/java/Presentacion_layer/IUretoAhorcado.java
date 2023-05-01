@@ -72,6 +72,8 @@ public class IUretoAhorcado extends AppCompatActivity {
     TextView contadorBombillas;
     TextView enunciado;
     ImageView imagenOds;
+
+    TextView textoPuntosAhorcado;
     int vida;
     ProgressBar timeBar;
     TextView textoNumeroDeReto;
@@ -111,7 +113,7 @@ public class IUretoAhorcado extends AppCompatActivity {
         setContentView(R.layout.reto_ahorcado);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         MainActivity.background.start();
-
+        textoPuntosAhorcado = findViewById(R.id.puntosAhorcado);
         enunciado = (TextView)findViewById(R.id.textoEnunciado);
         imagenAhorcado = findViewById(R.id.imagenAhorcado);
         botonSeleccionado1 = (Button)findViewById(R.id.botonA);
@@ -169,6 +171,7 @@ public class IUretoAhorcado extends AppCompatActivity {
     }
 
     private void ponerTextosEnPantalla() {
+        textoPuntosAhorcado.setText("Puntos reto: " + 100*nivel);
         fraseACompletar = new char [fraseAhorcado.length()];
         for(int i = 0; i<fraseAhorcado.length();i++){
             if(fraseAhorcado.charAt(i) == ' '){

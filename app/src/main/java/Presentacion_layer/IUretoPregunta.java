@@ -41,7 +41,7 @@ public class IUretoPregunta extends AppCompatActivity {
     ConstraintLayout contenedor_principal;
     Button botonRespuesta1,botonRespuesta2, botonRespuesta3, botonRespuesta4, botonConsolidar, botonSiguientePregunta;
     ImageView ods, acierto_fallo, imagenCorazon, imagenPista, abandonar, imagenPantallaFinal;
-    TextView textoPuntosTotal, contadorBombillas, textPuntosAcumulados, textPuntosConsolidados, textoPuntosGanados, textoContadorDePreguntas, textoPregunta, textoPuntosFinales;
+    TextView textoPuntosPregunta, textoPuntosTotal, contadorBombillas, textPuntosAcumulados, textPuntosConsolidados, textoPuntosGanados, textoContadorDePreguntas, textoPregunta, textoPuntosFinales;
     QuestionRepository preguntasEnBD;
     List<Answer> respuestasActuales, listaRespuestas;
     ProgressBar timeBar;
@@ -62,6 +62,7 @@ public class IUretoPregunta extends AppCompatActivity {
         setContentView(R.layout.reto_pregunta);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         MainActivity.background.start();
+        textoPuntosPregunta = findViewById(R.id.puntosPregunta);
         textPuntosConsolidados = findViewById(R.id.textPuntosConsolidados);
         textPuntosAcumulados = findViewById(R.id.textPuntosAcumulados);
         textoPregunta = findViewById(R.id.textoPregunta);
@@ -159,6 +160,7 @@ public class IUretoPregunta extends AppCompatActivity {
     private void ponerTextoEnPantalla() {
 
         tamañoOriginal();
+        textoPuntosPregunta.setText("Puntos pregunta: " + 100*Nivel);
         textoPregunta.setText(preguntaActual.getStatement());
         botonRespuesta1.setText(respuestasActuales.get(0).getText());
         botonRespuesta2.setText(respuestasActuales.get(1).getText());

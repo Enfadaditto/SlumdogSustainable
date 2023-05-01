@@ -24,39 +24,18 @@ import Persistence.ODS_URepository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 
-public class MediadorDeRetos extends AppCompatActivity {
-    int vidas = 1;
-    int ronda = 1;
-    int indiceRetoFacil = 0;
-
-    int indiceRetoDificil = 0;
-
-    int indiceRetoMedio = 0;
+public class MediadorDeRetos extends AppCompatActivity implements MediatorInterface{
+    int vidas = 1, ronda = 1, indiceRetoFacil = 0, indiceRetoDificil = 0, indiceRetoMedio = 0, puntosTotales, puntosConsolidados, erroresRetoAhorcado;
     RetoPregunta juegoRetoPregunta;
     RetoAhorcado juegoRetoAhorcado;
 
     RetoDescubrirFrase juegoRetoDescubrirFrase;
-
-    int puntosTotales;
-
-    int puntosConsolidados;
-    Button botonRetoPregunta;
-    Button botonRetoAhorcado;
-    Button botonRetoFrase;
-    Button botonRetoMixto;
-    boolean retoPreguntaEscogido = false;
-    boolean retoAhorcadoEscogido = false;
-    boolean retoDescubrirFraseEscogido = false;
-    boolean retoMixtoEscogido;
-    int erroresRetoAhorcado;
-
-    boolean haConsolidado = false;
+    Button botonRetoPregunta, botonRetoAhorcado, botonRetoFrase, botonRetoMixto;
+    boolean retoPreguntaEscogido, retoAhorcadoEscogido, retoDescubrirFraseEscogido, retoMixtoEscodigo, haConsolidado = false;
     public final static int REQUESTCODE = 100;
     BuilderRetoPregunta retoPregunta;
     BuilderRetoAhorcado retoAhorcado;
     BuilderRetoDescubrirFrase retoDescubrirFrase;
-
-    Context context;
 
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,7 +49,7 @@ public class MediadorDeRetos extends AppCompatActivity {
         botonRetoMixto = findViewById(R.id.botonRetoMixto);
         Bundle extras = getIntent().getExtras();
         String tipoReto = extras.getString("tipoReto");
-        ;
+
         switch (tipoReto) {
             case "RetoPregunta":
                 retoPreguntaEscogido = true;
@@ -206,6 +185,8 @@ public class MediadorDeRetos extends AppCompatActivity {
         startActivityForResult(I, REQUESTCODE);
     }
 
+
+
     public void pasarDatosRetoPregunta() {
         Intent I = new Intent(getApplicationContext(), IUretoPregunta.class);
         Bundle b = new Bundle();
@@ -242,9 +223,8 @@ public class MediadorDeRetos extends AppCompatActivity {
         I.putExtras(b);
         startActivityForResult(I, REQUESTCODE);
     }
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (retoPreguntaEscogido) {
             if (requestCode == REQUESTCODE) {

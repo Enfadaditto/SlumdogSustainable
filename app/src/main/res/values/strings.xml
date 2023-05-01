@@ -17,4 +17,35 @@
         <item>Aciertos totales por ODS expresado en %</item>
         <item>Estadísticas de partida</item>
     </string-array>
+
+    <string-array name="linkODS">
+        <item>https://www.un.org/sustainabledevelopment/es/sustainable-development-goals/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/poverty/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/hunger/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/health/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/education/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/gender-equality/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/water-and-sanitation/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/energy/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/economic-growth/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/infrastructure/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/inequality/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/cities/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/sustainable-consumption-production/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/climate-change-2/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/oceans/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/biodiversity/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/peace-justice/</item>
+        <item>https://www.un.org/sustainabledevelopment/es/globalpartnerships/</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+
+
+
+    </string-array>
 </resources>

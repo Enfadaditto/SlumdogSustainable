@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -28,11 +27,11 @@ import Persistence.UserRepository;
 public class MediadorDeRetos extends AppCompatActivity {
     int vidas = 1;
     int ronda = 1;
-    int indicePreguntasFacil = 0;
+    int indiceRetoFacil = 0;
 
-    int indicePreguntasDificil = 0;
+    int indiceRetoDificil = 0;
 
-    int indicePreguntasMedio = 0;
+    int indiceRetoMedio = 0;
     RetoPregunta juegoRetoPregunta;
     RetoAhorcado juegoRetoAhorcado;
 
@@ -134,13 +133,13 @@ public class MediadorDeRetos extends AppCompatActivity {
             finish();
             return;
         } else if (ronda <= 4) {
-            juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel1().get(indicePreguntasFacil++));
+            juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel1().get(indiceRetoFacil++));
         } else if (ronda > 4 && ronda <= 7) {
             juegoRetoPregunta.setNivel(2);
-            juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel2().get(indicePreguntasMedio++));
+            juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel2().get(indiceRetoMedio++));
         } else {
             juegoRetoPregunta.setNivel(3);
-            juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel3().get(indicePreguntasDificil++));
+            juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel3().get(indiceRetoDificil++));
         }
         pasarDatosRetoPregunta();
     }
@@ -149,25 +148,23 @@ public class MediadorDeRetos extends AppCompatActivity {
         if (ronda > 10) {
             updateGamesandTime(true, juegoRetoAhorcado.getTiempo() * 10);
             finish();
-            System.out.println("Entra aquí");
             return;
         }
         if (vidas < 0) {
             updateGamesandTime(false, juegoRetoAhorcado.getTiempo() * ronda);
             finish();
-            System.out.println("O entra aquí");
             return;
         } else if (ronda <= 4) {
-            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabrasNivel1().get(indicePreguntasFacil++));
+            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoFacil++));
             juegoRetoAhorcado.setErroresRetoAhorcado(0);
         } else if (ronda > 4 && ronda <= 7) {
             juegoRetoPregunta.setNivel(2);
             juegoRetoAhorcado.setErroresRetoAhorcado(3);
-            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabrasNivel2().get(indicePreguntasMedio++));
+            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoFacil++));
         } else {
             juegoRetoPregunta.setNivel(3);
             juegoRetoAhorcado.setErroresRetoAhorcado(5);
-            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabrasNivel3().get(indicePreguntasDificil++));
+            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoFacil++));
         }
         pasarDatosRetoAhorcado();
     }
@@ -177,13 +174,13 @@ public class MediadorDeRetos extends AppCompatActivity {
             finish();
         } else if (ronda <= 4) {
             juegoRetoDescubrirFrase.setNivel(1);
-            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indicePreguntasFacil++));
+            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indiceRetoFacil++));
         } else if (ronda > 4 && ronda <= 7) {
             juegoRetoDescubrirFrase.setNivel(2);
-            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indicePreguntasMedio++));
+            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indiceRetoFacil++));
         } else {
             juegoRetoDescubrirFrase.setNivel(3);
-            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indicePreguntasDificil++));
+            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indiceRetoFacil++));
         }
         pasarDatosRetoDescubrirFrase();
     }

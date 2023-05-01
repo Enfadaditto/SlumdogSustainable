@@ -29,8 +29,8 @@ public class BuilderRetoAhorcado extends BuilderReto {
             public void run() {
                 try {
                     AhorcadoRepository preguntasEnBD = new AhorcadoRepository(SingletonConnection.getSingletonInstance());
-                    juego.setPalabrasNivel1(preguntasEnBD.getAhorcadoListByDifficulty("Baja"));
-                    Collections.shuffle(juego.getPalabrasNivel1(), new Random());
+                    juego.setPalabras(preguntasEnBD.obtenerTodos());
+                    Collections.shuffle(juego.getPalabras(), new Random());
                 } catch (Exception e) {
 
                     System.out.println(e);
@@ -45,49 +45,9 @@ public class BuilderRetoAhorcado extends BuilderReto {
 
 
 
-    public void buildRetosNivel2() {
+    public void buildRetosNivel2() {buildRetosNivel1();}
 
-      hilo = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(SingletonConnection.getSingletonInstance());
-                    juego.setPalabrasNivel2(preguntasEnBD.getAhorcadoListByDifficulty("Media"));
-                    Collections.shuffle(juego.getPalabrasNivel2(), new Random());
-                } catch (Exception e) {
-
-                    System.out.println(e);
-                }
-            }
-        });
-        hilo.start();
-        try {
-            hilo.join();
-        } catch(Exception e) {}
-
-
-    }
-
-    public void buildRetosNivel3() {
-
-        hilo = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(SingletonConnection.getSingletonInstance());
-                    juego.setPalabrasNivel3(preguntasEnBD.getAhorcadoListByDifficulty("Alta"));
-                    Collections.shuffle(juego.getPalabrasNivel3(), new Random());
-                } catch (Exception e) {
-
-                    System.out.println(e);
-                }
-            }
-        });
-        hilo.start();
-        try {
-            hilo.join();
-        } catch(Exception e) {}
-
-
-    }
+    public void buildRetosNivel3() {buildRetosNivel1();}
 
     @Override
     public void buildNivel() {

@@ -7,6 +7,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -36,61 +37,20 @@ import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 
 public class IUretoPregunta extends AppCompatActivity {
-    RelativeLayout contenedor;
-    RelativeLayout pantalla_final;
+    RelativeLayout contenedor, pantalla_final;
     ConstraintLayout contenedor_principal;
-    Button botonRespuesta1;
-    ImageView ods;
-    ImageView acierto_fallo;
-    ImageView imagenCorazon;
-    Button botonRespuesta2;
-    Button botonRespuesta3;
-    Button botonRespuesta4;
-    TextView textoPuntosTotal;
-    ImageView imagenPista;
-    TextView contadorBombillas;
-
-    TextView textPuntosAcumulados;
-
-    TextView textPuntosConsolidados;
-    Button botonConsolidar;
-    Button botonSiguientePregunta;
-    TextView textoPuntosGanados, textoContadorDePreguntas;
+    Button botonRespuesta1,botonRespuesta2, botonRespuesta3, botonRespuesta4, botonConsolidar, botonSiguientePregunta;
+    ImageView ods, acierto_fallo, imagenCorazon, imagenPista, abandonar, imagenPantallaFinal;
+    TextView textoPuntosTotal, contadorBombillas, textPuntosAcumulados, textPuntosConsolidados, textoPuntosGanados, textoContadorDePreguntas, textoPregunta, textoPuntosFinales;
     QuestionRepository preguntasEnBD;
-    List<Answer> respuestasActuales;
-    int indicePreguntasFacil = 0, indicePreguntasMedio = 0, indicePreguntasDificil = 0;
-    List<Answer> listaRespuestas;
+    List<Answer> respuestasActuales, listaRespuestas;
     ProgressBar timeBar;
-    ImageView abandonar;
     CountDownTimer mCountDownTimer;
-    //PartidaRetoPregunta juego;
-    TextView textoPregunta = null;
-    ImageView imagenPantallaFinal;
-    TextView textoPuntosFinales;
-    int respuestasCorrectasContestadas = 1;
-    int vida = 1;
+    int respuestasCorrectasContestadas = 1, vida = 1, timeCount = 0, puntosTotales = 0, puntosConsolidados = 0, QuestionID, Tiempo, TiempoOpcion, Nivel, SonidoFallo, SonidoAcierto;
 
-    int timeCount = 0;
-    int puntosTotales = 0;
-    int puntosConsolidados;
-    boolean haConsolidado = false;
-
-    boolean Consolidado;
-    int QuestionID;
-
-    int Tiempo;
-
-    int TiempoOpcion;
-
-    int Nivel;
+    boolean haConsolidado = false, Consolidado, Acierto;
 
     Question preguntaActual;
-
-    boolean Acierto;
-
-    int SonidoFallo;
-
-    int SonidoAcierto;
 
     public IUretoPregunta() throws SQLException {
     }
@@ -102,7 +62,6 @@ public class IUretoPregunta extends AppCompatActivity {
         setContentView(R.layout.reto_pregunta);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         MainActivity.background.start();
-
         textPuntosConsolidados = findViewById(R.id.textPuntosConsolidados);
         textPuntosAcumulados = findViewById(R.id.textPuntosAcumulados);
         textoPregunta = findViewById(R.id.textoPregunta);
@@ -158,7 +117,11 @@ public class IUretoPregunta extends AppCompatActivity {
 
 
     }
-
+    public void linkInfoODS(View v) {
+        Uri uri = Uri.parse(getResources().getStringArray(R.array.linkODS)[preguntaActual.getOds()]);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
     public void CargarDatos() {
         Bundle extras = getIntent().getExtras();
 

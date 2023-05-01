@@ -1,43 +1,30 @@
 package Domain_Layer;
 
+import com.slumdogsustainable.R;
+
 import java.util.List;
 
 public class RetoAhorcado extends Reto {
 
     private Ahorcado ahorcadoActual;
-    private List<Ahorcado> palabrasNivel1;
-    private List<Ahorcado> palabrasNivel2;
-    private List<Ahorcado> palabrasNivel3;
+    private List<Ahorcado> palabras;
 
     private int erroresRetoAhorcado;
 
-    public List<Ahorcado> getPalabrasNivel1() {
-        return palabrasNivel1;
+    public void setPalabras(List<Ahorcado> palabras) {
+        this.palabras = palabras;
     }
 
-    public List<Ahorcado> getPalabrasNivel2() {
-        return palabrasNivel2;
+    public List<Ahorcado> getPalabras() {
+        return palabras;
     }
-
-    public List<Ahorcado> getPalabrasNivel3() {
-        return palabrasNivel3;
-    }
-
 
     public Ahorcado getAhorcado(){ return this.ahorcadoActual; }
 
     public void setAhorcado(Ahorcado ahorcado) {
         this.ahorcadoActual = ahorcado;
     }
-    public void setPalabrasNivel1(List<Ahorcado> palabrasNivel1) {
-        this.palabrasNivel1 = palabrasNivel1;
-    }
-    public void setPalabrasNivel2(List<Ahorcado> palabrasNivel2) {
-        this.palabrasNivel2 = palabrasNivel2;
-    }
-    public void setPalabrasNivel3(List<Ahorcado> palabrasNivel3) {
-        this.palabrasNivel3 = palabrasNivel3;
-    }
+
 
     public int getErroresRetoAhorcado() {
         return erroresRetoAhorcado;

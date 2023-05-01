@@ -674,7 +674,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <Button
             android:id="@+id/botonConsolidar"
@@ -756,6 +756,19 @@
             android:layout_marginEnd="59dp"
             android:layout_marginBottom="507dp"
             app:srcCompat="@drawable/felicitaciones_2" />
+
+        <Button
+            android:id="@+id/linkODS"
+            android:layout_width="159dp"
+            android:layout_height="41dp"
+            android:layout_alignBottom="@+id/botonSiguientePregunta"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="137dp"
+            android:layout_marginEnd="120dp"
+            android:layout_marginBottom="376dp"
+            android:onClick="linkInfoODS"
+            android:text="Mas información" />
 
     </RelativeLayout>
 
@@ -849,7 +862,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.372" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

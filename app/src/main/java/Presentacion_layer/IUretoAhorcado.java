@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -186,6 +187,11 @@ public class IUretoAhorcado extends AppCompatActivity {
         textoPuntosConsolidados.setText("Puntos consolidados: "+ puntosConsolidados);
     }
 
+    public void linkInfoODS(View v) {
+        Uri uri = Uri.parse(getResources().getStringArray(R.array.linkODS)[numeroOds]);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
     private void startTimer(int t) {
         int tiempo = t;
         MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.countdown);

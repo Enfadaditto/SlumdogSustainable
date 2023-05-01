@@ -23,6 +23,7 @@ import Domain_Layer.User;
 import Persistence.ODS_URepository;
 import Persistence.UserRepository;
 import Presentacion_layer.IUEstadisticas;
+import Presentacion_layer.IUMenu;
 import Presentacion_layer.IUperfil;
 import Presentacion_layer.IUretoAhorcado;
 import Presentacion_layer.IUretoFrase;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
 
     public static ConnectionSource conexion; //Conexion a DB
+
     public static MediaPlayer music; //MediaPlayer sonidos
     public static MediaPlayer background; //Mediaplayer fondo
     public static User user;
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                             botonInicio.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent intent = new Intent(MainActivity.this, MediadorDeRetos.class);//ControllerPartidaPregunta.class);
+                                    Intent intent = new Intent(MainActivity.this, IUMenu.class);//ControllerPartidaPregunta.class);
                                     startActivity(intent);
                                 }
                             });

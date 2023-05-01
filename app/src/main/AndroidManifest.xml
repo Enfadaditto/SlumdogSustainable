@@ -37,6 +37,9 @@
             android:exported="true" />
 
         <activity
+            android:name="Presentacion_layer.IUMenu"
+            android:exported="true" />
+        <activity
             android:name="Presentacion_layer.MediadorDeRetos"
             android:exported="true" />
 

@@ -1,11 +1,7 @@
 package Presentacion_layer;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.content.SyncAdapterType;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +11,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.slumdogsustainable.R;
 
 import java.util.Collections;
 import java.util.List;
 
+import Domain_Layer.DFButton;
 import Domain_Layer.Frase;
 
 public class IUretoFrase extends AppCompatActivity {

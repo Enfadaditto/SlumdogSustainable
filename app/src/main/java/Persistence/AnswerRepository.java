@@ -9,10 +9,6 @@ import Domain_Layer.Question;
 
 public class AnswerRepository extends Repository<Answer> {
 
-    public AnswerRepository(){
-        init(Answer.class);
-    }
-
     public AnswerRepository(ConnectionSource c){
         init(Answer.class, c);
     }

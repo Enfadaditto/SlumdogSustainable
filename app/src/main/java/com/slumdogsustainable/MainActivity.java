@@ -21,6 +21,7 @@ import Domain_Layer.ODS_has_User;
 import Domain_Layer.User;
 //import Persistence.Repository;
 import Persistence.ODS_URepository;
+import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 import Presentacion_layer.IUEstadisticas;
 import Presentacion_layer.IUMenu;
@@ -33,8 +34,6 @@ import Presentacion_layer.MediadorDeRetos;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
-
-    public static ConnectionSource conexion; //Conexion a DB
 
     public static MediaPlayer music; //MediaPlayer sonidos
     public static MediaPlayer background; //Mediaplayer fondo
@@ -65,12 +64,10 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             try
             {
-                if(conexion == null) {
-                    UserRepository u = new UserRepository();
-                    user = u.getUserByUsername("prueba");
-                    conexion = u.getConnectionSource();
-                    //cargarODS();
-                }
+
+                UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
+                user = u.getUserByUsername("prueba");
+
                runOnUiThread(new Runnable() {
                     public void run() {
                         if(user == null) {

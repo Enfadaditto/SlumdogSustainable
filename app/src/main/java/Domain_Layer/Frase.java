@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 import Persistence.FraseRepository;
+import Persistence.SingletonConnection;
 
 public class Frase extends Reto {
     @DatabaseField(id = true)
@@ -115,7 +116,7 @@ public class Frase extends Reto {
     }
 
     public Frase getFraseDB() {
-        FraseRepository fr = new FraseRepository(MainActivity.conexion);
+        FraseRepository fr = new FraseRepository(SingletonConnection.getSingletonInstance());
         List<Frase> listFrase = new ArrayList<>();
         try {
             listFrase = new ArrayList<>(fr.getListadoFrase());

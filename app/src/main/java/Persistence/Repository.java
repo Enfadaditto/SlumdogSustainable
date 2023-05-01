@@ -23,17 +23,6 @@ public abstract class Repository<T> {
 
         }
     }
-    public void init(Class myclass) {
-        try {
-            connectionSource = new JdbcConnectionSource(
-                    "jdbc:mysql://raimondb.mysql.database.azure.com:3306/mydb?useSSL=true", "inazuma", "Raimon123");
-            dao = DaoManager.createDao(connectionSource, myclass);
-
-        } catch (Exception e) {
-            System.out.println(e);
-
-        }
-    }
         public Dao<T, Integer> getDao(){
             return dao;
         }
@@ -49,8 +38,6 @@ public abstract class Repository<T> {
                 return null;
             }
         }
-
-
         public List<T> obtenerTodos(){
             try {
                 return this.getDao().queryForAll();

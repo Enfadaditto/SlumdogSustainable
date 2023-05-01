@@ -8,6 +8,7 @@ import java.util.Random;
 
 import Domain_Layer.RetoAhorcado;
 import Persistence.AhorcadoRepository;
+import Persistence.SingletonConnection;
 
 public class BuilderRetoAhorcado extends BuilderReto {
 
@@ -27,7 +28,7 @@ public class BuilderRetoAhorcado extends BuilderReto {
         hilo = new Thread(new Runnable() {
             public void run() {
                 try {
-                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
+                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(SingletonConnection.getSingletonInstance());
                     juego.setPalabrasNivel1(preguntasEnBD.getAhorcadoListByDifficulty("Baja"));
                     Collections.shuffle(juego.getPalabrasNivel1(), new Random());
                 } catch (Exception e) {
@@ -49,7 +50,7 @@ public class BuilderRetoAhorcado extends BuilderReto {
       hilo = new Thread(new Runnable() {
             public void run() {
                 try {
-                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
+                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(SingletonConnection.getSingletonInstance());
                     juego.setPalabrasNivel2(preguntasEnBD.getAhorcadoListByDifficulty("Media"));
                     Collections.shuffle(juego.getPalabrasNivel2(), new Random());
                 } catch (Exception e) {
@@ -71,7 +72,7 @@ public class BuilderRetoAhorcado extends BuilderReto {
         hilo = new Thread(new Runnable() {
             public void run() {
                 try {
-                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(MainActivity.conexion);
+                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(SingletonConnection.getSingletonInstance());
                     juego.setPalabrasNivel3(preguntasEnBD.getAhorcadoListByDifficulty("Alta"));
                     Collections.shuffle(juego.getPalabrasNivel3(), new Random());
                 } catch (Exception e) {

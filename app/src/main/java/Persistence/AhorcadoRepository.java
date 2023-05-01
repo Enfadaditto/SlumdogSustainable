@@ -12,10 +12,6 @@ import Domain_Layer.Question;
 
 public class AhorcadoRepository extends Repository<Ahorcado>{
 
-    public AhorcadoRepository() {
-        init(Ahorcado.class);
-    }
-
     public AhorcadoRepository(ConnectionSource c) {
         init(Ahorcado.class,c);
     }

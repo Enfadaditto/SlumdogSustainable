@@ -32,6 +32,7 @@ import Domain_Layer.Answer;
 import Domain_Layer.Question;
 import Persistence.AnswerRepository;
 import Persistence.QuestionRepository;
+import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 
 public class IUretoPregunta extends AppCompatActivity {
@@ -141,8 +142,8 @@ public class IUretoPregunta extends AppCompatActivity {
         Thread t = new Thread(new Runnable() {
             public void run() {
                 try {
-                    listaRespuestas = new AnswerRepository(MainActivity.conexion).obtenerTodos();
-                    preguntasEnBD = new QuestionRepository(MainActivity.conexion);
+                    listaRespuestas = new AnswerRepository(SingletonConnection.getSingletonInstance()).obtenerTodos();
+                    preguntasEnBD = new QuestionRepository(SingletonConnection.getSingletonInstance());
                     preguntaActual = preguntasEnBD.obtener(QuestionID);
                     respuestasActuales = preguntasEnBD.getRespuestasPregunta(preguntaActual);
 
@@ -441,7 +442,7 @@ public class IUretoPregunta extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                UserRepository u = new UserRepository(MainActivity.conexion);
+                UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
                 MainActivity.user.setPointsAchieved(MainActivity.user.getPointsAchieved() + Points);
                 u.actualizar(MainActivity.user);
             }

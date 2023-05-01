@@ -43,6 +43,7 @@ import java.util.List;
 
 import Domain_Layer.ODS_has_User;
 import Persistence.ODS_URepository;
+import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 
 
@@ -225,7 +226,7 @@ public class IUEstadisticas extends AppCompatActivity {
             @Override
             public void run() {
                 ArrayList<PieEntry> entries = new ArrayList<>();
-                ODS_URepository ODS = new ODS_URepository(MainActivity.conexion);
+                ODS_URepository ODS = new ODS_URepository(SingletonConnection.getSingletonInstance());
                 List <ODS_has_User> aux = ODS.getAllhits(MainActivity.user);
                 entries.add(new PieEntry(aux.get(0).getRightGuesses(), "General"));
                 for(int i = 1; i < 18; i++) {
@@ -250,7 +251,7 @@ public class IUEstadisticas extends AppCompatActivity {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                ODS_URepository ODS = new ODS_URepository(MainActivity.conexion);
+                ODS_URepository ODS = new ODS_URepository(SingletonConnection.getSingletonInstance());
                 List<ODS_has_User.tuplaStats> aux = ODS.getPercentagebyUser(MainActivity.user);
                 for(int i = 0; i < 18; i++) {
                     entries.add(new BarEntry(aux.get(i).idOds, aux.get(i).percentage));

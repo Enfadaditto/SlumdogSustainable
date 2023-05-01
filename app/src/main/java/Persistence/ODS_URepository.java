@@ -15,10 +15,6 @@ import Domain_Layer.User;
 
 public class ODS_URepository extends Repository<ODS_has_User> {
 
-    public ODS_URepository(){
-        init(ODS_has_User.class);
-    }
-
     public ODS_URepository(ConnectionSource c){init(ODS_has_User.class, c);
     }
 

@@ -21,10 +21,6 @@ import Domain_Layer.Question;
 import Domain_Layer.User;
 public class UserRepository extends Repository<User> {
 
-        public UserRepository(){
-                init(User.class);
-        }
-
         public UserRepository(ConnectionSource c){
                 init(User.class, c);
         }

@@ -32,6 +32,7 @@ import Domain_Layer.User;
 import Persistence.AnswerRepository;
 import Persistence.ODS_URepository;
 import Persistence.QuestionRepository;
+import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 
 public class IUuserRegister extends AppCompatActivity {
@@ -65,7 +66,7 @@ public class IUuserRegister extends AppCompatActivity {
         new Thread(new Runnable() {
             public void run(){
                 try {
-                    if (!new UserRepository(MainActivity.conexion).checkUsernameNotTaken(nicknameField.getText().toString())) {
+                    if (!new UserRepository(SingletonConnection.getSingletonInstance()).checkUsernameNotTaken(nicknameField.getText().toString())) {
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 ErrorAlert("Nombre de usuario en uso");
@@ -96,7 +97,7 @@ public class IUuserRegister extends AppCompatActivity {
                         return;
                     }
 
-                    new UserRepository(MainActivity.conexion).saveUser(
+                    new UserRepository(SingletonConnection.getSingletonInstance()).saveUser(
                             new User(
                                     nicknameField.getText().toString(),
                                     emailField.getText().toString(),
@@ -105,7 +106,7 @@ public class IUuserRegister extends AppCompatActivity {
                             )
                     );
                     cargarODSUser(nicknameField.getText().toString());
-                    MainActivity.user = new UserRepository(MainActivity.conexion).getUserByUsername(nicknameField.getText().toString());
+                    MainActivity.user = new UserRepository(SingletonConnection.getSingletonInstance()).getUserByUsername(nicknameField.getText().toString());
                     Intent intent = new Intent(IUuserRegister.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -173,7 +174,7 @@ public class IUuserRegister extends AppCompatActivity {
     }
 
     public void cargarODSUser(String nickname) {
-        ODS_URepository ODS = new ODS_URepository(MainActivity.conexion);
+        ODS_URepository ODS = new ODS_URepository(SingletonConnection.getSingletonInstance());
         for(int i = 0; i < 18; i++) {
             ODS.guardar(new ODS_has_User(nickname, i, 80, 20));
         }

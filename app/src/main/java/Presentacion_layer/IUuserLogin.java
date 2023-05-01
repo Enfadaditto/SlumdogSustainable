@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import Domain_Layer.User;
+import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 
 public class IUuserLogin extends AppCompatActivity {
@@ -42,7 +43,7 @@ public class IUuserLogin extends AppCompatActivity {
             public void run(){
                 try {
                     if (checkPassword()) {
-                        MainActivity.user = new UserRepository(MainActivity.conexion).getUserByUsername(usernameField.getText().toString());
+                        MainActivity.user = new UserRepository(SingletonConnection.getSingletonInstance()).getUserByUsername(usernameField.getText().toString());
                         Intent intent = new Intent(IUuserLogin.this, MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -81,7 +82,7 @@ public class IUuserLogin extends AppCompatActivity {
     public boolean checkPassword() {
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
-        return new UserRepository(MainActivity.conexion).checkPassword(username, password);
+        return new UserRepository(SingletonConnection.getSingletonInstance()).checkPassword(username, password);
     }
 
     public void passwordButton(View view) {

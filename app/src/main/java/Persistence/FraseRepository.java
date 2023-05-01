@@ -12,10 +12,6 @@ import Domain_Layer.Frase;
 
 public class FraseRepository extends Repository<Frase>{
 
-    public FraseRepository(){
-        init(Frase.class);
-    }
-
     public FraseRepository(ConnectionSource c){
         init(Frase.class, c);
     }

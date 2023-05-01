@@ -9,9 +9,6 @@ import Domain_Layer.Question;
 
 public class ODSRepository extends Repository<ODS> {
 
-    public ODSRepository(){
-        init(ODS.class);
-    }
     public ODSRepository(ConnectionSource c){
         init(ODS.class, c);
     }

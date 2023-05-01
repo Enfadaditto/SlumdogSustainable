@@ -22,6 +22,7 @@ import Domain_Layer.RetoDescubrirFrase;
 import Domain_Layer.RetoPregunta;
 import Domain_Layer.User;
 import Persistence.ODS_URepository;
+import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 
 public class MediadorDeRetos extends AppCompatActivity {
@@ -116,7 +117,7 @@ public class MediadorDeRetos extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                UserRepository u = new UserRepository(MainActivity.conexion);
+                UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
                 u.updateGamesandTime(won, time);
             }
         }).start();
@@ -299,7 +300,7 @@ public class MediadorDeRetos extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ODS_URepository ODS = new ODS_URepository(MainActivity.conexion);
+                ODS_URepository ODS = new ODS_URepository(SingletonConnection.getSingletonInstance());
                 ODS.updateODS(hit, idODS, u);
             }
         }).start();

@@ -37,6 +37,7 @@ import Domain_Layer.Question;
 import Domain_Layer.User;
 import Persistence.AnswerRepository;
 import Persistence.QuestionRepository;
+import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 public class IUperfil extends AppCompatActivity{
     private EditText nombreUsuario;
@@ -123,7 +124,7 @@ public class IUperfil extends AppCompatActivity{
 
     public void cambiarContraseña(User usuarioActual, String contraseña){
         usuarioActual.setPassword(contraseña);
-        UserRepository s = new UserRepository((MainActivity.conexion));
+        UserRepository s = new UserRepository((SingletonConnection.getSingletonInstance()));
         s.actualizar(usuarioActual);
     }
 

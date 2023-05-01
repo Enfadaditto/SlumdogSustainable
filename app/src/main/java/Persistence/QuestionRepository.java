@@ -14,14 +14,10 @@ import Domain_Layer.Answer;
 
 public class QuestionRepository extends Repository<Question> {
     List<Answer> listaRespuestas;
-    public QuestionRepository(){
-        init(Question.class);
-        listaRespuestas = new AnswerRepository(MainActivity.conexion).obtenerTodos();
-    }
 
     public QuestionRepository(ConnectionSource c){
         init(Question.class, c);
-        listaRespuestas = new AnswerRepository(MainActivity.conexion).obtenerTodos();
+        listaRespuestas = new AnswerRepository(SingletonConnection.getSingletonInstance()).obtenerTodos();
     }
     public List<Question> getQuestionListByDifficulty(String difficulty) throws SQLException {
         List<Question> list = this.getDao().queryForAll();

@@ -8,6 +8,7 @@ import java.util.Random;
 
 import Domain_Layer.RetoDescubrirFrase;
 import Persistence.FraseRepository;
+import Persistence.SingletonConnection;
 
 public class BuilderRetoDescubrirFrase extends BuilderReto {
     public Thread hilo;
@@ -27,7 +28,7 @@ public class BuilderRetoDescubrirFrase extends BuilderReto {
         hilo = new Thread(new Runnable() {
             public void run() {
                 try {
-                    FraseRepository frasesBD = new FraseRepository(MainActivity.conexion);
+                    FraseRepository frasesBD = new FraseRepository(SingletonConnection.getSingletonInstance());
                     juego.setFrasesNivel1(frasesBD.getListadoFrase());;
                     Collections.shuffle(juego.getFrasesNivel1(), new Random());
                 } catch (Exception e) {

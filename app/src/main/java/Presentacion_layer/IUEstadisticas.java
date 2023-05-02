@@ -146,9 +146,9 @@ public class IUEstadisticas extends AppCompatActivity {
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
         );
-        gamesWon.setText("Juegos ganados: " + MainActivity.user.getGamesAchieved());
-        gamesLost.setText("Juegos perdidos: " + MainActivity.user.getGamesFailed());
-        totalGames.setText("Juegos totales: " + (MainActivity.user.getGamesFailed() + MainActivity.user.getGamesAchieved()));
+        gamesWon.setText("Partidas ganadas: " + MainActivity.user.getGamesAchieved());
+        gamesLost.setText("Partidas perdidas: " + MainActivity.user.getGamesFailed());
+        totalGames.setText("Partidas totales: " + (MainActivity.user.getGamesFailed() + MainActivity.user.getGamesAchieved()));
         timeSpent.setText( "Tiempo total: " + MainActivity.user.getTimeSpent() + " minutos");
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         layoutParams.setMargins(36, 100, 0, 0);

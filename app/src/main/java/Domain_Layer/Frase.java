@@ -69,9 +69,9 @@ public class Frase extends Reto {
 
         return listadoCaracteres;
     }
-    public void fraseProblema() {
+    public void fraseProblema(int diff) {
         char[] fraseResultado = this.frase.toCharArray();
-        int modificadorDificultad = (int) Math.ceil(/*(40 - this.getNivel()*10)*/ 0.3 * this.frase.replace(" ", "").length()) - 1;
+        int modificadorDificultad = (int) Math.ceil((40 - diff*10)/100.0 * this.frase.replace(" ", "").length()) - 1;
         List<Integer> posicionesMostrarLetra = new ArrayList<>();
         int i = 0;
         while (i < modificadorDificultad) {
@@ -102,8 +102,8 @@ public class Frase extends Reto {
         return returnFrase;
     }
 
-    public char[] getFraseProblema() {
-        if (this.fraseProblema == null) fraseProblema();
+    public char[] getFraseProblema(int diff) {
+        if (this.fraseProblema == null) fraseProblema(diff);
         return fraseProblema;
     }
 

@@ -270,6 +270,28 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
                 }
                 siguienteRetoAhorcado();
             }
+        } else if (retoDescubrirFraseEscogido) {
+            if (requestCode == REQUESTCODE) {
+                if (resultCode == RESULT_OK) {
+                    puntosTotales += juegoRetoDescubrirFrase.getPuntos() * juegoRetoDescubrirFrase.getNivel();
+                    ronda++;
+                    updateHitsFailsODS(true, juegoRetoDescubrirFrase.getFraseActual().getId_ODS(), MainActivity.user);
+                } else if (resultCode == RESULT_CANCELED) {
+                    puntosTotales += juegoRetoDescubrirFrase.getPuntos() * juegoRetoDescubrirFrase.getNivel() * (-2);
+                    if (puntosTotales < 0) {
+                        puntosTotales = 0;
+                    }
+                    vidas--;
+                    updateHitsFailsODS(false, juegoRetoDescubrirFrase.getFraseActual().getId_ODS(), MainActivity.user);
+                } else if (resultCode == RESULT_FIRST_USER) {
+                    puntosTotales += juegoRetoDescubrirFrase.getPuntos() * juegoRetoDescubrirFrase.getNivel();
+                    puntosConsolidados = puntosTotales;
+                    haConsolidado = true;
+                    ronda++;
+                    updateHitsFailsODS(true, juegoRetoDescubrirFrase.getFraseActual().getId_ODS(), MainActivity.user);
+                }
+                siguienteRetoDescubrirFrase();
+            }
         }
     }
 

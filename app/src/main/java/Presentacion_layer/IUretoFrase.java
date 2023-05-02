@@ -1,5 +1,6 @@
 package Presentacion_layer;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -18,11 +19,13 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.j256.ormlite.stmt.query.In;
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 import org.w3c.dom.Text;
 
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
@@ -56,7 +59,8 @@ public class IUretoFrase extends AppCompatActivity {
     Button botonConsolidar, botonSiguientePregunta;
     ImageView acierto_fallo;
     RelativeLayout contenedor;
-    boolean Acierto;
+    boolean Acierto = false;
+    boolean Consolidado;
 
 
     @Override
@@ -153,6 +157,7 @@ public class IUretoFrase extends AppCompatActivity {
                         letrasLayout.removeView(v);
                         ultimaAcertada = true;
                         if (letrasLayout.getChildCount() == 0) {
+                            Acierto = true;
                             terminoBien();
                         }
                     }
@@ -266,16 +271,14 @@ public class IUretoFrase extends AppCompatActivity {
 
                         if (tiempo == Tiempo) {
                             //Se acabo el tiempo, marcar como mala
-                            terminoMal(1);
+                            terminoMal();
                         } else if (tiempo == TiempoOpcion) {
-                           /* puntosTotales = 0;
-                            puntosConsolidados = 0;
-                            imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.game_over));
-                            textoPuntosFinales.setText("Puntos totales: 0");
-                            quitarPantallaAciertoFallo();
-                            botonSiguientePregunta.performClick();
-
-                            */
+                            // TODO: Devolver control al Medidador
+                            if (!Acierto) {
+                                setResult(RESULT_CANCELED); finish();
+                            } else {
+                                setResult(RESULT_OK); finish();
+                            }
                         }
                     }
                 });
@@ -286,7 +289,6 @@ public class IUretoFrase extends AppCompatActivity {
 
     public void terminoBien(){
             MainActivity.background.pause();
-            Acierto = true;
 
             cantidadRetosContestados++;
             PuntosTotales += 100 * Nivel;
@@ -317,7 +319,7 @@ public class IUretoFrase extends AppCompatActivity {
 
             startTimer(TiempoOpcion);
     }
-    public void terminoMal(int tipo) {
+    public void terminoMal() {
             MainActivity.background.pause();
             Vidas--;
             if (Vidas < 0) {
@@ -334,10 +336,7 @@ public class IUretoFrase extends AppCompatActivity {
 
             PuntosTotales -= 100 * Nivel * 2;
             if (PuntosTotales < 0) PuntosTotales = 0;
-            textoPuntosGanados.setText(100 * Nivel + (-2) + " puntos perdidos ");
-            if (tipo == 2) {
-                textoPuntosGanados.setText("Se acabo el tiempo");
-            }
+            textoPuntosGanados.setText(100 * Nivel * (-2) + " puntos perdidos ");
             botonSiguientePregunta.setText("CONTINUAR");
             textoPuntosTotal.setText("Puntos Totales: " + PuntosTotales);
             visualizacionBotonConsolidar(false);
@@ -359,5 +358,28 @@ public class IUretoFrase extends AppCompatActivity {
     }
     public void pantallaAciertoFallo() {
         contenedor.setVisibility(View.VISIBLE);
+    }
+
+    public void continuarOnClick(View v) {
+        mCountDownTimer.cancel();
+        MainActivity.music.stop();
+        Intent t = new Intent();
+        t.putExtra("Acierto", Acierto);
+        if (!Acierto) {
+            setResult(RESULT_CANCELED);
+        } else {
+            setResult(RESULT_OK);
+        }
+
+        finish();
+    }
+
+    public void consolidarYContinuar(View v) {
+        Consolidado = true;
+        mCountDownTimer.cancel();
+        MainActivity.music.stop();
+        Intent t = new Intent();
+        setResult(RESULT_FIRST_USER);
+        finish();
     }
 }

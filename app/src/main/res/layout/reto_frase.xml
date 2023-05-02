@@ -665,6 +665,7 @@
             android:layout_marginEnd="336dp"
             android:layout_marginBottom="58dp"
             android:background="@drawable/boton_verde"
+            android:onClick="continuarOnClick"
             android:text="CONTINUAR SIN CONSOLIDAR" />
 
         <ImageView
@@ -710,6 +711,7 @@
             android:layout_marginBottom="104dp"
             android:background="@drawable/boton_azul"
             android:minHeight="100dp"
+            android:onClick="consolidarYContinuar"
             android:text="CONSOLIDAD Y CONTINUAR" />
 
     </RelativeLayout>

@@ -40,6 +40,17 @@ public class UserRepository extends Repository<User> {
                 }
         }
 
+        public void updateGamesAbandonedandTime(int time) {
+                try {
+                        MainActivity.user.setGamesAbandoned(MainActivity.user.getGamesAbandoned() + 1);
+                        System.out.println(time);
+                        MainActivity.user.setTimeSpent(MainActivity.user.getTimeSpent() + ((float) time) / 60000);
+                        this.getDao().update(MainActivity.user);
+                } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                }
+        }
+
         public boolean checkPassword(String username, String password) {
                 if(this.getUserByUsername(username) != null) {
                         return this.getUserByUsername(username).getPassword().equals(password);

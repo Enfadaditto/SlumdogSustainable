@@ -33,6 +33,8 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
     Button botonRetoPregunta, botonRetoAhorcado, botonRetoFrase, botonRetoMixto;
     boolean retoPreguntaEscogido, retoAhorcadoEscogido, retoDescubrirFraseEscogido, retoMixtoEscodigo, haConsolidado = false;
     public final static int REQUESTCODE = 100;
+
+    public final static int ABANDON = 100;
     BuilderRetoPregunta retoPregunta;
     BuilderRetoAhorcado retoAhorcado;
     BuilderRetoDescubrirFrase retoDescubrirFrase;
@@ -101,6 +103,16 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
         }).start();
     }
 
+    public void updateGamesAbandonedandTime(int time) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
+                u.updateGamesAbandonedandTime(time);
+            }
+        }).start();
+    }
+
     public void siguienteRetoPregunta() {
         if (ronda > 10) {
             updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
@@ -150,8 +162,15 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
 
     public void siguienteRetoDescubrirFrase() {
 
-        if (vidas < 0 || ronda > 10) {
+        if (ronda > 10) {
+            updateGamesandTime(true, juegoRetoAhorcado.getTiempo() * 10);
             finish();
+            return;
+        }
+        if (vidas < 0) {
+            updateGamesandTime(false, juegoRetoAhorcado.getTiempo() * ronda);
+            finish();
+            return;
         } else if (ronda <= 4) {
             juegoRetoDescubrirFrase.setNivel(1);
             juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indiceRetoFacil++));
@@ -229,6 +248,11 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
         super.onActivityResult(requestCode, resultCode, data);
         if (retoPreguntaEscogido) {
             if (requestCode == REQUESTCODE) {
+                if (resultCode == ABANDON) {
+                    updateGamesAbandonedandTime(juegoRetoPregunta.getTiempo() * ronda);
+                    finish();
+                    return;
+                }
                 if (resultCode == RESULT_OK) {
                     puntosTotales += juegoRetoPregunta.getPuntos() * juegoRetoPregunta.getNivel();
                     ronda++;
@@ -251,6 +275,10 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
             }
         } else if (retoAhorcadoEscogido) {
             if (requestCode == REQUESTCODE) {
+                if (resultCode == ABANDON) {
+                    updateGamesAbandonedandTime(juegoRetoAhorcado.getTiempo() * ronda);
+                    finish();
+                }
                 if (resultCode == RESULT_OK) {
                     puntosTotales += juegoRetoAhorcado.getPuntos() * juegoRetoAhorcado.getNivel();
                     ronda++;
@@ -273,6 +301,10 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
             }
         } else if (retoDescubrirFraseEscogido) {
             if (requestCode == REQUESTCODE) {
+                if (resultCode == ABANDON) {
+                    updateGamesAbandonedandTime(juegoRetoDescubrirFrase.getTiempo() * ronda);
+                    finish();
+                }
                 if (resultCode == RESULT_OK) {
                     puntosTotales += juegoRetoDescubrirFrase.getPuntos() * juegoRetoDescubrirFrase.getNivel();
                     ronda++;

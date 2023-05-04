@@ -48,7 +48,7 @@ public class IUretoPregunta extends AppCompatActivity {
     CountDownTimer mCountDownTimer;
     int respuestasCorrectasContestadas = 1, vida = 1, timeCount = 0, puntosTotales = 0, puntosConsolidados = 0, QuestionID, Tiempo, TiempoOpcion, Nivel, SonidoFallo, SonidoAcierto;
 
-    boolean haConsolidado = false, Consolidado, Acierto;
+    boolean haConsolidado = false, Consolidado, Acierto, abandonado;
 
     Question preguntaActual;
 
@@ -478,6 +478,7 @@ public class IUretoPregunta extends AppCompatActivity {
                         MainActivity.music.stop();
                         imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.no_esta_mal));
                         textoPuntosFinales.setText("Tu puntuacion final es de: " + puntosConsolidados);
+                        abandonado = true;
                         pantalla_final();
                     }
                 })
@@ -517,7 +518,8 @@ public class IUretoPregunta extends AppCompatActivity {
         guardarPuntuacion();
         Intent t = new Intent();
         t.putExtra("Acierto", Acierto);
-        if (Acierto) {setResult(RESULT_OK);}
+        if(abandonado) {setResult(MediadorDeRetos.ABANDON);}
+        else if (Acierto) {setResult(RESULT_OK);}
         else setResult(RESULT_CANCELED);
         finish();
     }

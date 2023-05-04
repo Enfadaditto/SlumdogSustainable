@@ -16,6 +16,7 @@
         <item>Porcentaje de aciertos por ODS</item>
         <item>Aciertos totales por ODS expresado en %</item>
         <item>Estadísticas de partida</item>
+        <item>Información de las ODS</item>
     </string-array>
 
     <string-array name="linkODS">

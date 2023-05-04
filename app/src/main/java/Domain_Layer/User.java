@@ -30,6 +30,9 @@ public class User {
     @DatabaseField
     private int gamesFailed;
 
+    @DatabaseField
+    private int gamesAbandoned;
+
     private Bitmap icon;
 
     private List<ODS_has_User> ODSUser;
@@ -42,6 +45,14 @@ public class User {
         this.icon = icon;
         this.pointsAchieved = 0;
         this.timeSpent = 0;
+    }
+
+    public int getGamesAbandoned() {
+        return gamesAbandoned;
+    }
+
+    public void setGamesAbandoned(int gamesAbandoned) {
+        this.gamesAbandoned = gamesAbandoned;
     }
 
     public int getGamesAchieved() {

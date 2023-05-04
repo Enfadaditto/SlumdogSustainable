@@ -1,6 +1,7 @@
 package Persistence;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.j256.ormlite.support.ConnectionSource;
+import com.slumdogsustainable.MainActivity;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ public class ODS_URepository extends Repository<ODS_has_User> {
     public ODS_URepository(ConnectionSource c){init(ODS_has_User.class, c);
     }
 
-    public List<ODS_has_User> getAllhits(User u) {
+    public List<ODS_has_User> getAllODS_user(User u) {
         List <ODS_has_User> res = new ArrayList();
         List <ODS_has_User> ods = obtenerTodos();
         for(ODS_has_User o : ods) {
@@ -27,6 +28,16 @@ public class ODS_URepository extends Repository<ODS_has_User> {
             }
         }
         return res;
+    }
+
+    public List<Integer> getNumberHitsandFails() {
+        List<Integer> sol = new ArrayList(); sol.add(0); sol.add(0);
+        List <ODS_has_User> aux = getAllODS_user(MainActivity.user);
+        for(int i = 0; i < 18; i++) {
+            sol.set(0, sol.get(0) + aux.get(i).getRightGuesses());
+            sol.set(1, sol.get(1) + aux.get(i).getWrongGuesses());
+        }
+        return sol;
     }
 
     public void updateODS(Boolean hit, int idODS, User u) {

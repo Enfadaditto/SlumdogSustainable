@@ -3,11 +3,8 @@ package Presentacion_layer;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -36,13 +28,10 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
-
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -51,7 +40,6 @@ import java.util.List;
 import Domain_Layer.ODS_has_User;
 import Persistence.ODS_URepository;
 import Persistence.SingletonConnection;
-import Persistence.UserRepository;
 
 
 public class IUEstadisticas extends AppCompatActivity {
@@ -92,20 +80,20 @@ public class IUEstadisticas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.estadisticas);
 
-        chartLayout = (RelativeLayout) findViewById(R.id.chartsLayout);
-        selector = (Spinner) findViewById(R.id.selectorGrafica);
+        chartLayout = findViewById(R.id.chartsLayout);
+        selector = findViewById(R.id.selectorGrafica);
         tiempoText = findViewById(R.id.tiempoTextview);
-        puntosText = (TextView) findViewById(R.id.puntosTextview);
+        puntosText = findViewById(R.id.puntosTextview);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         puntosText.setText(puntosText.getText() + Integer.toString(MainActivity.user.getPointsAchieved()));
-        tiempoText.setText(tiempoText.getText() + String.format("%.2f", ((float)MainActivity.user.getTimeSpent() / 60)) + "h");
+        tiempoText.setText(tiempoText.getText() + String.format("%.2f", (MainActivity.user.getTimeSpent() / 60)) + "h");
 
         selector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Your code here
-                if(position == 0) {
+                if (position == 0) {
                     chartLayout.removeView(pieChart);
                     chartLayout.removeView(gamesWon);
                     chartLayout.removeView(totalGames);
@@ -115,8 +103,9 @@ public class IUEstadisticas extends AppCompatActivity {
                     chartLayout.removeView(retosFallados);
                     chartLayout.removeView(retosAcertados);
                     chartLayout.removeView(Scroll);
-                    createDiagramChart();}
-                if(position == 1) {
+                    createDiagramChart();
+                }
+                if (position == 1) {
                     chartLayout.removeView(barChart);
                     chartLayout.removeView(gamesWon);
                     chartLayout.removeView(totalGames);
@@ -129,13 +118,13 @@ public class IUEstadisticas extends AppCompatActivity {
                     createPieChart();
                 }
 
-                if(position == 2) {
+                if (position == 2) {
                     chartLayout.removeView(barChart);
                     chartLayout.removeView(pieChart);
                     chartLayout.removeView(Scroll);
                     createGameStats();
                 }
-                if(position == 3) {
+                if (position == 3) {
                     chartLayout.removeView(barChart);
                     chartLayout.removeView(pieChart);
                     chartLayout.removeView(gamesWon);
@@ -156,6 +145,65 @@ public class IUEstadisticas extends AppCompatActivity {
         });
     }
 
+    public void addwithlayout() {
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        layoutParams.setMargins(36, 50, 0, 0);
+        RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams1.addRule(RelativeLayout.BELOW, gamesWon.getId());
+        layoutParams1.setMargins(36, 100, 0, 0);
+        RelativeLayout.LayoutParams layoutParams2 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams2.addRule(RelativeLayout.BELOW, gamesAbandoned.getId());
+        layoutParams2.setMargins(36, 100, 0, 0);
+        RelativeLayout.LayoutParams layoutParams3 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams3.addRule(RelativeLayout.BELOW, totalGames.getId());
+        layoutParams3.setMargins(36, 100, 0, 0);
+        RelativeLayout.LayoutParams layoutParams4 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams4.addRule(RelativeLayout.BELOW, timeSpent.getId());
+        layoutParams4.setMargins(36, 100, 0, 0);
+        RelativeLayout.LayoutParams layoutParams5 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams5.addRule(RelativeLayout.BELOW, tiempoPromedio.getId());
+        layoutParams5.setMargins(36, 100, 0, 0);
+        RelativeLayout.LayoutParams layoutParams6 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams6.addRule(RelativeLayout.BELOW, retosAcertados.getId());
+        layoutParams6.setMargins(36, 100, 0, 0);
+        RelativeLayout.LayoutParams layoutParams7 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams7.addRule(RelativeLayout.BELOW, gamesLost.getId());
+        layoutParams7.setMargins(36, 100, 0, 0);
+
+        chartLayout.addView(gamesWon, layoutParams);
+        chartLayout.addView(gamesLost, layoutParams1);
+        chartLayout.addView(gamesAbandoned, layoutParams7);
+        chartLayout.addView(totalGames, layoutParams2);
+        chartLayout.addView(timeSpent, layoutParams3);
+        chartLayout.addView(tiempoPromedio, layoutParams4);
+        chartLayout.addView(retosAcertados, layoutParams5);
+        chartLayout.addView(retosFallados, layoutParams6);
+    }
     public void createGameStats() {
         gamesWon = new TextView(this);
         gamesLost = new TextView(this);
@@ -175,45 +223,7 @@ public class IUEstadisticas extends AppCompatActivity {
         retosAcertados.setId(View.generateViewId());
         retosFallados.setId(View.generateViewId());
 
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
 
-        RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
-
-        RelativeLayout.LayoutParams layoutParams2 = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
-
-        RelativeLayout.LayoutParams layoutParams3 = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
-
-        RelativeLayout.LayoutParams layoutParams4 = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
-
-        RelativeLayout.LayoutParams layoutParams5 = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
-
-        RelativeLayout.LayoutParams layoutParams6 = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
-
-        RelativeLayout.LayoutParams layoutParams7 = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT
-        );
         try {
             getStatsRetos();
         } catch (InterruptedException e) {
@@ -223,47 +233,22 @@ public class IUEstadisticas extends AppCompatActivity {
         gamesLost.setText("Partidas perdidas: " + MainActivity.user.getGamesFailed());
         gamesAbandoned.setText("Partidas abandonadas: " + MainActivity.user.getGamesAbandoned());
         totalGames.setText("Partidas totales: " + (MainActivity.user.getGamesFailed() + MainActivity.user.getGamesAchieved() + MainActivity.user.getGamesAbandoned()));
-        timeSpent.setText( "Tiempo total: " + MainActivity.user.getTimeSpent() + " minutos");
+        timeSpent.setText("Tiempo total: " + MainActivity.user.getTimeSpent() + " minutos");
         float tiempoProm = MainActivity.user.getTimeSpent() / (MainActivity.user.getGamesFailed() + MainActivity.user.getGamesAchieved());
         tiempoPromedio.setText("Tiempo promedio: " + String.format("%.02f", tiempoProm) + " minutos");
         retosAcertados.setText("Retos acertados: " + retosStats.get(0));
         retosFallados.setText("Retos fallados: " + retosStats.get(1));
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        layoutParams.setMargins(36, 50, 0, 0);
+
         gamesWon.setTextSize(16);
-        layoutParams1.addRule(RelativeLayout.BELOW, gamesWon.getId());
-        layoutParams1.setMargins(36, 100, 0, 0);
         gamesLost.setTextSize(16);
-        layoutParams7.addRule(RelativeLayout.BELOW, gamesLost.getId());
-        layoutParams7.setMargins(36, 100, 0, 0);
         gamesAbandoned.setTextSize(16);
-        layoutParams2.addRule(RelativeLayout.BELOW, gamesAbandoned.getId());
-        layoutParams2.setMargins(36, 100, 0, 0);
         totalGames.setTextSize(16);
-        layoutParams3.addRule(RelativeLayout.BELOW, totalGames.getId());
-        layoutParams3.setMargins(36, 100, 0, 0);
         timeSpent.setTextSize(16);
-
-        layoutParams4.addRule(RelativeLayout.BELOW, timeSpent.getId());
-        layoutParams4.setMargins(36, 100, 0, 0);
         tiempoPromedio.setTextSize(16);
-
-        layoutParams5.addRule(RelativeLayout.BELOW, tiempoPromedio.getId());
-        layoutParams5.setMargins(36, 100, 0, 0);
         retosAcertados.setTextSize(16);
-
-        layoutParams6.addRule(RelativeLayout.BELOW, retosAcertados.getId());
-        layoutParams6.setMargins(36, 100, 0, 0);
         retosFallados.setTextSize(16);
 
-        chartLayout.addView(gamesWon,layoutParams);
-        chartLayout.addView(gamesLost, layoutParams1);
-        chartLayout.addView(gamesAbandoned, layoutParams7);
-        chartLayout.addView(totalGames, layoutParams2);
-        chartLayout.addView(timeSpent, layoutParams3);
-        chartLayout.addView(tiempoPromedio, layoutParams4);
-        chartLayout.addView(retosAcertados, layoutParams5);
-        chartLayout.addView(retosFallados, layoutParams6);
+        addwithlayout();
 
     }
 
@@ -289,7 +274,7 @@ public class IUEstadisticas extends AppCompatActivity {
         dropdownView.setLayoutParams(linearParams);
         LinearLayout.LayoutParams params1;
 
-        for(int j = 1; j < 18; j++) {
+        for (int j = 1; j < 18; j++) {
             params1 = new LinearLayout.LayoutParams(700, 700);
             params1.gravity = Gravity.CENTER_HORIZONTAL;
             ImageView v1 = new ImageView(this);
@@ -309,6 +294,7 @@ public class IUEstadisticas extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
+
     public void createPieChart() {
         pieChart = new PieChart(this.getApplicationContext());
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
@@ -336,6 +322,7 @@ public class IUEstadisticas extends AppCompatActivity {
             throw new RuntimeException(e);
         }
     }
+
     public void createDiagramChart() {
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -360,15 +347,16 @@ public class IUEstadisticas extends AppCompatActivity {
         }
 
     }
+
     public void addEntriesPie() throws InterruptedException {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 ArrayList<PieEntry> entries = new ArrayList<>();
                 ODS_URepository ODS = new ODS_URepository(SingletonConnection.getSingletonInstance());
-                List <ODS_has_User> aux = ODS.getAllODS_user(MainActivity.user);
+                List<ODS_has_User> aux = ODS.getAllODS_user(MainActivity.user);
                 entries.add(new PieEntry(aux.get(0).getRightGuesses(), "General"));
-                for(int i = 1; i < 18; i++) {
+                for (int i = 1; i < 18; i++) {
                     entries.add(new PieEntry(aux.get(i).getRightGuesses(), "ODS " + i));
                 }
                 PieDataSet dataSet = new PieDataSet(entries, "ODS");
@@ -385,6 +373,7 @@ public class IUEstadisticas extends AppCompatActivity {
         t.start();
         t.join();
     }
+
     public void addEntriesBar() throws InterruptedException {
         ArrayList<BarEntry> entries = new ArrayList<>();
         Thread t = new Thread(new Runnable() {
@@ -392,7 +381,7 @@ public class IUEstadisticas extends AppCompatActivity {
             public void run() {
                 ODS_URepository ODS = new ODS_URepository(SingletonConnection.getSingletonInstance());
                 List<ODS_has_User.tuplaStats> aux = ODS.getPercentagebyUser(MainActivity.user);
-                for(int i = 0; i < 18; i++) {
+                for (int i = 0; i < 18; i++) {
                     entries.add(new BarEntry(aux.get(i).idOds, aux.get(i).percentage));
                 }
                 BarDataSet dataSet = new BarDataSet(entries, "ODS");
@@ -411,7 +400,7 @@ public class IUEstadisticas extends AppCompatActivity {
 
                 barChart.setData(barData);
 
-                String[] xAxisLables = new String[]{"GENERAL","ODS 1","ODS 2", "ODS 3", "ODS 4", "ODS 5", "ODS 6", "ODS 7", "ODS 8", "ODS 9", "ODS 10", "ODS 11", "ODS 12", "ODS 13"
+                String[] xAxisLables = new String[]{"GENERAL", "ODS 1", "ODS 2", "ODS 3", "ODS 4", "ODS 5", "ODS 6", "ODS 7", "ODS 8", "ODS 9", "ODS 10", "ODS 11", "ODS 12", "ODS 13"
                         , "ODS 14", "ODS 15", "ODS 16", "ODS 17"};
 
                 barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisLables));
@@ -438,7 +427,7 @@ public class IUEstadisticas extends AppCompatActivity {
 
 
     public class PercentValueFormatter extends ValueFormatter {
-        private DecimalFormat mFormat;
+        private final DecimalFormat mFormat;
 
         public PercentValueFormatter() {
             mFormat = new DecimalFormat("###,###,##0.0");

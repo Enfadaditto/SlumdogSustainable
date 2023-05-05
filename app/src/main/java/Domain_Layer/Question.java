@@ -11,8 +11,6 @@ public class Question {
     @DatabaseField
     private String statement;
     @DatabaseField
-    private int timeToAnswer;
-    @DatabaseField
     private int points;
     @DatabaseField
     private String difficulty;
@@ -26,7 +24,6 @@ public class Question {
 
    public Question(){
        this.statement = "pregunta por defecto";
-       this.timeToAnswer = 10;
        this.points= 100;
        this.difficulty = "1";
        // ODS odsPorDefecto = new ODS("tema1");
@@ -45,9 +42,8 @@ public class Question {
        this.answers = listaRespuestas;
    }
 
-    public Question(String statement, int time, int points, String difficulty, int ods) {
+    public Question(String statement, int points, String difficulty, int ods) {
         this.statement = statement;
-        this.timeToAnswer = time;
         this.points = points;
         this.difficulty = difficulty;
         this.id_ODS = ods;
@@ -65,14 +61,6 @@ public class Question {
 
     public void setStatement(String statement) {
         this.statement = statement;
-    }
-
-    public int getTimeToAnswer() {
-        return timeToAnswer;
-    }
-
-    public void setTimeToAnswer(int timeToAnswer) {
-        this.timeToAnswer = timeToAnswer;
     }
 
     public int getPoints() {

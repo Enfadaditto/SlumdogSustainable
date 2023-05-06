@@ -24,6 +24,8 @@ import com.slumdogsustainable.R;
 
 import java.sql.SQLException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import Domain_Layer.Ahorcado;
@@ -101,6 +103,7 @@ public class IUretoAhorcado extends AppCompatActivity {
     ConstraintLayout contenedor_principal;
     RelativeLayout contenedor;
     RelativeLayout pantalla_final;
+    List<Character> noEncontradas = new ArrayList<>();
     String enunciadoString;
     int puntosConsolidados;
     int contadorAciertos=0;
@@ -188,6 +191,7 @@ public class IUretoAhorcado extends AppCompatActivity {
         enunciado.setText(enunciadoString);
         textoPuntosAcumulados.setText("Puntos: "+puntosTotales);
         textoPuntosConsolidados.setText("Puntos consolidados: "+ puntosConsolidados);
+        letrasNoEncontradas();
     }
 
     public void linkInfoODS(View v) {
@@ -338,15 +342,14 @@ public class IUretoAhorcado extends AppCompatActivity {
             Random aleatorio = new Random();
 
             String letraAleatoria; //= String.valueOf(fraseAhorcado.charAt(aleatorios));
-            do {
-                int aleatorios = aleatorio.nextInt(fraseAhorcado.length());
-                letraAleatoria = String.valueOf(fraseAhorcado.charAt(aleatorios));
-            } while (contieneLetra(letraAleatoria, letrasEncontradas));
+            int aleatorios = aleatorio.nextInt(noEncontradas.size());
+            letraAleatoria = String.valueOf(noEncontradas.get(aleatorios));
+            noEncontradas.remove(letraAleatoria);
 
             int buttonId = getResources().getIdentifier("boton" + letraAleatoria, "id", getPackageName()); // get the resource id dynamically
             Button botonSeleccionado = findViewById(buttonId);
             validarLetraSeleccionada(letraAleatoria, botonSeleccionado);
-           /* imagenPista.setClickable(false);
+            /*imagenPista.setClickable(false);
             imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
             pistas--;
             contadorBombillas.setText(pistas + "/3");
@@ -355,9 +358,12 @@ public class IUretoAhorcado extends AppCompatActivity {
         }
 
     }
-    private boolean contieneLetra(String letra, char[] array) {
-        String letrasEncontradas = new String(array);
-        return letrasEncontradas.contains(letra);
+    private void letrasNoEncontradas() {
+        for (int i = 0; i < fraseAhorcado.length(); i++) {
+            if((! noEncontradas.contains(fraseAhorcado.charAt(i)) && (!Character.isWhitespace(fraseAhorcado.charAt(i))))) {
+                noEncontradas.add(fraseAhorcado.charAt(i));
+            }
+        }
     }
 
 

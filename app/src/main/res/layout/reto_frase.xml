@@ -721,14 +721,14 @@
         android:layout_width="937dp"
         android:layout_height="393dp"
         android:background="#CC0E0E0E"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:visibility="invisible">
+        tools:visibility="gone">
 
         <ImageView
             android:id="@+id/imagenPantallaFinal"
@@ -781,30 +781,26 @@
         android:id="@+id/imageView2"
         android:layout_width="61dp"
         android:layout_height="58dp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.989"
+        app:layout_constraintHorizontal_bias="0.977"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"
-        app:srcCompat="@drawable/ods_0"
-        tools:visibility="invisible" />
+        app:layout_constraintVertical_bias="0.41"
+        app:srcCompat="@drawable/ods_0" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="49dp"
         android:layout_height="46dp"
         android:layout_marginTop="100dp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descripcionFrase"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/corazon_vida"
-        tools:visibility="invisible" />
+        app:srcCompat="@drawable/corazon_vida" />
 
     <TextView
         android:id="@+id/textView"
@@ -813,14 +809,12 @@
         android:layout_marginStart="10dp"
         android:text="Puntos pregunta"
         android:textSize="20sp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.007"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13"
-        tools:visibility="invisible" />
+        app:layout_constraintVertical_bias="0.13" />
 
     <TextView
         android:id="@+id/textView2"
@@ -829,14 +823,12 @@
         android:layout_marginStart="10dp"
         android:text="Puntos  totales:"
         android:textSize="20sp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/imageView6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.007"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.76"
-        tools:visibility="invisible" />
+        app:layout_constraintVertical_bias="0.76" />
 
     <TextView
         android:id="@+id/textView3"
@@ -844,27 +836,48 @@
         android:layout_height="wrap_content"
         android:text="Puntos consolidados"
         android:textSize="20sp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.959"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:visibility="invisible" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="41dp"
         android:layout_height="40dp"
         android:onClick="abandonarClick"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.968"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.151"
-        app:srcCompat="@drawable/abandonar"
-        tools:visibility="invisible" />
+        app:srcCompat="@drawable/abandonar" />
+
+    <TextView
+        android:id="@+id/contadorBombillas"
+        android:layout_width="28dp"
+        android:layout_height="19dp"
+        android:text="3/3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.957"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.663" />
+
+    <ImageView
+        android:id="@+id/imagenPista"
+        android:layout_width="33dp"
+        android:layout_height="35dp"
+        android:onClick="utilizarPista"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.957"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.574"
+        app:srcCompat="@drawable/pista" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,6 +46,7 @@ public class IUretoPregunta extends AppCompatActivity {
     List<Answer> respuestasActuales, listaRespuestas;
     ProgressBar timeBar;
     CountDownTimer mCountDownTimer;
+    int pistas;
     int respuestasCorrectasContestadas = 1, vida = 1, timeCount = 0, puntosTotales = 0, puntosConsolidados = 0, QuestionID, Tiempo, TiempoOpcion, Nivel, SonidoFallo, SonidoAcierto;
 
     boolean haConsolidado = false, Consolidado, Acierto, abandonado;
@@ -85,6 +86,8 @@ public class IUretoPregunta extends AppCompatActivity {
         abandonar = findViewById(R.id.abandonar);
         imagenPantallaFinal = findViewById(R.id.imagenPantallaFinal);
         textoPuntosFinales = findViewById(R.id.textoPuntosFinales);
+        imagenPista = findViewById(R.id.imagenPista);
+        contadorBombillas = findViewById(R.id.contadorBombillas);
 
 
         CargarDatos();
@@ -136,6 +139,7 @@ public class IUretoPregunta extends AppCompatActivity {
         Nivel = extras.getInt("Nivel");
         SonidoAcierto = extras.getInt("SonidoAcierto");
         SonidoFallo = extras.getInt("SonidoFallo");
+        pistas = extras.getInt("Pistas");
 
         if(vida == 0) {
             imagenCorazon.setImageDrawable(getDrawable(R.drawable.corazon_roto));
@@ -492,25 +496,34 @@ public class IUretoPregunta extends AppCompatActivity {
     }
 
     public void pistaRetoPregunta(View view){
-        int correctAnswerIndex = -1;
-        List<Button> botonesRespuesta = new ArrayList<>();
-        botonesRespuesta.add(botonRespuesta1);
-        botonesRespuesta.add(botonRespuesta2);
-        botonesRespuesta.add(botonRespuesta3);
-        botonesRespuesta.add(botonRespuesta4);
+        //int correctAnswerIndex = -1;
+        if(pistas != 0) {
+            List<Button> botonesRespuesta = new ArrayList<>();
+            botonesRespuesta.add(botonRespuesta1);
+            botonesRespuesta.add(botonRespuesta2);
+            botonesRespuesta.add(botonRespuesta3);
+            botonesRespuesta.add(botonRespuesta4);
 
 
-        for (int i = 0; i < respuestasActuales.size(); i++) {
-            if (respuestasActuales.get(i).isCorrect()) {
-                correctAnswerIndex = i;
-                botonesRespuesta.remove(i);
-                break;
+            for (int i = 0; i < respuestasActuales.size(); i++) {
+                if (respuestasActuales.get(i).isCorrect()) {
+                   // correctAnswerIndex = i;
+                    botonesRespuesta.remove(i);
+                    break;
+                }
             }
+            Collections.shuffle(botonesRespuesta);
+            botonesRespuesta.get(1).setBackground(getDrawable(R.drawable.boton_rojo_pista));
+            botonesRespuesta.get(1).setClickable(false);
+            botonesRespuesta.get(2).setBackground(getDrawable(R.drawable.boton_rojo_pista));
+            botonesRespuesta.get(2).setClickable(false);
+            imagenPista.setClickable(false);
+            imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
+            pistas--;
+            contadorBombillas.setText(pistas + "/3");
+            Intent t = new Intent();
+            t.putExtra("Pistas", pistas);
         }
-        Collections.shuffle(botonesRespuesta);
-        botonesRespuesta.get(1).setBackground(getDrawable(R.drawable.boton_rojo));
-        botonesRespuesta.get(2).setBackground(getDrawable(R.drawable.boton_rojo));
-
 
     }
     public void clickBotonTerminarPartida(View v) {

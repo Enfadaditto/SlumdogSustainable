@@ -270,6 +270,7 @@ public class IUretoFrase extends AppCompatActivity {
     private void startTimer(int t) {
         int tiempo = t;
         MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.countdown);
+        MainActivity.music.setLooping(true);
         MainActivity.music.start();
         timeCount = tiempo;
         timeBar = findViewById(R.id.timeBar3);
@@ -282,6 +283,12 @@ public class IUretoFrase extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 timeCount -= 100;
+                if(timeCount == 10000) {
+                    System.out.println(timeCount);
+                    MainActivity.music.stop();
+                    MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.finalcountdown);
+                    MainActivity.music.start();
+                }
                 if (timeCount == tiempo / 3) {
                     timeBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
                 }

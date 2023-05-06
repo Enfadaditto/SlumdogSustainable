@@ -56,7 +56,7 @@ public class BuilderRetoDescubrirFrase extends BuilderReto {
 
     @Override
     public void buildTiempo() {
-        juego.setTiempo(10000);
+        juego.setTiempo(120000);
     }
 
     @Override

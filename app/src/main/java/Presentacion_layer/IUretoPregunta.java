@@ -211,6 +211,7 @@ public class IUretoPregunta extends AppCompatActivity {
     private void startTimer(int t) {
         int tiempo = t;
         MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.countdown);
+        MainActivity.music.setLooping(true);
         MainActivity.music.start();
         timeCount = tiempo;
         timeBar = findViewById(R.id.timeBar);
@@ -225,6 +226,9 @@ public class IUretoPregunta extends AppCompatActivity {
                 timeCount -= 100;
                 if (timeCount == tiempo / 3) {
                     timeBar.setProgressTintList(ColorStateList.valueOf(Color.RED));
+                    MainActivity.music.stop();
+                    MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.finalcountdown);
+                    MainActivity.music.start();
                 }
                 if (timeCount == tiempo * 2 / 3) {
                     timeBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW));

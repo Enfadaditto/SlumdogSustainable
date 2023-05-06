@@ -274,7 +274,9 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
                 return;
             }
             handleActivityResult(juegoRetoPregunta, requestCode, resultCode);
-            siguienteRetoPregunta();
+            if(!this.isFinishing()) {
+                siguienteRetoPregunta();
+            }
         } else if (retoAhorcadoEscogido) {
             if (resultCode == ABANDON) {
                 updateGamesAbandonedandTime(juegoRetoAhorcado.getTiempo() * ronda);
@@ -282,7 +284,9 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
                 return;
             }
             handleActivityResult(juegoRetoAhorcado, requestCode, resultCode);
-            siguienteRetoAhorcado();
+            if(!this.isFinishing()) {
+                siguienteRetoAhorcado();
+            }
         } else if (retoDescubrirFraseEscogido) {
             if (resultCode == ABANDON) {
                 updateGamesAbandonedandTime(juegoRetoDescubrirFrase.getTiempo() * ronda);
@@ -290,7 +294,9 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
                 return;
             }
             handleActivityResult(juegoRetoDescubrirFrase, requestCode, resultCode);
-            siguienteRetoDescubrirFrase();
+            if(!this.isFinishing()) {
+                siguienteRetoDescubrirFrase();
+            }
         }
     }
 

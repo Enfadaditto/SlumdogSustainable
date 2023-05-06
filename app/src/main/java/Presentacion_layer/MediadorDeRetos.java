@@ -256,6 +256,7 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
         b.putInt("SonidoFallo", juegoRetoDescubrirFrase.getSonidofallo());
         b.putInt("SonidoAcierto", juegoRetoDescubrirFrase.getSonidoacierto());
         b.putInt("odsFrase", juegoRetoDescubrirFrase.getFraseActual().getId_ODS());
+        b.putInt("Pistas", pistas);
         I.putExtras(b);
         startActivityForResult(I, REQUESTCODE);
     }

@@ -12,8 +12,11 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,9 +34,14 @@ import com.slumdogsustainable.R;
 
 import org.w3c.dom.Text;
 
+import java.io.SyncFailedException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import Domain_Layer.DFButton;
 import Domain_Layer.Frase;
@@ -42,20 +50,22 @@ public class IUretoFrase extends AppCompatActivity {
     LinearLayout letrasLayout;
     Frase frase;
     char[] fraseProblema;
-    List<Character> listadoCaracteresFrase;
+    List<Character> listadoCaracteresFrase, listaLetrasMostradasPista = new ArrayList<>();
     Button casillaElegida;
     DFButton casillaElegidaSolucion;
     String fraseEnunciado, descripcionEnunciado;
     int PuntosTotales, PuntosConsolidados, Vidas, cantidadRetosContestados, TiempoOpcion, Tiempo,
-            Nivel, SonidoFallo, SonidoAcierto, odsFrase, timeCount = 0;
+            Nivel, SonidoFallo, SonidoAcierto, odsFrase, timeCount = 0, numeroPistas;
     ProgressBar timeBar;
     CountDownTimer mCountDownTimer;
-    RelativeLayout panelDescubrirFrase, pantalla_final, contenedor;
-    ImageView imagenPantallaFinal, vidasImage, imagenODS, abandonarIcon, acierto_fallo;
-    TextView descripcionFrase, textoPuntosFinales, textoPuntosGanados, textoPuntosTotal,
-            textoPuntuacionPregunta, textoPuntosConsolidados, textoPuntuacionTotal;
+    RelativeLayout panelDescubrirFrase, pantalla_final, contenedor, contenedorMostrarPista;
+    ImageView imagenPantallaFinal, vidasImage, imagenODS, abandonarIcon, acierto_fallo, imagenPista;
+    TextView descripcionFrase, textoPuntosFinales, textoPuntosGanados, textoPuntosTotal, textoPuntuacionPregunta,
+            textoPuntosConsolidados, textoPuntuacionTotal, contadorPistas, textoMostrarPista;
     Button botonConsolidar, botonSiguientePregunta, botonTerminar;
     boolean ultimaAcertada, haConsolidado, Acierto = false, Abandono,  Consolidado;
+
+    Map<Button, Character> botonYSolucion = new HashMap<>();
 
 
     @Override
@@ -79,6 +89,7 @@ public class IUretoFrase extends AppCompatActivity {
         acierto_fallo = findViewById(R.id.imagen_acierto);
         contenedor = findViewById(R.id.contenedor_resp);
         vidasImage = findViewById(R.id.imageView6);
+        vidasImage.setVisibility(View.INVISIBLE);
         abandonarIcon = findViewById(R.id.imageView7);
         textoPuntosConsolidados = findViewById(R.id.textView3);
         textoPuntosConsolidados.setVisibility(View.INVISIBLE);
@@ -86,6 +97,11 @@ public class IUretoFrase extends AppCompatActivity {
         textoPuntuacionTotal = findViewById(R.id.textView2);
         imagenODS = findViewById(R.id.imageView2);
         botonTerminar = findViewById(R.id.botonTerminarPartida);
+        imagenPista = findViewById(R.id.imagenPista);
+        contadorPistas = findViewById(R.id.contadorBombillas);
+        contenedorMostrarPista = findViewById(R.id.muestraPistaPanel);
+        contenedorMostrarPista.setVisibility(View.INVISIBLE);
+        textoMostrarPista = findViewById(R.id.textoMostrarPista);
 
         fraseProblema = frase.getFraseProblema(Nivel);
         listadoCaracteresFrase = frase.letrasDeLaFrase();
@@ -108,6 +124,8 @@ public class IUretoFrase extends AppCompatActivity {
 
                 vidasImage.setVisibility(View.VISIBLE);
                 imagenODS.setVisibility(View.VISIBLE);
+                imagenPista.setVisibility(View.VISIBLE);
+                contadorPistas.setVisibility(View.VISIBLE);
                 if (Vidas == 1) vidasImage.setImageDrawable(getDrawable(R.drawable.corazon_vida));
                 if (Vidas == 0) vidasImage.setImageDrawable(getDrawable(R.drawable.corazon_roto));
                 textoPuntuacionPregunta.setVisibility(View.VISIBLE);
@@ -117,6 +135,8 @@ public class IUretoFrase extends AppCompatActivity {
                     abandonarIcon.setVisibility(View.VISIBLE);
                     textoPuntosConsolidados.setVisibility(View.VISIBLE);
                 }
+                if (numeroPistas == 0) imagenPista.setEnabled(false);
+                contadorPistas.setText(numeroPistas + " / 3");
 
                 startTimer(Tiempo);
             }
@@ -141,6 +161,7 @@ public class IUretoFrase extends AppCompatActivity {
         SonidoFallo = extras.getInt("SonidoFallo");
         Tiempo = extras.getInt("Tiempo");
         odsFrase = extras.getInt("odsFrase");
+        numeroPistas = extras.getInt("Pistas");
 
         frase.setFrase(fraseEnunciado);
     }
@@ -241,6 +262,8 @@ public class IUretoFrase extends AppCompatActivity {
         for (int i = 0; i < palabraActual.length; i++) {
             Button boton = (Button) panelDescubrirFrase.getChildAt(indice + i);
             DFButton botonSolucion = new DFButton(boton, palabraActualSolucion[i]);
+            botonYSolucion.put(boton, botonSolucion.getLetra());
+
             boton.setText(palabraActual[i] + "");
             if ((palabraActual[i] + "").matches("[A-Z]*") ||
                     (palabraActual[i] + "").matches("[a-z]*"))
@@ -451,6 +474,61 @@ public class IUretoFrase extends AppCompatActivity {
 
         AlertDialog dialog = alert.create();
         dialog.show();
+    }
+
+    public void pistaOnClick(View v) {
+        Random letraAleatoria = new Random();
+        char letraRandom = listadoCaracteresFrase.get(letraAleatoria.nextInt(listadoCaracteresFrase.size()));
+        letraRandom = Character.toUpperCase(letraRandom);
+
+        if (!listaLetrasMostradasPista.contains(letraRandom)) listaLetrasMostradasPista.add(letraRandom);
+        else {
+            pistaOnClick(v);
+            return;
+        }
+
+        numeroPistas--;
+        contadorPistas.setText(numeroPistas + " / 3");
+
+        Animation animacionAparecer = new AlphaAnimation(0.0f, 1.0f);
+        animacionAparecer.setDuration(150);
+        Animation animacionDesaparecer = new AlphaAnimation(1.0f, 0.0f);
+        animacionDesaparecer.setDuration(150);
+
+        textoMostrarPista.setText("La letra a mostrar es: " + letraRandom);
+        contenedorMostrarPista.setVisibility(View.VISIBLE);
+        contenedorMostrarPista.startAnimation(animacionAparecer);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                contenedorMostrarPista.setVisibility(View.INVISIBLE);
+                contenedorMostrarPista.startAnimation(animacionDesaparecer);
+            }
+        }, 1000);
+
+        destaparCasillas(letraRandom);
+
+        if (numeroPistas == 0) {
+            imagenPista.setEnabled(false);
+            imagenPista.setOnClickListener(null);
+        }
+    }
+
+    public void destaparCasillas(char letra) {
+        for (int i = 0; i < panelDescubrirFrase.getChildCount(); i++) {
+            if (letra == Character.toUpperCase(botonYSolucion.getOrDefault((Button) panelDescubrirFrase.getChildAt(i), '*'))) {
+                ((Button) panelDescubrirFrase.getChildAt(i)).setText(letra+"");
+                ((Button) panelDescubrirFrase.getChildAt(i)).setBackgroundColor(Color.LTGRAY);
+                ((Button) panelDescubrirFrase.getChildAt(i)).setOnClickListener(null);
+            }
+        }
+        List<Character> nuevoListado = new ArrayList<>();
+        for (int i = 0; i < letrasLayout.getChildCount(); i++) {
+            if (!(letra+"").toLowerCase().equals(((Button) letrasLayout.getChildAt(i)).getText()))
+                nuevoListado.add(((Button) letrasLayout.getChildAt(i)).getText().charAt(0));
+        }
+        letrasLayout.removeAllViews();
+        rellenarLetrasLayout(nuevoListado);
     }
 
     @Override

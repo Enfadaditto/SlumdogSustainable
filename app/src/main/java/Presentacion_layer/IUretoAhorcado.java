@@ -1,5 +1,6 @@
 package Presentacion_layer;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
@@ -16,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -109,7 +111,10 @@ public class IUretoAhorcado extends AppCompatActivity {
     int contadorAciertos=0;
     TextView textoPuntosGanados;
     TextView textoPuntosTotal;
+    ImageView imagenCorazon;
+    ImageView botonAbandonar;
     int pistas;
+    boolean abandonado;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,8 +156,10 @@ public class IUretoAhorcado extends AppCompatActivity {
         textoPuntosConsolidados = findViewById(R.id.textoPuntosConsolidados);
         textoNumeroDeReto = findViewById(R.id.textoNumeroDeReto);
         imagenOds = findViewById(R.id.imagenOds);
+        //imagenPista = findViewById(R.id.imagenPistaPregunta);
+        imagenCorazon = findViewById(R.id.imagenVida);
+        botonAbandonar = findViewById(R.id.botonAbadonar);
         imagenPista = findViewById(R.id.imagenPista);
-
         botonConsolidar = findViewById(R.id.botonConsolidar);
         acierto_fallo = findViewById(R.id.imagen_acierto);
         botonSiguientePregunta = findViewById(R.id.botonSiguientePregunta);
@@ -174,6 +181,7 @@ public class IUretoAhorcado extends AppCompatActivity {
     }
 
     private void ponerTextosEnPantalla() {
+        botonAbandonar.setVisibility(View.GONE);
         textoPuntosAhorcado.setText("Puntos reto: " + 100*nivel);
         fraseACompletar = new char [fraseAhorcado.length()];
         for(int i = 0; i<fraseAhorcado.length();i++){
@@ -187,11 +195,22 @@ public class IUretoAhorcado extends AppCompatActivity {
         }
         texto_fraseADescubir.setText(fraseEnBarrasBajas.trim());
 
-
+        if(vida==0){
+            imagenCorazon.setImageDrawable(getDrawable(R.drawable.corazon_roto));
+        }
+        if(haConsolidado){
+            botonAbandonar.setVisibility(View.VISIBLE);
+            textoPuntosConsolidados.setText("Puntos Consolidados: "+ puntosConsolidados);
+        }
         enunciado.setText(enunciadoString);
         textoPuntosAcumulados.setText("Puntos: "+puntosTotales);
+
+        textoNumeroDeReto.setText(cantidadRetosContestados+"/10");
         textoPuntosConsolidados.setText("Puntos consolidados: "+ puntosConsolidados);
         letrasNoEncontradas();
+        if(errores > 0){
+            ponerImagenAhorcado();
+        }
     }
 
     public void linkInfoODS(View v) {
@@ -236,14 +255,14 @@ public class IUretoAhorcado extends AppCompatActivity {
                             //Se acabo el tiempo, marcar como mala
                             terminoMal(1, true);
                         } else if (tiempo == TiempoOpcion) {
-                           /* puntosTotales = 0;
-                            puntosConsolidados = 0;
-                            imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.game_over));
-                            textoPuntosFinales.setText("Puntos totales: 0");
-                            quitarPantallaAciertoFallo();
+                            //puntosTotales = 0;
+                           // puntosConsolidados = 0;
+                           // imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.game_over));
+                           // textoPuntosFinales.setText("Puntos totales: 0");
+                            //quitarPantallaAciertoFallo();
                             botonSiguientePregunta.performClick();
 
-                            */
+
                         }
                     }
                 });
@@ -403,7 +422,6 @@ public class IUretoAhorcado extends AppCompatActivity {
     }
     public void pantalla_final() {
         pantalla_final.setVisibility(View.VISIBLE);
-
         timeBar.setVisibility(View.INVISIBLE);
 
     }
@@ -427,8 +445,8 @@ public class IUretoAhorcado extends AppCompatActivity {
 
             cantidadRetosContestados++;
             puntosTotales += 100 * nivel;
-            // textoPuntosGanados.setText("+" + screenText + " puntos ganados!");
-            // textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
+            textoPuntosGanados.setText("+" +puntosTotales + " puntos ganados!");
+             textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
 
 
             visualizacionBotonConsolidar(true);
@@ -482,10 +500,11 @@ public class IUretoAhorcado extends AppCompatActivity {
 
             puntosTotales -= 100 * nivel * 2;
             if (puntosTotales < 0) puntosTotales = 0;
-            textoPuntosGanados.setText(100 * nivel + (-2) + " puntos perdidos ");
+            textoPuntosGanados.setText(100 * nivel * (-2) + " puntos perdidos ");
             if (tipo == 2) {
                 textoPuntosGanados.setText("Se acabo el tiempo");
             }
+
             botonSiguientePregunta.setText("CONTINUAR");
             textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
             visualizacionBotonConsolidar(false);
@@ -498,9 +517,47 @@ public class IUretoAhorcado extends AppCompatActivity {
     public void clickBotonTerminarPartida(View v) {
         Intent t = new Intent();
         t.putExtra("Acierto", Acierto);
-        if (Acierto) {setResult(RESULT_OK);}
+
+        if(abandonado)
+        {setResult(MediadorDeRetos.ABANDON);
+        } else if (Acierto) {setResult(RESULT_OK);
+        } else if(haConsolidado) {
+            setResult(RESULT_FIRST_USER);
+        }
         else setResult(RESULT_CANCELED);
         finish();
+    }
+
+    public void clickBotonConsolidar(View v) {
+        haConsolidado = true;
+        botonSiguientePregunta.performClick();
+
+    }
+
+    public void abandonOnClick(View view) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("¿Estas seguro que quieres abandonar? Obtendras los puntos consolidados")
+                .setCancelable(true)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mCountDownTimer.cancel();
+                        MainActivity.music.stop();
+                        imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.no_esta_mal));
+                        textoPuntosFinales.setText("Tu puntuacion final es de: " + puntosConsolidados);
+                        abandonado = true;
+                        pantalla_final();
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
+
     }
 
     }

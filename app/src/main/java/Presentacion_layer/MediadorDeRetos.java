@@ -146,17 +146,28 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
             updateGamesandTime(false, juegoRetoAhorcado.getTiempo() * ronda);
             finish();
             return;
-        } else if (ronda <= 4) {
+        }
+        else if(ronda <= 4){
+
+            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getAhorcado());
             juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoFacil++));
             juegoRetoAhorcado.setErroresRetoAhorcado(0);
-        } else if (ronda > 4 && ronda <= 7) {
-            juegoRetoPregunta.setNivel(2);
+        }
+
+        else if(ronda > 4 && ronda <= 7) {
+
+            juegoRetoAhorcado.setNivel(2);
             juegoRetoAhorcado.setErroresRetoAhorcado(3);
-            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoFacil++));
-        } else {
-            juegoRetoPregunta.setNivel(3);
+            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoMedio++));
+            //juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabrasNivel2().get());
+        }
+
+        else {
+
+            juegoRetoAhorcado.setNivel(3);
             juegoRetoAhorcado.setErroresRetoAhorcado(5);
-            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoFacil++));
+            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoDificil++));
+            //juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabrasNivel3().get(indicePreguntasDificil++));
         }
         iniciarDatosRetoAhorcado();
     }

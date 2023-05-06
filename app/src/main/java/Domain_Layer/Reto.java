@@ -9,6 +9,16 @@ public class Reto {
     private int sonidofallo;
     private int puntos;
 
+    private int idOds;
+
+    public int getIdOds() {
+        return idOds;
+    }
+
+    public void setIdOds(int idOds) {
+        this.idOds = idOds;
+    }
+
     public int getTiempo() {
         return tiempo;
     }

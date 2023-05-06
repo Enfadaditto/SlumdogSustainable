@@ -173,6 +173,13 @@ public class IUretoFrase extends AppCompatActivity {
         }
         poner_imagen_ods();
         ponerFrasePorPantalla();
+
+        Animation animacionAparecer = new AlphaAnimation(0.0f, 1.0f);
+        animacionAparecer.setDuration(150);
+        Animation animacionDesaparecer = new AlphaAnimation(1.0f, 0.0f);
+        animacionDesaparecer.setDuration(150);
+
+
     }
 
     private void rellenarLetrasLayout(List<Character> listado)  {
@@ -495,7 +502,7 @@ public class IUretoFrase extends AppCompatActivity {
         Animation animacionDesaparecer = new AlphaAnimation(1.0f, 0.0f);
         animacionDesaparecer.setDuration(150);
 
-        textoMostrarPista.setText("La letra a mostrar es: " + letraRandom);
+        textoMostrarPista.setText("Mostrando: " + letraRandom);
         contenedorMostrarPista.setVisibility(View.VISIBLE);
         contenedorMostrarPista.startAnimation(animacionAparecer);
         new Handler().postDelayed(new Runnable() {

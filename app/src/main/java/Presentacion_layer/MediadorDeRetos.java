@@ -188,10 +188,10 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
             juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indiceRetoFacil++));
         } else if (ronda > 4 && ronda <= 7) {
             juegoRetoDescubrirFrase.setNivel(2);
-            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indiceRetoFacil++));
+            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel2().get(indiceRetoMedio++));
         } else {
             juegoRetoDescubrirFrase.setNivel(3);
-            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indiceRetoFacil++));
+            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel3().get(indiceRetoDificil++));
         }
         iniciarDatosRetoDescubrirFrase();
     }
@@ -267,6 +267,7 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
             if (requestCode == REQUESTCODE) {
                 if (resultCode == ABANDON) {
                     updateGamesAbandonedandTime(juegoRetoPregunta.getTiempo() * ronda);
+                    finish();
                     return;
                 }
                 if (resultCode == RESULT_OK) {
@@ -294,6 +295,7 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
                 if (resultCode == ABANDON) {
                     updateGamesAbandonedandTime(juegoRetoAhorcado.getTiempo() * ronda);
                     finish();
+                    return;
                 }
                 if (resultCode == RESULT_OK) {
                     puntosTotales += juegoRetoAhorcado.getPuntos() * juegoRetoAhorcado.getNivel();
@@ -320,6 +322,7 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
                 if (resultCode == ABANDON) {
                     updateGamesAbandonedandTime(juegoRetoDescubrirFrase.getTiempo() * ronda);
                     finish();
+                    return;
                 }
                 if (resultCode == RESULT_OK) {
                     puntosTotales += juegoRetoDescubrirFrase.getPuntos() * juegoRetoDescubrirFrase.getNivel();

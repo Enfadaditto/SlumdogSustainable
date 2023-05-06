@@ -268,12 +268,27 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (retoPreguntaEscogido) {
+            if (resultCode == ABANDON) {
+                updateGamesAbandonedandTime(juegoRetoPregunta.getTiempo() * ronda);
+                finish();
+                return;
+            }
             handleActivityResult(juegoRetoPregunta, requestCode, resultCode);
             siguienteRetoPregunta();
         } else if (retoAhorcadoEscogido) {
+            if (resultCode == ABANDON) {
+                updateGamesAbandonedandTime(juegoRetoAhorcado.getTiempo() * ronda);
+                finish();
+                return;
+            }
             handleActivityResult(juegoRetoAhorcado, requestCode, resultCode);
             siguienteRetoAhorcado();
         } else if (retoDescubrirFraseEscogido) {
+            if (resultCode == ABANDON) {
+                updateGamesAbandonedandTime(juegoRetoDescubrirFrase.getTiempo() * ronda);
+                finish();
+                return;
+            }
             handleActivityResult(juegoRetoDescubrirFrase, requestCode, resultCode);
             siguienteRetoDescubrirFrase();
         }
@@ -281,10 +296,7 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
 
     private void handleActivityResult(Reto juegoReto, int requestCode, int resultCode) {
         if (requestCode == REQUESTCODE) {
-            if (resultCode == ABANDON) {
-                updateGamesAbandonedandTime(juegoReto.getTiempo() * ronda);
-                finish();
-            } else if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 puntosTotales += juegoReto.getPuntos() * juegoReto.getNivel();
                 ronda++;
                 updateHitsFailsODS(true, juegoReto.getIdOds(), MainActivity.user);

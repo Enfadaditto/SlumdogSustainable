@@ -269,13 +269,19 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
         super.onActivityResult(requestCode, resultCode, data);
         if (retoPreguntaEscogido) {
             handleActivityResult(juegoRetoPregunta, requestCode, resultCode);
-            siguienteRetoPregunta();
+            if(!this.isFinishing()) {
+                siguienteRetoPregunta();
+            }
         } else if (retoAhorcadoEscogido) {
             handleActivityResult(juegoRetoAhorcado, requestCode, resultCode);
-            siguienteRetoAhorcado();
+            if(!this.isFinishing()) {
+                siguienteRetoAhorcado();
+            }
         } else if (retoDescubrirFraseEscogido) {
             handleActivityResult(juegoRetoDescubrirFrase, requestCode, resultCode);
-            siguienteRetoDescubrirFrase();
+            if(!this.isFinishing()) {
+                siguienteRetoDescubrirFrase();
+            }
         }
     }
 

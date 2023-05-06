@@ -605,6 +605,7 @@
         android:id="@+id/botonAbadonar"
         android:layout_width="41dp"
         android:layout_height="38dp"
+        android:onClick="abandonOnClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.994"
@@ -647,7 +648,7 @@
         app:layout_constraintHorizontal_bias="0.026"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.317"
+        app:layout_constraintVertical_bias="0.314"
         app:srcCompat="@drawable/pista" />
 
     <RelativeLayout
@@ -862,8 +863,8 @@
 
     <TextView
         android:id="@+id/texto_fraseADescubir"
-        android:layout_width="335dp"
-        android:layout_height="42dp"
+        android:layout_width="334dp"
+        android:layout_height="81dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="FRASE DEL AHORCADO"
         android:textAlignment="center"

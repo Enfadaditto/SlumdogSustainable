@@ -102,6 +102,7 @@ public class IUEstadisticas extends AppCompatActivity {
                     chartLayout.removeView(tiempoPromedio);
                     chartLayout.removeView(retosFallados);
                     chartLayout.removeView(retosAcertados);
+                    chartLayout.removeView(gamesAbandoned);
                     chartLayout.removeView(Scroll);
                     createDiagramChart();
                 }
@@ -114,6 +115,7 @@ public class IUEstadisticas extends AppCompatActivity {
                     chartLayout.removeView(tiempoPromedio);
                     chartLayout.removeView(retosFallados);
                     chartLayout.removeView(retosAcertados);
+                    chartLayout.removeView(gamesAbandoned);
                     chartLayout.removeView(Scroll);
                     createPieChart();
                 }
@@ -134,6 +136,7 @@ public class IUEstadisticas extends AppCompatActivity {
                     chartLayout.removeView(tiempoPromedio);
                     chartLayout.removeView(retosFallados);
                     chartLayout.removeView(retosAcertados);
+                    chartLayout.removeView(gamesAbandoned);
                     createODShelp();
                 }
             }

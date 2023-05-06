@@ -28,6 +28,7 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
     int vidas = 1, ronda = 1, indiceRetoFacil = 0, indiceRetoDificil = 0, indiceRetoMedio = 0, puntosTotales, puntosConsolidados, erroresRetoAhorcado;
     RetoPregunta juegoRetoPregunta;
     RetoAhorcado juegoRetoAhorcado;
+    int pistas =3;
 
     RetoDescubrirFrase juegoRetoDescubrirFrase;
     Button botonRetoPregunta, botonRetoAhorcado, botonRetoFrase, botonRetoMixto;
@@ -201,6 +202,7 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
         b.putInt("SonidoAcierto", juegoRetoAhorcado.getSonidoacierto());
         b.putInt("erroresRetoAhorcado", juegoRetoAhorcado.getErroresRetoAhorcado());
         b.putInt("odsAhorcado", juegoRetoAhorcado.getAhorcado().getId_ODS());
+        b.putInt("Pistas", pistas);
         I.putExtras(b);
         startActivityForResult(I, REQUESTCODE);
     }
@@ -221,6 +223,8 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
         b.putInt("Nivel", juegoRetoPregunta.getNivel());
         b.putInt("SonidoFallo", juegoRetoPregunta.getSonidofallo());
         b.putInt("SonidoAcierto", juegoRetoPregunta.getSonidoacierto());
+        b.putInt("Pistas", pistas);
+
         I.putExtras(b);
         startActivityForResult(I, REQUESTCODE);
     }

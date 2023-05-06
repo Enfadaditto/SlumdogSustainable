@@ -85,8 +85,7 @@ public class IUretoPregunta extends AppCompatActivity {
         abandonar = findViewById(R.id.abandonar);
         imagenPantallaFinal = findViewById(R.id.imagenPantallaFinal);
         textoPuntosFinales = findViewById(R.id.textoPuntosFinales);
-        imagenPista = findViewById(R.id.imagenPistaPregunta);
-        contadorBombillas = findViewById(R.id.contadorBombillas);
+
 
         CargarDatos();
         try {

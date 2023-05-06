@@ -391,7 +391,7 @@
     </RelativeLayout>
 
     <ImageView
-        android:id="@+id/imagenPistaPregunta"
+        android:id="@+id/imagenPista"
         android:layout_width="33dp"
         android:layout_height="35dp"
         android:onClick="pistaRetoPregunta"

@@ -106,7 +106,7 @@ public class IUretoAhorcado extends AppCompatActivity {
     int contadorAciertos=0;
     TextView textoPuntosGanados;
     TextView textoPuntosTotal;
-    int pistas = 3;
+    int pistas;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,7 +148,7 @@ public class IUretoAhorcado extends AppCompatActivity {
         textoPuntosConsolidados = findViewById(R.id.textoPuntosConsolidados);
         textoNumeroDeReto = findViewById(R.id.textoNumeroDeReto);
         imagenOds = findViewById(R.id.imagenOds);
-        imagenPista = findViewById(R.id.imagenPistaPregunta);
+        imagenPista = findViewById(R.id.imagenPista);
 
         botonConsolidar = findViewById(R.id.botonConsolidar);
         acierto_fallo = findViewById(R.id.imagen_acierto);
@@ -265,6 +265,7 @@ public class IUretoAhorcado extends AppCompatActivity {
         SonidoAcierto = extras.getInt("SonidoAcierto");
         errores = extras.getInt("erroresRetoAhorcado");
         numeroOds = extras.getInt("odsAhorcado");
+        pistas = extras.getInt("Pistas");
         poner_imagen_ods();
     }
     public void poner_imagen_ods() {
@@ -331,30 +332,22 @@ public class IUretoAhorcado extends AppCompatActivity {
         texto_fraseADescubir.setText(fraseEnBarrasBajas.trim());
     }
     public void utilizarPista(View view){
-        //falta modificar puntuación
-        Random aleatorio = new Random();
-        int aleatorios = aleatorio.nextInt(fraseAhorcado.length());
-        //String letraAleatoria = String.valueOf(fraseAhorcado.charAt(aleatorios));
+        if(pistas != 0) {
+            //falta modificar puntuación
+            Random aleatorio = new Random();
+            int aleatorios = aleatorio.nextInt(fraseAhorcado.length());
+            String letraAleatoria = String.valueOf(fraseAhorcado.charAt(aleatorios));
 
-
-        for(int j =0 ;j<fraseAhorcado.length(); j++) {
-
-            if (fraseAhorcado.charAt(aleatorios) == fraseAhorcado.charAt(j)) {
-                fraseACompletar[j] = fraseAhorcado.charAt(j);
-            }
+            int buttonId = getResources().getIdentifier("boton" + letraAleatoria, "id", getPackageName()); // get the resource id dynamically
+            Button botonSeleccionado = findViewById(buttonId);
+            validarLetraSeleccionada(letraAleatoria, botonSeleccionado);
+            imagenPista.setClickable(false);
+            imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
+            pistas--;
+            contadorBombillas.setText(pistas + "/3");
+            Intent t = new Intent();
+            t.putExtra("Pistas", pistas);
         }
-        fraseEnBarrasBajas="";
-        for(int i =0 ;i<fraseAhorcado.length(); i++){
-            fraseEnBarrasBajas += fraseACompletar[i]+" ";
-        }
-
-        texto_fraseADescubir.setText(fraseEnBarrasBajas.trim());
-        imagenPista.setVisibility(View.GONE);
-        pistas --;
-        //contadorBombillas.setText(pistas + "/3");
-        contadorBombillas.setVisibility(View.GONE);
-
-
 
     }
 

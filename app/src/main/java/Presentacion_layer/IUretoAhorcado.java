@@ -174,7 +174,7 @@ public class IUretoAhorcado extends AppCompatActivity {
         textoPuntosTotal = findViewById(R.id.puntosTotal);
 
         cargarDatos();
-
+        System.out.println("Me han creado");
         startTimer(Tiempo);
 
         ponerTextosEnPantalla();
@@ -559,7 +559,8 @@ public class IUretoAhorcado extends AppCompatActivity {
         dialog.show();
 
     }
-
-    }
+    @Override
+    public void onBackPressed() {}
+}
 
 

@@ -106,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
     public void clickModificarPerfil(View view){
         Intent intent = new Intent(MainActivity.this, IUperfil.class);
         startActivity(intent);
-        finish();
     }
 
     public void clickEstadisticas(View view){

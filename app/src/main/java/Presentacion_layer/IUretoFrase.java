@@ -1,10 +1,15 @@
 package Presentacion_layer;
 
+import static Presentacion_layer.MediadorDeRetos.ABANDON;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -17,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.j256.ormlite.stmt.query.In;
@@ -34,33 +40,22 @@ import Domain_Layer.Frase;
 
 public class IUretoFrase extends AppCompatActivity {
     LinearLayout letrasLayout;
-    RelativeLayout panelDescubrirFrase;
     Frase frase;
     char[] fraseProblema;
     List<Character> listadoCaracteresFrase;
-
-    //MODIFICAR ESTO
     Button casillaElegida;
     DFButton casillaElegidaSolucion;
-    TextView descripcionFrase;
-    boolean ultimaAcertada;
-
-    String fraseEnunciado;
-    String descripcionEnunciado;
-    int PuntosTotales, PuntosConsolidados, Vidas, cantidadRetosContestados;
-    boolean haConsolidado;
-    int TiempoOpcion, Tiempo, Nivel, SonidoFallo, SonidoAcierto;
-    int timeCount = 0;
+    String fraseEnunciado, descripcionEnunciado;
+    int PuntosTotales, PuntosConsolidados, Vidas, cantidadRetosContestados, TiempoOpcion, Tiempo,
+            Nivel, SonidoFallo, SonidoAcierto, odsFrase, timeCount = 0;
     ProgressBar timeBar;
     CountDownTimer mCountDownTimer;
-    RelativeLayout pantalla_final;
-    ImageView imagenPantallaFinal;
-    TextView textoPuntosFinales, textoPuntosGanados, textoPuntosTotal;
-    Button botonConsolidar, botonSiguientePregunta;
-    ImageView acierto_fallo;
-    RelativeLayout contenedor;
-    boolean Acierto = false;
-    boolean Consolidado;
+    RelativeLayout panelDescubrirFrase, pantalla_final, contenedor;
+    ImageView imagenPantallaFinal, vidasImage, imagenODS, abandonarIcon, acierto_fallo;
+    TextView descripcionFrase, textoPuntosFinales, textoPuntosGanados, textoPuntosTotal,
+            textoPuntuacionPregunta, textoPuntosConsolidados, textoPuntuacionTotal;
+    Button botonConsolidar, botonSiguientePregunta, botonTerminar;
+    boolean ultimaAcertada, haConsolidado, Acierto = false, Abandono,  Consolidado;
 
 
     @Override
@@ -83,6 +78,14 @@ public class IUretoFrase extends AppCompatActivity {
         botonSiguientePregunta = findViewById(R.id.botonSiguientePregunta);
         acierto_fallo = findViewById(R.id.imagen_acierto);
         contenedor = findViewById(R.id.contenedor_resp);
+        vidasImage = findViewById(R.id.imageView6);
+        abandonarIcon = findViewById(R.id.imageView7);
+        textoPuntosConsolidados = findViewById(R.id.textView3);
+        textoPuntosConsolidados.setVisibility(View.INVISIBLE);
+        textoPuntuacionPregunta = findViewById(R.id.textView);
+        textoPuntuacionTotal = findViewById(R.id.textView2);
+        imagenODS = findViewById(R.id.imageView2);
+        botonTerminar = findViewById(R.id.botonTerminarPartida);
 
         fraseProblema = frase.getFraseProblema(Nivel);
         listadoCaracteresFrase = frase.letrasDeLaFrase();
@@ -92,6 +95,8 @@ public class IUretoFrase extends AppCompatActivity {
         rellenarLetrasLayout(listadoCaracteresFrase);
         letrasLayout.setVisibility(View.INVISIBLE);
 
+        textoPuntuacionPregunta.setText("Por " + Nivel*100 + " puntos.");
+        textoPuntuacionTotal.setText("Puntuacion total: " + PuntosTotales);
         descripcionFrase.setText("Haz click AQUI para comenzar");
         descripcionFrase.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +105,18 @@ public class IUretoFrase extends AppCompatActivity {
                 letrasLayout.setVisibility(View.VISIBLE);
                 descripcionFrase.setText(descripcionEnunciado);
                 descripcionFrase.setOnClickListener(null);
+
+                vidasImage.setVisibility(View.VISIBLE);
+                imagenODS.setVisibility(View.VISIBLE);
+                if (Vidas == 1) vidasImage.setImageDrawable(getDrawable(R.drawable.corazon_vida));
+                if (Vidas == 0) vidasImage.setImageDrawable(getDrawable(R.drawable.corazon_roto));
+                textoPuntuacionPregunta.setVisibility(View.VISIBLE);
+                textoPuntuacionTotal.setVisibility(View.VISIBLE);
+                if (haConsolidado)  {
+                    textoPuntosConsolidados.setText("Puntos consolidados: " + PuntosConsolidados + " puntos.");
+                    abandonarIcon.setVisibility(View.VISIBLE);
+                    textoPuntosConsolidados.setVisibility(View.VISIBLE);
+                }
 
                 startTimer(Tiempo);
             }
@@ -123,17 +140,17 @@ public class IUretoFrase extends AppCompatActivity {
         SonidoAcierto = extras.getInt("SonidoAcierto");
         SonidoFallo = extras.getInt("SonidoFallo");
         Tiempo = extras.getInt("Tiempo");
+        odsFrase = extras.getInt("odsFrase");
 
         frase.setFrase(fraseEnunciado);
-        //poner_imagen_ods();
     }
-
 
     private void ComenzarReto() {
         for (int i = 0; i < panelDescubrirFrase.getChildCount(); i++) {
             ((Button) panelDescubrirFrase.getChildAt(i)).setText("");
             ((Button) panelDescubrirFrase.getChildAt(i)).setBackground(getDrawable(R.drawable.boton_panel_vacio));
         }
+        poner_imagen_ods();
         ponerFrasePorPantalla();
     }
 
@@ -195,6 +212,20 @@ public class IUretoFrase extends AppCompatActivity {
             ++indice;
         }
 
+    }
+
+    private void poner_imagen_ods() {
+        int imagenId = getResources().getIdentifier("ods_" + odsFrase, "drawable", getPackageName());
+        Drawable imagen = getResources().getDrawable(imagenId);
+        imagenODS.setImageDrawable(imagen);
+        imagenODS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(getResources().getStringArray(R.array.linkODS)[odsFrase]);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
     }
 
     private int escribirPalabra(char[] palabraActual, char[] palabraActualSolucion, int indice) {
@@ -270,10 +301,8 @@ public class IUretoFrase extends AppCompatActivity {
                         MainActivity.music.stop();
 
                         if (tiempo == Tiempo) {
-                            //Se acabo el tiempo, marcar como mala
                             terminoMal();
                         } else if (tiempo == TiempoOpcion) {
-                            // TODO: Devolver control al Medidador
                             if (!Acierto) {
                                 setResult(RESULT_CANCELED); finish();
                             } else {
@@ -292,9 +321,6 @@ public class IUretoFrase extends AppCompatActivity {
 
             cantidadRetosContestados++;
             PuntosTotales += 100 * Nivel;
-            // textoPuntosGanados.setText("+" + screenText + " puntos ganados!");
-            // textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
-
 
             visualizacionBotonConsolidar(true);
             acierto_fallo.setImageDrawable(getDrawable(R.drawable.felicitaciones_2));
@@ -313,7 +339,6 @@ public class IUretoFrase extends AppCompatActivity {
                 pantalla_final();
                 return;
             } else {
-
                 pantallaAciertoFallo();
             }
 
@@ -347,9 +372,11 @@ public class IUretoFrase extends AppCompatActivity {
 
     public void pantalla_final() {
         pantalla_final.setVisibility(View.VISIBLE);
+        botonTerminar.bringToFront();
         timeBar.setVisibility(View.INVISIBLE);
     }
     public void visualizacionBotonConsolidar(Boolean respuestaCorrecta) {
+        System.out.println("ha consolidado: " + haConsolidado);
         if (respuestaCorrecta && !haConsolidado) {
             botonConsolidar.setVisibility(View.VISIBLE);
         } else {
@@ -357,6 +384,7 @@ public class IUretoFrase extends AppCompatActivity {
         }
     }
     public void pantallaAciertoFallo() {
+        textoPuntosTotal.setText("PUNTOS TOTAL = " + PuntosTotales);
         contenedor.setVisibility(View.VISIBLE);
     }
 
@@ -368,18 +396,56 @@ public class IUretoFrase extends AppCompatActivity {
         if (!Acierto) {
             setResult(RESULT_CANCELED);
         } else {
-            setResult(RESULT_OK);
+            if (Consolidado) setResult(RESULT_FIRST_USER);
+            else setResult(RESULT_OK);
         }
 
         finish();
     }
 
     public void consolidarYContinuar(View v) {
+        PuntosConsolidados = Nivel*100;
         Consolidado = true;
-        mCountDownTimer.cancel();
-        MainActivity.music.stop();
+        //textoPuntosConsolidados.setText("Puntos consolidados: " + PuntosConsolidados + " puntos.");
+        continuarOnClick(v);
+    }
+
+    public void clickBotonTerminar(View v) {
         Intent t = new Intent();
-        setResult(RESULT_FIRST_USER);
+        t.putExtra("Acierto", Acierto);
+
+        if (Abandono) setResult(ABANDON);
+        else if (Acierto) setResult(RESULT_OK);
+        else setResult(RESULT_CANCELED);
         finish();
     }
+
+    public void abandonarClick(View v) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("¿Estas seguro que quieres abandonar?")
+                .setMessage("Obtendras los puntos consolidados")
+                .setCancelable(true)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mCountDownTimer.cancel();
+                        MainActivity.music.stop();
+                        imagenPantallaFinal.setImageDrawable(getDrawable(R.drawable.no_esta_mal));
+                        textoPuntosFinales.setText("Tu puntuacion final es de: " + PuntosConsolidados);
+                        Abandono = true;
+                        pantalla_final();
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() { }
 }

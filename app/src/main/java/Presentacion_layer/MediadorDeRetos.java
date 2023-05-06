@@ -244,6 +244,7 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
         b.putInt("Nivel", juegoRetoDescubrirFrase.getNivel());
         b.putInt("SonidoFallo", juegoRetoDescubrirFrase.getSonidofallo());
         b.putInt("SonidoAcierto", juegoRetoDescubrirFrase.getSonidoacierto());
+        b.putInt("odsFrase", juegoRetoDescubrirFrase.getFraseActual().getId_ODS());
         I.putExtras(b);
         startActivityForResult(I, REQUESTCODE);
     }
@@ -254,7 +255,6 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
             if (requestCode == REQUESTCODE) {
                 if (resultCode == ABANDON) {
                     updateGamesAbandonedandTime(juegoRetoPregunta.getTiempo() * ronda);
-                    finish();
                     return;
                 }
                 if (resultCode == RESULT_OK) {

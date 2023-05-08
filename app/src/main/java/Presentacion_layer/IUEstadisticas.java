@@ -69,6 +69,8 @@ public class IUEstadisticas extends AppCompatActivity {
 
     TextView timeSpent;
 
+    TextView retosPorcentaje;
+
     PieChart pieChart;
 
     ScrollView Scroll;
@@ -104,6 +106,7 @@ public class IUEstadisticas extends AppCompatActivity {
                     chartLayout.removeView(retosAcertados);
                     chartLayout.removeView(gamesAbandoned);
                     chartLayout.removeView(Scroll);
+                    chartLayout.removeView(retosPorcentaje);
                     createDiagramChart();
                 }
                 if (position == 1) {
@@ -116,6 +119,7 @@ public class IUEstadisticas extends AppCompatActivity {
                     chartLayout.removeView(retosFallados);
                     chartLayout.removeView(retosAcertados);
                     chartLayout.removeView(gamesAbandoned);
+                    chartLayout.removeView(retosPorcentaje);
                     chartLayout.removeView(Scroll);
                     createPieChart();
                 }
@@ -137,6 +141,7 @@ public class IUEstadisticas extends AppCompatActivity {
                     chartLayout.removeView(retosFallados);
                     chartLayout.removeView(retosAcertados);
                     chartLayout.removeView(gamesAbandoned);
+                    chartLayout.removeView(retosPorcentaje);
                     createODShelp();
                 }
             }
@@ -160,43 +165,50 @@ public class IUEstadisticas extends AppCompatActivity {
                 RelativeLayout.LayoutParams.WRAP_CONTENT
         );
         layoutParams1.addRule(RelativeLayout.BELOW, gamesWon.getId());
-        layoutParams1.setMargins(36, 100, 0, 0);
+        layoutParams1.setMargins(36, 75, 0, 0);
         RelativeLayout.LayoutParams layoutParams2 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
         );
         layoutParams2.addRule(RelativeLayout.BELOW, gamesAbandoned.getId());
-        layoutParams2.setMargins(36, 100, 0, 0);
+        layoutParams2.setMargins(36, 75, 0, 0);
         RelativeLayout.LayoutParams layoutParams3 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
         );
         layoutParams3.addRule(RelativeLayout.BELOW, totalGames.getId());
-        layoutParams3.setMargins(36, 100, 0, 0);
+        layoutParams3.setMargins(36, 75, 0, 0);
         RelativeLayout.LayoutParams layoutParams4 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
         );
         layoutParams4.addRule(RelativeLayout.BELOW, timeSpent.getId());
-        layoutParams4.setMargins(36, 100, 0, 0);
+        layoutParams4.setMargins(36, 75, 0, 0);
         RelativeLayout.LayoutParams layoutParams5 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
         );
         layoutParams5.addRule(RelativeLayout.BELOW, tiempoPromedio.getId());
-        layoutParams5.setMargins(36, 100, 0, 0);
+        layoutParams5.setMargins(36, 75, 0, 0);
         RelativeLayout.LayoutParams layoutParams6 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
         );
         layoutParams6.addRule(RelativeLayout.BELOW, retosAcertados.getId());
-        layoutParams6.setMargins(36, 100, 0, 0);
+        layoutParams6.setMargins(36, 75, 0, 0);
         RelativeLayout.LayoutParams layoutParams7 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
         );
         layoutParams7.addRule(RelativeLayout.BELOW, gamesLost.getId());
-        layoutParams7.setMargins(36, 100, 0, 0);
+        layoutParams7.setMargins(36, 75, 0, 0);
+
+        RelativeLayout.LayoutParams layoutParams8 = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams8.addRule(RelativeLayout.BELOW, retosFallados.getId());
+        layoutParams8.setMargins(36, 75, 0, 0);
 
         chartLayout.addView(gamesWon, layoutParams);
         chartLayout.addView(gamesLost, layoutParams1);
@@ -206,6 +218,7 @@ public class IUEstadisticas extends AppCompatActivity {
         chartLayout.addView(tiempoPromedio, layoutParams4);
         chartLayout.addView(retosAcertados, layoutParams5);
         chartLayout.addView(retosFallados, layoutParams6);
+        chartLayout.addView(retosPorcentaje, layoutParams8);
     }
     public void createGameStats() {
         gamesWon = new TextView(this);
@@ -216,6 +229,7 @@ public class IUEstadisticas extends AppCompatActivity {
         tiempoPromedio = new TextView(this);
         retosAcertados = new TextView(this);
         retosFallados = new TextView(this);
+        retosPorcentaje = new TextView(this);
 
         gamesWon.setId(View.generateViewId());
         gamesLost.setId(View.generateViewId());
@@ -225,6 +239,7 @@ public class IUEstadisticas extends AppCompatActivity {
         tiempoPromedio.setId(View.generateViewId());
         retosAcertados.setId(View.generateViewId());
         retosFallados.setId(View.generateViewId());
+        retosPorcentaje.setId(View.generateViewId());
 
 
         try {
@@ -241,15 +256,18 @@ public class IUEstadisticas extends AppCompatActivity {
         tiempoPromedio.setText("Tiempo promedio: " + String.format("%.02f", tiempoProm) + " minutos");
         retosAcertados.setText("Retos acertados: " + retosStats.get(0));
         retosFallados.setText("Retos fallados: " + retosStats.get(1));
+        float porcentajeGlobal = (float) 100* retosStats.get(0)/(retosStats.get(1)+retosStats.get(0));
+        retosPorcentaje.setText("Porcentaje de retos globales acertados: " +  String.format("%.02f", porcentajeGlobal) +  "%");
 
-        gamesWon.setTextSize(16);
-        gamesLost.setTextSize(16);
-        gamesAbandoned.setTextSize(16);
-        totalGames.setTextSize(16);
-        timeSpent.setTextSize(16);
-        tiempoPromedio.setTextSize(16);
-        retosAcertados.setTextSize(16);
-        retosFallados.setTextSize(16);
+        gamesWon.setTextSize(14);
+        gamesLost.setTextSize(14);
+        gamesAbandoned.setTextSize(14);
+        totalGames.setTextSize(14);
+        timeSpent.setTextSize(14);
+        tiempoPromedio.setTextSize(14);
+        retosAcertados.setTextSize(14);
+        retosFallados.setTextSize(14);
+        retosPorcentaje.setTextSize(14);
 
         addwithlayout();
 

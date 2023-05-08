@@ -173,13 +173,6 @@ public class IUretoFrase extends AppCompatActivity {
         }
         poner_imagen_ods();
         ponerFrasePorPantalla();
-
-        Animation animacionAparecer = new AlphaAnimation(0.0f, 1.0f);
-        animacionAparecer.setDuration(150);
-        Animation animacionDesaparecer = new AlphaAnimation(1.0f, 0.0f);
-        animacionDesaparecer.setDuration(150);
-
-
     }
 
     private void rellenarLetrasLayout(List<Character> listado)  {
@@ -484,6 +477,14 @@ public class IUretoFrase extends AppCompatActivity {
     }
 
     public void pistaOnClick(View v) {
+        if (numeroPistas == 0) {
+            imagenPista.setEnabled(false);
+            imagenPista.setOnClickListener(null);
+            return;
+        }
+
+        imagenPista.setOnClickListener(null);
+        imagenPista.setVisibility(View.INVISIBLE); contadorPistas.setVisibility(View.INVISIBLE);
         Random letraAleatoria = new Random();
         char letraRandom = listadoCaracteresFrase.get(letraAleatoria.nextInt(listadoCaracteresFrase.size()));
         letraRandom = Character.toUpperCase(letraRandom);
@@ -514,11 +515,6 @@ public class IUretoFrase extends AppCompatActivity {
         }, 1000);
 
         destaparCasillas(letraRandom);
-
-        if (numeroPistas == 0) {
-            imagenPista.setEnabled(false);
-            imagenPista.setOnClickListener(null);
-        }
     }
 
     public void destaparCasillas(char letra) {

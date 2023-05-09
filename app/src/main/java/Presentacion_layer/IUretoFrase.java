@@ -118,30 +118,6 @@ public class IUretoFrase extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ComenzarReto();
-                letrasLayout.setVisibility(View.VISIBLE);
-                descripcionFrase.setText(descripcionEnunciado);
-                descripcionFrase.setOnClickListener(null);
-
-                vidasImage.setVisibility(View.VISIBLE);
-                imagenODS.setVisibility(View.VISIBLE);
-                imagenPista.setVisibility(View.VISIBLE);
-                contadorPistas.setVisibility(View.VISIBLE);
-                if (Vidas == 1) vidasImage.setImageDrawable(getDrawable(R.drawable.corazon_vida));
-                if (Vidas == 0) vidasImage.setImageDrawable(getDrawable(R.drawable.corazon_roto));
-                textoPuntuacionPregunta.setVisibility(View.VISIBLE);
-                textoPuntuacionTotal.setVisibility(View.VISIBLE);
-                if (haConsolidado)  {
-                    textoPuntosConsolidados.setText("Puntos consolidados: " + PuntosConsolidados + " puntos.");
-                    abandonarIcon.setVisibility(View.VISIBLE);
-                    textoPuntosConsolidados.setVisibility(View.VISIBLE);
-                }
-                if (MediadorDeRetos.pistas == 0) {
-                    imagenPista.setOnClickListener(null);
-                    imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
-                }
-                contadorPistas.setText(MediadorDeRetos.pistas + " / 3");
-
-                startTimer(Tiempo);
             }
         });
         casillaElegidaSolucion = new DFButton(new Button(this), '*');
@@ -175,6 +151,31 @@ public class IUretoFrase extends AppCompatActivity {
         }
         poner_imagen_ods();
         ponerFrasePorPantalla();
+
+        letrasLayout.setVisibility(View.VISIBLE);
+        descripcionFrase.setText(descripcionEnunciado);
+        descripcionFrase.setOnClickListener(null);
+
+        vidasImage.setVisibility(View.VISIBLE);
+        imagenODS.setVisibility(View.VISIBLE);
+        imagenPista.setVisibility(View.VISIBLE);
+        contadorPistas.setVisibility(View.VISIBLE);
+        if (Vidas == 1) vidasImage.setImageDrawable(getDrawable(R.drawable.corazon_vida));
+        if (Vidas == 0) vidasImage.setImageDrawable(getDrawable(R.drawable.corazon_roto));
+        textoPuntuacionPregunta.setVisibility(View.VISIBLE);
+        textoPuntuacionTotal.setVisibility(View.VISIBLE);
+        if (haConsolidado)  {
+            textoPuntosConsolidados.setText("Puntos consolidados: " + PuntosConsolidados + " puntos.");
+            abandonarIcon.setVisibility(View.VISIBLE);
+            textoPuntosConsolidados.setVisibility(View.VISIBLE);
+        }
+        if (MediadorDeRetos.pistas == 0) {
+            imagenPista.setOnClickListener(null);
+            imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
+        }
+        contadorPistas.setText(MediadorDeRetos.pistas + " / 3");
+
+        startTimer(Tiempo);
     }
 
     private void rellenarLetrasLayout(List<Character> listado)  {

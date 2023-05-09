@@ -305,6 +305,7 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (retoPreguntaEscogido) {
             handleActivityResult(juegoRetoPregunta, requestCode, resultCode);
             if(!this.isFinishing()) {

@@ -147,6 +147,7 @@ public class IUretoPregunta extends AppCompatActivity {
 
         if(!Consolidado) {
             abandonar.setVisibility(View.INVISIBLE);
+
         }
         if(Nivel == 2) {
             contenedor_principal.setBackground(getDrawable(R.drawable.fondo_nivel_medio));

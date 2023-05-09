@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Random;
 
 import Domain_Layer.Ahorcado;
+import Persistence.SingletonConnection;
+import Persistence.UserRepository;
 
 
 public class IUretoAhorcado extends AppCompatActivity {
@@ -115,6 +117,7 @@ public class IUretoAhorcado extends AppCompatActivity {
     ImageView botonAbandonar;
     int pistas;
     boolean abandonado;
+    boolean haConsolidadoLocal = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,6 +185,7 @@ public class IUretoAhorcado extends AppCompatActivity {
 
     private void ponerTextosEnPantalla() {
         botonAbandonar.setVisibility(View.GONE);
+        //textoPuntosConsolidados.setVisibility(View.INVISIBLE);
         textoPuntosAhorcado.setText("Puntos reto: " + 100*nivel);
         fraseACompletar = new char [fraseAhorcado.length()];
         for(int i = 0; i<fraseAhorcado.length();i++){
@@ -201,12 +205,13 @@ public class IUretoAhorcado extends AppCompatActivity {
         if(haConsolidado){
             botonAbandonar.setVisibility(View.VISIBLE);
             textoPuntosConsolidados.setText("Puntos Consolidados: "+ puntosConsolidados);
+
         }
         enunciado.setText(enunciadoString);
         textoPuntosAcumulados.setText("Puntos: "+puntosTotales);
 
         textoNumeroDeReto.setText(cantidadRetosContestados+"/10");
-        textoPuntosConsolidados.setText("Puntos consolidados: "+ puntosConsolidados);
+       // textoPuntosConsolidados.setText("Puntos consolidados: "+ puntosConsolidados);
         letrasNoEncontradas();
         if(errores > 0){
             ponerImagenAhorcado();
@@ -397,8 +402,9 @@ public class IUretoAhorcado extends AppCompatActivity {
         MainActivity.music.stop();
         Intent t = new Intent();
         t.putExtra("Acierto", Acierto);
-        if(haConsolidado) {
+        if(haConsolidado && haConsolidadoLocal) {
             setResult(RESULT_FIRST_USER);
+           // haConsolidado = false;
         }
         else if (Acierto) {setResult(RESULT_OK);}
         else {setResult(RESULT_CANCELED);}
@@ -517,7 +523,7 @@ public class IUretoAhorcado extends AppCompatActivity {
     public void clickBotonTerminarPartida(View v) {
         Intent t = new Intent();
         t.putExtra("Acierto", Acierto);
-
+        guardarPuntuacion();
         if(abandonado)
         {setResult(MediadorDeRetos.ABANDON);
         } else if (Acierto) {setResult(RESULT_OK);
@@ -530,6 +536,7 @@ public class IUretoAhorcado extends AppCompatActivity {
 
     public void clickBotonConsolidar(View v) {
         haConsolidado = true;
+        haConsolidadoLocal = true;
         botonSiguientePregunta.performClick();
 
     }
@@ -557,6 +564,28 @@ public class IUretoAhorcado extends AppCompatActivity {
 
         AlertDialog dialog = alert.create();
         dialog.show();
+
+    }
+
+    public void SavePoints(int Points) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
+                MainActivity.user.setPointsAchieved(MainActivity.user.getPointsAchieved() + Points);
+                u.actualizar(MainActivity.user);
+            }
+        }).start();
+    }
+
+    public void guardarPuntuacion() {
+        MainActivity.music.stop();
+        if (cantidadRetosContestados > 10) {
+            SavePoints(puntosTotales);
+        } else {
+            SavePoints(puntosConsolidados);
+        }
+        mCountDownTimer.cancel();
 
     }
     @Override

@@ -105,6 +105,7 @@ public class IUretoAhorcado extends AppCompatActivity {
     ImageView imagenPantallaFinal;
     TextView textoPuntosFinales;
     ConstraintLayout contenedor_principal;
+    ConstraintLayout lim;
     RelativeLayout contenedor;
     RelativeLayout pantalla_final;
     List<Character> noEncontradas = new ArrayList<>();
@@ -124,6 +125,7 @@ public class IUretoAhorcado extends AppCompatActivity {
         setContentView(R.layout.reto_ahorcado);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         MainActivity.background.start();
+        contenedor_principal = findViewById(R.id.contenedor_principal);
         textoPuntosAhorcado = findViewById(R.id.puntosAhorcado);
         enunciado = (TextView)findViewById(R.id.textoEnunciado);
         imagenAhorcado = findViewById(R.id.imagenAhorcado);
@@ -209,12 +211,22 @@ public class IUretoAhorcado extends AppCompatActivity {
         }
         enunciado.setText(enunciadoString);
         textoPuntosAcumulados.setText("Puntos: "+puntosTotales);
-
+        ponerFondoPorDificultad();
         textoNumeroDeReto.setText(cantidadRetosContestados+"/10");
        // textoPuntosConsolidados.setText("Puntos consolidados: "+ puntosConsolidados);
         letrasNoEncontradas();
         if(errores > 0){
             ponerImagenAhorcado();
+        }
+    }
+
+    public void ponerFondoPorDificultad(){
+
+        if(cantidadRetosContestados>4 && cantidadRetosContestados <= 7){
+            contenedor_principal.setBackground(getDrawable(R.drawable.fondo_reto_ahorcado_medio));
+        }else if (cantidadRetosContestados>7){
+            System.out.println("-----------Estuve aqui------------");
+            contenedor_principal.setBackground(getDrawable(R.drawable.fondo_reto_ahorcado_dificil));
         }
     }
 

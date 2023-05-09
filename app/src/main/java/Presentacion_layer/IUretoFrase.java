@@ -55,7 +55,7 @@ public class IUretoFrase extends AppCompatActivity {
     DFButton casillaElegidaSolucion;
     String fraseEnunciado, descripcionEnunciado;
     int PuntosTotales, PuntosConsolidados, Vidas, cantidadRetosContestados, TiempoOpcion, Tiempo,
-            Nivel, SonidoFallo, SonidoAcierto, odsFrase, timeCount = 0, numeroPistas;
+            Nivel, SonidoFallo, SonidoAcierto, odsFrase, timeCount = 0;
     ProgressBar timeBar;
     CountDownTimer mCountDownTimer;
     RelativeLayout panelDescubrirFrase, pantalla_final, contenedor, contenedorMostrarPista;
@@ -135,8 +135,11 @@ public class IUretoFrase extends AppCompatActivity {
                     abandonarIcon.setVisibility(View.VISIBLE);
                     textoPuntosConsolidados.setVisibility(View.VISIBLE);
                 }
-                if (numeroPistas == 0) imagenPista.setEnabled(false);
-                contadorPistas.setText(numeroPistas + " / 3");
+                if (MediadorDeRetos.pistas == 0) {
+                    imagenPista.setOnClickListener(null);
+                    imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
+                }
+                contadorPistas.setText(MediadorDeRetos.pistas + " / 3");
 
                 startTimer(Tiempo);
             }
@@ -161,7 +164,6 @@ public class IUretoFrase extends AppCompatActivity {
         SonidoFallo = extras.getInt("SonidoFallo");
         Tiempo = extras.getInt("Tiempo");
         odsFrase = extras.getInt("odsFrase");
-        numeroPistas = extras.getInt("Pistas");
 
         frase.setFrase(fraseEnunciado);
     }
@@ -307,7 +309,6 @@ public class IUretoFrase extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 timeCount -= 100;
                 if(timeCount == 10000) {
-                    System.out.println(timeCount);
                     MainActivity.music.stop();
                     MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.finalcountdown);
                     MainActivity.music.start();
@@ -421,8 +422,9 @@ public class IUretoFrase extends AppCompatActivity {
     public void continuarOnClick(View v) {
         mCountDownTimer.cancel();
         MainActivity.music.stop();
-        Intent t = new Intent();
+        Intent t = new Intent(getApplicationContext(), MediadorDeRetos.class);
         t.putExtra("Acierto", Acierto);
+
         if (!Acierto) {
             setResult(RESULT_CANCELED);
         } else {
@@ -436,7 +438,6 @@ public class IUretoFrase extends AppCompatActivity {
     public void consolidarYContinuar(View v) {
         PuntosConsolidados = Nivel*100;
         Consolidado = true;
-        //textoPuntosConsolidados.setText("Puntos consolidados: " + PuntosConsolidados + " puntos.");
         continuarOnClick(v);
     }
 
@@ -477,14 +478,14 @@ public class IUretoFrase extends AppCompatActivity {
     }
 
     public void pistaOnClick(View v) {
-        if (numeroPistas == 0) {
+        if (MediadorDeRetos.pistas == 0) {
             imagenPista.setEnabled(false);
             imagenPista.setOnClickListener(null);
             return;
         }
 
         imagenPista.setOnClickListener(null);
-        imagenPista.setVisibility(View.INVISIBLE); contadorPistas.setVisibility(View.INVISIBLE);
+        imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
         Random letraAleatoria = new Random();
         char letraRandom = listadoCaracteresFrase.get(letraAleatoria.nextInt(listadoCaracteresFrase.size()));
         letraRandom = Character.toUpperCase(letraRandom);
@@ -495,8 +496,9 @@ public class IUretoFrase extends AppCompatActivity {
             return;
         }
 
-        numeroPistas--;
-        contadorPistas.setText(numeroPistas + " / 3");
+        MediadorDeRetos.pistas--;
+        contadorPistas.setText(MediadorDeRetos.pistas + " / 3");
+        textoPuntuacionPregunta.setText("Por " + Nivel*50 + " puntos.");
 
         Animation animacionAparecer = new AlphaAnimation(0.0f, 1.0f);
         animacionAparecer.setDuration(150);

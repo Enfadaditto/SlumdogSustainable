@@ -47,4 +47,12 @@ public class IUMenu extends AppCompatActivity{
         I.putExtras(b);
         startActivity(I);
     }
+
+    public void clickBotonRetoMixto(View v) {
+        Intent I = new Intent(this, MediadorDeRetos.class);
+        Bundle b = new Bundle();
+        b.putString("tipoReto", "RetoMixto");
+        I.putExtras(b);
+        startActivity(I);
+    }
 }

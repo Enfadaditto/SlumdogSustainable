@@ -27,6 +27,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.j256.ormlite.stmt.query.In;
 import com.slumdogsustainable.MainActivity;
@@ -45,6 +46,8 @@ import java.util.Random;
 
 import Domain_Layer.DFButton;
 import Domain_Layer.Frase;
+import Persistence.SingletonConnection;
+import Persistence.UserRepository;
 
 public class IUretoFrase extends AppCompatActivity {
     LinearLayout letrasLayout;
@@ -55,7 +58,7 @@ public class IUretoFrase extends AppCompatActivity {
     DFButton casillaElegidaSolucion;
     String fraseEnunciado, descripcionEnunciado;
     int PuntosTotales, PuntosConsolidados, Vidas, cantidadRetosContestados, TiempoOpcion, Tiempo,
-            Nivel, SonidoFallo, SonidoAcierto, odsFrase, timeCount = 0, numeroPistas;
+            Nivel, SonidoFallo, SonidoAcierto, odsFrase, timeCount = 0;
     ProgressBar timeBar;
     CountDownTimer mCountDownTimer;
     RelativeLayout panelDescubrirFrase, pantalla_final, contenedor, contenedorMostrarPista;
@@ -66,6 +69,7 @@ public class IUretoFrase extends AppCompatActivity {
     boolean ultimaAcertada, haConsolidado, Acierto = false, Abandono,  Consolidado;
 
     Map<Button, Character> botonYSolucion = new HashMap<>();
+    ConstraintLayout fondo;
 
 
     @Override
@@ -102,6 +106,7 @@ public class IUretoFrase extends AppCompatActivity {
         contenedorMostrarPista = findViewById(R.id.muestraPistaPanel);
         contenedorMostrarPista.setVisibility(View.INVISIBLE);
         textoMostrarPista = findViewById(R.id.textoMostrarPista);
+        fondo = findViewById(R.id.fondo);
 
         fraseProblema = frase.getFraseProblema(Nivel);
         listadoCaracteresFrase = frase.letrasDeLaFrase();
@@ -117,28 +122,7 @@ public class IUretoFrase extends AppCompatActivity {
         descripcionFrase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ComenzarReto();
-                letrasLayout.setVisibility(View.VISIBLE);
-                descripcionFrase.setText(descripcionEnunciado);
-                descripcionFrase.setOnClickListener(null);
-
-                vidasImage.setVisibility(View.VISIBLE);
-                imagenODS.setVisibility(View.VISIBLE);
-                imagenPista.setVisibility(View.VISIBLE);
-                contadorPistas.setVisibility(View.VISIBLE);
-                if (Vidas == 1) vidasImage.setImageDrawable(getDrawable(R.drawable.corazon_vida));
-                if (Vidas == 0) vidasImage.setImageDrawable(getDrawable(R.drawable.corazon_roto));
-                textoPuntuacionPregunta.setVisibility(View.VISIBLE);
-                textoPuntuacionTotal.setVisibility(View.VISIBLE);
-                if (haConsolidado)  {
-                    textoPuntosConsolidados.setText("Puntos consolidados: " + PuntosConsolidados + " puntos.");
-                    abandonarIcon.setVisibility(View.VISIBLE);
-                    textoPuntosConsolidados.setVisibility(View.VISIBLE);
-                }
-                if (numeroPistas == 0) imagenPista.setEnabled(false);
-                contadorPistas.setText(numeroPistas + " / 3");
-
-                startTimer(Tiempo);
+                comenzarReto();
             }
         });
         casillaElegidaSolucion = new DFButton(new Button(this), '*');
@@ -161,12 +145,11 @@ public class IUretoFrase extends AppCompatActivity {
         SonidoFallo = extras.getInt("SonidoFallo");
         Tiempo = extras.getInt("Tiempo");
         odsFrase = extras.getInt("odsFrase");
-        numeroPistas = extras.getInt("Pistas");
 
         frase.setFrase(fraseEnunciado);
     }
 
-    private void ComenzarReto() {
+    private void comenzarReto() {
         for (int i = 0; i < panelDescubrirFrase.getChildCount(); i++) {
             ((Button) panelDescubrirFrase.getChildAt(i)).setText("");
             ((Button) panelDescubrirFrase.getChildAt(i)).setBackground(getDrawable(R.drawable.boton_panel_vacio));
@@ -174,12 +157,32 @@ public class IUretoFrase extends AppCompatActivity {
         poner_imagen_ods();
         ponerFrasePorPantalla();
 
-        Animation animacionAparecer = new AlphaAnimation(0.0f, 1.0f);
-        animacionAparecer.setDuration(150);
-        Animation animacionDesaparecer = new AlphaAnimation(1.0f, 0.0f);
-        animacionDesaparecer.setDuration(150);
+        letrasLayout.setVisibility(View.VISIBLE);
+        descripcionFrase.setText(descripcionEnunciado);
+        descripcionFrase.setOnClickListener(null);
 
+        vidasImage.setVisibility(View.VISIBLE);
+        imagenODS.setVisibility(View.VISIBLE);
+        imagenPista.setVisibility(View.VISIBLE);
+        contadorPistas.setVisibility(View.VISIBLE);
+        if (Vidas == 1) vidasImage.setImageDrawable(getDrawable(R.drawable.corazon_vida));
+        if (Vidas == 0) vidasImage.setImageDrawable(getDrawable(R.drawable.corazon_roto));
+        if (Nivel == 2) fondo.setBackground(getDrawable(R.drawable.fondo_frase_medio));
+        if (Nivel == 3) fondo.setBackground(getDrawable(R.drawable.fondo_frase_dificil));
+        textoPuntuacionPregunta.setVisibility(View.VISIBLE);
+        textoPuntuacionTotal.setVisibility(View.VISIBLE);
+        if (haConsolidado)  {
+            textoPuntosConsolidados.setText("Puntos consolidados: " + PuntosConsolidados + " puntos.");
+            abandonarIcon.setVisibility(View.VISIBLE);
+            textoPuntosConsolidados.setVisibility(View.VISIBLE);
+        }
+        if (MediadorDeRetos.pistas == 0) {
+            imagenPista.setOnClickListener(null);
+            imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
+        }
+        contadorPistas.setText(MediadorDeRetos.pistas + " / 3");
 
+        startTimer(Tiempo);
     }
 
     private void rellenarLetrasLayout(List<Character> listado)  {
@@ -314,7 +317,6 @@ public class IUretoFrase extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 timeCount -= 100;
                 if(timeCount == 10000) {
-                    System.out.println(timeCount);
                     MainActivity.music.stop();
                     MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.finalcountdown);
                     MainActivity.music.start();
@@ -428,8 +430,9 @@ public class IUretoFrase extends AppCompatActivity {
     public void continuarOnClick(View v) {
         mCountDownTimer.cancel();
         MainActivity.music.stop();
-        Intent t = new Intent();
+        Intent t = new Intent(getApplicationContext(), MediadorDeRetos.class);
         t.putExtra("Acierto", Acierto);
+
         if (!Acierto) {
             setResult(RESULT_CANCELED);
         } else {
@@ -443,11 +446,31 @@ public class IUretoFrase extends AppCompatActivity {
     public void consolidarYContinuar(View v) {
         PuntosConsolidados = Nivel*100;
         Consolidado = true;
-        //textoPuntosConsolidados.setText("Puntos consolidados: " + PuntosConsolidados + " puntos.");
         continuarOnClick(v);
     }
+    public void SavePoints(int Points) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
+                MainActivity.user.setPointsAchieved(MainActivity.user.getPointsAchieved() + Points);
+                u.actualizar(MainActivity.user);
+            }
+        }).start();
+    }
 
+    public void guardarPuntuacion() {
+        MainActivity.music.stop();
+        if (cantidadRetosContestados > 10) {
+            SavePoints(PuntosTotales);
+        } else {
+            SavePoints(PuntosConsolidados);
+        }
+        mCountDownTimer.cancel();
+
+    }
     public void clickBotonTerminar(View v) {
+        guardarPuntuacion();
         Intent t = new Intent();
         t.putExtra("Acierto", Acierto);
 
@@ -484,6 +507,14 @@ public class IUretoFrase extends AppCompatActivity {
     }
 
     public void pistaOnClick(View v) {
+        if (MediadorDeRetos.pistas == 0) {
+            imagenPista.setEnabled(false);
+            imagenPista.setOnClickListener(null);
+            return;
+        }
+
+        imagenPista.setOnClickListener(null);
+        imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
         Random letraAleatoria = new Random();
         char letraRandom = listadoCaracteresFrase.get(letraAleatoria.nextInt(listadoCaracteresFrase.size()));
         letraRandom = Character.toUpperCase(letraRandom);
@@ -494,8 +525,9 @@ public class IUretoFrase extends AppCompatActivity {
             return;
         }
 
-        numeroPistas--;
-        contadorPistas.setText(numeroPistas + " / 3");
+        MediadorDeRetos.pistas--;
+        contadorPistas.setText(MediadorDeRetos.pistas + " / 3");
+        textoPuntuacionPregunta.setText("Por " + Nivel*50 + " puntos.");
 
         Animation animacionAparecer = new AlphaAnimation(0.0f, 1.0f);
         animacionAparecer.setDuration(150);
@@ -514,11 +546,6 @@ public class IUretoFrase extends AppCompatActivity {
         }, 1000);
 
         destaparCasillas(letraRandom);
-
-        if (numeroPistas == 0) {
-            imagenPista.setEnabled(false);
-            imagenPista.setOnClickListener(null);
-        }
     }
 
     public void destaparCasillas(char letra) {

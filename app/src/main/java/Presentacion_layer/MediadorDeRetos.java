@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
+import java.util.Random;
+
 import Builder.BuilderRetoAhorcado;
 import Builder.BuilderRetoDescubrirFrase;
 import Builder.BuilderRetoPregunta;
@@ -26,14 +28,14 @@ import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 
 public class MediadorDeRetos extends AppCompatActivity implements MediatorInterface{
-    int vidas = 1, ronda = 1, indiceRetoFacil = 0, indiceRetoDificil = 0, indiceRetoMedio = 0, puntosTotales, puntosConsolidados, erroresRetoAhorcado;
+    int vidas = 1, ronda = 1, retoRandom, indiceRetoFacil = 0, indiceRetoDificil = 0, indiceRetoMedio = 0, puntosTotales, puntosConsolidados, erroresRetoAhorcado;
     RetoPregunta juegoRetoPregunta;
     RetoAhorcado juegoRetoAhorcado;
-    int pistas =3;
+    public static int pistas = 3;
 
     RetoDescubrirFrase juegoRetoDescubrirFrase;
     Button botonRetoPregunta, botonRetoAhorcado, botonRetoFrase, botonRetoMixto;
-    boolean retoPreguntaEscogido, retoAhorcadoEscogido, retoDescubrirFraseEscogido, retoMixtoEscodigo, haConsolidado = false;
+    boolean retoPreguntaEscogido, retoAhorcadoEscogido, retoDescubrirFraseEscogido, retoMixtoEscogido, haConsolidado = false;
     public final static int REQUESTCODE = 100;
 
     public final static int ABANDON = 100;
@@ -64,6 +66,8 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
             case "RetoFrase":
                 retoDescubrirFraseEscogido = true;
                 break;
+            case "RetoMixto":
+                retoMixtoEscogido = true;
         }
         empezarPartida();
     }
@@ -78,20 +82,38 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
             creadorDeJuego.construirJuego();
             juegoRetoAhorcado = retoAhorcado.getJuego();
             siguienteRetoAhorcado();
-        } else if (retoPreguntaEscogido) {
+        }
+        else if (retoPreguntaEscogido) {
             retoPregunta = new BuilderRetoPregunta();
             Director creadorDeJuego = new Director();
             creadorDeJuego.setJuegoBuilder(retoPregunta);
             creadorDeJuego.construirJuego();
             juegoRetoPregunta = retoPregunta.getJuego();
             siguienteRetoPregunta();
-        } else if (retoDescubrirFraseEscogido) {
+        }
+        else if (retoDescubrirFraseEscogido) {
             retoDescubrirFrase = new BuilderRetoDescubrirFrase();
             Director creadorDeJuego = new Director();
             creadorDeJuego.setJuegoBuilder(retoDescubrirFrase);
             creadorDeJuego.construirJuego();
             juegoRetoDescubrirFrase = retoDescubrirFrase.getJuego();
             siguienteRetoDescubrirFrase();
+        }
+        else if (retoMixtoEscogido) {
+            retoDescubrirFrase = new BuilderRetoDescubrirFrase();
+            Director creadorDeJuego = new Director();
+            creadorDeJuego.setJuegoBuilder(retoDescubrirFrase);
+            creadorDeJuego.construirJuego();
+            juegoRetoDescubrirFrase = retoDescubrirFrase.getJuego();
+            retoPregunta = new BuilderRetoPregunta();
+            creadorDeJuego.setJuegoBuilder(retoPregunta);
+            creadorDeJuego.construirJuego();
+            juegoRetoPregunta = retoPregunta.getJuego();
+            retoAhorcado = new BuilderRetoAhorcado();
+            creadorDeJuego.setJuegoBuilder(retoAhorcado);
+            creadorDeJuego.construirJuego();
+            juegoRetoAhorcado = retoAhorcado.getJuego();
+            siguienteRetoMixto();
         }
     }
 
@@ -115,6 +137,22 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
         }).start();
     }
 
+    public void siguienteRetoMixto() {
+        Random r = new Random();
+        retoRandom = r.nextInt(3);
+        switch (retoRandom) {
+            case 0:
+                siguienteRetoPregunta();
+                break;
+            case 1:
+                siguienteRetoAhorcado();
+                break;
+            case 2:
+                siguienteRetoDescubrirFrase();
+                break;
+        }
+
+    }
     public void siguienteRetoPregunta() {
         if (ronda > 10) {
             updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
@@ -267,6 +305,7 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (retoPreguntaEscogido) {
             handleActivityResult(juegoRetoPregunta, requestCode, resultCode);
             if(!this.isFinishing()) {
@@ -281,6 +320,22 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
             handleActivityResult(juegoRetoDescubrirFrase, requestCode, resultCode);
             if(!this.isFinishing()) {
                 siguienteRetoDescubrirFrase();
+            }
+        }
+        else if(retoMixtoEscogido) {
+            switch (retoRandom) {
+                case 0:
+                    handleActivityResult(juegoRetoPregunta, requestCode, resultCode);
+                    break;
+                case 1:
+                    handleActivityResult(juegoRetoAhorcado, requestCode, resultCode);
+                    break;
+                case 2:
+                    handleActivityResult(juegoRetoDescubrirFrase, requestCode, resultCode);
+                    break;
+            }
+            if(!this.isFinishing()) {
+                siguienteRetoMixto();
             }
         }
     }

@@ -97,7 +97,7 @@ public class IUuserRegister extends AppCompatActivity {
                         return;
                     }
 
-                    new UserRepository(SingletonConnection.getSingletonInstance()).saveUser(
+                    new UserRepository(SingletonConnection.getSingletonInstance()).guardar(
                             new User(
                                     nicknameField.getText().toString(),
                                     emailField.getText().toString(),

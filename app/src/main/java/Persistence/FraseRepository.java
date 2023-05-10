@@ -22,8 +22,4 @@ public class FraseRepository extends Repository<Frase>{
         for(Frase q : list) resultlist.add(q);
         return resultlist;
     }
-
-    public Frase getFrase(int id) throws SQLException {
-        return this.getDao().queryForId(id);
-    }
 }

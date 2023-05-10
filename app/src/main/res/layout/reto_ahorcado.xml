@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tim"
+    android:id="@+id/contenedor_principal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_inicial">
@@ -651,6 +651,43 @@
         app:layout_constraintVertical_bias="0.314"
         app:srcCompat="@drawable/pista" />
 
+    <TextView
+        android:id="@+id/contadorBombillas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3/3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.372" />
+
+    <TextView
+        android:id="@+id/puntosAhorcado"
+        android:layout_width="174dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.291"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/timeBar2"
+        app:layout_constraintVertical_bias="0.508" />
+
+    <TextView
+        android:id="@+id/texto_fraseADescubir"
+        android:layout_width="387dp"
+        android:layout_height="85dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="FRASE DEL AHORCADO"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.545" />
+
     <RelativeLayout
         android:id="@+id/contenedor_resp"
         android:layout_width="416dp"
@@ -837,43 +874,6 @@
         </RelativeLayout>
 
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/contadorBombillas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="3/3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.041"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.372" />
-
-    <TextView
-        android:id="@+id/puntosAhorcado"
-        android:layout_width="174dp"
-        android:layout_height="26dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.291"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/timeBar2"
-        app:layout_constraintVertical_bias="0.508" />
-
-    <TextView
-        android:id="@+id/texto_fraseADescubir"
-        android:layout_width="334dp"
-        android:layout_height="81dp"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:text="FRASE DEL AHORCADO"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.545" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,6 +27,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.j256.ormlite.stmt.query.In;
 import com.slumdogsustainable.MainActivity;
@@ -68,6 +69,7 @@ public class IUretoFrase extends AppCompatActivity {
     boolean ultimaAcertada, haConsolidado, Acierto = false, Abandono,  Consolidado;
 
     Map<Button, Character> botonYSolucion = new HashMap<>();
+    ConstraintLayout fondo;
 
 
     @Override
@@ -104,6 +106,7 @@ public class IUretoFrase extends AppCompatActivity {
         contenedorMostrarPista = findViewById(R.id.muestraPistaPanel);
         contenedorMostrarPista.setVisibility(View.INVISIBLE);
         textoMostrarPista = findViewById(R.id.textoMostrarPista);
+        fondo = findViewById(R.id.fondo);
 
         fraseProblema = frase.getFraseProblema(Nivel);
         listadoCaracteresFrase = frase.letrasDeLaFrase();
@@ -119,7 +122,7 @@ public class IUretoFrase extends AppCompatActivity {
         descripcionFrase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ComenzarReto();
+                comenzarReto();
             }
         });
         casillaElegidaSolucion = new DFButton(new Button(this), '*');
@@ -146,7 +149,7 @@ public class IUretoFrase extends AppCompatActivity {
         frase.setFrase(fraseEnunciado);
     }
 
-    private void ComenzarReto() {
+    private void comenzarReto() {
         for (int i = 0; i < panelDescubrirFrase.getChildCount(); i++) {
             ((Button) panelDescubrirFrase.getChildAt(i)).setText("");
             ((Button) panelDescubrirFrase.getChildAt(i)).setBackground(getDrawable(R.drawable.boton_panel_vacio));
@@ -164,6 +167,8 @@ public class IUretoFrase extends AppCompatActivity {
         contadorPistas.setVisibility(View.VISIBLE);
         if (Vidas == 1) vidasImage.setImageDrawable(getDrawable(R.drawable.corazon_vida));
         if (Vidas == 0) vidasImage.setImageDrawable(getDrawable(R.drawable.corazon_roto));
+        if (Nivel == 2) fondo.setBackground(getDrawable(R.drawable.fondo_frase_medio));
+        if (Nivel == 3) fondo.setBackground(getDrawable(R.drawable.fondo_frase_dificil));
         textoPuntuacionPregunta.setVisibility(View.VISIBLE);
         textoPuntuacionTotal.setVisibility(View.VISIBLE);
         if (haConsolidado)  {

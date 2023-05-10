@@ -6,12 +6,12 @@ import androidx.annotation.Nullable;
 
 public interface MediatorInterface {
 
-    public void iniciarDatosRetoDescubrirFrase();
+    void crearRetoDescubrirFrase();
 
 
-    public void iniciarDatosRetoPregunta();
+    void crearRetoPregunta();
 
-    public void iniciarDatosRetoAhorcado();
+    void crearRetoAhorcado();
 
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data);
+    void onActivityResult(int requestCode, int resultCode, @Nullable Intent data);
 }

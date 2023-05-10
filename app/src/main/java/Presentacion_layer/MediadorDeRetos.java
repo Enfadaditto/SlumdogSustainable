@@ -135,7 +135,7 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
             juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel3().get(indiceRetoDificil++));
         }
         juegoRetoPregunta.setIdOds(juegoRetoPregunta.getPreguntaActual().getOds());
-        iniciarDatosRetoPregunta();
+        crearRetoPregunta();
     }
 
     public void siguienteRetoAhorcado() {
@@ -172,7 +172,7 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
             //juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabrasNivel3().get(indicePreguntasDificil++));
         }
         juegoRetoAhorcado.setIdOds(juegoRetoAhorcado.getAhorcado().getId_ODS());
-        iniciarDatosRetoAhorcado();
+        crearRetoAhorcado();
     }
 
     public void siguienteRetoDescubrirFrase() {
@@ -197,10 +197,10 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
             juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indiceRetoFacil++));
         }
         juegoRetoDescubrirFrase.setIdOds(juegoRetoDescubrirFrase.getFraseActual().getIdOds());
-        iniciarDatosRetoDescubrirFrase();
+        crearRetoDescubrirFrase();
     }
 
-    public void iniciarDatosRetoAhorcado() {
+    public void crearRetoAhorcado() {
         Intent I = new Intent(getApplicationContext(), IUretoAhorcado.class);
         Bundle b = new Bundle();
         b.putString("palabraAhorcado", juegoRetoAhorcado.getAhorcado().getPalabra());
@@ -224,7 +224,7 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
 
 
 
-    public void iniciarDatosRetoPregunta() {
+    public void crearRetoPregunta() {
         Intent I = new Intent(getApplicationContext(), IUretoPregunta.class);
         Bundle b = new Bundle();
         b.putInt("idPregunta", juegoRetoPregunta.getPreguntaActual().getQuestionID());
@@ -244,7 +244,7 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
         startActivityForResult(I, REQUESTCODE);
     }
 
-    public void iniciarDatosRetoDescubrirFrase() {
+    public void crearRetoDescubrirFrase() {
         Intent I = new Intent(getApplicationContext(), IUretoFrase.class);
         Bundle b = new Bundle();
         b.putString("fraseEnunciado", juegoRetoDescubrirFrase.getFraseActual().getFrase());

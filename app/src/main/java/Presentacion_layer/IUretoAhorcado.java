@@ -218,6 +218,12 @@ public class IUretoAhorcado extends AppCompatActivity {
         if(errores > 0){
             ponerImagenAhorcado();
         }
+        longitudTexto();
+    }
+    private void longitudTexto() {
+        if (texto_fraseADescubir.length() > 40) {
+            texto_fraseADescubir.setTextSize(20);
+        }
     }
 
     public void ponerFondoPorDificultad(){

@@ -46,7 +46,7 @@ public class IUretoPregunta extends AppCompatActivity {
     List<Answer> respuestasActuales, listaRespuestas;
     ProgressBar timeBar;
     CountDownTimer mCountDownTimer;
-    int pistas;
+    int pistas = FalladaDeRetos.pistas;
     int respuestasCorrectasContestadas = 1, vida = 1, timeCount = 0, puntosTotales = 0, puntosConsolidados = 0, QuestionID, Tiempo, TiempoOpcion, Nivel, SonidoFallo, SonidoAcierto;
 
     boolean haConsolidado = false, Consolidado, Acierto, abandonado;
@@ -173,6 +173,7 @@ public class IUretoPregunta extends AppCompatActivity {
         longitudRespuesta();
         longitudTexto();
         poner_imagen_ods();
+        contadorBombillas.setText(pistas + "/3");
 
     }
 
@@ -332,7 +333,12 @@ public class IUretoPregunta extends AppCompatActivity {
 
 
         respuestasCorrectasContestadas++;
-        puntosTotales += 100 * Nivel;
+        if(FalladaDeRetos.haUsadoPista){
+            screenText += 50 * Nivel;
+        }else{
+            screenText += 100 * Nivel;
+        }
+
         textoPuntosGanados.setText("+" + screenText + " puntos ganados!");
         textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
         cambiarColorAVerde(index);
@@ -488,6 +494,7 @@ public class IUretoPregunta extends AppCompatActivity {
                         textoPuntosFinales.setText("Tu puntuacion final es de: " + puntosConsolidados);
                         abandonado = true;
                         pantalla_final();
+                        FalladaDeRetos.pistas = 3;
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -524,7 +531,10 @@ public class IUretoPregunta extends AppCompatActivity {
             botonesRespuesta.get(2).setClickable(false);
             imagenPista.setClickable(false);
             imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
+            FalladaDeRetos.pistas--;
             pistas--;
+            textoPuntosPregunta.setText("Puntos reto: "+ Nivel *50);
+            FalladaDeRetos.haUsadoPista = true;
             contadorBombillas.setText(pistas + "/3");
             Intent t = new Intent();
             t.putExtra("Pistas", pistas);
@@ -535,7 +545,7 @@ public class IUretoPregunta extends AppCompatActivity {
         guardarPuntuacion();
         Intent t = new Intent();
         t.putExtra("Acierto", Acierto);
-        if(abandonado) {setResult(MediadorDeRetos.ABANDON);}
+        if(abandonado) {setResult(FalladaDeRetos.ABANDON);}
         else if (Acierto) {setResult(RESULT_OK);}
         else setResult(RESULT_CANCELED);
         finish();

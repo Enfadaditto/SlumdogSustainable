@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import androidx.annotation.Nullable;
 
-public interface MediatorInterface {
+public interface FalladaInterface {
 
     void crearRetoDescubrirFrase();
 

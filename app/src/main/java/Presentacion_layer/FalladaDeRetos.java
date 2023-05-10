@@ -1,6 +1,5 @@
 package Presentacion_layer;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -27,11 +26,12 @@ import Persistence.ODS_URepository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 
-public class MediadorDeRetos extends AppCompatActivity implements MediatorInterface{
+public class FalladaDeRetos extends AppCompatActivity implements FalladaInterface {
     int vidas = 1, ronda = 1, retoRandom, indiceRetoFacil = 0, indiceRetoDificil = 0, indiceRetoMedio = 0, puntosTotales, puntosConsolidados, erroresRetoAhorcado;
     RetoPregunta juegoRetoPregunta;
     RetoAhorcado juegoRetoAhorcado;
     public static int pistas = 3;
+    public static Boolean  haUsadoPista= false;
 
     RetoDescubrirFrase juegoRetoDescubrirFrase;
     Button botonRetoPregunta, botonRetoAhorcado, botonRetoFrase, botonRetoMixto;
@@ -157,11 +157,13 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
         if (ronda > 10) {
             updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
             finish();
+            pistas = 3;
             return;
         }
         if (vidas < 0) {
             updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
             finish();
+            pistas = 3;
             return;
         } else if (ronda <= 4) {
             juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel1().get(indiceRetoFacil++));
@@ -180,11 +182,13 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
         if (ronda > 10) {
             updateGamesandTime(true, juegoRetoAhorcado.getTiempo() * 10);
             finish();
+            pistas = 3;
             return;
         }
         if (vidas < 0) {
             updateGamesandTime(false, juegoRetoAhorcado.getTiempo() * ronda);
             finish();
+            pistas = 3;
             return;
         }
         else if(ronda <= 4){
@@ -218,11 +222,13 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
         if (ronda > 10) {
             updateGamesandTime(true, juegoRetoAhorcado.getTiempo() * 10);
             finish();
+            pistas = 3;
             return;
         }
         if (vidas < 0) {
             updateGamesandTime(false, juegoRetoAhorcado.getTiempo() * ronda);
             finish();
+            pistas = 3;
             return;
         } else if (ronda <= 4) {
             juegoRetoDescubrirFrase.setNivel(1);
@@ -346,7 +352,12 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
                 updateGamesAbandonedandTime(juegoReto.getTiempo() * ronda);
                 finish();
             } else if (resultCode == RESULT_OK) {
-                puntosTotales += juegoReto.getPuntos() * juegoReto.getNivel();
+                if(haUsadoPista){
+                    puntosTotales += (juegoReto.getPuntos() * juegoReto.getNivel())/2;
+                    haUsadoPista = false;
+                }else {
+                    puntosTotales += juegoReto.getPuntos() * juegoReto.getNivel();
+                }
                 ronda++;
                 updateHitsFailsODS(true, juegoReto.getIdOds(), MainActivity.user);
             } else if (resultCode == RESULT_CANCELED) {
@@ -357,7 +368,12 @@ public class MediadorDeRetos extends AppCompatActivity implements MediatorInterf
                 vidas--;
                 updateHitsFailsODS(false, juegoReto.getIdOds(), MainActivity.user);
             } else if (resultCode == RESULT_FIRST_USER) {
-                puntosTotales += juegoReto.getPuntos() * juegoReto.getNivel();
+                if(haUsadoPista){
+                    puntosTotales += (juegoReto.getPuntos() * juegoReto.getNivel())/2;
+                    haUsadoPista = false;
+                }else {
+                    puntosTotales += juegoReto.getPuntos() * juegoReto.getNivel();
+                }
                 puntosConsolidados = puntosTotales;
                 haConsolidado = true;
                 ronda++;

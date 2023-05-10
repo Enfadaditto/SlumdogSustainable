@@ -14,22 +14,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.ui.AppBarConfiguration;
 
-import com.j256.ormlite.support.ConnectionSource;
 
-
-import Domain_Layer.ODS_has_User;
 import Domain_Layer.User;
 //import Persistence.Repository;
-import Persistence.ODS_URepository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 import Presentacion_layer.IUEstadisticas;
 import Presentacion_layer.IUMenu;
 import Presentacion_layer.IUperfil;
-import Presentacion_layer.IUretoAhorcado;
-import Presentacion_layer.IUretoFrase;
 import Presentacion_layer.IUuserLogin;
-import Presentacion_layer.MediadorDeRetos;
 
 public class MainActivity extends AppCompatActivity {
 

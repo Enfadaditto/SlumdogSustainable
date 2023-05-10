@@ -1,6 +1,6 @@
 package Presentacion_layer;
 
-import static Presentacion_layer.MediadorDeRetos.ABANDON;
+import static Presentacion_layer.FalladaDeRetos.ABANDON;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,14 +29,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.j256.ormlite.stmt.query.In;
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
-import org.w3c.dom.Text;
-
-import java.io.SyncFailedException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -176,11 +171,11 @@ public class IUretoFrase extends AppCompatActivity {
             abandonarIcon.setVisibility(View.VISIBLE);
             textoPuntosConsolidados.setVisibility(View.VISIBLE);
         }
-        if (MediadorDeRetos.pistas == 0) {
+        if (FalladaDeRetos.pistas == 0) {
             imagenPista.setOnClickListener(null);
             imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
         }
-        contadorPistas.setText(MediadorDeRetos.pistas + " / 3");
+        contadorPistas.setText(FalladaDeRetos.pistas + " / 3");
 
         startTimer(Tiempo);
     }
@@ -430,7 +425,7 @@ public class IUretoFrase extends AppCompatActivity {
     public void continuarOnClick(View v) {
         mCountDownTimer.cancel();
         MainActivity.music.stop();
-        Intent t = new Intent(getApplicationContext(), MediadorDeRetos.class);
+        Intent t = new Intent(getApplicationContext(), FalladaDeRetos.class);
         t.putExtra("Acierto", Acierto);
 
         if (!Acierto) {
@@ -494,6 +489,7 @@ public class IUretoFrase extends AppCompatActivity {
                         textoPuntosFinales.setText("Tu puntuacion final es de: " + PuntosConsolidados);
                         Abandono = true;
                         pantalla_final();
+                        FalladaDeRetos.pistas = 3;
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -507,12 +503,12 @@ public class IUretoFrase extends AppCompatActivity {
     }
 
     public void pistaOnClick(View v) {
-        if (MediadorDeRetos.pistas == 0) {
+        if (FalladaDeRetos.pistas == 0) {
             imagenPista.setEnabled(false);
             imagenPista.setOnClickListener(null);
             return;
         }
-
+        FalladaDeRetos.haUsadoPista = true;
         imagenPista.setOnClickListener(null);
         imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
         Random letraAleatoria = new Random();
@@ -525,8 +521,8 @@ public class IUretoFrase extends AppCompatActivity {
             return;
         }
 
-        MediadorDeRetos.pistas--;
-        contadorPistas.setText(MediadorDeRetos.pistas + " / 3");
+        FalladaDeRetos.pistas--;
+        contadorPistas.setText(FalladaDeRetos.pistas + " / 3");
         textoPuntuacionPregunta.setText("Por " + Nivel*50 + " puntos.");
 
         Animation animacionAparecer = new AlphaAnimation(0.0f, 1.0f);

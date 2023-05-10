@@ -209,11 +209,12 @@ public class IUretoAhorcado extends AppCompatActivity {
             textoPuntosConsolidados.setText("Puntos Consolidados: "+ puntosConsolidados);
 
         }
+        contadorBombillas.setText(FalladaDeRetos.pistas + "/3");
         enunciado.setText(enunciadoString);
         textoPuntosAcumulados.setText("Puntos: "+puntosTotales);
         ponerFondoPorDificultad();
         textoNumeroDeReto.setText(cantidadRetosContestados+"/10");
-       // textoPuntosConsolidados.setText("Puntos consolidados: "+ puntosConsolidados);
+
         letrasNoEncontradas();
         if(errores > 0){
             ponerImagenAhorcado();
@@ -379,24 +380,24 @@ public class IUretoAhorcado extends AppCompatActivity {
     }
     public void utilizarPista(View view){
 
-        if(pistas != 0) {
+        if(FalladaDeRetos.pistas != 0) {
             //falta modificar puntuación
             Random aleatorio = new Random();
-
+            FalladaDeRetos.pistas--;
+            FalladaDeRetos.haUsadoPista = true;
             String letraAleatoria; //= String.valueOf(fraseAhorcado.charAt(aleatorios));
             int aleatorios = aleatorio.nextInt(noEncontradas.size());
             letraAleatoria = String.valueOf(noEncontradas.get(aleatorios));
             noEncontradas.remove(letraAleatoria);
-
+            textoPuntosAhorcado.setText("Puntos reto " + nivel*50 + " ");
             int buttonId = getResources().getIdentifier("boton" + letraAleatoria, "id", getPackageName()); // get the resource id dynamically
             Button botonSeleccionado = findViewById(buttonId);
             validarLetraSeleccionada(letraAleatoria, botonSeleccionado);
-            /*imagenPista.setClickable(false);
+            imagenPista.setClickable(false);
             imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
-            pistas--;
-            contadorBombillas.setText(pistas + "/3");
-            Intent t = new Intent();
-            t.putExtra("Pistas", pistas);*/
+
+            contadorBombillas.setText(FalladaDeRetos.pistas + "/3");
+
         }
 
     }
@@ -422,7 +423,6 @@ public class IUretoAhorcado extends AppCompatActivity {
         t.putExtra("Acierto", Acierto);
         if(haConsolidado && haConsolidadoLocal) {
             setResult(RESULT_FIRST_USER);
-           // haConsolidado = false;
         }
         else if (Acierto) {setResult(RESULT_OK);}
         else {setResult(RESULT_CANCELED);}
@@ -468,9 +468,22 @@ public class IUretoAhorcado extends AppCompatActivity {
 
 
             cantidadRetosContestados++;
-            puntosTotales += 100 * nivel;
-            textoPuntosGanados.setText("+" +puntosTotales + " puntos ganados!");
-             textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
+            if(FalladaDeRetos.haUsadoPista){
+                textoPuntosGanados.setText("+" +nivel*50 + " puntos ganados!");
+
+            }else{
+                textoPuntosGanados.setText("+" +nivel*100 + " puntos ganados!");
+
+            }
+            if(FalladaDeRetos.haUsadoPista){
+                puntosTotales += 50 * nivel;
+            }else{
+                puntosTotales += 100 * nivel;
+            }
+
+            textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
+
+
 
 
             visualizacionBotonConsolidar(true);
@@ -543,9 +556,9 @@ public class IUretoAhorcado extends AppCompatActivity {
         t.putExtra("Acierto", Acierto);
         guardarPuntuacion();
         if(abandonado)
-        {setResult(MediadorDeRetos.ABANDON);
+        {setResult(FalladaDeRetos.ABANDON);
         } else if (Acierto) {setResult(RESULT_OK);
-        } else if(haConsolidado) {
+        } else if(haConsolidadoLocal) {
             setResult(RESULT_FIRST_USER);
         }
         else setResult(RESULT_CANCELED);
@@ -572,6 +585,7 @@ public class IUretoAhorcado extends AppCompatActivity {
                         textoPuntosFinales.setText("Tu puntuacion final es de: " + puntosConsolidados);
                         abandonado = true;
                         pantalla_final();
+                        FalladaDeRetos.pistas = 3;
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

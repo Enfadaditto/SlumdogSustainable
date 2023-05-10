@@ -45,6 +45,8 @@ import java.util.Random;
 
 import Domain_Layer.DFButton;
 import Domain_Layer.Frase;
+import Persistence.SingletonConnection;
+import Persistence.UserRepository;
 
 public class IUretoFrase extends AppCompatActivity {
     LinearLayout letrasLayout;
@@ -441,8 +443,29 @@ public class IUretoFrase extends AppCompatActivity {
         Consolidado = true;
         continuarOnClick(v);
     }
+    public void SavePoints(int Points) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
+                MainActivity.user.setPointsAchieved(MainActivity.user.getPointsAchieved() + Points);
+                u.actualizar(MainActivity.user);
+            }
+        }).start();
+    }
 
+    public void guardarPuntuacion() {
+        MainActivity.music.stop();
+        if (cantidadRetosContestados > 10) {
+            SavePoints(PuntosTotales);
+        } else {
+            SavePoints(PuntosConsolidados);
+        }
+        mCountDownTimer.cancel();
+
+    }
     public void clickBotonTerminar(View v) {
+        guardarPuntuacion();
         Intent t = new Intent();
         t.putExtra("Acierto", Acierto);
 

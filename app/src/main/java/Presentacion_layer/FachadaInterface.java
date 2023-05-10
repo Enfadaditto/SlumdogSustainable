@@ -4,10 +4,9 @@ import android.content.Intent;
 
 import androidx.annotation.Nullable;
 
-public interface FalladaInterface {
+public interface FachadaInterface {
 
     void crearRetoDescubrirFrase();
-
 
     void crearRetoPregunta();
 
@@ -15,3 +14,6 @@ public interface FalladaInterface {
 
     void onActivityResult(int requestCode, int resultCode, @Nullable Intent data);
 }
+
+
+

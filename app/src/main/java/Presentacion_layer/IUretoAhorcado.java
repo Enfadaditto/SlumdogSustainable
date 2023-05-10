@@ -209,7 +209,7 @@ public class IUretoAhorcado extends AppCompatActivity {
             textoPuntosConsolidados.setText("Puntos Consolidados: "+ puntosConsolidados);
 
         }
-        contadorBombillas.setText(FalladaDeRetos.pistas + "/3");
+        contadorBombillas.setText(FachadaDeRetos.pistas + "/3");
         enunciado.setText(enunciadoString);
         textoPuntosAcumulados.setText("Puntos: "+puntosTotales);
         ponerFondoPorDificultad();
@@ -298,7 +298,7 @@ public class IUretoAhorcado extends AppCompatActivity {
     public void cargarDatos() {
         Bundle extras = getIntent().getExtras();
 
-        fraseAhorcado = extras.getString("palabraAhorcado").toUpperCase();;
+        fraseAhorcado = extras.getString("palabraAhorcado").toUpperCase();
         enunciadoString = extras.getString("enunciadoAhorcado");
         puntosTotales = extras.getInt("PuntosTotales");
         puntosConsolidados = extras.getInt("PuntosConsolidados");
@@ -380,11 +380,11 @@ public class IUretoAhorcado extends AppCompatActivity {
     }
     public void utilizarPista(View view){
 
-        if(FalladaDeRetos.pistas != 0) {
+        if(FachadaDeRetos.pistas != 0) {
             //falta modificar puntuación
             Random aleatorio = new Random();
-            FalladaDeRetos.pistas--;
-            FalladaDeRetos.haUsadoPista = true;
+            FachadaDeRetos.pistas--;
+            FachadaDeRetos.haUsadoPista = true;
             String letraAleatoria; //= String.valueOf(fraseAhorcado.charAt(aleatorios));
             int aleatorios = aleatorio.nextInt(noEncontradas.size());
             letraAleatoria = String.valueOf(noEncontradas.get(aleatorios));
@@ -396,7 +396,7 @@ public class IUretoAhorcado extends AppCompatActivity {
             imagenPista.setClickable(false);
             imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
 
-            contadorBombillas.setText(FalladaDeRetos.pistas + "/3");
+            contadorBombillas.setText(FachadaDeRetos.pistas + "/3");
 
         }
 
@@ -468,14 +468,14 @@ public class IUretoAhorcado extends AppCompatActivity {
 
 
             cantidadRetosContestados++;
-            if(FalladaDeRetos.haUsadoPista){
+            if(FachadaDeRetos.haUsadoPista){
                 textoPuntosGanados.setText("+" +nivel*50 + " puntos ganados!");
 
             }else{
                 textoPuntosGanados.setText("+" +nivel*100 + " puntos ganados!");
 
             }
-            if(FalladaDeRetos.haUsadoPista){
+            if(FachadaDeRetos.haUsadoPista){
                 puntosTotales += 50 * nivel;
             }else{
                 puntosTotales += 100 * nivel;
@@ -556,7 +556,7 @@ public class IUretoAhorcado extends AppCompatActivity {
         t.putExtra("Acierto", Acierto);
         guardarPuntuacion();
         if(abandonado)
-        {setResult(FalladaDeRetos.ABANDON);
+        {setResult(FachadaDeRetos.ABANDON);
         } else if (Acierto) {setResult(RESULT_OK);
         } else if(haConsolidadoLocal) {
             setResult(RESULT_FIRST_USER);
@@ -585,7 +585,7 @@ public class IUretoAhorcado extends AppCompatActivity {
                         textoPuntosFinales.setText("Tu puntuacion final es de: " + puntosConsolidados);
                         abandonado = true;
                         pantalla_final();
-                        FalladaDeRetos.pistas = 3;
+                        FachadaDeRetos.pistas = 3;
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

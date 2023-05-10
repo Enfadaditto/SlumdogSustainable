@@ -19,7 +19,7 @@ public class IUMenu extends AppCompatActivity{
     }
 
     public void clickBotonRetoAhorcado(View v){
-        Intent I = new Intent(this, FalladaDeRetos.class);
+        Intent I = new Intent(this, FachadaDeRetos.class);
         Bundle b = new Bundle();
         b.putString("tipoReto", "RetoAhorcado");
         I.putExtras(b);
@@ -27,7 +27,7 @@ public class IUMenu extends AppCompatActivity{
     }
 
     public void clickBotonRetoPregunta(View v){
-        Intent I = new Intent(this, FalladaDeRetos.class);
+        Intent I = new Intent(this, FachadaDeRetos.class);
         Bundle b = new Bundle();
         b.putString("tipoReto", "RetoPregunta");
         I.putExtras(b);
@@ -35,7 +35,7 @@ public class IUMenu extends AppCompatActivity{
     }
 
     public void clickBotonRetoDescubrirFrase(View v){
-        Intent I = new Intent(this, FalladaDeRetos.class);
+        Intent I = new Intent(this, FachadaDeRetos.class);
         Bundle b = new Bundle();
         b.putString("tipoReto", "RetoFrase");
         I.putExtras(b);
@@ -43,7 +43,7 @@ public class IUMenu extends AppCompatActivity{
     }
 
     public void clickBotonRetoMixto(View v) {
-        Intent I = new Intent(this, FalladaDeRetos.class);
+        Intent I = new Intent(this, FachadaDeRetos.class);
         Bundle b = new Bundle();
         b.putString("tipoReto", "RetoMixto");
         I.putExtras(b);

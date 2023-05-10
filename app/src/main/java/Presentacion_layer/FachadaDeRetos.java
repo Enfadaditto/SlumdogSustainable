@@ -26,7 +26,7 @@ import Persistence.ODS_URepository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 
-public class FalladaDeRetos extends AppCompatActivity implements FalladaInterface {
+public class FachadaDeRetos extends AppCompatActivity implements FachadaInterface {
     int vidas = 1, ronda = 1, retoRandom, indiceRetoFacil = 0, indiceRetoDificil = 0, indiceRetoMedio = 0, puntosTotales, puntosConsolidados, erroresRetoAhorcado;
     RetoPregunta juegoRetoPregunta;
     RetoAhorcado juegoRetoAhorcado;

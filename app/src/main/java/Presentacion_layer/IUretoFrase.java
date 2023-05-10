@@ -1,6 +1,6 @@
 package Presentacion_layer;
 
-import static Presentacion_layer.FalladaDeRetos.ABANDON;
+import static Presentacion_layer.FachadaDeRetos.ABANDON;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -171,11 +171,11 @@ public class IUretoFrase extends AppCompatActivity {
             abandonarIcon.setVisibility(View.VISIBLE);
             textoPuntosConsolidados.setVisibility(View.VISIBLE);
         }
-        if (FalladaDeRetos.pistas == 0) {
+        if (FachadaDeRetos.pistas == 0) {
             imagenPista.setOnClickListener(null);
             imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
         }
-        contadorPistas.setText(FalladaDeRetos.pistas + " / 3");
+        contadorPistas.setText(FachadaDeRetos.pistas + " / 3");
 
         startTimer(Tiempo);
     }
@@ -425,7 +425,7 @@ public class IUretoFrase extends AppCompatActivity {
     public void continuarOnClick(View v) {
         mCountDownTimer.cancel();
         MainActivity.music.stop();
-        Intent t = new Intent(getApplicationContext(), FalladaDeRetos.class);
+        Intent t = new Intent(getApplicationContext(), FachadaDeRetos.class);
         t.putExtra("Acierto", Acierto);
 
         if (!Acierto) {
@@ -489,7 +489,7 @@ public class IUretoFrase extends AppCompatActivity {
                         textoPuntosFinales.setText("Tu puntuacion final es de: " + PuntosConsolidados);
                         Abandono = true;
                         pantalla_final();
-                        FalladaDeRetos.pistas = 3;
+                        FachadaDeRetos.pistas = 3;
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -503,12 +503,12 @@ public class IUretoFrase extends AppCompatActivity {
     }
 
     public void pistaOnClick(View v) {
-        if (FalladaDeRetos.pistas == 0) {
+        if (FachadaDeRetos.pistas == 0) {
             imagenPista.setEnabled(false);
             imagenPista.setOnClickListener(null);
             return;
         }
-        FalladaDeRetos.haUsadoPista = true;
+        FachadaDeRetos.haUsadoPista = true;
         imagenPista.setOnClickListener(null);
         imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
         Random letraAleatoria = new Random();
@@ -521,8 +521,8 @@ public class IUretoFrase extends AppCompatActivity {
             return;
         }
 
-        FalladaDeRetos.pistas--;
-        contadorPistas.setText(FalladaDeRetos.pistas + " / 3");
+        FachadaDeRetos.pistas--;
+        contadorPistas.setText(FachadaDeRetos.pistas + " / 3");
         textoPuntuacionPregunta.setText("Por " + Nivel*50 + " puntos.");
 
         Animation animacionAparecer = new AlphaAnimation(0.0f, 1.0f);

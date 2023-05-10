@@ -46,7 +46,7 @@ public class IUretoPregunta extends AppCompatActivity {
     List<Answer> respuestasActuales, listaRespuestas;
     ProgressBar timeBar;
     CountDownTimer mCountDownTimer;
-    int pistas = FalladaDeRetos.pistas;
+    int pistas = FachadaDeRetos.pistas;
     int respuestasCorrectasContestadas = 1, vida = 1, timeCount = 0, puntosTotales = 0, puntosConsolidados = 0, QuestionID, Tiempo, TiempoOpcion, Nivel, SonidoFallo, SonidoAcierto;
 
     boolean haConsolidado = false, Consolidado, Acierto, abandonado;
@@ -333,7 +333,7 @@ public class IUretoPregunta extends AppCompatActivity {
 
 
         respuestasCorrectasContestadas++;
-        if(FalladaDeRetos.haUsadoPista){
+        if(FachadaDeRetos.haUsadoPista){
             screenText += 50 * Nivel;
         }else{
             screenText += 100 * Nivel;
@@ -494,7 +494,7 @@ public class IUretoPregunta extends AppCompatActivity {
                         textoPuntosFinales.setText("Tu puntuacion final es de: " + puntosConsolidados);
                         abandonado = true;
                         pantalla_final();
-                        FalladaDeRetos.pistas = 3;
+                        FachadaDeRetos.pistas = 3;
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -531,10 +531,10 @@ public class IUretoPregunta extends AppCompatActivity {
             botonesRespuesta.get(2).setClickable(false);
             imagenPista.setClickable(false);
             imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
-            FalladaDeRetos.pistas--;
+            FachadaDeRetos.pistas--;
             pistas--;
             textoPuntosPregunta.setText("Puntos reto: "+ Nivel *50);
-            FalladaDeRetos.haUsadoPista = true;
+            FachadaDeRetos.haUsadoPista = true;
             contadorBombillas.setText(pistas + "/3");
             Intent t = new Intent();
             t.putExtra("Pistas", pistas);
@@ -545,7 +545,7 @@ public class IUretoPregunta extends AppCompatActivity {
         guardarPuntuacion();
         Intent t = new Intent();
         t.putExtra("Acierto", Acierto);
-        if(abandonado) {setResult(FalladaDeRetos.ABANDON);}
+        if(abandonado) {setResult(FachadaDeRetos.ABANDON);}
         else if (Acierto) {setResult(RESULT_OK);}
         else setResult(RESULT_CANCELED);
         finish();

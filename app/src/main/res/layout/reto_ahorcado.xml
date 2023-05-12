@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo_inicial">
 
+
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="409dp"
@@ -17,6 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
+
 
         <Button
             android:id="@+id/botonG"
@@ -505,6 +507,15 @@
             android:textColor="#FFFFFF"
             tools:ignore="TouchTargetSizeCheck" />
 
+        <TextView
+            android:id="@+id/texto_fraseADescubir"
+            android:layout_width="387dp"
+            android:layout_height="85dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="FRASE DEL AHORCADO"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
 
     </RelativeLayout>
 
@@ -517,23 +528,22 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.268"
+        app:layout_constraintVertical_bias="0.353"
         app:srcCompat="@android:drawable/list_selector_background" />
 
     <TextView
         android:id="@+id/textoEnunciado"
-        android:layout_width="390dp"
-        android:layout_height="27dp"
+        android:layout_width="387dp"
+        android:layout_height="59dp"
         android:fontFamily="monospace"
         android:text="DESCRIPCIÓN DE LA FRASE"
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/imagenAhorcado"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.572"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.904" />
+        app:layout_constraintVertical_bias="0.812" />
 
     <TextView
         android:id="@+id/textoPuntosAcumulados"
@@ -664,20 +674,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.372" />
-
-    <TextView
-        android:id="@+id/texto_fraseADescubir"
-        android:layout_width="387dp"
-        android:layout_height="85dp"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:text="FRASE DEL AHORCADO"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.545" />
 
     <RelativeLayout
         android:id="@+id/contenedor_resp"
@@ -864,7 +860,12 @@
                 android:text="TERMINAR" />
         </RelativeLayout>
 
+
+
+
     </RelativeLayout>
+
+
 
 
 

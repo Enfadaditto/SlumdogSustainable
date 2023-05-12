@@ -202,7 +202,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
             juegoRetoAhorcado.setNivel(2);
             juegoRetoAhorcado.setErroresRetoAhorcado(3);
-            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoMedio++));
+            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoFacil++));
             //juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabrasNivel2().get());
         }
 
@@ -210,7 +210,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
             juegoRetoAhorcado.setNivel(3);
             juegoRetoAhorcado.setErroresRetoAhorcado(5);
-            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoDificil++));
+            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoFacil++));
             //juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabrasNivel3().get(indicePreguntasDificil++));
         }
         juegoRetoAhorcado.setIdOds(juegoRetoAhorcado.getAhorcado().getId_ODS());

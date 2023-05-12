@@ -2,6 +2,8 @@ package Presentacion_layer;
 
 import static Presentacion_layer.FachadaDeRetos.ABANDON;
 
+import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -13,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -199,11 +202,18 @@ public class IUretoFrase extends AppCompatActivity {
                     if(comprobarFraseCorrecta((Button) v, casillaElegida, casillaElegidaSolucion)) {
                         letrasLayout.removeView(v);
                         ultimaAcertada = true;
-                        if (letrasLayout.getChildCount() == 0) {
-                            Acierto = true;
-                            terminoBien();
-                        }
                     }
+                }
+            });
+            boton.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    ClipData.Item item = new ClipData.Item("element");
+                    ClipData data = new ClipData("element", new String[] { ClipDescription.MIMETYPE_TEXT_PLAIN }, item);
+                    View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+                    v.startDragAndDrop(data, shadowBuilder, v, 0);
+                    v.setVisibility(View.INVISIBLE);
+                    return true;
                 }
             });
             letrasLayout.addView(boton);
@@ -222,6 +232,10 @@ public class IUretoFrase extends AppCompatActivity {
             casillaElegida.setClickable(false);
             casillaElegida.setText(letraSolucion+"");
             casillaElegidaSolucion.setLetra('*');
+            if (letrasLayout.getChildCount() == 1) {
+                Acierto = true;
+                terminoBien();
+            }
             return true;
         }
     }
@@ -283,6 +297,37 @@ public class IUretoFrase extends AppCompatActivity {
                         casillaElegida = boton;
                         casillaElegidaSolucion = botonSolucion;
                         casillaElegida.setBackgroundColor(Color.LTGRAY);
+                    }
+                });
+                boton.setOnDragListener(new View.OnDragListener() {
+                    @Override
+                    public boolean onDrag(View v, DragEvent event) {
+                        switch (event.getAction()) {
+                            case DragEvent.ACTION_DRAG_STARTED:
+                                return true;
+                            case DragEvent.ACTION_DRAG_ENTERED:
+                                return true;
+                            case DragEvent.ACTION_DRAG_LOCATION:
+                                return true;
+                            case DragEvent.ACTION_DRAG_EXITED:
+                                return true;
+                            case DragEvent.ACTION_DROP:
+                                Button view = (Button) event.getLocalState();
+                                ViewGroup parent = (ViewGroup) view.getParent();
+                                if (!comprobarFraseCorrecta(view, boton, botonSolucion)) return true;
+                                ultimaAcertada = true;
+                                parent.removeView(view);
+                                return true;
+                            case DragEvent.ACTION_DRAG_ENDED:
+                                Button viewEnded = (Button) event.getLocalState();
+                                ViewGroup parentEnded = (ViewGroup) viewEnded.getParent();
+                                if (parentEnded == letrasLayout) {
+                                    viewEnded.setVisibility(View.VISIBLE);
+                                }
+                                return true;
+                            default:
+                                return false;
+                        }
                     }
                 });
             }

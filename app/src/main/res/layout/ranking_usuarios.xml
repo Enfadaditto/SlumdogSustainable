@@ -21,9 +21,7 @@
 
             <ListView
                 android:layout_width="409dp"
-                android:layout_height="729dp"
-                android:layout_marginTop="400dp"
-                android:layout_marginBottom="100dp" />
+                android:layout_height="729dp" />
 
         </LinearLayout>
     </ScrollView>

@@ -13,10 +13,10 @@ public class Logro {
     private String descripcion;
     @DatabaseField
     private String id_usuario;
+    @DatabaseField
+    private int progreso;
 
-    public enum TipoLogro {
-        Medalla, Trofeo
-    }
+    public enum TipoLogro { Medalla, Trofeo }
 
     Logro() {}
 
@@ -64,4 +64,8 @@ public class Logro {
     public void setId_usuario(String id_usuario) {
         this.id_usuario = id_usuario;
     }
+
+    public int getProgreso() { return progreso; }
+
+    public void setProgreso(int progreso) { this.progreso = progreso; }
 }

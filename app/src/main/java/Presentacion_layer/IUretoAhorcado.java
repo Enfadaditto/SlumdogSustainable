@@ -10,7 +10,11 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -357,6 +361,17 @@ public class IUretoAhorcado extends AppCompatActivity {
         int Ahorcado = getResources().getIdentifier("ahorcado_" + errores, "drawable", getPackageName());
         Drawable imagen = getResources().getDrawable(Ahorcado);
         imagenAhorcado.setImageDrawable(imagen);
+        final Animation animShake = AnimationUtils.loadAnimation(this, R.anim.shake);
+        imagenAhorcado.startAnimation(animShake);
+        Animation animacionDesaparecer = new AlphaAnimation(1.0f, 0.0f);
+        animacionDesaparecer.setDuration(150);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                imagenAhorcado.startAnimation(animacionDesaparecer);
+            }
+        }, 500);
     }
 
     public void sustituirLetra(String letraSeleccionada){

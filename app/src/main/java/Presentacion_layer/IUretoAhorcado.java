@@ -395,26 +395,42 @@ public class IUretoAhorcado extends AppCompatActivity {
         texto_fraseADescubir.setText(fraseEnBarrasBajas.trim());
     }
     public void utilizarPista(View view){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("¿Estás seguro que usar una pista? Obtendras la mitad de los puntos en este reto")
+                .setCancelable(true)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(FachadaDeRetos.pistas != 0) {
+                            //falta modificar puntuación
+                            Random aleatorio = new Random();
+                            FachadaDeRetos.pistas--;
+                            FachadaDeRetos.haUsadoPista = true;
+                            String letraAleatoria; //= String.valueOf(fraseAhorcado.charAt(aleatorios));
+                            int aleatorios = aleatorio.nextInt(noEncontradas.size());
+                            letraAleatoria = String.valueOf(noEncontradas.get(aleatorios));
+                            noEncontradas.remove(letraAleatoria);
+                            textoPuntosAhorcado.setText("Puntos reto " + nivel*50 + " ");
+                            int buttonId = getResources().getIdentifier("boton" + letraAleatoria, "id", getPackageName()); // get the resource id dynamically
+                            Button botonSeleccionado = findViewById(buttonId);
+                            validarLetraSeleccionada(letraAleatoria, botonSeleccionado);
+                            imagenPista.setClickable(false);
+                            imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
 
-        if(FachadaDeRetos.pistas != 0) {
-            //falta modificar puntuación
-            Random aleatorio = new Random();
-            FachadaDeRetos.pistas--;
-            FachadaDeRetos.haUsadoPista = true;
-            String letraAleatoria; //= String.valueOf(fraseAhorcado.charAt(aleatorios));
-            int aleatorios = aleatorio.nextInt(noEncontradas.size());
-            letraAleatoria = String.valueOf(noEncontradas.get(aleatorios));
-            noEncontradas.remove(letraAleatoria);
-            textoPuntosAhorcado.setText("Puntos reto " + nivel*50 + " ");
-            int buttonId = getResources().getIdentifier("boton" + letraAleatoria, "id", getPackageName()); // get the resource id dynamically
-            Button botonSeleccionado = findViewById(buttonId);
-            validarLetraSeleccionada(letraAleatoria, botonSeleccionado);
-            imagenPista.setClickable(false);
-            imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
+                            contadorBombillas.setText(FachadaDeRetos.pistas + "/3");
 
-            contadorBombillas.setText(FachadaDeRetos.pistas + "/3");
+                        }
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
 
-        }
+        AlertDialog dialog = alert.create();
+        dialog.show();
+
 
     }
     private void letrasNoEncontradas() {

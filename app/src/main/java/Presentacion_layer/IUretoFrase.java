@@ -548,45 +548,62 @@ public class IUretoFrase extends AppCompatActivity {
     }
 
     public void pistaOnClick(View v) {
-        if (FachadaDeRetos.pistas == 0) {
-            imagenPista.setEnabled(false);
-            imagenPista.setOnClickListener(null);
-            return;
-        }
-        FachadaDeRetos.haUsadoPista = true;
-        imagenPista.setOnClickListener(null);
-        imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
-        Random letraAleatoria = new Random();
-        char letraRandom = listadoCaracteresFrase.get(letraAleatoria.nextInt(listadoCaracteresFrase.size()));
-        letraRandom = Character.toUpperCase(letraRandom);
 
-        if (!listaLetrasMostradasPista.contains(letraRandom)) listaLetrasMostradasPista.add(letraRandom);
-        else {
-            pistaOnClick(v);
-            return;
-        }
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("¿Estás seguro que quieres usar una pista? Obtendras la mitad de los puntos en este reto")
+                .setCancelable(true)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (FachadaDeRetos.pistas == 0) {
+                            imagenPista.setEnabled(false);
+                            imagenPista.setOnClickListener(null);
+                            return;
+                        }
+                        FachadaDeRetos.haUsadoPista = true;
+                        imagenPista.setOnClickListener(null);
+                        imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
+                        Random letraAleatoria = new Random();
+                        char letraRandom = listadoCaracteresFrase.get(letraAleatoria.nextInt(listadoCaracteresFrase.size()));
+                        letraRandom = Character.toUpperCase(letraRandom);
 
-        FachadaDeRetos.pistas--;
-        contadorPistas.setText(FachadaDeRetos.pistas + " / 3");
-        textoPuntuacionPregunta.setText("Por " + Nivel*50 + " puntos.");
+                        if (!listaLetrasMostradasPista.contains(letraRandom)) listaLetrasMostradasPista.add(letraRandom);
+                        else {
+                            pistaOnClick(v);
+                            return;
+                        }
 
-        Animation animacionAparecer = new AlphaAnimation(0.0f, 1.0f);
-        animacionAparecer.setDuration(150);
-        Animation animacionDesaparecer = new AlphaAnimation(1.0f, 0.0f);
-        animacionDesaparecer.setDuration(150);
+                        FachadaDeRetos.pistas--;
+                        contadorPistas.setText(FachadaDeRetos.pistas + " / 3");
+                        textoPuntuacionPregunta.setText("Por " + Nivel*50 + " puntos.");
 
-        textoMostrarPista.setText("Mostrando: " + letraRandom);
-        contenedorMostrarPista.setVisibility(View.VISIBLE);
-        contenedorMostrarPista.startAnimation(animacionAparecer);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                contenedorMostrarPista.setVisibility(View.INVISIBLE);
-                contenedorMostrarPista.startAnimation(animacionDesaparecer);
-            }
-        }, 1000);
+                        Animation animacionAparecer = new AlphaAnimation(0.0f, 1.0f);
+                        animacionAparecer.setDuration(150);
+                        Animation animacionDesaparecer = new AlphaAnimation(1.0f, 0.0f);
+                        animacionDesaparecer.setDuration(150);
 
-        destaparCasillas(letraRandom);
+                        textoMostrarPista.setText("Mostrando: " + letraRandom);
+                        contenedorMostrarPista.setVisibility(View.VISIBLE);
+                        contenedorMostrarPista.startAnimation(animacionAparecer);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                contenedorMostrarPista.setVisibility(View.INVISIBLE);
+                                contenedorMostrarPista.startAnimation(animacionDesaparecer);
+                            }
+                        }, 1000);
+
+                        destaparCasillas(letraRandom);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
     }
 
     public void destaparCasillas(char letra) {

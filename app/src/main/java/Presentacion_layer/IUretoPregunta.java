@@ -509,36 +509,54 @@ public class IUretoPregunta extends AppCompatActivity {
 
     public void pistaRetoPregunta(View view){
         //int correctAnswerIndex = -1;
-        if(pistas != 0) {
-            List<Button> botonesRespuesta = new ArrayList<>();
-            botonesRespuesta.add(botonRespuesta1);
-            botonesRespuesta.add(botonRespuesta2);
-            botonesRespuesta.add(botonRespuesta3);
-            botonesRespuesta.add(botonRespuesta4);
 
 
-            for (int i = 0; i < respuestasActuales.size(); i++) {
-                if (respuestasActuales.get(i).isCorrect()) {
-                   // correctAnswerIndex = i;
-                    botonesRespuesta.remove(i);
-                    break;
-                }
-            }
-            Collections.shuffle(botonesRespuesta);
-            botonesRespuesta.get(1).setBackground(getDrawable(R.drawable.boton_rojo_pista));
-            botonesRespuesta.get(1).setClickable(false);
-            botonesRespuesta.get(2).setBackground(getDrawable(R.drawable.boton_rojo_pista));
-            botonesRespuesta.get(2).setClickable(false);
-            imagenPista.setClickable(false);
-            imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
-            FachadaDeRetos.pistas--;
-            pistas--;
-            textoPuntosPregunta.setText("Puntos reto: "+ Nivel *50);
-            FachadaDeRetos.haUsadoPista = true;
-            contadorBombillas.setText(pistas + "/3");
-            Intent t = new Intent();
-            t.putExtra("Pistas", pistas);
-        }
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("¿Estas seguro que usar una pista? Obtendras la mitad de los puntos en este reto")
+                .setCancelable(true)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(pistas != 0) {
+                            List<Button> botonesRespuesta = new ArrayList<>();
+                            botonesRespuesta.add(botonRespuesta1);
+                            botonesRespuesta.add(botonRespuesta2);
+                            botonesRespuesta.add(botonRespuesta3);
+                            botonesRespuesta.add(botonRespuesta4);
+
+
+                            for (int i = 0; i < respuestasActuales.size(); i++) {
+                                if (respuestasActuales.get(i).isCorrect()) {
+                                    // correctAnswerIndex = i;
+                                    botonesRespuesta.remove(i);
+                                    break;
+                                }
+                            }
+                            Collections.shuffle(botonesRespuesta);
+                            botonesRespuesta.get(1).setBackground(getDrawable(R.drawable.boton_rojo_pista));
+                            botonesRespuesta.get(1).setClickable(false);
+                            botonesRespuesta.get(2).setBackground(getDrawable(R.drawable.boton_rojo_pista));
+                            botonesRespuesta.get(2).setClickable(false);
+                            imagenPista.setClickable(false);
+                            imagenPista.setImageDrawable(getDrawable(R.drawable.pista2));
+                            FachadaDeRetos.pistas--;
+                            pistas--;
+                            textoPuntosPregunta.setText("Puntos reto: "+ Nivel *50);
+                            FachadaDeRetos.haUsadoPista = true;
+                            contadorBombillas.setText(pistas + "/3");
+                            Intent t = new Intent();
+                            t.putExtra("Pistas", pistas);
+                        }
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
 
     }
     public void clickBotonTerminarPartida(View v) {

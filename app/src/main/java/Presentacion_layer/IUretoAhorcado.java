@@ -396,7 +396,8 @@ public class IUretoAhorcado extends AppCompatActivity {
     }
     public void utilizarPista(View view){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("¿Estás seguro que usar una pista? Obtendras la mitad de los puntos en este reto")
+        alert.setTitle("¿Estás seguro que usar una pista?")
+                .setMessage("Obtendras la mitad de los puntos en este reto")
                 .setCancelable(true)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override

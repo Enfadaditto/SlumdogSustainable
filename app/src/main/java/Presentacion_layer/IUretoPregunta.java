@@ -512,7 +512,8 @@ public class IUretoPregunta extends AppCompatActivity {
 
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("¿Estas seguro que usar una pista? Obtendras la mitad de los puntos en este reto")
+        alert.setTitle("¿Estas seguro que usar una pista?")
+                .setMessage("Obtendras la mitad de los puntos en este reto")
                 .setCancelable(true)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override

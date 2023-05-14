@@ -21,7 +21,7 @@
 
     <string-array name="tipoRanking">
         <item>Ranking global</item>
-        <item>Ranking semanal</item>
+        <item>Ranking mensual</item>
         <item>Ranking diario</item>
     </string-array>
 

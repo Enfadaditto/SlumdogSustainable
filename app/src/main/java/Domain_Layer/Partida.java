@@ -1,5 +1,7 @@
 package Domain_Layer;
 
+import android.provider.Telephony;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -7,7 +9,7 @@ import java.util.Date;
 
 @DatabaseTable
 public class Partida {
-    @DatabaseField
+    @DatabaseField(id = true)
     int idPartida;
 
     @DatabaseField
@@ -19,25 +21,16 @@ public class Partida {
     @DatabaseField
     String Usuario;
 
-    @DatabaseField
-    Boolean ganada;
 
-    @DatabaseField
-    Boolean abandonada;
+    public Partida() {}
 
-    Partida() {}
-
-    public Boolean getAbandonada() {
-        return abandonada;
+    public Partida(int id, String usuario, int Puntos, Date Fecha) {
+        this.idPartida = id;
+        this.Usuario = usuario;
+        this.Puntos = Puntos;
+        this.Fecha = Fecha;
     }
 
-    public Boolean getGanada() {
-        return ganada;
-    }
-
-    public int getIdPartida() {
-        return idPartida;
-    }
 
     public Date getFecha() {
         return Fecha;
@@ -51,21 +44,10 @@ public class Partida {
         return Usuario;
     }
 
-    public void setAbandonada(Boolean abandonada) {
-        this.abandonada = abandonada;
-    }
-
     public void setFecha(Date fecha) {
         Fecha = fecha;
     }
 
-    public void setIdPartida(int idPartida) {
-        this.idPartida = idPartida;
-    }
-
-    public void setGanada(Boolean ganada) {
-        this.ganada = ganada;
-    }
 
     public void setPuntos(int puntos) {
         Puntos = puntos;

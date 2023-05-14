@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -17,6 +18,7 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.slumdogsustainable.MainActivity;
 
+import Domain_Layer.Partida;
 import Domain_Layer.Question;
 import Domain_Layer.User;
 public class UserRepository extends Repository<User> {
@@ -40,10 +42,29 @@ public class UserRepository extends Repository<User> {
                 }
         }
 
+        public void updatePartidasandTime(Boolean hit, Boolean abadonada, int time, int Puntos) {
+                try {
+                        PartidaRepository p = new PartidaRepository(SingletonConnection.getSingletonInstance());
+                        if(hit) {
+                                MainActivity.user.setGamesAchieved(MainActivity.user.getGamesAchieved() + 1);
+                                p.guardar(new Partida((int) p.getDao().countOf(), MainActivity.user.getNickname(), Puntos, new Date()));
+                        }
+                        else if(!abadonada){
+                                MainActivity.user.setGamesFailed(MainActivity.user.getGamesFailed() + 1);
+                        }
+                        else {
+                                MainActivity.user.setGamesAbandoned(MainActivity.user.getGamesAbandoned() + 1);
+                                p.guardar(new Partida((int) p.getDao().countOf(), MainActivity.user.getNickname(), Puntos, new Date()));
+                        }
+                        MainActivity.user.setTimeSpent(MainActivity.user.getTimeSpent() + ((float) time) / 60000);
+                        this.getDao().update(MainActivity.user);
+                } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                }
+        }
         public void updateGamesAbandonedandTime(int time) {
                 try {
                         MainActivity.user.setGamesAbandoned(MainActivity.user.getGamesAbandoned() + 1);
-                        System.out.println(time);
                         MainActivity.user.setTimeSpent(MainActivity.user.getTimeSpent() + ((float) time) / 60000);
                         this.getDao().update(MainActivity.user);
                 } catch (SQLException e) {

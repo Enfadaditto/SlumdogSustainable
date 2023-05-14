@@ -19,6 +19,12 @@
         <item>Información de las ODS</item>
     </string-array>
 
+    <string-array name="tipoRanking">
+        <item>Ranking global</item>
+        <item>Ranking semanal</item>
+        <item>Ranking diario</item>
+    </string-array>
+
     <string-array name="linkODS">
         <item>https://www.un.org/sustainabledevelopment/es/sustainable-development-goals/</item>
         <item>https://www.un.org/sustainabledevelopment/es/poverty/</item>

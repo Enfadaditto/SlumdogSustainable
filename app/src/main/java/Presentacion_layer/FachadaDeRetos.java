@@ -137,6 +137,16 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         }).start();
     }
 
+    public void updatePartidasandTime(Boolean hit, Boolean abandonada, int time, int Puntos) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
+                u.updatePartidasandTime(hit, abandonada, time, Puntos);
+            }
+        }).start();
+    }
+
     public void siguienteRetoMixto() {
         Random r = new Random();
         retoRandom = r.nextInt(3);
@@ -155,13 +165,15 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
     }
     public void siguienteRetoPregunta() {
         if (ronda > 10) {
-            updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
+            updatePartidasandTime(true, false, juegoRetoPregunta.getTiempo() * 10, puntosTotales);
+            //updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
             finish();
             pistas = 3;
             return;
         }
         if (vidas < 0) {
-            updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
+            updatePartidasandTime(false, false, juegoRetoPregunta.getTiempo() * ronda, 0);
+            //updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
             finish();
             pistas = 3;
             return;
@@ -180,13 +192,15 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
     public void siguienteRetoAhorcado() {
         if (ronda > 10) {
-            updateGamesandTime(true, juegoRetoAhorcado.getTiempo() * 10);
+            updatePartidasandTime(true, false, juegoRetoAhorcado.getTiempo() * 10, puntosTotales);
+            //updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
             finish();
             pistas = 3;
             return;
         }
         if (vidas < 0) {
-            updateGamesandTime(false, juegoRetoAhorcado.getTiempo() * ronda);
+            updatePartidasandTime(false, false, juegoRetoAhorcado.getTiempo() * ronda, 0);
+            //updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
             finish();
             pistas = 3;
             return;
@@ -220,13 +234,15 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
     public void siguienteRetoDescubrirFrase() {
 
         if (ronda > 10) {
-            updateGamesandTime(true, juegoRetoAhorcado.getTiempo() * 10);
+            updatePartidasandTime(true, false, juegoRetoDescubrirFrase.getTiempo() * 10, puntosTotales);
+            //updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
             finish();
             pistas = 3;
             return;
         }
         if (vidas < 0) {
-            updateGamesandTime(false, juegoRetoAhorcado.getTiempo() * ronda);
+            updatePartidasandTime(false, false, juegoRetoDescubrirFrase.getTiempo() * ronda, 0);
+            //updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
             finish();
             pistas = 3;
             return;
@@ -349,7 +365,8 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
     private void handleActivityResult(Reto juegoReto, int requestCode, int resultCode) {
         if (requestCode == REQUESTCODE) {
             if (resultCode == ABANDON) {
-                updateGamesAbandonedandTime(juegoReto.getTiempo() * ronda);
+                updatePartidasandTime(false, true, juegoReto.getTiempo() * ronda, puntosConsolidados);
+                //updateGamesAbandonedandTime(juegoReto.getTiempo() * ronda);
                 finish();
             } else if (resultCode == RESULT_OK) {
                 if(haUsadoPista){

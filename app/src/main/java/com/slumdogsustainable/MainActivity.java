@@ -21,6 +21,7 @@ import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 import Presentacion_layer.IUEstadisticas;
 import Presentacion_layer.IUMenu;
+import Presentacion_layer.IURanking;
 import Presentacion_layer.IUperfil;
 import Presentacion_layer.IUuserLogin;
 
@@ -103,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickEstadisticas(View view){
         Intent intent = new Intent(MainActivity.this, IUEstadisticas.class);
+        startActivity(intent);
+    }
+
+    public void clickRanking(View view){
+        Intent intent = new Intent(MainActivity.this, IURanking.class);
         startActivity(intent);
     }
 

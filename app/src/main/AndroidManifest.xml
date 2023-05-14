@@ -37,6 +37,11 @@
             android:exported="true" />
 
         <activity
+            android:name="Presentacion_layer.IURanking"
+            android:screenOrientation="portrait"
+            android:exported="true" />
+
+        <activity
             android:name="Presentacion_layer.IUMenu"
             android:exported="true" />
         <activity

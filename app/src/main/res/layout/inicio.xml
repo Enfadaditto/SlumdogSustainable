@@ -56,4 +56,13 @@
         app:layout_constraintVertical_bias="0.021"
         app:srcCompat="@drawable/statistics" />
 
+    <ImageView
+        android:id="@+id/rankingView"
+        android:layout_width="76dp"
+        android:layout_height="69dp"
+        android:onClick="clickRanking"
+        app:srcCompat="@drawable/botonranking"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="15dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

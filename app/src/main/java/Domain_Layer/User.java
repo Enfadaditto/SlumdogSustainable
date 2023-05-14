@@ -37,7 +37,7 @@ public class User {
 
     private List<ODS_has_User> ODSUser;
 
-    private List<Logro> MedallasYTrofeos;
+    //private List<Logro> MedallasYTrofeos;
 
     User() {}
     public User(String nick, String email, String password, Bitmap icon) {
@@ -80,7 +80,7 @@ public class User {
         this.ODSUser.add(newODSKnown);
     }
 
-    public void addLogro(Logro newLogro) { this.MedallasYTrofeos.add(newLogro);}
+    //public void addLogro(Logro newLogro) { this.MedallasYTrofeos.add(newLogro);}
 
     public String getNickname() {
         return nickname;

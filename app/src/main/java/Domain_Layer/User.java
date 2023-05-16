@@ -7,6 +7,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.slumdogsustainable.MainActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Persistence.UserRepository;
@@ -37,7 +38,7 @@ public class User {
 
     private List<ODS_has_User> ODSUser;
 
-    private List<Logro> MedallasYTrofeos;
+    private List<Observador> observadores = new ArrayList<>();
 
     User() {}
     public User(String nick, String email, String password, Bitmap icon) {
@@ -79,8 +80,6 @@ public class User {
     public void addODSKnowledge(ODS_has_User newODSKnown) {
         this.ODSUser.add(newODSKnown);
     }
-
-    public void addLogro(Logro newLogro) { this.MedallasYTrofeos.add(newLogro);}
 
     public String getNickname() {
         return nickname;
@@ -128,5 +127,19 @@ public class User {
 
     public void setIcon(Bitmap icon) {
         this.icon = icon;
+    }
+
+    public void agregarObservador(Observador observador) {
+        observadores.add(observador);
+    }
+
+    public void eliminarObservador(Observador observador) {
+        observadores.remove(observador);
+    }
+
+    public void notificarObservadores(int id_logro) {
+        for (Observador observador : observadores) {
+            observador.actualizar(id_logro);
+        }
     }
 }

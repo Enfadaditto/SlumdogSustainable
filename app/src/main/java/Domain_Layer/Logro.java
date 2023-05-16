@@ -1,6 +1,14 @@
 package Domain_Layer;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.slumdogsustainable.MainActivity;
+
+import java.util.List;
+
+import Persistence.LogroRepository;
+import Persistence.ODS_URepository;
+import Persistence.SingletonConnection;
+import Persistence.User_LRepository;
 
 public class Logro {
     @DatabaseField(id = true)
@@ -11,22 +19,13 @@ public class Logro {
     private String nombre;
     @DatabaseField
     private String descripcion;
-    @DatabaseField
-    private String id_usuario;
-    @DatabaseField
-    private int progreso;
 
     public enum TipoLogro { Medalla, Trofeo }
 
     Logro() {}
 
-    public Logro(int id_logro, String id_usuario) {
-        this.id_logro = id_logro; this.id_usuario = id_usuario;
-    }
-
-    public Logro(int id_logro, String id_usuario, String nombre, String descripcion) {
-        this(id_logro,id_usuario);
-        this.nombre = nombre; this.descripcion = descripcion;
+    public Logro(int id_logro, String nombre, String descripcion) {
+        this.id_logro = id_logro; this.nombre = nombre; this.descripcion = descripcion;
     }
 
     public int getId_logro() {
@@ -56,16 +55,4 @@ public class Logro {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
-    public String getId_usuario() {
-        return id_usuario;
-    }
-
-    public void setId_usuario(String id_usuario) {
-        this.id_usuario = id_usuario;
-    }
-
-    public int getProgreso() { return progreso; }
-
-    public void setProgreso(int progreso) { this.progreso = progreso; }
 }

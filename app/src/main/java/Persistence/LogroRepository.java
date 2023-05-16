@@ -11,15 +11,7 @@ public class LogroRepository extends Repository<Logro> {
 
     public LogroRepository(ConnectionSource c) { init(Logro.class, c); }
 
-    public List<Logro> getLogroUsuario(User u, Logro.TipoLogro tipo) {
-        List<Logro> ret = new ArrayList();
-        List<Logro> logros = obtenerTodos();
-
-        for (Logro logro: logros)
-            if (logro.getId_usuario().equals(u.getNickname()))
-                if (logro.getTipo().equals(tipo))
-                    ret.add(logro);
-
-        return ret;
+    public List<Logro> getAllLogros() {
+        return obtenerTodos();
     }
 }

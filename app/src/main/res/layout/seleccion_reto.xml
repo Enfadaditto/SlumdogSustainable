@@ -75,6 +75,7 @@
         android:id="@+id/imageView5"
         android:layout_width="234dp"
         android:layout_height="237dp"
+        android:onClick="easterEggOnClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.474"

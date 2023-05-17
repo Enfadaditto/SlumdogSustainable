@@ -3,6 +3,7 @@ package Presentacion_layer;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -416,10 +417,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         if (usuario.getPointsAchieved() >= 100000) notificarYEliminarObservador(usuario, 25);
         if (usuario.getPointsAchieved() >= 1000000) notificarYEliminarObservador(usuario, 26);
         if (ronda > 10 && retoMixtoEscogido) notificarYEliminarObservador(usuario, 27);
-        if (ronda == 1 && vidas == 0) {
-            notificarYEliminarObservador(usuario, 30);
-            System.out.println("ASDFASDFASDFASDF");
-        }
+        if (ronda == 1 && vidas == 0) notificarYEliminarObservador(usuario, 30);
     }
 
     public void notificarYEliminarObservador(User u, int id_logro) {
@@ -438,5 +436,11 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             if (!x.isCompletado())
                 u.agregarObservador(x);
         }
+    }
+
+    int contadorClick = 0;
+    public void easterEggOnClick(View v) {
+        contadorClick++;
+        if (contadorClick == 5) notificarYEliminarObservador(MainActivity.user, 29);
     }
 }

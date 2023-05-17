@@ -33,6 +33,18 @@ public class User_has_Logro implements Observador{
     @Override
     public void actualizar(int id_logro) {
         System.out.println(id_user + " ha desbloqueado el logro " + id_logro);
+        //Mostrar logro por pantalla
+        // ESQUEMA DE COMO MOSTRARLO
+
+        //  |----------|---------------------------|
+        //  |          |   NOMBRE DEL LOGRO        |
+        //  | ICONO    |---------------------------|
+        //  |          |   DESCRIPCIÓN DEL LOGRO   |
+        //  |          |   DESCRIPCIÓN DEL LOGRO   |
+        //  |----------|---------------------------|
+
+        // Poner logro a completado en user_has_logro
+        // Para mostrar logros completados en el armario comprobar todos aquellos que fueron completados
     }
 
     public List<User_has_Logro> getAllLogros(User u) {

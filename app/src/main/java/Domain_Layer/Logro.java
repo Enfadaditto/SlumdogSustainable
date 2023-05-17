@@ -1,14 +1,6 @@
 package Domain_Layer;
 
 import com.j256.ormlite.field.DatabaseField;
-import com.slumdogsustainable.MainActivity;
-
-import java.util.List;
-
-import Persistence.LogroRepository;
-import Persistence.ODS_URepository;
-import Persistence.SingletonConnection;
-import Persistence.User_LRepository;
 
 public class Logro {
     @DatabaseField(id = true)

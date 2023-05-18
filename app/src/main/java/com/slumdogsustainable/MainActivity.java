@@ -6,8 +6,13 @@ import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -42,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
     Button botonInicio;
 
+    TextView nombreLogro, descripcionLogro;
+    LinearLayout bocadilloLogro;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +62,14 @@ public class MainActivity extends AppCompatActivity {
             user = new UserRepository(SingletonConnection.getSingletonInstance()).getUserByUsername("prueba");
             addObservadores(user);
         }).start();
+        mostrarLogros();
     }
 
 
     @Override
     protected void onRestart() {
         super.onRestart();
+        mostrarLogros();
         MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
         MainActivity.music.start();
     }
@@ -131,11 +141,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        for (Logro logro : logrosCompletados) {
-            // CREAR BOCADILLO
+    public void mostrarLogros() {
+        nombreLogro = findViewById(R.id.nombreLogro);
+        descripcionLogro = findViewById(R.id.descripcionLogro);
+        bocadilloLogro = findViewById(R.id.bocadilloLogro);
 
+        System.out.println("\t\tESTO ESTA EJECUTANDOSE");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+        while(logrosCompletados.size() > 0) {
+            Logro logro = logrosCompletados.poll();
+
+            // CREAR BOCADILLO
+            System.out.println("Logro a mostrar: " + logro.getNombre());
+
+            Animation animacionDesaparecer = new AlphaAnimation(1.0f, 0.0f);
+            animacionDesaparecer.setDuration(100);
+
+            nombreLogro.setText(logro.getNombre());
+            descripcionLogro.setText(logro.getDescripcion());
+            bocadilloLogro.setVisibility(View.VISIBLE);
+            bocadilloLogro.setOnClickListener((View v) -> {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        bocadilloLogro.setVisibility(View.INVISIBLE);
+                        bocadilloLogro.startAnimation(animacionDesaparecer);
+                    }
+                }, 1000);
+            });
         }
     }
 }

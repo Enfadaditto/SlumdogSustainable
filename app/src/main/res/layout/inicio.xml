@@ -57,6 +57,7 @@
         app:srcCompat="@drawable/statistics" />
 
     <LinearLayout
+        android:id="@+id/bocadilloLogro"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="40dp"
@@ -65,10 +66,12 @@
         android:layout_marginBottom="10dp"
         android:background="#94131313"
         android:orientation="horizontal"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/botonPerfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonInicio">
+        app:layout_constraintTop_toBottomOf="@+id/botonInicio"
+        tools:visibility="invisible">
 
         <ImageView
             android:id="@+id/imagenLogro"

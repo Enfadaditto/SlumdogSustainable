@@ -38,7 +38,7 @@ public class User_has_Logro implements Observador{
         Logro logro = new Logro(-1,"","");
         User_LRepository userlogroR = new User_LRepository(SingletonConnection.getSingletonInstance());
 
-        MainActivity.logrosCompletados.add(logro.getLogroPorID(id_logro));
+        MainActivity.logrosCompletados.offer(logro.getLogroPorID(id_logro));
         this.setProgreso(100); this.setCompletado(true);
         userlogroR.actualizar(this);
 

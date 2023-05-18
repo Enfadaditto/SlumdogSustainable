@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.slumdogsustainable.R;
 
 public class IUMenu extends AppCompatActivity{
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,5 +49,11 @@ public class IUMenu extends AppCompatActivity{
         b.putString("tipoReto", "RetoMixto");
         I.putExtras(b);
         startActivity(I);
+    }
+
+    int contadorClick = 0;
+    public void easterEggOnClick(View v) {
+        contadorClick++;
+        if (contadorClick == 5) ;//notificarYEliminarObservador(MainActivity.user, 29);
     }
 }

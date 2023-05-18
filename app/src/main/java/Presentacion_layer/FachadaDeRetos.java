@@ -17,11 +17,13 @@ import Builder.BuilderRetoAhorcado;
 import Builder.BuilderRetoDescubrirFrase;
 import Builder.BuilderRetoPregunta;
 import Builder.Director;
+import Domain_Layer.Logro;
 import Domain_Layer.Reto;
 import Domain_Layer.RetoAhorcado;
 import Domain_Layer.RetoDescubrirFrase;
 import Domain_Layer.RetoPregunta;
 import Domain_Layer.User;
+import Domain_Layer.User_has_Logro;
 import Persistence.ODS_URepository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
@@ -33,6 +35,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
     public static int pistas = 3;
     public static Boolean  haUsadoPista= false;
 
+    public static int partidasEnRacha = 0;
     RetoDescubrirFrase juegoRetoDescubrirFrase;
     Button botonRetoPregunta, botonRetoAhorcado, botonRetoFrase, botonRetoMixto;
     boolean retoPreguntaEscogido, retoAhorcadoEscogido, retoDescubrirFraseEscogido, retoMixtoEscogido, haConsolidado = false;
@@ -169,6 +172,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             //updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
             finish();
             pistas = 3;
+            partidasEnRacha++;
             return;
         }
         if (vidas < 0) {
@@ -176,6 +180,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             //updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
             finish();
             pistas = 3;
+            partidasEnRacha = 0;
             return;
         } else if (ronda <= 4) {
             juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel1().get(indiceRetoFacil++));
@@ -196,6 +201,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             //updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
             finish();
             pistas = 3;
+            partidasEnRacha++;
             return;
         }
         if (vidas < 0) {
@@ -203,6 +209,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             //updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
             finish();
             pistas = 3;
+            partidasEnRacha = 0;
             return;
         }
         else if(ronda <= 4){
@@ -238,6 +245,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             //updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
             finish();
             pistas = 3;
+            partidasEnRacha++;
             return;
         }
         if (vidas < 0) {
@@ -245,6 +253,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             //updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
             finish();
             pistas = 3;
+            partidasEnRacha = 0;
             return;
         } else if (ronda <= 4) {
             juegoRetoDescubrirFrase.setNivel(1);
@@ -281,8 +290,6 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         I.putExtras(b);
         startActivityForResult(I, REQUESTCODE);
     }
-
-
 
     public void crearRetoPregunta() {
         Intent I = new Intent(getApplicationContext(), IUretoPregunta.class);
@@ -327,6 +334,16 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Thread hilo = new Thread (() -> {
+            comprobarLogros();
+        });
+        hilo.start();
+        try {
+            hilo.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
 
         if (retoPreguntaEscogido) {
             handleActivityResult(juegoRetoPregunta, requestCode, resultCode);
@@ -407,5 +424,30 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
                 ODS.updateODS(hit, idODS, u);
             }
         }).start();
+    }
+
+    public void comprobarLogros() {
+        User usuario = MainActivity.user;
+
+        if (usuario.getTimeSpent() == 0) notificarYEliminarObservador(usuario, 1);
+        if (usuario.getGamesAchieved() == 1) notificarYEliminarObservador(usuario, 2);
+        if (ronda > 10 && pistas > 0) notificarYEliminarObservador(usuario, 3);
+        if (ronda > 10 && pistas == 3) notificarYEliminarObservador(usuario, 4);
+        //del 5 - 22 son cobertura ODS
+        if (partidasEnRacha == 3) notificarYEliminarObservador(usuario, 23);
+        if (usuario.getPointsAchieved() >= 10000) notificarYEliminarObservador(usuario, 24);
+        if (usuario.getPointsAchieved() >= 100000) notificarYEliminarObservador(usuario, 25);
+        if (usuario.getPointsAchieved() >= 1000000) notificarYEliminarObservador(usuario, 26);
+        if (ronda > 10 && retoMixtoEscogido) notificarYEliminarObservador(usuario, 27);
+        if (ronda == 1 && vidas == 0) notificarYEliminarObservador(usuario, 30);
+    }
+
+    public void notificarYEliminarObservador(User u, int id_logro) {
+        User_has_Logro l = new User_has_Logro("", -1);
+
+        u.notificarObservadores(id_logro);
+        l.setCompletado(true);
+        l = l.getUserLogroPorID(id_logro);
+        u.eliminarObservador(l);
     }
 }

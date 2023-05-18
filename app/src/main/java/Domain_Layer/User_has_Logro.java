@@ -1,6 +1,7 @@
 package Domain_Layer;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.slumdogsustainable.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,16 +31,16 @@ public class User_has_Logro implements Observador{
         this.progreso = 0; this.completado = false;
     }
 
-    public void completarLogro(User_has_Logro logro){
-        if (logro.progreso == 100) logro.completado = true;
-    }
-
     @Override
     public void actualizar(int id_logro) {
         if (this.id_logro != id_logro) return;
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        System.out.println(id_user + " ha desbloqueado el logro " + id_logro);
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
+        Logro logro = new Logro(-1,"","");
+        User_LRepository userlogroR = new User_LRepository(SingletonConnection.getSingletonInstance());
+
+        MainActivity.logrosCompletados.add(logro.getLogroPorID(id_logro));
+        this.setProgreso(100); this.setCompletado(true);
+        userlogroR.actualizar(this);
 
         //Mostrar logro por pantalla
         // ESQUEMA DE COMO MOSTRARLO

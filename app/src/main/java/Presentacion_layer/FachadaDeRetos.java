@@ -318,9 +318,15 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        new Thread (() -> {
+        Thread hilo = new Thread (() -> {
             comprobarLogros();
-        }).start();
+        });
+        hilo.start();
+        try {
+            hilo.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
         if (retoPreguntaEscogido) {
@@ -421,13 +427,10 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
     public void notificarYEliminarObservador(User u, int id_logro) {
         User_has_Logro l = new User_has_Logro("", -1);
-        Logro logro = new Logro(-1,"","");
 
         u.notificarObservadores(id_logro);
         l.setCompletado(true);
         l = l.getUserLogroPorID(id_logro);
         u.eliminarObservador(l);
-
-        MainActivity.logrosCompletados.add(logro.getLogroPorID(id_logro));
     }
 }

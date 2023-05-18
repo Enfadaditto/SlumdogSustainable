@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
@@ -122,14 +121,21 @@ public class MainActivity extends AppCompatActivity {
     public void addObservadores(User u) {
         User_has_Logro l = new User_has_Logro("",-1);
         List<User_has_Logro> logros = l.getAllUserLogros(u);
+        User_LRepository ULR = new User_LRepository(SingletonConnection.getSingletonInstance());
 
         for (User_has_Logro x : logros) {
             if (!x.isCompletado()) {
                 u.agregarObservador(x);
-                User_LRepository ULR = new User_LRepository(SingletonConnection.getSingletonInstance());
                 if (x.getEnlaceUsuarioLogro(u.getNickname(), x.getId_logro()) == null) ULR.guardar(x);
             }
         }
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        for (Logro logro : logrosCompletados) {
+            // CREAR BOCADILLO
+
+        }
+    }
 }

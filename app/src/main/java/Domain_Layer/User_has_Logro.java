@@ -34,7 +34,7 @@ public class User_has_Logro implements Observador{
     @Override
     public void actualizar(int id_logro) {
         if (this.id_logro != id_logro) return;
-
+        System.out.println("Logro completado: " + id_logro);
         Logro logro = new Logro(-1,"","");
         User_LRepository userlogroR = new User_LRepository(SingletonConnection.getSingletonInstance());
 
@@ -42,17 +42,6 @@ public class User_has_Logro implements Observador{
         this.setProgreso(100); this.setCompletado(true);
         userlogroR.actualizar(this);
 
-        //Mostrar logro por pantalla
-        // ESQUEMA DE COMO MOSTRARLO
-
-        //  |----------|---------------------------|
-        //  |          |   NOMBRE DEL LOGRO        |
-        //  | ICONO    |---------------------------|
-        //  |          |   DESCRIPCIÓN DEL LOGRO   |
-        //  |          |   DESCRIPCIÓN DEL LOGRO   |
-        //  |----------|---------------------------|
-
-        // Poner logro a completado en user_has_logro
         // Para mostrar logros completados en el armario comprobar todos aquellos que fueron completados
     }
 

@@ -15,10 +15,17 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.ui.AppBarConfiguration;
 
 
+import java.util.ArrayDeque;
+import java.util.List;
+import java.util.Queue;
+
+import Domain_Layer.Logro;
 import Domain_Layer.User;
 //import Persistence.Repository;
+import Domain_Layer.User_has_Logro;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
+import Persistence.User_LRepository;
 import Presentacion_layer.IUEstadisticas;
 import Presentacion_layer.IUMenu;
 import Presentacion_layer.IUperfil;
@@ -31,17 +38,23 @@ public class MainActivity extends AppCompatActivity {
     public static MediaPlayer music; //MediaPlayer sonidos
     public static MediaPlayer background; //Mediaplayer fondo
     public static User user;
+    public static Queue<Logro> logrosCompletados = new ArrayDeque<>();
 
     Button botonInicio;
-
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         new Task().execute();
+
+        new Thread(() -> {
+            user = new UserRepository(SingletonConnection.getSingletonInstance()).getUserByUsername("prueba");
+            addObservadores(user);
+        }).start();
     }
 
 
@@ -104,6 +117,19 @@ public class MainActivity extends AppCompatActivity {
     public void clickEstadisticas(View view){
         Intent intent = new Intent(MainActivity.this, IUEstadisticas.class);
         startActivity(intent);
+    }
+
+    public void addObservadores(User u) {
+        User_has_Logro l = new User_has_Logro("",-1);
+        List<User_has_Logro> logros = l.getAllUserLogros(u);
+
+        for (User_has_Logro x : logros) {
+            if (!x.isCompletado()) {
+                u.agregarObservador(x);
+                User_LRepository ULR = new User_LRepository(SingletonConnection.getSingletonInstance());
+                if (x.getEnlaceUsuarioLogro(u.getNickname(), x.getId_logro()) == null) ULR.guardar(x);
+            }
+        }
     }
 
 }

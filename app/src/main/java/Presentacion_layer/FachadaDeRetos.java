@@ -3,7 +3,6 @@ package Presentacion_layer;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -12,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
-import java.util.List;
 import java.util.Random;
 
 import Builder.BuilderRetoAhorcado;
@@ -26,11 +24,9 @@ import Domain_Layer.RetoDescubrirFrase;
 import Domain_Layer.RetoPregunta;
 import Domain_Layer.User;
 import Domain_Layer.User_has_Logro;
-import Persistence.LogroRepository;
 import Persistence.ODS_URepository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
-import Persistence.User_LRepository;
 
 public class FachadaDeRetos extends AppCompatActivity implements FachadaInterface {
     int vidas = 1, ronda = 1, retoRandom, indiceRetoFacil = 0, indiceRetoDificil = 0, indiceRetoMedio = 0, puntosTotales, puntosConsolidados, erroresRetoAhorcado;
@@ -62,9 +58,6 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         botonRetoMixto = findViewById(R.id.botonRetoMixto);
         Bundle extras = getIntent().getExtras();
         String tipoReto = extras.getString("tipoReto");
-        new Thread(() -> {
-            addObservadores(MainActivity.user);
-        }).start();
 
         switch (tipoReto) {
             case "RetoPregunta":
@@ -325,7 +318,10 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        comprobarLogros();
+        new Thread (() -> {
+            comprobarLogros();
+        }).start();
+
 
         if (retoPreguntaEscogido) {
             handleActivityResult(juegoRetoPregunta, requestCode, resultCode);
@@ -425,32 +421,13 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
     public void notificarYEliminarObservador(User u, int id_logro) {
         User_has_Logro l = new User_has_Logro("", -1);
+        Logro logro = new Logro(-1,"","");
+
         u.notificarObservadores(id_logro);
         l.setCompletado(true);
-        l = l.getLogroPorID(id_logro);
+        l = l.getUserLogroPorID(id_logro);
         u.eliminarObservador(l);
-    }
 
-    public void addObservadores(User u) {
-        User_has_Logro l = new User_has_Logro("",-1);
-        List<User_has_Logro> logros = l.getAllLogros(u);
-
-        for (User_has_Logro x : logros) {
-            if (!x.isCompletado()) {
-                System.out.println(x.toString());
-                u.agregarObservador(x);
-                User_LRepository ULR = new User_LRepository(SingletonConnection.getSingletonInstance());
-                    if (ULR.getEnlaceUsuarioLogro(u.getNickname(), x.getId_logro()) != null)
-                        ULR.actualizar(x);
-                    else
-                        ULR.guardar(x);
-            }
-        }
-    }
-
-    int contadorClick = 0;
-    public void easterEggOnClick(View v) {
-        contadorClick++;
-        if (contadorClick == 5) notificarYEliminarObservador(MainActivity.user, 29);
+        MainActivity.logrosCompletados.add(logro.getLogroPorID(id_logro));
     }
 }

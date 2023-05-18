@@ -156,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
         while(logrosCompletados.size() > 0) {
             Logro logro = logrosCompletados.poll();
-
             // CREAR BOCADILLO
             System.out.println("Logro a mostrar: " + logro.getNombre());
 

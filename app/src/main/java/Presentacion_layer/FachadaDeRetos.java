@@ -30,6 +30,7 @@ import Persistence.LogroRepository;
 import Persistence.ODS_URepository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
+import Persistence.User_LRepository;
 
 public class FachadaDeRetos extends AppCompatActivity implements FachadaInterface {
     int vidas = 1, ronda = 1, retoRandom, indiceRetoFacil = 0, indiceRetoDificil = 0, indiceRetoMedio = 0, puntosTotales, puntosConsolidados, erroresRetoAhorcado;
@@ -61,7 +62,9 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         botonRetoMixto = findViewById(R.id.botonRetoMixto);
         Bundle extras = getIntent().getExtras();
         String tipoReto = extras.getString("tipoReto");
-        addObservadores(MainActivity.user);
+        new Thread(() -> {
+            addObservadores(MainActivity.user);
+        }).start();
 
         switch (tipoReto) {
             case "RetoPregunta":
@@ -433,8 +436,15 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         List<User_has_Logro> logros = l.getAllLogros(u);
 
         for (User_has_Logro x : logros) {
-            if (!x.isCompletado())
+            if (!x.isCompletado()) {
+                System.out.println(x.toString());
                 u.agregarObservador(x);
+                User_LRepository ULR = new User_LRepository(SingletonConnection.getSingletonInstance());
+                    if (ULR.getEnlaceUsuarioLogro(u.getNickname(), x.getId_logro()) != null)
+                        ULR.actualizar(x);
+                    else
+                        ULR.guardar(x);
+            }
         }
     }
 

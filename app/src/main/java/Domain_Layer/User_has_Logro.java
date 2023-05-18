@@ -11,8 +11,11 @@ import Persistence.User_LRepository;
 public class User_has_Logro implements Observador{
 
     @DatabaseField(id = true)
+    private int id_userLogro;
+
+    @DatabaseField
     private String id_user;
-    @DatabaseField(id = true)
+    @DatabaseField
     private int id_logro;
     @DatabaseField
     private int progreso;
@@ -32,7 +35,9 @@ public class User_has_Logro implements Observador{
 
     @Override
     public void actualizar(int id_logro) {
+        if (this.id_logro != id_logro) return;
         System.out.println(id_user + " ha desbloqueado el logro " + id_logro);
+
         //Mostrar logro por pantalla
         // ESQUEMA DE COMO MOSTRARLO
 
@@ -54,7 +59,9 @@ public class User_has_Logro implements Observador{
     }
 
     public User_has_Logro getLogroPorID(int id) {
-        return (User_has_Logro) new User_LRepository(SingletonConnection.getSingletonInstance()).obtener(id);
+        List<User_has_Logro> UHL = new User_LRepository(SingletonConnection.getSingletonInstance()).obtenerTodos();
+        for (User_has_Logro x : UHL) if (x.id_logro == id) return x;
+        return null;
     }
 
     public String getId_user() {

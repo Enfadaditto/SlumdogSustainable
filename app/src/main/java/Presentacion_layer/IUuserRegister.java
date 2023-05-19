@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -76,7 +77,7 @@ public class IUuserRegister extends AppCompatActivity {
                     }
                     if (!passwordField.getText().toString().matches("^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\\-__+.]){1,}).{8,}$")) {
                         runOnUiThread(new Runnable() {
-                            public void run() { ErrorAlert("Tu contraseña no es lo suficientemente segura"); }
+                            public void run() { ErrorAlert("Tu contraseña no es lo suficientemente segura, debe tener una mayúscula, una minúscula, 8 carácteres, y uno de ellos especial."); }
                         });
                         return;
                     }
@@ -91,7 +92,7 @@ public class IUuserRegister extends AppCompatActivity {
                     if (!emailField.getText().toString().matches("^[\\w!#$%&amp;'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&amp;'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
                         runOnUiThread(new Runnable() {
                             public void run() {
-                                ErrorAlert("Introduce un Email válido");
+                                ErrorAlert("Introduce un Email válido, debe ser con el siguiente formato tuemail@dominio.com");
                             }
                         });
                         return;
@@ -115,9 +116,18 @@ public class IUuserRegister extends AppCompatActivity {
         }).start();
     }
 
+    public void clickInfoEmail(View v) {
+        ErrorAlert("El email debe seguir el siguiente formato tuemail@dominio.com");
+    }
+
+    public void clickInfoContraseña(View v) {
+        ErrorAlert("La contraseña debe tener una mayúscula, una minúscula, 8 carácteres, y uno de ellos especial.");
+    }
+
+
     public void ErrorAlert(String errorString) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle(errorString)
+        alert.setMessage(errorString)
                 .setCancelable(true)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override

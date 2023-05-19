@@ -20,8 +20,8 @@
 
     <EditText
         android:id="@+id/nombreUsuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="294dp"
+        android:layout_height="47dp"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:ems="10"
@@ -30,15 +30,15 @@
         android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagenPerfil"
-        app:layout_constraintVertical_bias="0.11" />
+        app:layout_constraintVertical_bias="0.103" />
 
     <EditText
         android:id="@+id/contraseña"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="295dp"
+        android:layout_height="44dp"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:ems="10"
@@ -55,8 +55,8 @@
 
     <EditText
         android:id="@+id/contraseñaRepe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="297dp"
+        android:layout_height="43dp"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:ems="10"
@@ -66,10 +66,10 @@
         android:password="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contraseña"
-        app:layout_constraintVertical_bias="0.11" />
+        app:layout_constraintVertical_bias="0.129" />
 
     <Button
         android:id="@+id/cambiarContraseña"
@@ -96,4 +96,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cambiarContraseña" />
+
+    <ImageButton
+        android:id="@+id/infoContraseña"
+        android:layout_width="32dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="380dp"
+        android:onClick="clickInfoContraseña"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/passwordField"
+        app:layout_constraintTop_toBottomOf="@+id/infoemail"
+        app:srcCompat="@android:drawable/ic_dialog_info" />
 </androidx.constraintlayout.widget.ConstraintLayout>

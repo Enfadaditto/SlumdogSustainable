@@ -44,6 +44,7 @@ import Persistence.User_LRepository;
 import Presentacion_layer.IUEstadisticas;
 import Presentacion_layer.IUMenu;
 import Presentacion_layer.IURanking;
+import Presentacion_layer.IUlogros;
 import Presentacion_layer.IUperfil;
 import Presentacion_layer.IUuserLogin;
 
@@ -171,6 +172,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickModificarPerfil(View view){
         Intent intent = new Intent(MainActivity.this, IUperfil.class);
+        startActivity(intent);
+    }
+    public void clickLogros(View view){
+        Intent intent = new Intent(MainActivity.this, IUlogros.class);
         startActivity(intent);
     }
 

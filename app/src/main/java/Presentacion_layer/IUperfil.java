@@ -102,10 +102,9 @@ public class IUperfil extends AppCompatActivity{
         }
         if (!contraseña.getText().toString().matches("^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\\-__+.]){1,}).{8,}$")) {
             runOnUiThread(new Runnable() {
-                public void run() {
-                    PasswordError("Tu contraseña no es lo suficientemente segura");
-                }
+                public void run() { ErrorAlert("Tu contraseña no es lo suficientemente segura, debe tener una mayúscula, una minúscula, 8 carácteres, y uno de ellos especial."); }
             });
+
             return;
         }
         new Thread(new Runnable() {
@@ -126,6 +125,22 @@ public class IUperfil extends AppCompatActivity{
         usuarioActual.setPassword(contraseña);
         UserRepository s = new UserRepository((SingletonConnection.getSingletonInstance()));
         s.actualizar(usuarioActual);
+    }
+    public void clickInfoContraseña(View v) {
+        ErrorAlert("La contraseña debe tener una mayúscula, una minúscula, 8 carácteres, y uno de ellos especial.");
+    }
+    public void ErrorAlert(String errorString) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage(errorString)
+                .setCancelable(true)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+        AlertDialog dialog = alert.create();
+        dialog.show();
     }
 
     public void cerrarSesion(View view){

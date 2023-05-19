@@ -70,7 +70,7 @@ public class IUperfil extends AppCompatActivity{
             @Override
             public void run() {
                 nombreUsuario.setText(MainActivity.user.getNickname());
-                if (MainActivity.user.getIcon() != null) imagenPerfil.setImageBitmap(MainActivity.user.getIcon());
+                //if (MainActivity.user.getIcon() != null) imagenPerfil.setImageBitmap(MainActivity.user.getIcon());
             }
         }).start();
 

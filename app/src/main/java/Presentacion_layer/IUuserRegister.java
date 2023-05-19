@@ -23,6 +23,8 @@ import androidx.appcompat.view.menu.MenuBuilder;
 
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
@@ -45,6 +47,8 @@ public class IUuserRegister extends AppCompatActivity {
     private EditText repeatPasswordField;
     private ImageView iconSelector;
     private Button registerButton;
+
+    private byte [] userImage;
     private final User userActual = new User("a", "b","c", null);
 
 
@@ -103,7 +107,7 @@ public class IUuserRegister extends AppCompatActivity {
                                     nicknameField.getText().toString(),
                                     emailField.getText().toString(),
                                     passwordField.getText().toString(),
-                                    ((BitmapDrawable) iconSelector.getDrawable()).getBitmap()
+                                    userImage
                             )
                     );
                     cargarODSUser(nicknameField.getText().toString());
@@ -179,6 +183,9 @@ public class IUuserRegister extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            userImage= stream.toByteArray();
             iconSelector.setImageBitmap(imageBitmap);
         }
     }

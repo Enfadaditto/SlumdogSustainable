@@ -3,6 +3,7 @@ package Domain_Layer;
 import android.graphics.Bitmap;
 import android.media.Image;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.slumdogsustainable.MainActivity;
@@ -34,14 +35,15 @@ public class User {
     @DatabaseField
     private int gamesAbandoned;
 
-    private Bitmap icon;
+    @DatabaseField(dataType = DataType.BYTE_ARRAY)
+    private byte [] icon;
 
     private List<ODS_has_User> ODSUser;
 
     private List<Observador> observadores = new ArrayList<>();
 
     User() {}
-    public User(String nick, String email, String password, Bitmap icon) {
+    public User(String nick, String email, String password, byte[] icon) {
         this.nickname = nick;
         this.email = email;
         this.password = password;
@@ -121,11 +123,11 @@ public class User {
         this.timeSpent = timeSpent;
     }
 
-    public Bitmap getIcon() {
+    public byte [] getIcon() {
         return icon;
     }
 
-    public void setIcon(Bitmap icon) {
+    public void setIcon(byte [] icon) {
         this.icon = icon;
     }
 

@@ -45,13 +45,13 @@ public class User_has_Logro implements Observador{
         // Para mostrar logros completados en el armario comprobar todos aquellos que fueron completados
     }
 
-    public List<User_has_Logro> getAllUserLogros(User u) {
+    public List<User_has_Logro> getAllUserLogros(User u, List<User_has_Logro> listaEnlaces) {
         List<User_has_Logro> ret = new ArrayList<>();
         List<Logro> logros = new LogroRepository(SingletonConnection.getSingletonInstance()).obtenerTodos();
 
         for (Logro l : logros) {
-            if (this.getEnlaceUsuarioLogro(u.getNickname(), l.getId_logro()) != null)
-                ret.add(this.getEnlaceUsuarioLogro(u.getNickname(), l.getId_logro()));
+            if (this.getEnlaceUsuarioLogro(u.getNickname(), l.getId_logro(), listaEnlaces) != null)
+                ret.add(this.getEnlaceUsuarioLogro(u.getNickname(), l.getId_logro(), listaEnlaces));
             else
                 ret.add(new User_has_Logro(u.getNickname(), l.getId_logro()));
         }
@@ -59,17 +59,15 @@ public class User_has_Logro implements Observador{
         return ret;
     }
 
-    public User_has_Logro getEnlaceUsuarioLogro(String username, int id_logro) {
-        List<User_has_Logro> listaEnlaces = new User_LRepository(SingletonConnection.getSingletonInstance()).obtenerTodos();
+    public User_has_Logro getEnlaceUsuarioLogro(String username, int id_logro, List<User_has_Logro> listaEnlaces) {
         for (User_has_Logro x : listaEnlaces)
             if (x.getId_user().equals(username) && x.getId_logro() == id_logro) return x;
         return null;
     }
 
 
-    public User_has_Logro getUserLogroPorID(int id) {
-        List<User_has_Logro> UHL = new User_LRepository(SingletonConnection.getSingletonInstance()).obtenerTodos();
-        for (User_has_Logro x : UHL) if (x.id_logro == id) return x;
+    public User_has_Logro getUserLogroPorID(int id, List<User_has_Logro> listaEnlaces) {
+        for (User_has_Logro x : listaEnlaces) if (x.id_logro == id) return x;
         return null;
     }
 

@@ -63,14 +63,12 @@ public class MainActivity extends AppCompatActivity {
             user = new UserRepository(SingletonConnection.getSingletonInstance()).getUserByUsername("prueba");
             addObservadores(user);
         }).start();
-        mostrarLogros();
     }
 
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        mostrarLogros();
         MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
         MainActivity.music.start();
     }
@@ -136,13 +134,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void addObservadores(User u) {
         User_has_Logro l = new User_has_Logro("",-1);
-        List<User_has_Logro> logros = l.getAllUserLogros(u);
         User_LRepository ULR = new User_LRepository(SingletonConnection.getSingletonInstance());
+        List<User_has_Logro> logros = l.getAllUserLogros(u, ULR.obtenerTodos());
 
         for (User_has_Logro x : logros) {
             if (!x.isCompletado()) {
+                System.out.println("Añadido observador del logro " + x.getId_logro());
                 u.agregarObservador(x);
-                if (x.getEnlaceUsuarioLogro(u.getNickname(), x.getId_logro()) == null) ULR.guardar(x);
+                if (x.getEnlaceUsuarioLogro(u.getNickname(), x.getId_logro(), ULR.obtenerTodos()) == null) ULR.guardar(x);
             }
         }
     }
@@ -152,8 +151,9 @@ public class MainActivity extends AppCompatActivity {
         descripcionLogro = findViewById(R.id.descripcionLogro);
         bocadilloLogro = findViewById(R.id.bocadilloLogro);
 
-        System.out.println("\t\tESTO ESTA EJECUTANDOSE");
+        System.out.println("\tMOSTRANDO LOGROS POR PANTALLA");
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("Tamaño de la cola de logros: " + logrosCompletados.size());
         while(logrosCompletados.size() > 0) {
             Logro logro = logrosCompletados.poll();
             // CREAR BOCADILLO
@@ -164,7 +164,10 @@ public class MainActivity extends AppCompatActivity {
 
             nombreLogro.setText(logro.getNombre());
             descripcionLogro.setText(logro.getDescripcion());
+            Animation animacionAparecer = new AlphaAnimation(0.0f, 1.0f);
+            animacionAparecer.setDuration(10);
             bocadilloLogro.setVisibility(View.VISIBLE);
+            bocadilloLogro.startAnimation(animacionAparecer);
             bocadilloLogro.setOnClickListener((View v) -> {
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -175,5 +178,16 @@ public class MainActivity extends AppCompatActivity {
                 }, 1000);
             });
         }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus){
+        if(hasFocus)
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mostrarLogros();
+                }
+            });
     }
 }

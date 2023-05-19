@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
+import java.util.List;
 import java.util.Random;
 
 import Builder.BuilderRetoAhorcado;
@@ -27,6 +28,7 @@ import Domain_Layer.User_has_Logro;
 import Persistence.ODS_URepository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
+import Persistence.User_LRepository;
 
 public class FachadaDeRetos extends AppCompatActivity implements FachadaInterface {
     int vidas = 1, ronda = 1, retoRandom, indiceRetoFacil = 0, indiceRetoDificil = 0, indiceRetoMedio = 0, puntosTotales, puntosConsolidados, erroresRetoAhorcado;
@@ -428,26 +430,28 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
     public void comprobarLogros() {
         User usuario = MainActivity.user;
+        List<User_has_Logro> listaEnlaces = new User_LRepository(SingletonConnection.getSingletonInstance()).obtenerTodos();
 
-        if (usuario.getTimeSpent() == 0) notificarYEliminarObservador(usuario, 1);
-        if (usuario.getGamesAchieved() == 1) notificarYEliminarObservador(usuario, 2);
-        if (ronda > 10 && pistas > 0) notificarYEliminarObservador(usuario, 3);
-        if (ronda > 10 && pistas == 3) notificarYEliminarObservador(usuario, 4);
+        if (usuario.getTimeSpent() == 0) notificarYEliminarObservador(usuario, 1,listaEnlaces);
+        if (usuario.getGamesAchieved() == 1) notificarYEliminarObservador(usuario, 2,listaEnlaces);
+        if (ronda > 10 && pistas > 0) notificarYEliminarObservador(usuario, 3, listaEnlaces);
+        if (ronda > 10 && pistas == 3) notificarYEliminarObservador(usuario, 4, listaEnlaces);
         //del 5 - 22 son cobertura ODS
-        if (partidasEnRacha == 3) notificarYEliminarObservador(usuario, 23);
-        if (usuario.getPointsAchieved() >= 10000) notificarYEliminarObservador(usuario, 24);
-        if (usuario.getPointsAchieved() >= 100000) notificarYEliminarObservador(usuario, 25);
-        if (usuario.getPointsAchieved() >= 1000000) notificarYEliminarObservador(usuario, 26);
-        if (ronda > 10 && retoMixtoEscogido) notificarYEliminarObservador(usuario, 27);
-        if (ronda == 1 && vidas == 0) notificarYEliminarObservador(usuario, 30);
+        if (partidasEnRacha == 3) notificarYEliminarObservador(usuario, 23, listaEnlaces);
+        if (usuario.getPointsAchieved() >= 10000) notificarYEliminarObservador(usuario, 24, listaEnlaces);
+        if (usuario.getPointsAchieved() >= 100000) notificarYEliminarObservador(usuario, 25, listaEnlaces);
+        if (usuario.getPointsAchieved() >= 1000000) notificarYEliminarObservador(usuario, 26, listaEnlaces);
+        if (ronda > 10 && retoMixtoEscogido) notificarYEliminarObservador(usuario, 27, listaEnlaces);
+        System.out.println("Comprobando logro 30\n\tronda = " + ronda + "\n\tvidas = " + vidas);
+        if (ronda == 1 && vidas == 0) notificarYEliminarObservador(usuario, 30, listaEnlaces);
     }
 
-    public void notificarYEliminarObservador(User u, int id_logro) {
+    public void notificarYEliminarObservador(User u, int id_logro, List<User_has_Logro> listaEnlaces) {
         User_has_Logro l = new User_has_Logro("", -1);
 
         u.notificarObservadores(id_logro);
         l.setCompletado(true);
-        l = l.getUserLogroPorID(id_logro);
+        l = l.getUserLogroPorID(id_logro, listaEnlaces);
         u.eliminarObservador(l);
     }
 }

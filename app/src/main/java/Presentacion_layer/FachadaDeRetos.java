@@ -24,6 +24,8 @@ import Domain_Layer.RetoAhorcado;
 import Domain_Layer.RetoDescubrirFrase;
 import Domain_Layer.RetoPregunta;
 import Domain_Layer.User;
+import Patron_estado.EstadoNivel0;
+import Patron_estado.EstadoNivelJugador;
 import Domain_Layer.User_has_Logro;
 import Persistence.ODS_URepository;
 import Persistence.SingletonConnection;
@@ -49,6 +51,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
     BuilderRetoDescubrirFrase retoDescubrirFrase;
 
 
+
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -58,9 +61,12 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         botonRetoPregunta = findViewById(R.id.botonRetoPregunta);
         botonRetoFrase = findViewById(R.id.botonRetoFrase);
         botonRetoMixto = findViewById(R.id.botonRetoMixto);
+
         Bundle extras = getIntent().getExtras();
         String tipoReto = extras.getString("tipoReto");
 
+       // int nivelUsuario = extras.getInt("nivelUsuario");
+       // System.out.println(nivelUsuario + "-----------------------");
         switch (tipoReto) {
             case "RetoPregunta":
                 retoPreguntaEscogido = true;
@@ -75,6 +81,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
                 retoMixtoEscogido = true;
         }
         empezarPartida();
+
     }
 
     public void empezarPartida() {

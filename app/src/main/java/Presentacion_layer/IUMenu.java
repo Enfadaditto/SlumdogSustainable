@@ -4,18 +4,31 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 public class IUMenu extends AppCompatActivity{
 
+
+    Button botonRetoAhorcado;
+    Button botonRetoFrase;
+    Button botonRetoMixto;
+
     @Override
+
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seleccion_reto);
+
+        botonRetoAhorcado = findViewById(R.id.botonRetoAhorcado);
+        botonRetoFrase = findViewById(R.id.botonRetoFrase);
+        botonRetoMixto = findViewById(R.id.botonRetoMixto);
+        habilitarBotones();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
@@ -63,5 +76,38 @@ public class IUMenu extends AppCompatActivity{
     public void easterEggOnClick(View v) {
         contadorClick++;
         if (contadorClick == 5) ;//notificarYEliminarObservador(MainActivity.user, 29);
+    }
+
+    public int desbloqueoDeNiveles(){
+        if(MainActivity.user.getPointsAchieved()>5000 && MainActivity.user.getPointsAchieved()<10000)  {
+            return 1;
+        }else if(MainActivity.user.getPointsAchieved()>=10000){
+            return 2;
+        }
+
+        return 0;
+    }
+
+
+
+    public void habilitarBotones(){
+
+        if(desbloqueoDeNiveles() == 0){
+            botonRetoAhorcado.setText("Necesitas nivel 1");
+            botonRetoAhorcado.setEnabled(false);
+            botonRetoFrase.setText("Necesitas nivel 2");
+            botonRetoFrase.setEnabled(false);
+            botonRetoMixto.setText("Necesitas nivel 3");
+            botonRetoMixto.setEnabled(false);
+        } else if (desbloqueoDeNiveles() == 1) {
+            botonRetoFrase.setText("Necesitas nivel 2");
+            botonRetoFrase.setEnabled(false);
+            botonRetoMixto.setText("Necesitas nivel 3");
+            botonRetoMixto.setEnabled(false);
+        } else if(desbloqueoDeNiveles() == 2){
+            botonRetoMixto.setText("Necesitas nivel 3");
+            botonRetoMixto.setEnabled(false);
+        }
+
     }
 }

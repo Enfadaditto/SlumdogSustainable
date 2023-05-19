@@ -1,7 +1,7 @@
 package Domain_Layer;
 
 import android.graphics.Bitmap;
-import android.media.Image;
+import android.widget.TextView;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -11,7 +11,7 @@ import com.slumdogsustainable.MainActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import Persistence.UserRepository;
+import Patron_estado.EstadoNivelJugador;
 
 @DatabaseTable
 public class User {
@@ -41,6 +41,11 @@ public class User {
     private List<ODS_has_User> ODSUser;
 
     private List<Observador> observadores = new ArrayList<>();
+    private EstadoNivelJugador estado;
+
+    //private List<Logro> MedallasYTrofeos;
+
+
 
     User() {}
     public User(String nick, String email, String password, byte[] icon) {
@@ -130,6 +135,19 @@ public class User {
     public void setIcon(byte [] icon) {
         this.icon = icon;
     }
+
+
+
+
+   public int  getNivelUsuario(){
+       if(MainActivity.user.getPointsAchieved()>5000 && MainActivity.user.getPointsAchieved()<10000)  {
+           return 1;
+       }else if(MainActivity.user.getPointsAchieved()>=10000){
+           return 2;
+       }
+
+       return 0;
+   }
 
     public void agregarObservador(Observador observador) {
         observadores.add(observador);

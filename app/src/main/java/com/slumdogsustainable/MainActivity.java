@@ -6,11 +6,18 @@ import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.TextView;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.Calendar;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,6 +32,9 @@ import java.util.List;
 import java.util.Queue;
 
 import Domain_Layer.Logro;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import Domain_Layer.User;
 //import Persistence.Repository;
 import Domain_Layer.User_has_Logro;
@@ -44,12 +54,14 @@ public class MainActivity extends AppCompatActivity {
     public static MediaPlayer music; //MediaPlayer sonidos
     public static MediaPlayer background; //Mediaplayer fondo
     public static User user;
+    TextView nivelJugador;
     public static Queue<Logro> logrosCompletados = new ArrayDeque<>();
 
     Button botonInicio;
 
     TextView nombreLogro, descripcionLogro;
     LinearLayout bocadilloLogro;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -59,11 +71,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         new Task().execute();
 
+
+        Date fecha = new Date("08/07/2023");
+
+        Calendar diaDelaSemana = Calendar.getInstance();
+
+        LocalDate currentDate = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            currentDate = LocalDate.now();
+        }
+        DayOfWeek dayOfWeek = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            dayOfWeek = currentDate.getDayOfWeek();
+        }
+        System.out.println("------------" + dayOfWeek + "-------------------------");
+
+
+
         new Thread(() -> {
             user = new UserRepository(SingletonConnection.getSingletonInstance()).getUserByUsername("prueba");
             addObservadores(user);
         }).start();
     }
+
 
 
     @Override
@@ -98,6 +128,26 @@ public class MainActivity extends AppCompatActivity {
                             music.start();
                             setContentView(R.layout.inicio);
                             botonInicio = findViewById(R.id.botonInicio);
+                            nivelJugador = findViewById(R.id.TextoNivelUsuario);
+                            nivelJugador.setText("Nivel "+ user.getNivelUsuario());
+
+                            nivelJugador.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable editable) {
+
+                                }
+                            });
+
                             botonInicio.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -113,6 +163,8 @@ public class MainActivity extends AppCompatActivity {
             {
                 System.out.println(e);
             }
+
+
             return null;
         }
     }
@@ -190,4 +242,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
     }
+
+
 }

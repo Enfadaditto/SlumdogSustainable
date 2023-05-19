@@ -5,384 +5,1873 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_logros_metas">
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="543dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="543dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+            <!-- RelativeLayout 1 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro1"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro1"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 1"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion1"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro1"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 1"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+            </RelativeLayout>
+
+            <!-- RelativeLayout 2 to 34 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro2"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro2"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 2"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion2"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro2"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 2"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro3"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro3"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 3"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion3"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro3"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 3"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 4 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro4"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro4"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 4"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion4"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro4"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 4"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 5 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro5"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro5"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 5"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion5"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro5"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 5"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 6 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro6"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro6"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 6"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion6"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro6"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 6"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 7 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro7"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro7"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 7"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion7"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro7"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 7"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 8 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro8"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro8"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 8"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion8"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro8"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 8"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+            <!-- RelativeLayout 9 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro9"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro9"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 9"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion9"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro9"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 9"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 10 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro10"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro10"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 10"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion10"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro10"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 10"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 11 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro11"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro11"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 11"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion11"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro11"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 11"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 12 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro12"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro12"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 12"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion12"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro12"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 12"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 13 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro13"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro13"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 13"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion13"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro13"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 13"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 14 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro14"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro14"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 14"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion14"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro14"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 14"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 15 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro15"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro15"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 15"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion15"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro15"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 15"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+            <!-- RelativeLayout 16 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro16"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro16"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 16"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion16"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro16"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 16"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 17 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro17"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro17"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 17"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion17"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro17"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 17"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 18 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro18"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro18"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 18"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion18"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro18"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 18"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 19 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro19"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro19"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 19"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion19"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro19"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 19"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 20 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro20"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro20"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 20"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion20"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro20"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 20"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 21 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro21"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro21"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 21"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion21"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro21"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 21"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 22 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro22"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro22"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 22"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion22"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro22"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 22"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 23 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro23"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro23"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 23"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion23"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro23"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 23"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 24 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro24"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro24"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 24"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion24"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro24"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 24"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+            <!-- RelativeLayout 25 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro25"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro25"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 25"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion25"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro25"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 25"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 26 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro26"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro26"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 26"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion26"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro26"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 26"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 27 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro27"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro27"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 27"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion27"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro27"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 27"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 28 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro28"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro28"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 28"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion28"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro28"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 28"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 29 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro29"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro29"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 29"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion29"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro29"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 29"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 30 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro30"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro30"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 30"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion30"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro30"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 30"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+            <!-- RelativeLayout 31 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro31"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro31"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 31"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion31"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro31"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 31"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 32 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro32"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro32"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 32"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion32"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro32"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 32"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+            <!-- RelativeLayout 33 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/fondo_logro">
+
+                <ImageView
+                    android:id="@+id/imagenLogro33"
+                    android:layout_width="58dp"
+                    android:layout_height="49dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="341dp"
+                    android:layout_marginBottom="12dp"
+                    app:srcCompat="@drawable/logronoconseguido" />
+
+                <TextView
+                    android:id="@+id/textoLogro33"
+                    android:layout_width="312dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="77dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="42dp"
+                    android:text="LOGRO 33"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/descripcion33"
+                    android:layout_width="311dp"
+                    android:layout_height="26dp"
+                    android:layout_alignStart="@+id/imagenLogro33"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="Descripción logro 33"
+                    android:textAlignment="center"
+                    android:textColor="#B2CFB2" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="385dp"
+        android:layout_height="69dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="L O G R O S"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.615"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.122" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:background="@drawable/fondo_logro">
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.257"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.645"
+        app:srcCompat="@drawable/trofeo" />
 
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="46dp"
-                android:layout_height="44dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="349dp"
-                android:layout_marginBottom="13dp"
-                app:srcCompat="@drawable/logronoconseguido" />
-
-            <TextView
-                android:id="@+id/textoLogro1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="184dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="169dp"
-                android:layout_marginBottom="43dp"
-                android:text="LOGRO 1"
-                android:textColor="#FFFFFF" />
-        </RelativeLayout>
-
-        <!-- Agregar 10 RelativeLayout adicionales con separación de 10dp entre ellos -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/fondo_logro">
-
-            <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="46dp"
-                android:layout_height="44dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="349dp"
-                android:layout_marginBottom="13dp"
-                app:srcCompat="@drawable/logronoconseguido" />
-
-            <TextView
-                android:id="@+id/textoLogro2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="184dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="169dp"
-                android:layout_marginBottom="43dp"
-                android:text="LOGRO 2"
-                android:textColor="#FFFFFF" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/fondo_logro">
-
-            <ImageView
-                android:id="@+id/imageView11"
-                android:layout_width="46dp"
-                android:layout_height="44dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="349dp"
-                android:layout_marginBottom="13dp"
-                app:srcCompat="@drawable/logronoconseguido" />
-
-            <TextView
-                android:id="@+id/textoLogro3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="184dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="169dp"
-                android:layout_marginBottom="43dp"
-                android:text="LOGRO 3"
-                android:textColor="#FFFFFF" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/fondo_logro">
-
-            <ImageView
-                android:id="@+id/imageView12"
-                android:layout_width="46dp"
-                android:layout_height="44dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="349dp"
-                android:layout_marginBottom="13dp"
-                app:srcCompat="@drawable/logronoconseguido" />
-
-            <TextView
-                android:id="@+id/textoLogro4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="184dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="169dp"
-                android:layout_marginBottom="43dp"
-                android:text="LOGRO 4"
-                android:textColor="#FFFFFF" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/fondo_logro">
-
-            <ImageView
-                android:id="@+id/imageView13"
-                android:layout_width="46dp"
-                android:layout_height="44dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="349dp"
-                android:layout_marginBottom="13dp"
-                app:srcCompat="@drawable/logronoconseguido" />
-
-            <TextView
-                android:id="@+id/textoLogro5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="184dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="169dp"
-                android:layout_marginBottom="43dp"
-                android:text="LOGRO 5"
-                android:textColor="#FFFFFF" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/fondo_logro">
-
-            <ImageView
-                android:id="@+id/imageView14"
-                android:layout_width="46dp"
-                android:layout_height="44dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="349dp"
-                android:layout_marginBottom="13dp"
-                app:srcCompat="@drawable/logronoconseguido" />
-
-            <TextView
-                android:id="@+id/textoLogro6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="184dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="169dp"
-                android:layout_marginBottom="43dp"
-                android:text="LOGRO 6"
-                android:textColor="#FFFFFF" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/fondo_logro">
-
-            <ImageView
-                android:id="@+id/imageView15"
-                android:layout_width="46dp"
-                android:layout_height="44dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="349dp"
-                android:layout_marginBottom="13dp"
-                app:srcCompat="@drawable/logronoconseguido" />
-
-            <TextView
-                android:id="@+id/textoLogro7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="184dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="169dp"
-                android:layout_marginBottom="43dp"
-                android:text="LOGRO 7"
-                android:textColor="#FFFFFF" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/fondo_logro">
-
-            <ImageView
-                android:id="@+id/imageView16"
-                android:layout_width="46dp"
-                android:layout_height="44dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="349dp"
-                android:layout_marginBottom="13dp"
-                app:srcCompat="@drawable/logronoconseguido" />
-
-            <TextView
-                android:id="@+id/textoLogro8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="184dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="169dp"
-                android:layout_marginBottom="43dp"
-                android:text="LOGRO 8"
-                android:textColor="#FFFFFF" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/fondo_logro">
-
-            <ImageView
-                android:id="@+id/imageView17"
-                android:layout_width="46dp"
-                android:layout_height="44dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="349dp"
-                android:layout_marginBottom="13dp"
-                app:srcCompat="@drawable/logronoconseguido" />
-
-            <TextView
-                android:id="@+id/textoLogro9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="184dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="169dp"
-                android:layout_marginBottom="43dp"
-                android:text="LOGRO 9"
-                android:textColor="#FFFFFF" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/fondo_logro">
-
-            <ImageView
-                android:id="@+id/imageView18"
-                android:layout_width="46dp"
-                android:layout_height="44dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="349dp"
-                android:layout_marginBottom="13dp"
-                app:srcCompat="@drawable/logronoconseguido" />
-
-            <TextView
-                android:id="@+id/textoLogro10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="184dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="169dp"
-                android:layout_marginBottom="43dp"
-                android:text="LOGRO 10"
-                android:textColor="#FFFFFF" />
-        </RelativeLayout>
-    </LinearLayout>
-    </ScrollView>
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="67dp"
+        android:layout_height="62dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.755"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.688"
+        app:srcCompat="@drawable/mi_proyecto" />
 </androidx.constraintlayout.widget.ConstraintLayout>

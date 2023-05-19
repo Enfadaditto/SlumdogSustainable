@@ -172,6 +172,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         if (ronda > 10) {
             updatePartidasandTime(true, false, juegoRetoPregunta.getTiempo() * 10, puntosTotales);
             //updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
+            setResult(100);
             finish();
             pistas = 3;
             partidasEnRacha++;
@@ -180,6 +181,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         if (vidas < 0) {
             updatePartidasandTime(false, false, juegoRetoPregunta.getTiempo() * ronda, 0);
             //updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
+            setResult(100);
             finish();
             pistas = 3;
             partidasEnRacha = 0;
@@ -201,6 +203,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         if (ronda > 10) {
             updatePartidasandTime(true, false, juegoRetoAhorcado.getTiempo() * 10, puntosTotales);
             //updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
+            setResult(100);
             finish();
             pistas = 3;
             partidasEnRacha++;
@@ -209,6 +212,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         if (vidas < 0) {
             updatePartidasandTime(false, false, juegoRetoAhorcado.getTiempo() * ronda, 0);
             //updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
+            setResult(100);
             finish();
             pistas = 3;
             partidasEnRacha = 0;
@@ -245,6 +249,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         if (ronda > 10) {
             updatePartidasandTime(true, false, juegoRetoDescubrirFrase.getTiempo() * 10, puntosTotales);
             //updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
+            setResult(100);
             finish();
             pistas = 3;
             partidasEnRacha++;
@@ -253,6 +258,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         if (vidas < 0) {
             updatePartidasandTime(false, false, juegoRetoDescubrirFrase.getTiempo() * ronda, 0);
             //updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
+            setResult(100);
             finish();
             pistas = 3;
             partidasEnRacha = 0;
@@ -386,6 +392,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             if (resultCode == ABANDON) {
                 updatePartidasandTime(false, true, juegoReto.getTiempo() * ronda, puntosConsolidados);
                 //updateGamesAbandonedandTime(juegoReto.getTiempo() * ronda);
+                setResult(100);
                 finish();
             } else if (resultCode == RESULT_OK) {
                 if(haUsadoPista){

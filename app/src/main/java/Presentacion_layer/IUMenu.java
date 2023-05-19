@@ -24,7 +24,7 @@ public class IUMenu extends AppCompatActivity{
         Bundle b = new Bundle();
         b.putString("tipoReto", "RetoAhorcado");
         I.putExtras(b);
-        startActivity(I);
+        startActivityForResult(I, 100);
     }
 
     public void clickBotonRetoPregunta(View v){
@@ -32,7 +32,7 @@ public class IUMenu extends AppCompatActivity{
         Bundle b = new Bundle();
         b.putString("tipoReto", "RetoPregunta");
         I.putExtras(b);
-        startActivity(I);
+        startActivityForResult(I, 100);
     }
 
     public void clickBotonRetoDescubrirFrase(View v){
@@ -40,7 +40,7 @@ public class IUMenu extends AppCompatActivity{
         Bundle b = new Bundle();
         b.putString("tipoReto", "RetoFrase");
         I.putExtras(b);
-        startActivity(I);
+        startActivityForResult(I, 100);
     }
 
     public void clickBotonRetoMixto(View v) {
@@ -48,7 +48,15 @@ public class IUMenu extends AppCompatActivity{
         Bundle b = new Bundle();
         b.putString("tipoReto", "RetoMixto");
         I.putExtras(b);
-        startActivity(I);
+        startActivityForResult(I, 100);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 100) {
+            finish();
+        }
     }
 
     int contadorClick = 0;

@@ -10,7 +10,7 @@ import Persistence.LogroRepository;
 import Persistence.SingletonConnection;
 import Persistence.User_LRepository;
 
-public class User_has_Logro implements Observador{
+public class User_has_Logro {
 
     @DatabaseField(id = true)
     private int id_userLogro;
@@ -29,20 +29,6 @@ public class User_has_Logro implements Observador{
     public User_has_Logro(String id_user, int id_logro) {
         this.id_user = id_user; this.id_logro = id_logro;
         this.progreso = 0; this.completado = false;
-    }
-
-    @Override
-    public void actualizar(int id_logro) {
-        if (this.id_logro != id_logro) return;
-        System.out.println("Logro completado: " + id_logro);
-        Logro logro = new Logro(-1,"","");
-        User_LRepository userlogroR = new User_LRepository(SingletonConnection.getSingletonInstance());
-
-        MainActivity.logrosCompletados.offer(logro.getLogroPorID(id_logro));
-        this.setProgreso(100); this.setCompletado(true);
-        userlogroR.actualizar(this);
-
-        // Para mostrar logros completados en el armario comprobar todos aquellos que fueron completados
     }
 
     public List<User_has_Logro> getAllUserLogros(User u, List<User_has_Logro> listaEnlaces) {

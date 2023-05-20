@@ -86,13 +86,6 @@ public class MainActivity extends AppCompatActivity {
             dayOfWeek = currentDate.getDayOfWeek();
         }
         System.out.println("------------" + dayOfWeek + "-------------------------");
-
-
-
-        new Thread(() -> {
-            user = new UserRepository(SingletonConnection.getSingletonInstance()).getUserByUsername("prueba");
-            addObservadores(user);
-        }).start();
     }
 
 
@@ -189,20 +182,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void addObservadores(User u) {
-        User_has_Logro l = new User_has_Logro("",-1);
-        User_LRepository ULR = new User_LRepository(SingletonConnection.getSingletonInstance());
-        List<User_has_Logro> logros = l.getAllUserLogros(u, ULR.obtenerTodos());
-
-        for (User_has_Logro x : logros) {
-            if (!x.isCompletado()) {
-                System.out.println("Añadido observador del logro " + x.getId_logro());
-                u.agregarObservador(x);
-                if (x.getEnlaceUsuarioLogro(u.getNickname(), x.getId_logro(), ULR.obtenerTodos()) == null) ULR.guardar(x);
-            }
-        }
-    }
-
     public void mostrarLogros() {
         nombreLogro = findViewById(R.id.nombreLogro);
         descripcionLogro = findViewById(R.id.descripcionLogro);
@@ -217,22 +196,18 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("Logro a mostrar: " + logro.getNombre());
 
             Animation animacionDesaparecer = new AlphaAnimation(1.0f, 0.0f);
-            animacionDesaparecer.setDuration(100);
+            animacionDesaparecer.setDuration(50);
+            Animation animacionAparecer = new AlphaAnimation(0.0f, 1.0f);
+            animacionAparecer.setDuration(50);
 
             nombreLogro.setText(logro.getNombre());
             descripcionLogro.setText(logro.getDescripcion());
-            Animation animacionAparecer = new AlphaAnimation(0.0f, 1.0f);
-            animacionAparecer.setDuration(10);
+
             bocadilloLogro.setVisibility(View.VISIBLE);
             bocadilloLogro.startAnimation(animacionAparecer);
             bocadilloLogro.setOnClickListener((View v) -> {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
                         bocadilloLogro.setVisibility(View.INVISIBLE);
                         bocadilloLogro.startAnimation(animacionDesaparecer);
-                    }
-                }, 1000);
             });
         }
     }

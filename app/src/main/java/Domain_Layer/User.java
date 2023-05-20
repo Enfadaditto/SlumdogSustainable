@@ -40,10 +40,7 @@ public class User {
 
     private List<ODS_has_User> ODSUser;
 
-    private List<Observador> observadores = new ArrayList<>();
     private EstadoNivelJugador estado;
-
-    //private List<Logro> MedallasYTrofeos;
 
 
 
@@ -148,18 +145,4 @@ public class User {
 
        return 0;
    }
-
-    public void agregarObservador(Observador observador) {
-        observadores.add(observador);
-    }
-
-    public void eliminarObservador(Observador observador) {
-        observadores.remove(observador);
-    }
-
-    public void notificarObservadores(int id_logro) {
-        for (Observador observador : observadores) {
-            observador.actualizar(id_logro);
-        }
-    }
 }

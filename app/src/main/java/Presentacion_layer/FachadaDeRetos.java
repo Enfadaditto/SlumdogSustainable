@@ -349,16 +349,6 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Thread hilo = new Thread (() -> {
-            comprobarLogros();
-        });
-        hilo.start();
-        try {
-            hilo.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
 
         if (retoPreguntaEscogido) {
             handleActivityResult(juegoRetoPregunta, requestCode, resultCode);
@@ -442,6 +432,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         }).start();
     }
 
+    /*
     public void comprobarLogros() {
         User usuario = MainActivity.user;
         List<User_has_Logro> listaEnlaces = new User_LRepository(SingletonConnection.getSingletonInstance()).obtenerTodos();
@@ -459,13 +450,5 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         System.out.println("Comprobando logro 30\n\tronda = " + ronda + "\n\tvidas = " + vidas);
         if (ronda == 1 && vidas == 0) notificarYEliminarObservador(usuario, 30, listaEnlaces);
     }
-
-    public void notificarYEliminarObservador(User u, int id_logro, List<User_has_Logro> listaEnlaces) {
-        User_has_Logro l = new User_has_Logro("", -1);
-
-        u.notificarObservadores(id_logro);
-        l.setCompletado(true);
-        l = l.getUserLogroPorID(id_logro, listaEnlaces);
-        u.eliminarObservador(l);
-    }
+    */
 }

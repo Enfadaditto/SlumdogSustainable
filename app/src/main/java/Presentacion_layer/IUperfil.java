@@ -102,7 +102,7 @@ public class IUperfil extends AppCompatActivity{
         }
         if (!contraseña.getText().toString().matches("^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\\-__+.]){1,}).{8,}$")) {
             runOnUiThread(new Runnable() {
-                public void run() { ErrorAlert("Tu contraseña no es lo suficientemente segura, debe tener una mayúscula, una minúscula, 8 carácteres, y uno de ellos especial."); }
+                public void run() { ErrorAlert("Tu contraseña no es lo suficientemente segura, debe tener una mayúscula, una minúscula, mínimo 8 carácteres, y uno de ellos especial."); }
             });
 
             return;
@@ -127,7 +127,7 @@ public class IUperfil extends AppCompatActivity{
         s.actualizar(usuarioActual);
     }
     public void clickInfoContraseña(View v) {
-        ErrorAlert("La contraseña debe tener una mayúscula, una minúscula, 8 carácteres, y uno de ellos especial.");
+        ErrorAlert("La contraseña debe tener una mayúscula, una minúscula, mínimo 8 carácteres, y uno de ellos especial.");
     }
     public void ErrorAlert(String errorString) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);

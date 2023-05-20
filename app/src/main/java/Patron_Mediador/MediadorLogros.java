@@ -23,7 +23,7 @@ public class MediadorLogros implements IMediadorLogros {
         System.out.println("Logro desbloqueado: " + MainActivity.logrosCompletados.peek().getNombre());
         User_has_Logro uhl = new User_has_Logro().getEnlaceUsuarioLogro(usuario.getNickname(), logro.getId_logro(), listaEnlaces);
         uhl.setCompletado(true);
-        //conexionEnlacesBD.actualizar(uhl);
+        conexionEnlacesBD.actualizar(uhl);
     }
 
     public void addEnlaces(User usuario) {

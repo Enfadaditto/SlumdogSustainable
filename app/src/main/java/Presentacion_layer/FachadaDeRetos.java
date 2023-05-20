@@ -407,7 +407,11 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             if (resultCode == ABANDON) {
                 updatePartidasandTime(false, true, juegoReto.getTiempo() * ronda, puntosConsolidados);
                 //updateGamesAbandonedandTime(juegoReto.getTiempo() * ronda);
+                new Thread(() -> {
+                    comprobarLogros();
+                }).start();
                 setResult(100);
+
                 finish();
             } else if (resultCode == RESULT_OK) {
                 if(haUsadoPista){

@@ -214,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
                         nuevoBocadillo.setVisibility(View.INVISIBLE);
                         nuevoBocadillo.startAnimation(animacionDesaparecer);
             });
+            System.out.println("MOSTRADO BOCADILLO LOGRO: " + logro.getId_logro());
         }
     }
 
@@ -224,12 +225,10 @@ public class MainActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                System.out.println("REINICIANDO CONTADOR");
                 contadorToques = 0;
             }
         }, 3000);
         if (contadorToques == 5) {
-            System.out.println("LOGRO DESBLOQUEADO");
             FachadaDeRetos.easterEgg = true;
         }
     }

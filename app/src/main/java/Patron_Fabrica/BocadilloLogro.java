@@ -27,6 +27,8 @@ public class BocadilloLogro extends LinearLayout implements IBocadilloLogro{
 
     public BocadilloLogro(Context context, Logro logro) {
         super(context);
+
+        System.out.println("CREANDO BOCADILLO DEL LOGRO: " + logro.getId_logro());
         this.context = context; this.logro = logro;
         this.setOrientation(HORIZONTAL);
         this.setLayoutParams(new LayoutParams(0,0));
@@ -34,6 +36,7 @@ public class BocadilloLogro extends LinearLayout implements IBocadilloLogro{
     }
 
     public void crearImagen(){
+        System.out.println("CREANDO IMAGEN DEL LOGRO: " + logro.getId_logro());
         if (logro.getTipo() == Logro.TipoLogro.Medalla) imagenLogro.setImageDrawable(getDrawable(context, R.drawable.corazon_roto));
         if (logro.getTipo() == Logro.TipoLogro.Trofeo) imagenLogro.setImageDrawable(getDrawable(context, R.drawable.corazon_vida));
 
@@ -41,16 +44,19 @@ public class BocadilloLogro extends LinearLayout implements IBocadilloLogro{
 
     }
     public void crearSeparador() {
+        System.out.println("CREANDO SEPARADORES DEL LOGRO: " + logro.getId_logro());
         barraVertical.setLayoutParams(new LayoutParams(2, ViewGroup.LayoutParams.MATCH_PARENT));
         barraVertical.setBackgroundColor(Color.WHITE);
         barraHorizontal.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2));
         barraHorizontal.setBackgroundColor(Color.WHITE);
     }
     public void crearLayoutTextos() {
+        System.out.println("CREANDO ESPACIO DE TEXTOS DEL LOGRO: " + logro.getId_logro());
         textoLayout.setLayoutParams(new LayoutParams(1000, ViewGroup.LayoutParams.WRAP_CONTENT,3));
         textoLayout.setOrientation(VERTICAL);
     }
     public void crearTextos() {
+        System.out.println("AÑADIENDO TEXTOS DEL LOGRO: " + logro.getId_logro());
         nombreLogro.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 120));
         nombreLogro.setGravity(Gravity.CENTER|Gravity.LEFT);
         nombreLogro.setPadding(10,0,0,0);
@@ -63,6 +69,7 @@ public class BocadilloLogro extends LinearLayout implements IBocadilloLogro{
 
     }
     public void addAlBocadillo() {
+        System.out.println("MONTANDO EL BOCADILLO DEL LOGRO: " + logro.getId_logro());
         textoLayout.addView(nombreLogro);
         textoLayout.addView(barraHorizontal);
         textoLayout.addView(descripcionLogro);

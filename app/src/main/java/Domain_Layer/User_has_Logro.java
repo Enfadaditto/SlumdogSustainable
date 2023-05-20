@@ -24,7 +24,7 @@ public class User_has_Logro {
     @DatabaseField
     private boolean completado;
 
-    User_has_Logro() {}
+    public User_has_Logro() {}
 
     public User_has_Logro(String id_user, int id_logro) {
         this.id_user = id_user; this.id_logro = id_logro;

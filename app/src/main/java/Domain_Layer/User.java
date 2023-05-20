@@ -1,16 +1,14 @@
 package Domain_Layer;
 
-import android.graphics.Bitmap;
-import android.widget.TextView;
-
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.slumdogsustainable.MainActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import Patron_Mediador.IMediadorLogros;
+import Patron_Mediador.MediadorLogros;
 import Patron_estado.EstadoNivelJugador;
 
 @DatabaseTable
@@ -39,7 +37,7 @@ public class User {
     private byte [] icon;
 
     private List<ODS_has_User> ODSUser;
-
+    private IMediadorLogros mediadorLogros = new MediadorLogros();
     private EstadoNivelJugador estado;
 
 
@@ -133,8 +131,13 @@ public class User {
         this.icon = icon;
     }
 
+    public void desbloquearLogro(Logro logro) {
+        mediadorLogros.notificarLogroDesbloqueado(this, logro);
+    }
 
-
+    public void addEnlaces() {
+        mediadorLogros.addEnlaces(this);
+    }
 
    public int  getNivelUsuario(){
        if(MainActivity.user.getPointsAchieved()>5000 && MainActivity.user.getPointsAchieved()<10000)  {

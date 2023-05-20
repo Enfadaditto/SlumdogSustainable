@@ -17,7 +17,7 @@ public class Logro {
 
     public enum TipoLogro { Medalla, Trofeo }
 
-    Logro() {}
+    public Logro() {}
 
     public Logro(int id_logro, String nombre, String descripcion) {
         this.id_logro = id_logro; this.nombre = nombre; this.descripcion = descripcion;

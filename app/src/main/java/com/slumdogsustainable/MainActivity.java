@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.os.Handler;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
@@ -19,7 +20,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Calendar;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,19 +28,19 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 
 import java.util.ArrayDeque;
-import java.util.List;
 import java.util.Queue;
 
+import Patron_Fabrica.BocadilloLogro;
+import Patron_Fabrica.FabricaConcreta;
 import Domain_Layer.Logro;
-import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
 import Domain_Layer.User;
 //import Persistence.Repository;
-import Domain_Layer.User_has_Logro;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
-import Persistence.User_LRepository;
+import Presentacion_layer.FachadaDeRetos;
 import Presentacion_layer.IUEstadisticas;
 import Presentacion_layer.IUMenu;
 import Presentacion_layer.IURanking;
@@ -86,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
             dayOfWeek = currentDate.getDayOfWeek();
         }
         System.out.println("------------" + dayOfWeek + "-------------------------");
+
+        new Thread(() -> {
+            user = new UserRepository(SingletonConnection.getSingletonInstance()).getUserByUsername("prueba");
+            addObservadores(user);
+        }).start();
     }
 
 
@@ -183,16 +188,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void mostrarLogros() {
-        nombreLogro = findViewById(R.id.nombreLogro);
-        descripcionLogro = findViewById(R.id.descripcionLogro);
         bocadilloLogro = findViewById(R.id.bocadilloLogro);
 
+        FabricaConcreta fabricaBocadillos = new FabricaConcreta();
         System.out.println("\tMOSTRANDO LOGROS POR PANTALLA");
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.println("Tamaño de la cola de logros: " + logrosCompletados.size());
         while(logrosCompletados.size() > 0) {
             Logro logro = logrosCompletados.poll();
-            // CREAR BOCADILLO
+
             System.out.println("Logro a mostrar: " + logro.getNombre());
 
             Animation animacionDesaparecer = new AlphaAnimation(1.0f, 0.0f);
@@ -200,28 +203,52 @@ public class MainActivity extends AppCompatActivity {
             Animation animacionAparecer = new AlphaAnimation(0.0f, 1.0f);
             animacionAparecer.setDuration(50);
 
-            nombreLogro.setText(logro.getNombre());
-            descripcionLogro.setText(logro.getDescripcion());
+            BocadilloLogro nuevoBocadillo = fabricaBocadillos.crearProducto(this, logro);
+            nuevoBocadillo.setLayoutParams(bocadilloLogro.getLayoutParams());
+            ViewGroup rootView = findViewById(R.id.content);
+            rootView.addView(nuevoBocadillo);
 
-            bocadilloLogro.setVisibility(View.VISIBLE);
-            bocadilloLogro.startAnimation(animacionAparecer);
-            bocadilloLogro.setOnClickListener((View v) -> {
-                        bocadilloLogro.setVisibility(View.INVISIBLE);
-                        bocadilloLogro.startAnimation(animacionDesaparecer);
+            nuevoBocadillo.setVisibility(View.VISIBLE);
+            nuevoBocadillo.startAnimation(animacionAparecer);
+            nuevoBocadillo.setOnClickListener((View v) -> {
+                        nuevoBocadillo.setVisibility(View.INVISIBLE);
+                        nuevoBocadillo.startAnimation(animacionDesaparecer);
             });
         }
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus){
-        if(hasFocus)
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mostrarLogros();
-                }
-            });
+    int contadorToques = 0;
+    public void easterEgg(View v){
+        contadorToques++;
+        if (contadorToques == 1)
+            new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("REINICIANDO CONTADOR");
+                contadorToques = 0;
+            }
+        }, 3000);
+        if (contadorToques == 5) {
+            System.out.println("LOGRO DESBLOQUEADO");
+            FachadaDeRetos.easterEgg = true;
+        }
     }
 
+    public void addObservadores(User u) {
+        u.addEnlaces();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (!hasFocus) return;
+        System.out.println("Tamaño cola logros: " + logrosCompletados.size());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!logrosCompletados.isEmpty()) mostrarLogros();
+            }
+        }, 100);
+
+    }
 
 }

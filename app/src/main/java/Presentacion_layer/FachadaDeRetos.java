@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
-import java.util.List;
 import java.util.Random;
 
 import Builder.BuilderRetoAhorcado;
@@ -24,13 +23,9 @@ import Domain_Layer.RetoAhorcado;
 import Domain_Layer.RetoDescubrirFrase;
 import Domain_Layer.RetoPregunta;
 import Domain_Layer.User;
-import Patron_estado.EstadoNivel0;
-import Patron_estado.EstadoNivelJugador;
-import Domain_Layer.User_has_Logro;
 import Persistence.ODS_URepository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
-import Persistence.User_LRepository;
 
 public class FachadaDeRetos extends AppCompatActivity implements FachadaInterface {
     int vidas = 1, ronda = 1, retoRandom, indiceRetoFacil = 0, indiceRetoDificil = 0, indiceRetoMedio = 0, puntosTotales, puntosConsolidados, erroresRetoAhorcado;
@@ -50,6 +45,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
     BuilderRetoAhorcado retoAhorcado;
     BuilderRetoDescubrirFrase retoDescubrirFrase;
 
+    public static boolean easterEgg = false;
 
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -183,6 +179,11 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             finish();
             pistas = 3;
             partidasEnRacha++;
+
+            new Thread(() -> {
+                comprobarLogros();
+            }).start();
+
             return;
         }
         if (vidas < 0) {
@@ -192,6 +193,11 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             finish();
             pistas = 3;
             partidasEnRacha = 0;
+
+            new Thread(() -> {
+                comprobarLogros();
+            }).start();
+
             return;
         } else if (ronda <= 4) {
             juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel1().get(indiceRetoFacil++));
@@ -214,6 +220,9 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             finish();
             pistas = 3;
             partidasEnRacha++;
+            new Thread(() -> {
+                comprobarLogros();
+            }).start();
             return;
         }
         if (vidas < 0) {
@@ -223,6 +232,9 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             finish();
             pistas = 3;
             partidasEnRacha = 0;
+            new Thread(() -> {
+                comprobarLogros();
+            }).start();
             return;
         }
         else if(ronda <= 4){
@@ -260,6 +272,9 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             finish();
             pistas = 3;
             partidasEnRacha++;
+            new Thread(() -> {
+                comprobarLogros();
+            }).start();
             return;
         }
         if (vidas < 0) {
@@ -269,6 +284,9 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             finish();
             pistas = 3;
             partidasEnRacha = 0;
+            new Thread(() -> {
+                comprobarLogros();
+            }).start();
             return;
         } else if (ronda <= 4) {
             juegoRetoDescubrirFrase.setNivel(1);
@@ -432,23 +450,21 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         }).start();
     }
 
-    /*
     public void comprobarLogros() {
         User usuario = MainActivity.user;
-        List<User_has_Logro> listaEnlaces = new User_LRepository(SingletonConnection.getSingletonInstance()).obtenerTodos();
 
-        if (usuario.getTimeSpent() == 0) notificarYEliminarObservador(usuario, 1,listaEnlaces);
-        if (usuario.getGamesAchieved() == 1) notificarYEliminarObservador(usuario, 2,listaEnlaces);
-        if (ronda > 10 && pistas > 0) notificarYEliminarObservador(usuario, 3, listaEnlaces);
-        if (ronda > 10 && pistas == 3) notificarYEliminarObservador(usuario, 4, listaEnlaces);
-        //del 5 - 22 son cobertura ODS
-        if (partidasEnRacha == 3) notificarYEliminarObservador(usuario, 23, listaEnlaces);
-        if (usuario.getPointsAchieved() >= 10000) notificarYEliminarObservador(usuario, 24, listaEnlaces);
-        if (usuario.getPointsAchieved() >= 100000) notificarYEliminarObservador(usuario, 25, listaEnlaces);
-        if (usuario.getPointsAchieved() >= 1000000) notificarYEliminarObservador(usuario, 26, listaEnlaces);
-        if (ronda > 10 && retoMixtoEscogido) notificarYEliminarObservador(usuario, 27, listaEnlaces);
-        System.out.println("Comprobando logro 30\n\tronda = " + ronda + "\n\tvidas = " + vidas);
-        if (ronda == 1 && vidas == 0) notificarYEliminarObservador(usuario, 30, listaEnlaces);
+        if (usuario.getTimeSpent() == 0) usuario.desbloquearLogro(new Logro().getLogroPorID(1));
+        if (usuario.getGamesAchieved() == 1) usuario.desbloquearLogro(new Logro().getLogroPorID(2));
+        if (ronda > 10 && pistas > 0) usuario.desbloquearLogro(new Logro().getLogroPorID(3));
+        if (ronda > 10 && pistas == 3) usuario.desbloquearLogro(new Logro().getLogroPorID(4));
+        if (partidasEnRacha == 3) usuario.desbloquearLogro(new Logro().getLogroPorID(23));
+        if (usuario.getPointsAchieved() >= 10000) usuario.desbloquearLogro(new Logro().getLogroPorID(24));
+        if (usuario.getPointsAchieved() >= 100000) usuario.desbloquearLogro(new Logro().getLogroPorID(25));
+        if (usuario.getPointsAchieved() >= 1000000) usuario.desbloquearLogro(new Logro().getLogroPorID(26));
+        if (ronda > 10 && retoMixtoEscogido) usuario.desbloquearLogro(new Logro().getLogroPorID(27));
+        if (usuario.getGamesAchieved() == 20) usuario.desbloquearLogro(new Logro().getLogroPorID(28));
+        if (easterEgg) usuario.desbloquearLogro(new Logro().getLogroPorID(29));
+        if (ronda == 1 && vidas < 0) usuario.desbloquearLogro(new Logro().getLogroPorID(30));
     }
-    */
+
 }

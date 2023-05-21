@@ -43,7 +43,7 @@ public class IUuserLogin extends AppCompatActivity {
             public void run(){
                 try {
                     if (checkPassword()) {
-                        MainActivity.user = new UserRepository(SingletonConnection.getSingletonInstance()).getUserByUsername(usernameField.getText().toString());
+                        MainActivity.user = User.getUserByUsername(new UserRepository(SingletonConnection.getSingletonInstance()), usernameField.getText().toString());
                         Intent intent = new Intent(IUuserLogin.this, MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -82,7 +82,7 @@ public class IUuserLogin extends AppCompatActivity {
     public boolean checkPassword() {
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
-        return new UserRepository(SingletonConnection.getSingletonInstance()).checkPassword(username, password);
+        return User.checkPassword(new UserRepository(SingletonConnection.getSingletonInstance()), username, password);
     }
 
     public void passwordButton(View view) {

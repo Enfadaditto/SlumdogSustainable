@@ -1,11 +1,11 @@
 package Builder;
 
-import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 import java.util.Collections;
 import java.util.Random;
 
+import Domain_Layer.Frase;
 import Domain_Layer.RetoDescubrirFrase;
 import Persistence.FraseRepository;
 import Persistence.SingletonConnection;
@@ -29,7 +29,7 @@ public class BuilderRetoDescubrirFrase extends BuilderReto {
             public void run() {
                 try {
                     FraseRepository frasesBD = new FraseRepository(SingletonConnection.getSingletonInstance());
-                    juego.setFrasesNivel1(frasesBD.getListadoFrase());;
+                    juego.setFrasesNivel1(Frase.getListadoFrase(frasesBD));;
                     Collections.shuffle(juego.getFrasesNivel1(), new Random());
                 } catch (Exception e) {
 

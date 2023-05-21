@@ -125,32 +125,12 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         }
     }
 
-    public void updateGamesandTime(Boolean won, int time) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
-                u.updateGamesandTime(won, time);
-            }
-        }).start();
-    }
-
-    public void updateGamesAbandonedandTime(int time) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
-                u.updateGamesAbandonedandTime(time);
-            }
-        }).start();
-    }
-
     public void updatePartidasandTime(Boolean hit, Boolean abandonada, int time, int Puntos) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
-                u.updatePartidasandTime(hit, abandonada, time, Puntos);
+                User.updatePartidasandTime(u, hit, abandonada, time, Puntos);
             }
         }).start();
     }
@@ -449,7 +429,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             @Override
             public void run() {
                 ODS_URepository ODS = new ODS_URepository(SingletonConnection.getSingletonInstance());
-                ODS.updateODS(hit, idODS, u);
+                u.updateODS(hit, idODS, ODS);
             }
         }).start();
     }

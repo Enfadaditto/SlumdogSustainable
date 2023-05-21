@@ -2,14 +2,22 @@ package Domain_Layer;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.stmt.UpdateBuilder;
 import com.j256.ormlite.table.DatabaseTable;
 import com.slumdogsustainable.MainActivity;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import Patron_Mediador.IMediadorLogros;
 import Patron_Mediador.MediadorLogros;
 import Patron_estado.EstadoNivelJugador;
+import Persistence.ODS_URepository;
+import Persistence.PartidaRepository;
+import Persistence.SingletonConnection;
+import Persistence.UserRepository;
 
 @DatabaseTable
 public class User {
@@ -50,6 +58,74 @@ public class User {
         this.icon = icon;
         this.pointsAchieved = 0;
         this.timeSpent = 0;
+    }
+
+    public static void updateGamesandTime(UserRepository userRepository, Boolean b, int time) {
+            try {
+                    if(b) {
+                            MainActivity.user.setGamesAchieved(MainActivity.user.getGamesAchieved() + 1);
+                    }
+                    else {
+                            MainActivity.user.setGamesFailed(MainActivity.user.getGamesFailed() + 1);
+                    }
+                    MainActivity.user.setTimeSpent(MainActivity.user.getTimeSpent() + ((float) time) / 60000);
+                    userRepository.getDao().update(MainActivity.user);
+            } catch (SQLException e) {
+                    throw new RuntimeException(e);
+            }
+    }
+
+    public static void updatePartidasandTime(UserRepository userRepository, Boolean hit, Boolean abadonada, int time, int Puntos) {
+            try {
+                    PartidaRepository p = new PartidaRepository(SingletonConnection.getSingletonInstance());
+                    if(hit) {
+                            MainActivity.user.setGamesAchieved(MainActivity.user.getGamesAchieved() + 1);
+                            p.guardar(new Partida((int) p.getDao().countOf(), MainActivity.user.getNickname(), Puntos, new Date()));
+                    }
+                    else if(!abadonada){
+                            MainActivity.user.setGamesFailed(MainActivity.user.getGamesFailed() + 1);
+                    }
+                    else {
+                            MainActivity.user.setGamesAbandoned(MainActivity.user.getGamesAbandoned() + 1);
+                            p.guardar(new Partida((int) p.getDao().countOf(), MainActivity.user.getNickname(), Puntos, new Date()));
+                    }
+                    MainActivity.user.setTimeSpent(MainActivity.user.getTimeSpent() + ((float) time) / 60000);
+                    userRepository.getDao().update(MainActivity.user);
+            } catch (SQLException e) {
+                    throw new RuntimeException(e);
+            }
+    }
+
+    public static boolean checkUsernameNotTaken(UserRepository userRepository, String username) {
+            List<User> users = userRepository.obtenerTodos();
+            List<String> userNicks = new ArrayList<>();
+            for (User u : users) userNicks.add(u.getNickname());
+            return !userNicks.contains(username);
+    }
+
+    public static User getUserByUsername(UserRepository userRepository, String username) {
+            List<User> users = userRepository.obtenerTodos();
+            for (User user : users) {
+                    if (user.getNickname().equals(username)) return user;
+            }
+            return null;
+    }
+
+    public static boolean checkPassword(UserRepository userRepository, String username, String password) {
+            if(getUserByUsername(userRepository, username) != null) {
+                    return getUserByUsername(userRepository, username).getPassword().equals(password);
+            }
+            return false;
+    }
+
+    public static void updateGamesAbandonedandTime(UserRepository userRepository, int time) {
+            try {
+                    MainActivity.user.setGamesAbandoned(MainActivity.user.getGamesAbandoned() + 1);
+                    MainActivity.user.setTimeSpent(MainActivity.user.getTimeSpent() + ((float) time) / 60000);
+                    userRepository.getDao().update(MainActivity.user);
+            } catch (SQLException e) {
+                    throw new RuntimeException(e);
+            }
     }
 
     public int getGamesAbandoned() {
@@ -148,4 +224,55 @@ public class User {
 
        return 0;
    }
+
+    public List<ODS_has_User> getAllODS_user(ODS_URepository ods_uRepository) {
+        List <ODS_has_User> res = new ArrayList();
+        List <ODS_has_User> ods = ods_uRepository.obtenerTodos();
+        for(ODS_has_User o : ods) {
+            if(o.getUserNickname().equals(getNickname())) {
+                res.add(o);
+            }
+        }
+        return res;
+    }
+
+    public void updateODS(Boolean hit, int idODS, ODS_URepository ods_uRepository) {
+        List <ODS_has_User> ods = ods_uRepository.obtenerTodos();
+        UpdateBuilder<ODS_has_User, Integer> updateBuilder = ods_uRepository.getDao().updateBuilder();
+        for(ODS_has_User o : ods) {
+            if(o.getUserNickname().equals(getNickname()) && idODS == o.getid_Ods()) {
+                try {
+                    updateBuilder.where().eq("username", getNickname()).and().eq("id_ODS", o.getid_Ods());
+                    if(hit) {
+                        o.oneRightGuess();
+                        updateBuilder.updateColumnValue("hits", o.getRightGuesses());
+                    }
+                    else {
+                        o.oneWrongGuess();
+                        updateBuilder.updateColumnValue("fails", o.getWrongGuesses());
+                    }
+                    updateBuilder.update();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
+    public List <ODS_has_User.tuplaStats> getPercentagebyUser(ODS_URepository ods_uRepository) {
+        List <ODS_has_User> aux = new ArrayList();
+        List <ODS_has_User> ods = ods_uRepository.obtenerTodos();
+        List <ODS_has_User.tuplaStats> res = new ArrayList<>();
+        for(ODS_has_User o : ods) {
+            if(o.getUserNickname().equals(getNickname())) {
+                aux.add(o);
+
+            }
+        }
+        for(ODS_has_User o : aux) {
+            res.add(new ODS_has_User.tuplaStats(o.getRightGuesssesPercent(), o.getid_Ods()));
+        }
+
+        return res;
+    }
 }

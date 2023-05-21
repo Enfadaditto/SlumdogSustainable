@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("------------" + dayOfWeek + "-------------------------");
 
         new Thread(() -> {
-            user = new UserRepository(SingletonConnection.getSingletonInstance()).getUserByUsername("prueba");
+            user = User.getUserByUsername(new UserRepository(SingletonConnection.getSingletonInstance()), "prueba");
             addObservadores(user);
         }).start();
     }
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             {
 
                 UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
-                user = u.getUserByUsername("prueba");
+                user = User.getUserByUsername(u, "prueba");
 
                runOnUiThread(new Runnable() {
                     public void run() {

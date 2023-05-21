@@ -3,8 +3,13 @@ package Domain_Layer;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import Persistence.AnswerRepository;
+import Persistence.QuestionRepository;
+import Persistence.SingletonConnection;
 
 @DatabaseTable
 public class Question {
@@ -20,7 +25,7 @@ public class Question {
     private int QuestionID;
     private List<Answer> answers;
 
-    Question preguntaActual;
+    public Question preguntaActual;
 
    public Question(){
        this.statement = "pregunta por defecto";
@@ -49,6 +54,17 @@ public class Question {
         this.id_ODS = ods;
     }
 
+    public static List<Question> getQuestionListByDifficulty(QuestionRepository questionRepository, String difficulty) throws SQLException {
+        List<Question> list = questionRepository.getDao().queryForAll();
+        List<Question> resultlist = new ArrayList<>();
+        for(Question q : list) {
+            if(q.getDifficulty().equals(difficulty)) {
+                resultlist.add(q);
+            }
+        }
+        return resultlist;
+    }
+
     public void addAnswer(Answer answer) {
         if (answers.size() != 4) {
             answers.add(answer);
@@ -69,10 +85,6 @@ public class Question {
 
     public void setPoints(int points) {
         this.points = points;
-    }
-
-    public String getDifficulty() {
-        return difficulty;
     }
 
     public void setDifficulty(String difficulty) {
@@ -106,4 +118,18 @@ public class Question {
        return (int)(Math.random()*lista.size());
     }
 
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public List<Answer> getRespuestasPregunta() {
+        List<Answer> resultlist = new ArrayList<>();
+        List<Answer> listaRespuestas = new AnswerRepository(SingletonConnection.getSingletonInstance()).obtenerTodos();
+        for (Answer a : listaRespuestas) {
+            if (a.getQuestionID() == getQuestionID()) {
+                resultlist.add(a);
+            }
+        }
+        return resultlist;
+    }
 }

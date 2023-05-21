@@ -2,6 +2,12 @@ package Domain_Layer;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.slumdogsustainable.MainActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import Persistence.ODS_URepository;
 
 @DatabaseTable
 public class ODS_has_User {
@@ -31,6 +37,16 @@ public class ODS_has_User {
         this.id_ODS = ods;
         this.hits = hits;
         this.fails = fails;
+    }
+
+    public static List<Integer> getNumberHitsandFails(ODS_URepository ods_uRepository) {
+        List<Integer> sol = new ArrayList(); sol.add(0); sol.add(0);
+        List <ODS_has_User> aux = MainActivity.user.getAllODS_user(ods_uRepository);
+        for(int i = 0; i < 18; i++) {
+            sol.set(0, sol.get(0) + aux.get(i).getRightGuesses());
+            sol.set(1, sol.get(1) + aux.get(i).getWrongGuesses());
+        }
+        return sol;
     }
 
     public String getODSTheme() {

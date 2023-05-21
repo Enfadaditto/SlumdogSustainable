@@ -1,7 +1,6 @@
 package Domain_Layer;
 
 import com.j256.ormlite.field.DatabaseField;
-import com.slumdogsustainable.MainActivity;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,6 +31,13 @@ public class Frase extends Reto {
         this.frase = frase;
         this.id_ODS = id_ODS;
         this.Descripcion = descripcion;
+    }
+
+    public static List<Frase> getListadoFrase(FraseRepository fraseRepository) throws SQLException{
+        List<Frase> list = fraseRepository.getDao().queryForAll();
+        List<Frase> resultlist = new ArrayList<>();
+        for(Frase q : list) resultlist.add(q);
+        return resultlist;
     }
 
     public String getDificultad() {
@@ -119,7 +125,7 @@ public class Frase extends Reto {
         FraseRepository fr = new FraseRepository(SingletonConnection.getSingletonInstance());
         List<Frase> listFrase = new ArrayList<>();
         try {
-            listFrase = new ArrayList<>(fr.getListadoFrase());
+            listFrase = new ArrayList<>(getListadoFrase(fr));
         } catch (SQLException e) {}
 
         Collections.shuffle(listFrase);

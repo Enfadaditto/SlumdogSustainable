@@ -17,9 +17,7 @@ import java.util.List;
 
 import Domain_Layer.Logro;
 import Domain_Layer.User_has_Logro;
-import Persistence.AnswerRepository;
 import Persistence.LogroRepository;
-import Persistence.QuestionRepository;
 import Persistence.SingletonConnection;
 import Persistence.User_LRepository;
 
@@ -108,7 +106,7 @@ public class IUlogros extends AppCompatActivity {
         Thread t = new Thread(new Runnable() {
             public void run() {
                 try {
-                    todosLosLogros = new LogroRepository(SingletonConnection.getSingletonInstance()).getAllLogros();
+                    todosLosLogros = Logro.getAllLogros(new LogroRepository(SingletonConnection.getSingletonInstance()));
                     listaEnlaces = new User_LRepository(SingletonConnection.getSingletonInstance()).obtenerTodos();
                 } catch (Exception e) {
                     System.out.println(e);

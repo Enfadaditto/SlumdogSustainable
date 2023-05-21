@@ -279,7 +279,7 @@ public class IUEstadisticas extends AppCompatActivity {
             public void run() {
                 ArrayList<PieEntry> entries = new ArrayList<>();
                 ODS_URepository ODS = new ODS_URepository(SingletonConnection.getSingletonInstance());
-                retosStats = ODS.getNumberHitsandFails();
+                retosStats = ODS_has_User.getNumberHitsandFails(ODS);
             }
         });
         t.start();
@@ -375,7 +375,7 @@ public class IUEstadisticas extends AppCompatActivity {
             public void run() {
                 ArrayList<PieEntry> entries = new ArrayList<>();
                 ODS_URepository ODS = new ODS_URepository(SingletonConnection.getSingletonInstance());
-                List<ODS_has_User> aux = ODS.getAllODS_user(MainActivity.user);
+                List<ODS_has_User> aux = MainActivity.user.getAllODS_user(ODS);
                 entries.add(new PieEntry(aux.get(0).getRightGuesses(), "General"));
                 for (int i = 1; i < 18; i++) {
                     entries.add(new PieEntry(aux.get(i).getRightGuesses(), "ODS " + i));
@@ -401,7 +401,7 @@ public class IUEstadisticas extends AppCompatActivity {
             @Override
             public void run() {
                 ODS_URepository ODS = new ODS_URepository(SingletonConnection.getSingletonInstance());
-                List<ODS_has_User.tuplaStats> aux = ODS.getPercentagebyUser(MainActivity.user);
+                List<ODS_has_User.tuplaStats> aux = MainActivity.user.getPercentagebyUser(ODS);
                 for (int i = 0; i < 18; i++) {
                     entries.add(new BarEntry(aux.get(i).idOds, aux.get(i).percentage));
                 }

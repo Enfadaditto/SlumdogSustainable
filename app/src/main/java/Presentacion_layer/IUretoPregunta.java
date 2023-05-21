@@ -107,7 +107,7 @@ public class IUretoPregunta extends AppCompatActivity {
                     listaRespuestas = new AnswerRepository(SingletonConnection.getSingletonInstance()).obtenerTodos();
                     preguntasEnBD = new QuestionRepository(SingletonConnection.getSingletonInstance());
                     preguntaActual = preguntasEnBD.obtener(QuestionID);
-                    respuestasActuales = preguntasEnBD.getRespuestasPregunta(preguntaActual);
+                    respuestasActuales = preguntaActual.getRespuestasPregunta();
 
                 } catch (Exception e) {
 

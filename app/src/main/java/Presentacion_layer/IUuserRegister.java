@@ -1,40 +1,27 @@
 package Presentacion_layer;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuBuilder;
 
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 
 import Domain_Layer.ODS_has_User;
 import Domain_Layer.User;
-import Persistence.AnswerRepository;
 import Persistence.ODS_URepository;
-import Persistence.QuestionRepository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 
@@ -71,7 +58,7 @@ public class IUuserRegister extends AppCompatActivity {
         new Thread(new Runnable() {
             public void run(){
                 try {
-                    if (!new UserRepository(SingletonConnection.getSingletonInstance()).checkUsernameNotTaken(nicknameField.getText().toString())) {
+                    if (!User.checkUsernameNotTaken(new UserRepository(SingletonConnection.getSingletonInstance()), nicknameField.getText().toString())) {
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 ErrorAlert("Nombre de usuario en uso");
@@ -111,7 +98,7 @@ public class IUuserRegister extends AppCompatActivity {
                             )
                     );
                     cargarODSUser(nicknameField.getText().toString());
-                    MainActivity.user = new UserRepository(SingletonConnection.getSingletonInstance()).getUserByUsername(nicknameField.getText().toString());
+                    MainActivity.user = User.getUserByUsername(new UserRepository(SingletonConnection.getSingletonInstance()), nicknameField.getText().toString());
                     Intent intent = new Intent(IUuserRegister.this, MainActivity.class);
                     startActivity(intent);
                     finish();

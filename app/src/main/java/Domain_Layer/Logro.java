@@ -2,6 +2,8 @@ package Domain_Layer;
 
 import com.j256.ormlite.field.DatabaseField;
 
+import java.util.List;
+
 import Persistence.LogroRepository;
 import Persistence.SingletonConnection;
 
@@ -14,6 +16,10 @@ public class Logro {
     private String nombre;
     @DatabaseField
     private String descripcion;
+
+    public static List<Logro> getAllLogros(LogroRepository logroRepository) {
+        return logroRepository.obtenerTodos();
+    }
 
     public enum TipoLogro { Medalla, Trofeo }
 

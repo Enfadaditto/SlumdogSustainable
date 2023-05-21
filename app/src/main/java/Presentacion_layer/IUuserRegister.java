@@ -19,9 +19,7 @@ import com.slumdogsustainable.R;
 
 import java.io.ByteArrayOutputStream;
 
-import Domain_Layer.ODS_has_User;
 import Domain_Layer.User;
-import Persistence.ODS_URepository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 
@@ -97,7 +95,7 @@ public class IUuserRegister extends AppCompatActivity {
                                     userImage
                             )
                     );
-                    cargarODSUser(nicknameField.getText().toString());
+                    userActual.cargarODSUser(nicknameField.getText().toString());
                     MainActivity.user = User.getUserByUsername(new UserRepository(SingletonConnection.getSingletonInstance()), nicknameField.getText().toString());
                     Intent intent = new Intent(IUuserRegister.this, MainActivity.class);
                     startActivity(intent);
@@ -176,12 +174,4 @@ public class IUuserRegister extends AppCompatActivity {
             iconSelector.setImageBitmap(imageBitmap);
         }
     }
-
-    public void cargarODSUser(String nickname) {
-        ODS_URepository ODS = new ODS_URepository(SingletonConnection.getSingletonInstance());
-        for(int i = 0; i < 18; i++) {
-            ODS.guardar(new ODS_has_User(nickname, i, 80, 20));
-        }
-    }
-
 }

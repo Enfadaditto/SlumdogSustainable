@@ -60,21 +60,6 @@ public class User {
         this.timeSpent = 0;
     }
 
-    public static void updateGamesandTime(UserRepository userRepository, Boolean b, int time) {
-            try {
-                    if(b) {
-                            MainActivity.user.setGamesAchieved(MainActivity.user.getGamesAchieved() + 1);
-                    }
-                    else {
-                            MainActivity.user.setGamesFailed(MainActivity.user.getGamesFailed() + 1);
-                    }
-                    MainActivity.user.setTimeSpent(MainActivity.user.getTimeSpent() + ((float) time) / 60000);
-                    userRepository.getDao().update(MainActivity.user);
-            } catch (SQLException e) {
-                    throw new RuntimeException(e);
-            }
-    }
-
     public static void updatePartidasandTime(UserRepository userRepository, Boolean hit, Boolean abadonada, int time, int Puntos) {
             try {
                     PartidaRepository p = new PartidaRepository(SingletonConnection.getSingletonInstance());
@@ -118,15 +103,6 @@ public class User {
             return false;
     }
 
-    public static void updateGamesAbandonedandTime(UserRepository userRepository, int time) {
-            try {
-                    MainActivity.user.setGamesAbandoned(MainActivity.user.getGamesAbandoned() + 1);
-                    MainActivity.user.setTimeSpent(MainActivity.user.getTimeSpent() + ((float) time) / 60000);
-                    userRepository.getDao().update(MainActivity.user);
-            } catch (SQLException e) {
-                    throw new RuntimeException(e);
-            }
-    }
 
     public int getGamesAbandoned() {
         return gamesAbandoned;
@@ -216,9 +192,9 @@ public class User {
     }
 
    public int  getNivelUsuario(){
-       if(MainActivity.user.getPointsAchieved()>5000 && MainActivity.user.getPointsAchieved()<10000)  {
+       if(this.getPointsAchieved()>5000 && this.getPointsAchieved()<10000)  {
            return 1;
-       }else if(MainActivity.user.getPointsAchieved()>=10000){
+       }else if(this.getPointsAchieved()>=10000){
            return 2;
        }
 
@@ -274,5 +250,12 @@ public class User {
         }
 
         return res;
+    }
+
+    public void cargarODSUser(String nickname) {
+        ODS_URepository ODS = new ODS_URepository(SingletonConnection.getSingletonInstance());
+        for(int i = 0; i < 18; i++) {
+            ODS.guardar(new ODS_has_User(nickname, i, 0,0));
+        }
     }
 }

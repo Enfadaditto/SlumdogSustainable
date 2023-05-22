@@ -31,7 +31,7 @@ public class IUuserLogin extends AppCompatActivity {
     private EditText passwordField;
     private CheckBox showPassword;
     private TextView signupErrorText;
-    private final User userActual = new User("a", "b","c", null);
+    private final User userActual = new User("a", "b","c");
 
     public void registerOnClick(View view) {
         Intent intent = new Intent(IUuserLogin.this, IUuserRegister.class);

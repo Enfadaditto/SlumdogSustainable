@@ -41,8 +41,8 @@ public class User {
     @DatabaseField
     private int gamesAbandoned;
 
-    @DatabaseField(dataType = DataType.BYTE_ARRAY)
-    private byte [] icon;
+    @DatabaseField
+    private int icon;
 
     private List<ODS_has_User> ODSUser;
     private IMediadorLogros mediadorLogros = new MediadorLogros();
@@ -51,11 +51,11 @@ public class User {
 
 
     User() {}
-    public User(String nick, String email, String password, byte[] icon) {
+    public User(String nick, String email, String password) {
         this.nickname = nick;
         this.email = email;
         this.password = password;
-        this.icon = icon;
+        this.icon = 0;
         this.pointsAchieved = 0;
         this.timeSpent = 0;
     }
@@ -175,11 +175,11 @@ public class User {
         this.timeSpent = timeSpent;
     }
 
-    public byte [] getIcon() {
+    public int getIcon() {
         return icon;
     }
 
-    public void setIcon(byte [] icon) {
+    public void setIcon(int icon) {
         this.icon = icon;
     }
 

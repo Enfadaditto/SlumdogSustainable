@@ -14,10 +14,12 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Calendar;
 import android.widget.LinearLayout;
 
@@ -28,6 +30,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 
 import java.util.ArrayDeque;
+import java.util.List;
 import java.util.Queue;
 
 import Patron_Fabrica.BocadilloLogro;
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     public static MediaPlayer music; //MediaPlayer sonidos
     public static MediaPlayer background; //Mediaplayer fondo
     public static User user;
+    public ImageView imagenUser;
     TextView nivelJugador;
     public static Queue<Logro> logrosCompletados = new ArrayDeque<>();
 
@@ -127,6 +131,9 @@ public class MainActivity extends AppCompatActivity {
                             music.start();
                             setContentView(R.layout.inicio);
                             botonInicio = findViewById(R.id.botonInicio);
+                            List<Integer> imageIds = Arrays.asList(R.drawable.icon1, R.drawable.icon2, R.drawable.icon3);
+                            imagenUser = findViewById(R.id.botonPerfil);
+                            imagenUser.setImageResource(imageIds.get(user.getIcon()));
                             nivelJugador = findViewById(R.id.TextoNivelUsuario);
                             nivelJugador.setText("Nivel "+ user.getNivelUsuario());
 
@@ -249,5 +256,13 @@ public class MainActivity extends AppCompatActivity {
         }, 100);
 
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(user != null) {
+            List<Integer> imageIds = Arrays.asList(R.drawable.icon1, R.drawable.icon2, R.drawable.icon3);
+            imagenUser = findViewById(R.id.botonPerfil);
+            imagenUser.setImageResource(imageIds.get(user.getIcon()));
+        }
+    }
 }

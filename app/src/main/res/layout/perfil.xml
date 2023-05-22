@@ -2,21 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/spinner"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/perfil_background">
-
-    <ImageView
-        android:id="@+id/imagenPerfil"
-        android:layout_width="122dp"
-        android:layout_height="129dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.053"
-        app:srcCompat="@drawable/user" />
 
     <EditText
         android:id="@+id/nombreUsuario"
@@ -30,10 +19,10 @@
         android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagenPerfil"
-        app:layout_constraintVertical_bias="0.103" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.318" />
 
     <EditText
         android:id="@+id/contraseña"
@@ -102,8 +91,8 @@
         android:layout_width="32dp"
         android:layout_height="34dp"
         android:layout_marginStart="9dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="380dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="328dp"
         android:onClick="clickInfoContraseña"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,4 +100,18 @@
         app:layout_constraintStart_toEndOf="@+id/passwordField"
         app:layout_constraintTop_toBottomOf="@+id/infoemail"
         app:srcCompat="@android:drawable/ic_dialog_info" />
+
+    <Spinner
+        android:id="@+id/spinnerIcon"
+        android:layout_width="186dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginBottom="94dp"
+        app:layout_constraintBottom_toTopOf="@+id/nombreUsuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,7 +34,7 @@ public class IUuserRegister extends AppCompatActivity {
     private Button registerButton;
 
     private byte [] userImage;
-    private final User userActual = new User("a", "b","c", null);
+    private final User userActual = new User("a", "b","c");
 
 
 
@@ -91,8 +91,7 @@ public class IUuserRegister extends AppCompatActivity {
                             new User(
                                     nicknameField.getText().toString(),
                                     emailField.getText().toString(),
-                                    passwordField.getText().toString(),
-                                    userImage
+                                    passwordField.getText().toString()
                             )
                     );
                     userActual.cargarODSUser(nicknameField.getText().toString());

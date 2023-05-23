@@ -152,35 +152,20 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         }
 
     }
-    public void siguienteRetoPregunta() {
-        if (ronda > 10) {
-            updatePartidasandTime(true, false, juegoRetoPregunta.getTiempo() * 10, puntosTotales);
-            //updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
-            setResult(100);
-            finish();
-            pistas = 3;
-            partidasEnRacha++;
+    private void updateGameStateAndFinish(boolean ganado, int tiempo, int puntos) {
+        updatePartidasandTime(ganado, false, tiempo, puntos);
+        setResult(100);
+        finish();
+        pistas = 3;
+        partidasEnRacha = ganado ? partidasEnRacha + 1 : 0;
 
-            new Thread(() -> {
-                comprobarLogros();
-            }).start();
+        new Thread(() -> {
+            comprobarLogros();
+        }).start();
+    }
 
-            return;
-        }
-        if (vidas < 0) {
-            updatePartidasandTime(false, false, juegoRetoPregunta.getTiempo() * ronda, 0);
-            //updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
-            setResult(100);
-            finish();
-            pistas = 3;
-            partidasEnRacha = 0;
-
-            new Thread(() -> {
-                comprobarLogros();
-            }).start();
-
-            return;
-        } else if (ronda <= 4) {
+    private void setPreguntaActual() {
+        if (ronda <= 4) {
             juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel1().get(indiceRetoFacil++));
         } else if (ronda > 4 && ronda <= 7) {
             juegoRetoPregunta.setNivel(2);
@@ -189,102 +174,85 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
             juegoRetoPregunta.setNivel(3);
             juegoRetoPregunta.setPreguntaActual(juegoRetoPregunta.getPreguntasNivel3().get(indiceRetoDificil++));
         }
+    }
+
+    private void setAhorcadoActual() {
+        if (ronda <= 4) {
+            juegoRetoAhorcado.setErroresRetoAhorcado(0);
+        } else if (ronda > 4 && ronda <= 7) {
+            juegoRetoAhorcado.setNivel(2);
+            juegoRetoAhorcado.setErroresRetoAhorcado(3);
+        } else {
+            juegoRetoAhorcado.setNivel(3);
+            juegoRetoAhorcado.setErroresRetoAhorcado(5);
+        }
+        juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoFacil++));
+    }
+
+    public void siguienteRetoPregunta() {
+        if (ronda > 10) {
+            updateGameStateAndFinish(true, juegoRetoPregunta.getTiempo() * 10, puntosTotales);
+            return;
+        }
+        if (vidas < 0) {
+            updateGameStateAndFinish(false, juegoRetoPregunta.getTiempo() * ronda, 0);
+            return;
+        }
+
+        setPreguntaActual();
         juegoRetoPregunta.setIdOds(juegoRetoPregunta.getPreguntaActual().getOds());
         crearRetoPregunta();
     }
 
     public void siguienteRetoAhorcado() {
         if (ronda > 10) {
-            updatePartidasandTime(true, false, juegoRetoAhorcado.getTiempo() * 10, puntosTotales);
-            //updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
-            setResult(100);
-            finish();
-            pistas = 3;
-            partidasEnRacha++;
-            new Thread(() -> {
-                comprobarLogros();
-            }).start();
+            updateGameStateAndFinish(true, juegoRetoAhorcado.getTiempo() * 10, puntosTotales);
             return;
         }
         if (vidas < 0) {
-            updatePartidasandTime(false, false, juegoRetoAhorcado.getTiempo() * ronda, 0);
-            //updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
-            setResult(100);
-            finish();
-            pistas = 3;
-            partidasEnRacha = 0;
-            new Thread(() -> {
-                comprobarLogros();
-            }).start();
+            updateGameStateAndFinish(false, juegoRetoAhorcado.getTiempo() * ronda, 0);
             return;
         }
-        else if(ronda <= 4){
 
-            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getAhorcado());
-            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoFacil++));
-            juegoRetoAhorcado.setErroresRetoAhorcado(0);
-        }
-
-        else if(ronda > 4 && ronda <= 7) {
-
-            juegoRetoAhorcado.setNivel(2);
-            juegoRetoAhorcado.setErroresRetoAhorcado(3);
-            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoFacil++));
-            //juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabrasNivel2().get());
-        }
-
-        else {
-
-            juegoRetoAhorcado.setNivel(3);
-            juegoRetoAhorcado.setErroresRetoAhorcado(5);
-            juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoFacil++));
-            //juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabrasNivel3().get(indicePreguntasDificil++));
-        }
+        setAhorcadoActual();
         juegoRetoAhorcado.setIdOds(juegoRetoAhorcado.getAhorcado().getId_ODS());
         crearRetoAhorcado();
     }
 
     public void siguienteRetoDescubrirFrase() {
-
         if (ronda > 10) {
-            updatePartidasandTime(true, false, juegoRetoDescubrirFrase.getTiempo() * 10, puntosTotales);
-            //updateGamesandTime(true, juegoRetoPregunta.getTiempo() * 10);
-            setResult(100);
-            finish();
-            pistas = 3;
-            partidasEnRacha++;
-            new Thread(() -> {
-                comprobarLogros();
-            }).start();
+            updateGameStateAndFinish(true, juegoRetoDescubrirFrase.getTiempo() * 10, puntosTotales);
             return;
         }
         if (vidas < 0) {
-            updatePartidasandTime(false, false, juegoRetoDescubrirFrase.getTiempo() * ronda, 0);
-            //updateGamesandTime(false, juegoRetoPregunta.getTiempo() * ronda);
-            setResult(100);
-            finish();
-            pistas = 3;
-            partidasEnRacha = 0;
-            new Thread(() -> {
-                comprobarLogros();
-            }).start();
+            updateGameStateAndFinish(false, juegoRetoDescubrirFrase.getTiempo() * ronda, 0);
             return;
-        } else if (ronda <= 4) {
-            juegoRetoDescubrirFrase.setNivel(1);
-            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indiceRetoFacil++));
-        } else if (ronda > 4 && ronda <= 7) {
-            juegoRetoDescubrirFrase.setNivel(2);
-            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indiceRetoFacil++));
-        } else {
-            juegoRetoDescubrirFrase.setNivel(3);
-            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indiceRetoFacil++));
         }
-        juegoRetoDescubrirFrase.setIdOds(juegoRetoDescubrirFrase.getFraseActual().getIdOds());
+
+        setDescubrirFraseActual();
+        juegoRetoDescubrirFrase.setIdOds(juegoRetoDescubrirFrase.getFraseActual().getId_ODS());
         crearRetoDescubrirFrase();
     }
 
+    private void setDescubrirFraseActual() {
+        if (ronda <= 4) {
+            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indiceRetoFacil++));
+        } else if (ronda > 4 && ronda <= 7) {
+            juegoRetoDescubrirFrase.setNivel(2);
+            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel2().get(indiceRetoMedio++));
+        } else {
+            juegoRetoDescubrirFrase.setNivel(3);
+            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel3().get(indiceRetoDificil++));
+        }
+    }
+
+    private void startGame(Class<?> clazz, Bundle bundle) {
+        Intent intent = new Intent(getApplicationContext(), clazz);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, REQUESTCODE);
+    }
+
     public void crearRetoAhorcado() {
-        Intent I = new Intent(getApplicationContext(), IUretoAhorcado.class);
         Bundle b = new Bundle();
         b.putString("palabraAhorcado", juegoRetoAhorcado.getAhorcado().getPalabra());
         b.putString("enunciadoAhorcado", juegoRetoAhorcado.getAhorcado().getEnunciado());
@@ -301,12 +269,10 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         b.putInt("erroresRetoAhorcado", juegoRetoAhorcado.getErroresRetoAhorcado());
         b.putInt("odsAhorcado", juegoRetoAhorcado.getAhorcado().getId_ODS());
         b.putInt("Pistas", pistas);
-        I.putExtras(b);
-        startActivityForResult(I, REQUESTCODE);
+        startGame(IUretoAhorcado.class, b);
     }
 
     public void crearRetoPregunta() {
-        Intent I = new Intent(getApplicationContext(), IUretoPregunta.class);
         Bundle b = new Bundle();
         b.putInt("idPregunta", juegoRetoPregunta.getPreguntaActual().getQuestionID());
         b.putInt("PuntosTotales", puntosTotales);
@@ -320,13 +286,10 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         b.putInt("SonidoFallo", juegoRetoPregunta.getSonidofallo());
         b.putInt("SonidoAcierto", juegoRetoPregunta.getSonidoacierto());
         b.putInt("Pistas", pistas);
-
-        I.putExtras(b);
-        startActivityForResult(I, REQUESTCODE);
+        startGame(IUretoPregunta.class, b);
     }
 
     public void crearRetoDescubrirFrase() {
-        Intent I = new Intent(getApplicationContext(), IUretoFrase.class);
         Bundle b = new Bundle();
         b.putString("fraseEnunciado", juegoRetoDescubrirFrase.getFraseActual().getFrase());
         b.putString("descripcionEnunciado", juegoRetoDescubrirFrase.getFraseActual().getDescripcion());
@@ -342,8 +305,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         b.putInt("SonidoAcierto", juegoRetoDescubrirFrase.getSonidoacierto());
         b.putInt("odsFrase", juegoRetoDescubrirFrase.getFraseActual().getId_ODS());
         b.putInt("Pistas", pistas);
-        I.putExtras(b);
-        startActivityForResult(I, REQUESTCODE);
+        startGame(IUretoFrase.class, b);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

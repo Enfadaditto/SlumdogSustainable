@@ -117,17 +117,7 @@ public class IUlogros extends AppCompatActivity {
         t.start();
         t.join();
     }
-    public void onClickMedalla(View view){
 
-
-        ponerLogros(todasLasMedallas);
-    }
-    public void onClickTrofeo(View view){
-        ponerLogros(todosLosTrofeos);
-    }
-    public void onClickTodos(View view){
-        ponerLogros(todosLosLogros);
-    }
     public void iniciarListas(){
         for(Logro l : todosLosLogros){
             if(l.getTipo() == Logro.TipoLogro.Medalla){
@@ -136,5 +126,16 @@ public class IUlogros extends AppCompatActivity {
                 todosLosTrofeos.add(l);
             }
         }
+
+
+    }
+
+
+    public void onClickMedalla(View view){ponerLogros(todasLasMedallas);}
+    public void onClickTrofeo(View view){
+        ponerLogros(todosLosTrofeos);
+    }
+    public void onClickTodos(View view){
+        ponerLogros(todosLosLogros);
     }
 }

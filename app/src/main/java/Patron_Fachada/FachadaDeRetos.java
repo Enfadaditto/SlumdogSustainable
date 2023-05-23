@@ -1,4 +1,4 @@
-package Presentacion_layer;
+package Patron_Fachada;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -23,22 +23,29 @@ import Domain_Layer.RetoAhorcado;
 import Domain_Layer.RetoDescubrirFrase;
 import Domain_Layer.RetoPregunta;
 import Domain_Layer.User;
+import Patron_strategy.JuegoStrategy;
+import Patron_strategy.PlayAhorcado;
+import Patron_strategy.PlayFrase;
+import Patron_strategy.PlayPregunta;
 import Persistence.ODS_URepository;
 import Persistence.ObjetivoSemanal;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
+import Presentacion_layer.IUretoAhorcado;
+import Presentacion_layer.IUretoFrase;
+import Presentacion_layer.IUretoPregunta;
 
 public class FachadaDeRetos extends AppCompatActivity implements FachadaInterface {
-    int vidas = 1, ronda = 1, retoRandom, indiceRetoFacil = 0, indiceRetoDificil = 0, indiceRetoMedio = 0, puntosTotales, puntosConsolidados, erroresRetoAhorcado;
-    RetoPregunta juegoRetoPregunta;
-    RetoAhorcado juegoRetoAhorcado;
+    public static int vidas = 1, ronda = 1, retoRandom, indiceRetoFacil = 0, indiceRetoDificil = 0, indiceRetoMedio = 0, puntosTotales, puntosConsolidados, erroresRetoAhorcado;
+    public static RetoPregunta juegoRetoPregunta;
+    public static RetoAhorcado juegoRetoAhorcado;
     public static int pistas = 3;
     public static Boolean  haUsadoPista= false;
 
     public static int partidasEnRacha = 0;
-    RetoDescubrirFrase juegoRetoDescubrirFrase;
+    public static RetoDescubrirFrase juegoRetoDescubrirFrase;
     Button botonRetoPregunta, botonRetoAhorcado, botonRetoFrase, botonRetoMixto;
-    boolean retoPreguntaEscogido, retoAhorcadoEscogido, retoDescubrirFraseEscogido, retoMixtoEscogido, haConsolidado = false;
+    public static boolean retoPreguntaEscogido, retoAhorcadoEscogido, retoDescubrirFraseEscogido, retoMixtoEscogido, haConsolidado = false;
     public final static int REQUESTCODE = 100;
 
     public final static int ABANDON = 100;
@@ -48,6 +55,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
     public static boolean easterEgg = false;
 
+    JuegoStrategy estrategia;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -184,6 +192,17 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         juegoRetoAhorcado.setAhorcado(juegoRetoAhorcado.getPalabras().get(indiceRetoFacil++));
     }
 
+    private void setDescubrirFraseActual() {
+        if (ronda <= 4) {
+            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indiceRetoFacil++));
+        } else if (ronda > 4 && ronda <= 7) {
+            juegoRetoDescubrirFrase.setNivel(2);
+            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel2().get(indiceRetoMedio++));
+        } else {
+            juegoRetoDescubrirFrase.setNivel(3);
+            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel3().get(indiceRetoDificil++));
+        }
+    }
     public void siguienteRetoPregunta() {
         if (ronda > 10) {
             updateGameStateAndFinish(true, juegoRetoPregunta.getTiempo() * 10, puntosTotales);
@@ -196,7 +215,8 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
         setPreguntaActual();
         juegoRetoPregunta.setIdOds(juegoRetoPregunta.getPreguntaActual().getOds());
-        crearRetoPregunta();
+        estrategia = new PlayPregunta();
+        startGame(IUretoPregunta.class, estrategia.crearReto());
     }
 
     public void siguienteRetoAhorcado() {
@@ -211,7 +231,8 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
         setAhorcadoActual();
         juegoRetoAhorcado.setIdOds(juegoRetoAhorcado.getAhorcado().getId_ODS());
-        crearRetoAhorcado();
+        estrategia = new PlayAhorcado();
+        startGame(IUretoAhorcado.class, estrategia.crearReto());
     }
 
     public void siguienteRetoDescubrirFrase() {
@@ -226,19 +247,8 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
         setDescubrirFraseActual();
         juegoRetoDescubrirFrase.setIdOds(juegoRetoDescubrirFrase.getFraseActual().getId_ODS());
-        crearRetoDescubrirFrase();
-    }
-
-    private void setDescubrirFraseActual() {
-        if (ronda <= 4) {
-            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel1().get(indiceRetoFacil++));
-        } else if (ronda > 4 && ronda <= 7) {
-            juegoRetoDescubrirFrase.setNivel(2);
-            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel2().get(indiceRetoMedio++));
-        } else {
-            juegoRetoDescubrirFrase.setNivel(3);
-            juegoRetoDescubrirFrase.setFraseEnunciado(juegoRetoDescubrirFrase.getFrasesNivel3().get(indiceRetoDificil++));
-        }
+        estrategia = new PlayFrase();
+        startGame(IUretoFrase.class, estrategia.crearReto());
     }
 
     private void startGame(Class<?> clazz, Bundle bundle) {
@@ -247,61 +257,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         startActivityForResult(intent, REQUESTCODE);
     }
 
-    public void crearRetoAhorcado() {
-        Bundle b = new Bundle();
-        b.putString("palabraAhorcado", juegoRetoAhorcado.getAhorcado().getPalabra());
-        b.putString("enunciadoAhorcado", juegoRetoAhorcado.getAhorcado().getEnunciado());
-        b.putInt("PuntosTotales", puntosTotales);
-        b.putInt("PuntosConsolidados", puntosConsolidados);
-        b.putInt("Vidas", vidas);
-        b.putInt("Ronda", ronda);
-        b.putBoolean("haConsolidado", haConsolidado);
-        b.putInt("TiempoOpcion", juegoRetoAhorcado.getTiempoOpcion());
-        b.putInt("Tiempo", juegoRetoAhorcado.getTiempo());
-        b.putInt("Nivel", juegoRetoAhorcado.getNivel());
-        b.putInt("SonidoFallo", juegoRetoAhorcado.getSonidofallo());
-        b.putInt("SonidoAcierto", juegoRetoAhorcado.getSonidoacierto());
-        b.putInt("erroresRetoAhorcado", juegoRetoAhorcado.getErroresRetoAhorcado());
-        b.putInt("odsAhorcado", juegoRetoAhorcado.getAhorcado().getId_ODS());
-        b.putInt("Pistas", pistas);
-        startGame(IUretoAhorcado.class, b);
-    }
 
-    public void crearRetoPregunta() {
-        Bundle b = new Bundle();
-        b.putInt("idPregunta", juegoRetoPregunta.getPreguntaActual().getQuestionID());
-        b.putInt("PuntosTotales", puntosTotales);
-        b.putInt("PuntosConsolidados", puntosConsolidados);
-        b.putInt("Vidas", vidas);
-        b.putInt("Ronda", ronda);
-        b.putBoolean("haConsolidado", haConsolidado);
-        b.putInt("TiempoOpcion", juegoRetoPregunta.getTiempoOpcion());
-        b.putInt("Tiempo", juegoRetoPregunta.getTiempo());
-        b.putInt("Nivel", juegoRetoPregunta.getNivel());
-        b.putInt("SonidoFallo", juegoRetoPregunta.getSonidofallo());
-        b.putInt("SonidoAcierto", juegoRetoPregunta.getSonidoacierto());
-        b.putInt("Pistas", pistas);
-        startGame(IUretoPregunta.class, b);
-    }
-
-    public void crearRetoDescubrirFrase() {
-        Bundle b = new Bundle();
-        b.putString("fraseEnunciado", juegoRetoDescubrirFrase.getFraseActual().getFrase());
-        b.putString("descripcionEnunciado", juegoRetoDescubrirFrase.getFraseActual().getDescripcion());
-        b.putInt("PuntosTotales", puntosTotales);
-        b.putInt("PuntosConsolidados", puntosConsolidados);
-        b.putInt("Vidas", vidas);
-        b.putInt("Ronda", ronda);
-        b.putBoolean("haConsolidado", haConsolidado);
-        b.putInt("TiempoOpcion", juegoRetoDescubrirFrase.getTiempoOpcion());
-        b.putInt("Tiempo", juegoRetoDescubrirFrase.getTiempo());
-        b.putInt("Nivel", juegoRetoDescubrirFrase.getNivel());
-        b.putInt("SonidoFallo", juegoRetoDescubrirFrase.getSonidofallo());
-        b.putInt("SonidoAcierto", juegoRetoDescubrirFrase.getSonidoacierto());
-        b.putInt("odsFrase", juegoRetoDescubrirFrase.getFraseActual().getId_ODS());
-        b.putInt("Pistas", pistas);
-        startGame(IUretoFrase.class, b);
-    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

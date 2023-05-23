@@ -3,8 +3,7 @@ package Patron_estado;
 import com.slumdogsustainable.MainActivity;
 
 import Domain_Layer.User;
-import Persistence.UserRepository;
-import Presentacion_layer.FachadaDeRetos;
+import Patron_Fachada.FachadaDeRetos;
 
 abstract public class EstadoNivelJugador {
 

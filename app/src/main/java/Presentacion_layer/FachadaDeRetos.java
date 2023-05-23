@@ -50,7 +50,6 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -62,8 +61,6 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         Bundle extras = getIntent().getExtras();
         String tipoReto = extras.getString("tipoReto");
 
-       // int nivelUsuario = extras.getInt("nivelUsuario");
-       // System.out.println(nivelUsuario + "-----------------------");
         switch (tipoReto) {
             case "RetoPregunta":
                 retoPreguntaEscogido = true;
@@ -76,55 +73,53 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
                 break;
             case "RetoMixto":
                 retoMixtoEscogido = true;
+                break;
         }
         empezarPartida();
-
     }
 
     public void empezarPartida() {
         MainActivity.music.stop();
         MainActivity.background.start();
+        Director creadorDeJuego = new Director();
         if (retoAhorcadoEscogido) {
             retoAhorcado = new BuilderRetoAhorcado();
-            Director creadorDeJuego = new Director();
             creadorDeJuego.setJuegoBuilder(retoAhorcado);
             creadorDeJuego.construirJuego();
             juegoRetoAhorcado = retoAhorcado.getJuego();
             siguienteRetoAhorcado();
-        }
-        else if (retoPreguntaEscogido) {
+        } else if (retoPreguntaEscogido) {
             retoPregunta = new BuilderRetoPregunta();
-            Director creadorDeJuego = new Director();
             creadorDeJuego.setJuegoBuilder(retoPregunta);
             creadorDeJuego.construirJuego();
             juegoRetoPregunta = retoPregunta.getJuego();
             siguienteRetoPregunta();
-        }
-        else if (retoDescubrirFraseEscogido) {
+        } else if (retoDescubrirFraseEscogido) {
             retoDescubrirFrase = new BuilderRetoDescubrirFrase();
-            Director creadorDeJuego = new Director();
             creadorDeJuego.setJuegoBuilder(retoDescubrirFrase);
             creadorDeJuego.construirJuego();
             juegoRetoDescubrirFrase = retoDescubrirFrase.getJuego();
             siguienteRetoDescubrirFrase();
-        }
-        else if (retoMixtoEscogido) {
+        } else if (retoMixtoEscogido) {
             retoDescubrirFrase = new BuilderRetoDescubrirFrase();
-            Director creadorDeJuego = new Director();
             creadorDeJuego.setJuegoBuilder(retoDescubrirFrase);
             creadorDeJuego.construirJuego();
             juegoRetoDescubrirFrase = retoDescubrirFrase.getJuego();
+
             retoPregunta = new BuilderRetoPregunta();
             creadorDeJuego.setJuegoBuilder(retoPregunta);
             creadorDeJuego.construirJuego();
             juegoRetoPregunta = retoPregunta.getJuego();
+
             retoAhorcado = new BuilderRetoAhorcado();
             creadorDeJuego.setJuegoBuilder(retoAhorcado);
             creadorDeJuego.construirJuego();
             juegoRetoAhorcado = retoAhorcado.getJuego();
+
             siguienteRetoMixto();
         }
     }
+
 
     public void updatePartidasandTime(Boolean hit, Boolean abandonada, int time, int Puntos) {
         new Thread(new Runnable() {

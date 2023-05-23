@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         new Task().execute();
 
 
-        Date fecha = new Date("08/07/2023");
+      /*  Date fecha = new Date("08/07/2023");
 
         Calendar diaDelaSemana = Calendar.getInstance();
 
@@ -91,10 +91,14 @@ public class MainActivity extends AppCompatActivity {
         }
         System.out.println("------------" + dayOfWeek + "-------------------------");
 
+
+
         new Thread(() -> {
             user = User.getUserByUsername(new UserRepository(SingletonConnection.getSingletonInstance()), "prueba");
             addObservadores(user);
         }).start();
+
+       */
     }
 
 

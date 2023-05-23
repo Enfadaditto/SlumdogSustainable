@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
+import Persistence.ObjetivoSemanal;
+
 public class IUMenu extends AppCompatActivity{
 
 
@@ -30,6 +32,7 @@ public class IUMenu extends AppCompatActivity{
         botonRetoMixto = findViewById(R.id.botonRetoMixto);
         habilitarBotones();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        ObjetivoSemanal.sumarMetaSemanal();
     }
 
     public void clickBotonRetoAhorcado(View v){

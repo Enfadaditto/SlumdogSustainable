@@ -21,7 +21,7 @@ public class Logro {
         return logroRepository.obtenerTodos();
     }
 
-    public enum TipoLogro { Medalla, Trofeo }
+    public enum TipoLogro { Medalla, Trofeo}
 
     public Logro() {}
 

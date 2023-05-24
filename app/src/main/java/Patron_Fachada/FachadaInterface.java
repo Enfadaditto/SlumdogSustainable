@@ -1,4 +1,4 @@
-package Presentacion_layer;
+package Patron_Fachada;
 
 import android.content.Intent;
 
@@ -6,11 +6,11 @@ import androidx.annotation.Nullable;
 
 public interface FachadaInterface {
 
-    void crearRetoDescubrirFrase();
+    void siguienteRetoDescubrirFrase();
 
-    void crearRetoPregunta();
+    void siguienteRetoPregunta();
 
-    void crearRetoAhorcado();
+    void siguienteRetoAhorcado();
 
     void onActivityResult(int requestCode, int resultCode, @Nullable Intent data);
 }

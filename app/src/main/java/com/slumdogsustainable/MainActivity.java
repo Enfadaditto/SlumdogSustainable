@@ -17,10 +17,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Calendar;
+
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,13 +35,11 @@ import Patron_Fabrica.BocadilloLogro;
 import Patron_Fabrica.FabricaConcreta;
 import Domain_Layer.Logro;
 
-import java.util.Date;
-
 import Domain_Layer.User;
 //import Persistence.Repository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
-import Presentacion_layer.FachadaDeRetos;
+import Patron_Fachada.FachadaDeRetos;
 import Presentacion_layer.IUEstadisticas;
 import Presentacion_layer.IUMenu;
 import Presentacion_layer.IURanking;

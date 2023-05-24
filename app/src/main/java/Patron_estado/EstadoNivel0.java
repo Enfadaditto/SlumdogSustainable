@@ -1,7 +1,6 @@
 package Patron_estado;
 
 import Domain_Layer.User;
-import Presentacion_layer.FachadaDeRetos;
 
 public class EstadoNivel0 extends  EstadoNivelJugador{
 

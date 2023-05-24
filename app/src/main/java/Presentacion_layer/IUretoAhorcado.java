@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Random;
 
 import Domain_Layer.Ahorcado;
+import Patron_Fachada.FachadaDeRetos;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 

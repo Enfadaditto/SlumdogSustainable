@@ -56,11 +56,12 @@ public class IUlogros extends AppCompatActivity {
             TextView textView1 = findViewById(textNombre);
             textView1.setText(logrosAPoner.get(i - 1).getNombre());
             ponerDescripciones(logrosAPoner, i);
-            ponerIconos(logrosAPoner, i);
+
 
 
 
         }
+        ponerIconos(logrosAPoner);
         ocultarContenedoresExtra(numLogros);
 
     }
@@ -87,18 +88,25 @@ public class IUlogros extends AppCompatActivity {
 
     }
 
-    public void ponerIconos(List<Logro> lista, int i) {
-            int imageViewId = getResources().getIdentifier("imagenLogro" + i, "id", getPackageName());
+    public void ponerIconos(List<Logro> lista) {
+
+        int j = 1;
+        for(Logro l : lista){
+            int imageViewId = getResources().getIdentifier("imagenLogro" + j, "id", getPackageName());
             ImageView imageView = findViewById(imageViewId);
-            User_has_Logro enlace = enlaceLogroUsuario.getEnlaceUsuarioLogro(MainActivity.user.getNickname(), i, listaEnlaces);
+            int id = l.getId_logro();
+            User_has_Logro enlace = enlaceLogroUsuario.getEnlaceUsuarioLogro(MainActivity.user.getNickname(), id, listaEnlaces);
             if (enlace.isCompletado()) {
-                if (lista.get(i - 1).getTipo() == Logro.TipoLogro.Medalla) imageView.setImageDrawable(getDrawable(R.drawable.logroconseguido));
-                if (lista.get(i - 1).getTipo() == Logro.TipoLogro.Trofeo) imageView.setImageDrawable(getDrawable(R.drawable.trofeo_ganado));
+                if (lista.get(j - 1).getTipo() == Logro.TipoLogro.Medalla) imageView.setImageDrawable(getDrawable(R.drawable.logroconseguido));
+                if (lista.get(j - 1).getTipo() == Logro.TipoLogro.Trofeo) imageView.setImageDrawable(getDrawable(R.drawable.trofeo_ganado));
             }
             else{
-                if (lista.get(i - 1).getTipo() == Logro.TipoLogro.Medalla) imageView.setImageDrawable(getDrawable(R.drawable.logronoconseguido));
-                if (lista.get(i - 1).getTipo() == Logro.TipoLogro.Trofeo) imageView.setImageDrawable(getDrawable(R.drawable.trofeo_noconseguido));
+                if (lista.get(j - 1).getTipo() == Logro.TipoLogro.Medalla) imageView.setImageDrawable(getDrawable(R.drawable.logronoconseguido));
+                if (lista.get(j - 1).getTipo() == Logro.TipoLogro.Trofeo) imageView.setImageDrawable(getDrawable(R.drawable.trofeo_noconseguido));
             }
+            j++;
+        }
+
     }
 
 

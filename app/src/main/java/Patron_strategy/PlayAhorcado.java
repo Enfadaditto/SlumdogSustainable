@@ -2,13 +2,20 @@ package Patron_strategy;
 
 import static Patron_Fachada.FachadaDeRetos.haConsolidado;
 import static Patron_Fachada.FachadaDeRetos.juegoRetoAhorcado;
+import static Patron_Fachada.FachadaDeRetos.juegoRetoPregunta;
 import static Patron_Fachada.FachadaDeRetos.pistas;
 import static Patron_Fachada.FachadaDeRetos.puntosConsolidados;
 import static Patron_Fachada.FachadaDeRetos.puntosTotales;
+import static Patron_Fachada.FachadaDeRetos.retoAhorcado;
+import static Patron_Fachada.FachadaDeRetos.retoPregunta;
 import static Patron_Fachada.FachadaDeRetos.ronda;
 import static Patron_Fachada.FachadaDeRetos.vidas;
 
 import android.os.Bundle;
+
+import Builder.BuilderRetoAhorcado;
+import Builder.BuilderRetoPregunta;
+import Builder.Director;
 
 public class PlayAhorcado implements JuegoStrategy{
     public Bundle crearReto() {
@@ -29,5 +36,14 @@ public class PlayAhorcado implements JuegoStrategy{
         b.putInt("odsAhorcado", juegoRetoAhorcado.getAhorcado().getId_ODS());
         b.putInt("Pistas", pistas);
         return b;
+    }
+
+    @Override
+    public void obtenerRetos() {
+        Director creadorDeJuego = new Director();
+        retoAhorcado = new BuilderRetoAhorcado();
+        creadorDeJuego.setJuegoBuilder(retoAhorcado);
+        creadorDeJuego.construirJuego();
+        juegoRetoAhorcado = retoAhorcado.getJuego();
     }
 }

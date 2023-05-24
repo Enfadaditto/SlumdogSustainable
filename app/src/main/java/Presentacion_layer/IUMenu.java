@@ -2,6 +2,7 @@ package Presentacion_layer;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,7 +32,7 @@ public class IUMenu extends AppCompatActivity{
         botonRetoAhorcado = findViewById(R.id.botonRetoAhorcado);
         botonRetoFrase = findViewById(R.id.botonRetoFrase);
         botonRetoMixto = findViewById(R.id.botonRetoMixto);
-        //habilitarBotones();
+        habilitarBotones();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ObjetivoSemanal.sumarMetaSemanal();
     }
@@ -72,6 +73,8 @@ public class IUMenu extends AppCompatActivity{
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 100) {
+            MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
+            MainActivity.music.start();
             finish();
         }
     }

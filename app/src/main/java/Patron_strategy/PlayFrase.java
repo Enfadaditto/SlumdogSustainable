@@ -5,10 +5,14 @@ import static Patron_Fachada.FachadaDeRetos.juegoRetoDescubrirFrase;
 import static Patron_Fachada.FachadaDeRetos.pistas;
 import static Patron_Fachada.FachadaDeRetos.puntosConsolidados;
 import static Patron_Fachada.FachadaDeRetos.puntosTotales;
+import static Patron_Fachada.FachadaDeRetos.retoDescubrirFrase;
 import static Patron_Fachada.FachadaDeRetos.ronda;
 import static Patron_Fachada.FachadaDeRetos.vidas;
 
 import android.os.Bundle;
+
+import Builder.BuilderRetoDescubrirFrase;
+import Builder.Director;
 
 
 public class PlayFrase implements JuegoStrategy{
@@ -30,5 +34,13 @@ public class PlayFrase implements JuegoStrategy{
         b.putInt("odsFrase", juegoRetoDescubrirFrase.getFraseActual().getId_ODS());
         b.putInt("Pistas", pistas);
         return b;
+    }
+
+    public void obtenerRetos() {
+        Director creadorDeJuego = new Director();
+        retoDescubrirFrase = new BuilderRetoDescubrirFrase();
+        creadorDeJuego.setJuegoBuilder(retoDescubrirFrase);
+        creadorDeJuego.construirJuego();
+        juegoRetoDescubrirFrase = retoDescubrirFrase.getJuego();
     }
 }

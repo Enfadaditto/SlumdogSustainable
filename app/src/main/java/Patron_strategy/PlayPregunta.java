@@ -5,10 +5,15 @@ import static Patron_Fachada.FachadaDeRetos.juegoRetoPregunta;
 import static Patron_Fachada.FachadaDeRetos.pistas;
 import static Patron_Fachada.FachadaDeRetos.puntosConsolidados;
 import static Patron_Fachada.FachadaDeRetos.puntosTotales;
+import static Patron_Fachada.FachadaDeRetos.retoPregunta;
 import static Patron_Fachada.FachadaDeRetos.ronda;
 import static Patron_Fachada.FachadaDeRetos.vidas;
 
 import android.os.Bundle;
+
+import Builder.BuilderRetoPregunta;
+import Builder.Director;
+import Patron_Fachada.FachadaDeRetos;
 
 public class PlayPregunta implements JuegoStrategy{
     public Bundle crearReto() {
@@ -26,5 +31,13 @@ public class PlayPregunta implements JuegoStrategy{
         b.putInt("SonidoAcierto", juegoRetoPregunta.getSonidoacierto());
         b.putInt("Pistas", pistas);
         return b;
+    }
+
+    public void obtenerRetos() {
+        Director creadorDeJuego = new Director();
+        retoPregunta = new BuilderRetoPregunta();
+        creadorDeJuego.setJuegoBuilder(retoPregunta);
+        creadorDeJuego.construirJuego();
+        juegoRetoPregunta = retoPregunta.getJuego();
     }
 }

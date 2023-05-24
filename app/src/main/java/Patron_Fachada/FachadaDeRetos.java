@@ -26,6 +26,7 @@ import Domain_Layer.User;
 import Patron_strategy.JuegoStrategy;
 import Patron_strategy.PlayAhorcado;
 import Patron_strategy.PlayFrase;
+import Patron_strategy.PlayMixto;
 import Patron_strategy.PlayPregunta;
 import Persistence.ODS_URepository;
 import Persistence.ObjetivoSemanal;
@@ -37,21 +38,21 @@ import Presentacion_layer.IUretoPregunta;
 
 public class FachadaDeRetos extends AppCompatActivity implements FachadaInterface {
     public static int vidas = 1, ronda = 1, retoRandom, indiceRetoFacil = 0, indiceRetoDificil = 0, indiceRetoMedio = 0, puntosTotales, puntosConsolidados, erroresRetoAhorcado;
-    public static RetoPregunta juegoRetoPregunta;
-    public static RetoAhorcado juegoRetoAhorcado;
+    public static RetoPregunta juegoRetoPregunta = null;
+    public static RetoAhorcado juegoRetoAhorcado = null;
     public static int pistas = 3;
     public static Boolean  haUsadoPista= false;
 
     public static int partidasEnRacha = 0;
-    public static RetoDescubrirFrase juegoRetoDescubrirFrase;
+    public static RetoDescubrirFrase juegoRetoDescubrirFrase = null;
     Button botonRetoPregunta, botonRetoAhorcado, botonRetoFrase, botonRetoMixto;
     public static boolean retoPreguntaEscogido, retoAhorcadoEscogido, retoDescubrirFraseEscogido, retoMixtoEscogido, haConsolidado = false;
     public final static int REQUESTCODE = 100;
 
     public final static int ABANDON = 100;
-    BuilderRetoPregunta retoPregunta;
-    BuilderRetoAhorcado retoAhorcado;
-    BuilderRetoDescubrirFrase retoDescubrirFrase;
+    public static BuilderRetoPregunta retoPregunta;
+    public static BuilderRetoAhorcado retoAhorcado;
+    public static BuilderRetoDescubrirFrase retoDescubrirFrase;
 
     public static boolean easterEgg = false;
 
@@ -89,41 +90,21 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
     public void empezarPartida() {
         MainActivity.music.stop();
         MainActivity.background.start();
-        Director creadorDeJuego = new Director();
         if (retoAhorcadoEscogido) {
-            retoAhorcado = new BuilderRetoAhorcado();
-            creadorDeJuego.setJuegoBuilder(retoAhorcado);
-            creadorDeJuego.construirJuego();
-            juegoRetoAhorcado = retoAhorcado.getJuego();
+            estrategia = new PlayAhorcado();
+            estrategia.obtenerRetos();
             siguienteRetoAhorcado();
         } else if (retoPreguntaEscogido) {
-            retoPregunta = new BuilderRetoPregunta();
-            creadorDeJuego.setJuegoBuilder(retoPregunta);
-            creadorDeJuego.construirJuego();
-            juegoRetoPregunta = retoPregunta.getJuego();
+            estrategia = new PlayPregunta();
+            estrategia.obtenerRetos();
             siguienteRetoPregunta();
         } else if (retoDescubrirFraseEscogido) {
-            retoDescubrirFrase = new BuilderRetoDescubrirFrase();
-            creadorDeJuego.setJuegoBuilder(retoDescubrirFrase);
-            creadorDeJuego.construirJuego();
-            juegoRetoDescubrirFrase = retoDescubrirFrase.getJuego();
+            estrategia = new PlayFrase();
+            estrategia.obtenerRetos();
             siguienteRetoDescubrirFrase();
         } else if (retoMixtoEscogido) {
-            retoDescubrirFrase = new BuilderRetoDescubrirFrase();
-            creadorDeJuego.setJuegoBuilder(retoDescubrirFrase);
-            creadorDeJuego.construirJuego();
-            juegoRetoDescubrirFrase = retoDescubrirFrase.getJuego();
-
-            retoPregunta = new BuilderRetoPregunta();
-            creadorDeJuego.setJuegoBuilder(retoPregunta);
-            creadorDeJuego.construirJuego();
-            juegoRetoPregunta = retoPregunta.getJuego();
-
-            retoAhorcado = new BuilderRetoAhorcado();
-            creadorDeJuego.setJuegoBuilder(retoAhorcado);
-            creadorDeJuego.construirJuego();
-            juegoRetoAhorcado = retoAhorcado.getJuego();
-
+            estrategia = new PlayMixto();
+            estrategia.obtenerRetos();
             siguienteRetoMixto();
         }
     }
@@ -153,7 +134,6 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
                 siguienteRetoDescubrirFrase();
                 break;
         }
-
     }
     private void updateGameStateAndFinish(boolean ganado, int tiempo, int puntos) {
         updatePartidasandTime(ganado, false, tiempo, puntos);
@@ -365,6 +345,18 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         if (ronda == 1 && vidas < 0) usuario.desbloquearLogro(new Logro().getLogroPorID(30));
         if(usuario.getPointsAchievedOnMonday()== 10000){
             ObjetivoSemanal.sumarMetaSemanal();   }
+    }
+
+    public void onDestroy () {
+        super.onDestroy();
+        MainActivity.music.stop();
+        MainActivity.background.stop();
+        haConsolidado = false;
+        pistas = 3;
+        puntosTotales = 0;
+        puntosConsolidados = 0;
+        ronda = 1;
+        vidas = 1;
     }
 
 }

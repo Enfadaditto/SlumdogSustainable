@@ -18,6 +18,9 @@ import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import Domain_Layer.User;
 import Persistence.SingletonConnection;
@@ -96,10 +99,16 @@ public class IUuserRegister extends AppCompatActivity {
                     );
                     userActual.cargarODSUser(nicknameField.getText().toString());
                     MainActivity.user = User.getUserByUsername(new UserRepository(SingletonConnection.getSingletonInstance()), nicknameField.getText().toString());
+                    File sesionGuardada = new File(getApplicationContext().getApplicationInfo().dataDir + "/file/usuarioActual.txt");
+                    FileWriter escritor = new FileWriter(sesionGuardada);
+                    String nombre = nicknameField.getText().toString();
+                    escritor.write(nombre);
+                    escritor.close();
+
                     Intent intent = new Intent(IUuserRegister.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                } catch (RuntimeException e) {System.out.println(e);}
+                } catch (RuntimeException | IOException e) {System.out.println(e);}
             }
         }).start();
     }

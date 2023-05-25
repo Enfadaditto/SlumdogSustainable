@@ -18,6 +18,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
+import java.io.FileWriter;
+
 import Domain_Layer.User;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
@@ -44,12 +47,19 @@ public class IUuserLogin extends AppCompatActivity {
                 try {
                     if (checkPassword()) {
                         MainActivity.user = User.getUserByUsername(new UserRepository(SingletonConnection.getSingletonInstance()), usernameField.getText().toString());
+
+                        System.out.println("HA LLEGADO AQUI");
+                        File sesionGuardada = new File(getApplicationContext().getApplicationInfo().dataDir + "/files/usuarioActual.txt");
+                        FileWriter escritor = new FileWriter(sesionGuardada);
+                        String nombre = usernameField.getText().toString();
+                        escritor.write(nombre);
+                        escritor.close();
+
                         Intent intent = new Intent(IUuserLogin.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
                     else {
-                        //signupErrorText.setVisibility(View.VISIBLE);
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 PasswordError();

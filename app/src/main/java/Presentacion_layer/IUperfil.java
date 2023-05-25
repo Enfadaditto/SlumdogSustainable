@@ -32,6 +32,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -192,6 +195,15 @@ public class IUperfil extends AppCompatActivity {
 
     public void cerrarSesion(View view) {
         MainActivity.user = null;
+        File sesion = new File(getApplicationContext().getApplicationInfo().dataDir + "/files/usuarioActual.txt");
+
+        FileWriter escritor = null;
+        try {
+            escritor = new FileWriter(sesion);
+            escritor.write("");
+            escritor.close();
+        } catch (IOException e) { e.printStackTrace(); }
+
         Intent intent = new Intent(IUperfil.this, IUuserLogin.class);
         startActivity(intent);
         finish();

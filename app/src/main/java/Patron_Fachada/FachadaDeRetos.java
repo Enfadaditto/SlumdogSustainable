@@ -16,18 +16,18 @@ import java.util.Random;
 import Builder.BuilderRetoAhorcado;
 import Builder.BuilderRetoDescubrirFrase;
 import Builder.BuilderRetoPregunta;
-import Builder.Director;
 import Domain_Layer.Logro;
 import Domain_Layer.Reto;
 import Domain_Layer.RetoAhorcado;
 import Domain_Layer.RetoDescubrirFrase;
 import Domain_Layer.RetoPregunta;
 import Domain_Layer.User;
+import Patron_strategy.Context;
 import Patron_strategy.JuegoStrategy;
-import Patron_strategy.PlayAhorcado;
-import Patron_strategy.PlayFrase;
-import Patron_strategy.PlayMixto;
-import Patron_strategy.PlayPregunta;
+import Patron_strategy.AhorcadoStrategy;
+import Patron_strategy.FraseStrategy;
+import Patron_strategy.MixtoStrategy;
+import Patron_strategy.PreguntaStrategy;
 import Persistence.ODS_URepository;
 import Persistence.ObjetivoSemanal;
 import Persistence.SingletonConnection;
@@ -56,12 +56,12 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
     public static boolean easterEgg = false;
 
-    JuegoStrategy estrategia;
+    Context context;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
+        context = new Context();
         botonRetoAhorcado = findViewById(R.id.botonRetoAhorcado);
         botonRetoPregunta = findViewById(R.id.botonRetoPregunta);
         botonRetoFrase = findViewById(R.id.botonRetoFrase);
@@ -91,20 +91,20 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         MainActivity.music.stop();
         MainActivity.background.start();
         if (retoAhorcadoEscogido) {
-            estrategia = new PlayAhorcado();
-            estrategia.obtenerRetos();
+            context.setEstrategia(new AhorcadoStrategy());
+            context.obtenerRetos();
             siguienteRetoAhorcado();
         } else if (retoPreguntaEscogido) {
-            estrategia = new PlayPregunta();
-            estrategia.obtenerRetos();
+            context.setEstrategia(new PreguntaStrategy());
+            context.obtenerRetos();
             siguienteRetoPregunta();
         } else if (retoDescubrirFraseEscogido) {
-            estrategia = new PlayFrase();
-            estrategia.obtenerRetos();
+            context.setEstrategia(new FraseStrategy());
+            context.obtenerRetos();
             siguienteRetoDescubrirFrase();
         } else if (retoMixtoEscogido) {
-            estrategia = new PlayMixto();
-            estrategia.obtenerRetos();
+            context.setEstrategia(new MixtoStrategy());
+            context.obtenerRetos();
             siguienteRetoMixto();
         }
     }
@@ -195,8 +195,8 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
         setPreguntaActual();
         juegoRetoPregunta.setIdOds(juegoRetoPregunta.getPreguntaActual().getOds());
-        estrategia = new PlayPregunta();
-        startGame(IUretoPregunta.class, estrategia.crearReto());
+        context.setEstrategia(new PreguntaStrategy());
+        startGame(IUretoPregunta.class, context.crearReto());
     }
 
     public void siguienteRetoAhorcado() {
@@ -211,8 +211,8 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
         setAhorcadoActual();
         juegoRetoAhorcado.setIdOds(juegoRetoAhorcado.getAhorcado().getId_ODS());
-        estrategia = new PlayAhorcado();
-        startGame(IUretoAhorcado.class, estrategia.crearReto());
+        context.setEstrategia(new AhorcadoStrategy());
+        startGame(IUretoAhorcado.class, context.crearReto());
     }
 
     public void siguienteRetoDescubrirFrase() {
@@ -227,8 +227,8 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
         setDescubrirFraseActual();
         juegoRetoDescubrirFrase.setIdOds(juegoRetoDescubrirFrase.getFraseActual().getId_ODS());
-        estrategia = new PlayFrase();
-        startGame(IUretoFrase.class, estrategia.crearReto());
+        context.setEstrategia(new FraseStrategy());
+        startGame(IUretoFrase.class, context.crearReto());
     }
 
     private void startGame(Class<?> clazz, Bundle bundle) {

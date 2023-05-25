@@ -15,7 +15,7 @@ import Builder.BuilderRetoDescubrirFrase;
 import Builder.Director;
 
 
-public class PlayFrase implements JuegoStrategy{
+public class FraseStrategy implements JuegoStrategy{
 
     public Bundle crearReto() {
         Bundle b = new Bundle();

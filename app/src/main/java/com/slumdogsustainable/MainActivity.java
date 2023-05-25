@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
 
     public static MediaPlayer music; //MediaPlayer sonidos
+
     public static MediaPlayer background; //Mediaplayer fondo
     public static User user;
     public ImageView imagenUser;
@@ -125,8 +126,6 @@ public class MainActivity extends AppCompatActivity {
                         else {
 
                             music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
-                            background = MediaPlayer.create(getApplicationContext(), R.raw.backgroundmusic);
-                            background.setLooping(true);
                             music.setLooping(true);
                             music.start();
                             setContentView(R.layout.inicio);
@@ -259,6 +258,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(music != null) {
+            music.stop();
+            MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
+            MainActivity.music.start();}
         if(user != null) {
             List<Integer> imageIds = Arrays.asList(R.drawable.icon1, R.drawable.icon2, R.drawable.icon3);
             imagenUser = findViewById(R.id.botonPerfil);

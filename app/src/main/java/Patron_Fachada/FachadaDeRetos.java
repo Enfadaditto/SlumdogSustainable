@@ -2,6 +2,7 @@ package Patron_Fachada;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -89,6 +90,8 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
 
     public void empezarPartida() {
         MainActivity.music.stop();
+        MainActivity.background = MediaPlayer.create(getApplicationContext(), R.raw.backgroundmusic);
+        MainActivity.background.setLooping(true);
         MainActivity.background.start();
         if (retoAhorcadoEscogido) {
             context.setEstrategia(new AhorcadoStrategy());
@@ -351,6 +354,10 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         super.onDestroy();
         MainActivity.music.stop();
         MainActivity.background.stop();
+        retoAhorcadoEscogido = false;
+        retoDescubrirFraseEscogido = false;
+        retoMixtoEscogido = false;
+        retoPreguntaEscogido = false;
         haConsolidado = false;
         pistas = 3;
         puntosTotales = 0;

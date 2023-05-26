@@ -14,14 +14,14 @@ import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 import Persistence.User_LRepository;
 
-public class MediadorLogros implements IMediadorLogros {
+public class MediadorLogros implements IMediadorLogros {    //MEDIA ENTRE ENLACES USER_lOGRO, USUARIO Y LOGROS
 
-    private User_LRepository conexionEnlacesBD = new User_LRepository(SingletonConnection.getSingletonInstance());
-    private LogroRepository conexionLogrosBD = new LogroRepository(SingletonConnection.getSingletonInstance());
-    private UserRepository conexionUserBD = new UserRepository(SingletonConnection.getSingletonInstance());
+    private User_LRepository conexionEnlacesBD;
+    private LogroRepository conexionLogroBD;
 
     @Override
     public void notificarLogroDesbloqueado(User usuario, Logro logro) {
+        conexionEnlacesBD = new User_LRepository(SingletonConnection.getSingletonInstance());
         List<User_has_Logro> listaEnlaces = conexionEnlacesBD.obtenerTodos();
 
         if ((new User_has_Logro().getEnlaceUsuarioLogro(usuario.getNickname(), logro.getId_logro(), listaEnlaces)).isCompletado()) return;
@@ -33,8 +33,9 @@ public class MediadorLogros implements IMediadorLogros {
     }
 
     public void addEnlaces(User usuario) {
+        conexionLogroBD = new LogroRepository(SingletonConnection.getSingletonInstance());
         User_has_Logro x = new User_has_Logro("",-1);
-        for (Logro l : conexionLogrosBD.obtenerTodos()) {
+        for (Logro l : conexionLogroBD.obtenerTodos()) {
             if (x.getEnlaceUsuarioLogro(usuario.getNickname(), l.getId_logro(), conexionEnlacesBD.obtenerTodos()) == null) {
                 User_has_Logro nuevoEnlace = new User_has_Logro(usuario.getNickname(), l.getId_logro());
                 nuevoEnlace.setCompletado(false); nuevoEnlace.setProgreso(0);
@@ -43,6 +44,6 @@ public class MediadorLogros implements IMediadorLogros {
         }
 
         usuario.setLogrosAñadidos(true);
-        conexionUserBD.actualizar(usuario);
+        new UserRepository(SingletonConnection.getSingletonInstance()).actualizar(usuario);
     }
 }

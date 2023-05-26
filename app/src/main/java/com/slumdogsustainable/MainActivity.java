@@ -217,6 +217,10 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("\tMOSTRANDO LOGROS POR PANTALLA");
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
 
+        crearBocadillo(fabricaBocadillos);
+    }
+
+    private void crearBocadillo(FabricaConcreta fabricaBocadillos) {
         int i = 0x12351614;
         while (!logrosCompletados.isEmpty()) {
             Logro logro = logrosCompletados.poll();
@@ -239,7 +243,6 @@ public class MainActivity extends AppCompatActivity {
             constraintSet.connect(i, ConstraintSet.TOP, botonInicio.getId(), ConstraintSet.BOTTOM, 10);
             constraintSet.connect(i, ConstraintSet.BOTTOM, imagenUser.getId(), ConstraintSet.TOP, 10);
             constraintSet.applyTo(rootView);
-
 
             nuevoBocadillo.setVisibility(View.VISIBLE);
             nuevoBocadillo.startAnimation(animacionAparecer);

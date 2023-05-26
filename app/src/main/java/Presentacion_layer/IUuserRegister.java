@@ -108,6 +108,7 @@ public class IUuserRegister extends AppCompatActivity {
                         return;
                     }
 
+                    setContentView(R.layout.pantalla_carga);
                     new UserRepository(SingletonConnection.getSingletonInstance()).guardar(
                             new User(
                                     nicknameField.getText().toString(),

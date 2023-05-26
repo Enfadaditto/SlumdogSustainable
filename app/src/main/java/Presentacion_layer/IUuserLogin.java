@@ -39,6 +39,7 @@ public class IUuserLogin extends AppCompatActivity {
     }
 
     public void loginButtonOnClick(View view) {
+        setContentView(R.layout.pantalla_carga);
         new Thread(new Runnable() {
             public void run(){
                 try {
@@ -52,6 +53,7 @@ public class IUuserLogin extends AppCompatActivity {
                         //signupErrorText.setVisibility(View.VISIBLE);
                         runOnUiThread(new Runnable() {
                             public void run() {
+                                setContentView(R.layout.login);
                                 PasswordError();
                                 usernameField.getText().clear();
                                 passwordField.getText().clear();

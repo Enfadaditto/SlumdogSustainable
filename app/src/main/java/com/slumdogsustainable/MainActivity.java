@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.pantalla_carga);
         new Task().execute();
 
 
@@ -119,9 +120,9 @@ public class MainActivity extends AppCompatActivity {
             {
 
                 UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
-                user = User.getUserByUsername(u, "prueba");
+                user = User.getUserByUsername(u, "1");
 
-               runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     public void run() {
                         if(user == null) {
                             Intent intent = new Intent(MainActivity.this, IUuserLogin.class);
@@ -141,12 +142,14 @@ public class MainActivity extends AppCompatActivity {
                             nivelJugador.setText("Nivel "+ user.getNivelUsuario());
 
                             if (!user.isLogrosAñadidos()) {
+                                System.out.println("PANTALLA DE CARGA");
                                 Thread hilo = new Thread(() -> {
                                     addObservadores(user);
                                     user.desbloquearLogro(new Logro().getLogroPorID(1));
                                 });
                                 hilo.start();
                                 try {hilo.join();} catch (InterruptedException e) {e.printStackTrace();}
+                                setContentView(R.layout.inicio);
 
                                 onWindowFocusChanged(true);
                             }

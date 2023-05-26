@@ -204,6 +204,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
     }
 
     public void siguienteRetoAhorcado() {
+        System.out.println(indiceRetoFacil + " AQUI COJONE");
         if (ronda > 10) {
             updateGameStateAndFinish(true, juegoRetoAhorcado.getTiempo() * 10, puntosTotales);
             return;

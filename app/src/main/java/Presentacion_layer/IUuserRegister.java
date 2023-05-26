@@ -8,9 +8,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,7 +21,10 @@ import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
+import java.util.List;
 
+import Domain_Layer.CustomSpinnerAdapter;
 import Domain_Layer.User;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
@@ -33,8 +39,8 @@ public class IUuserRegister extends AppCompatActivity {
     private ImageView iconSelector;
     private Button registerButton;
 
-    private byte [] userImage;
-    private final User userActual = new User("a", "b","c");
+    private int icon = 1;
+    private final User userActual = new User("a", "b","c", 0);
 
 
 
@@ -47,7 +53,22 @@ public class IUuserRegister extends AppCompatActivity {
         emailField = findViewById(R.id.emailField);
         passwordField = findViewById(R.id.passwordField);
         repeatPasswordField = findViewById(R.id.repeatPasswordField);
-        iconSelector = findViewById(R.id.iconSelector);
+        Spinner spinner = findViewById(R.id.spinnerIcon);
+
+        List<Integer> imageIds = Arrays.asList(R.drawable.icon1, R.drawable.icon2, R.drawable.icon3);
+
+        CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(this, imageIds);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(0);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                icon = i;
+            }
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         registerButton = findViewById(R.id.registerButton);
     }
 
@@ -91,7 +112,8 @@ public class IUuserRegister extends AppCompatActivity {
                             new User(
                                     nicknameField.getText().toString(),
                                     emailField.getText().toString(),
-                                    passwordField.getText().toString()
+                                    passwordField.getText().toString(),
+                                    icon
                             )
                     );
                     userActual.cargarODSUser(nicknameField.getText().toString());
@@ -125,52 +147,5 @@ public class IUuserRegister extends AppCompatActivity {
 
         AlertDialog dialog = alert.create();
         dialog.show();
-    }
-
-    public void selectIcon(View view) { throwRegisterDialog(); }
-
-    private void throwRegisterDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Seleccione su imagen");
-        builder.setPositiveButton("Cámara", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(intent, 1);
-                }
-            }
-        });
-        builder.setNegativeButton("Galeria", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.setType("image/");
-                startActivityForResult(Intent.createChooser(intent, "Seleccione su imagen"), 10);
-            }
-        });
-        builder.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 10 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri path = data.getData();
-            iconSelector.setImageURI(path);
-        }
-
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            userImage= stream.toByteArray();
-            iconSelector.setImageBitmap(imageBitmap);
-        }
     }
 }

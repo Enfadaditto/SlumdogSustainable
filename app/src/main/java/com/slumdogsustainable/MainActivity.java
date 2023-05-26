@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
+        imagenUser = findViewById(R.id.botonPerfil);
+
         new Task().execute();
 
 
@@ -292,8 +294,9 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.music.start();}
         if(user != null) {
             List<Integer> imageIds = Arrays.asList(R.drawable.icon1, R.drawable.icon2, R.drawable.icon3);
-            imagenUser = findViewById(R.id.botonPerfil);
-            imagenUser.setImageResource(imageIds.get(user.getIcon()));
+            if(imagenUser!=null) {
+                imagenUser.setImageResource(imageIds.get(user.getIcon()));
+            }
         }
     }
 }

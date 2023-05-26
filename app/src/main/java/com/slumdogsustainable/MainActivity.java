@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             {
 
                 UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
-                user = User.getUserByUsername(u, "logro1");
+                user = User.getUserByUsername(u, "prueba");
 
                runOnUiThread(new Runnable() {
                     public void run() {

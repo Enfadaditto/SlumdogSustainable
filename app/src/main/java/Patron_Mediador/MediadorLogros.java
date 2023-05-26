@@ -1,5 +1,7 @@
 package Patron_Mediador;
 
+import android.widget.Toast;
+
 import com.slumdogsustainable.MainActivity;
 
 import java.util.List;
@@ -22,11 +24,11 @@ public class MediadorLogros implements IMediadorLogros {
     public void notificarLogroDesbloqueado(User usuario, Logro logro) {
         List<User_has_Logro> listaEnlaces = conexionEnlacesBD.obtenerTodos();
 
-        if ((new User_has_Logro().getEnlaceUsuarioLogro(usuario.getNickname(), logro.getId_logro(), listaEnlaces)).isCompletado()) return;
+        //if ((new User_has_Logro().getEnlaceUsuarioLogro(usuario.getNickname(), logro.getId_logro(), listaEnlaces)).isCompletado()) return;
         MainActivity.logrosCompletados.offer(logro);
-        System.out.println("Logro desbloqueado: " + MainActivity.logrosCompletados.peek().getNombre());
+        System.out.println("Logro desbloqueado");
         User_has_Logro uhl = new User_has_Logro().getEnlaceUsuarioLogro(usuario.getNickname(), logro.getId_logro(), listaEnlaces);
-        uhl.setCompletado(true);
+        uhl.setCompletado(false);
         conexionEnlacesBD.actualizar(uhl);
     }
 

@@ -4,6 +4,7 @@ import static androidx.appcompat.content.res.AppCompatResources.getDrawable;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -32,7 +33,10 @@ public class BocadilloLogro extends LinearLayout implements IBocadilloLogro{
         this.context = context; this.logro = logro;
         this.setOrientation(HORIZONTAL);
         this.setLayoutParams(new LayoutParams(0,0));
-        this.setBackgroundColor(0x94131313);
+        GradientDrawable gradient = new GradientDrawable();
+        gradient.setColor(0x94131313);
+        gradient.setCornerRadius(20);
+        this.setBackground(gradient);
     }
 
     public void crearImagen(){
@@ -40,7 +44,8 @@ public class BocadilloLogro extends LinearLayout implements IBocadilloLogro{
         if (logro.getTipo() == Logro.TipoLogro.Medalla) imagenLogro.setImageDrawable(getDrawable(context, R.drawable.logroconseguido));
         if (logro.getTipo() == Logro.TipoLogro.Trofeo) imagenLogro.setImageDrawable(getDrawable(context, R.drawable.trofeo_ganado));
 
-        imagenLogro.setLayoutParams(new LayoutParams(325, ViewGroup.LayoutParams.MATCH_PARENT,2));
+        imagenLogro.setPadding(30,0,30,0);
+        imagenLogro.setLayoutParams(new LayoutParams(400, ViewGroup.LayoutParams.MATCH_PARENT,2));
 
     }
     public void crearSeparador() {

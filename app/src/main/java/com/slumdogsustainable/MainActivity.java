@@ -1,6 +1,7 @@
 package com.slumdogsustainable;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
@@ -20,10 +21,14 @@ import android.widget.TextView;
 import java.util.Arrays;
 
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.constraintlayout.widget.Constraints;
 import androidx.navigation.ui.AppBarConfiguration;
 
 
@@ -62,10 +67,7 @@ public class MainActivity extends AppCompatActivity {
     public static Queue<Logro> logrosCompletados = new ArrayDeque<>();
 
     Button botonInicio;
-
-    TextView nombreLogro, descripcionLogro;
-    LinearLayout bocadilloLogro;
-
+    ConstraintLayout bocadilloLogro;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -210,11 +212,14 @@ public class MainActivity extends AppCompatActivity {
         bocadilloLogro = findViewById(R.id.bocadilloLogro);
 
         FabricaConcreta fabricaBocadillos = new FabricaConcreta();
+        Toast.makeText(this,"¡Nuevo logro desbloqueado!", Toast.LENGTH_SHORT).show();
+
         System.out.println("\tMOSTRANDO LOGROS POR PANTALLA");
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-        while(logrosCompletados.size() > 0) {
-            Logro logro = logrosCompletados.poll();
 
+        int i = 0x12351614;
+        while (!logrosCompletados.isEmpty()) {
+            Logro logro = logrosCompletados.poll();
             System.out.println("Logro a mostrar: " + logro.getNombre());
 
             Animation animacionDesaparecer = new AlphaAnimation(1.0f, 0.0f);
@@ -223,17 +228,26 @@ public class MainActivity extends AppCompatActivity {
             animacionAparecer.setDuration(50);
 
             BocadilloLogro nuevoBocadillo = fabricaBocadillos.crearProducto(this, logro);
-            nuevoBocadillo.setLayoutParams(bocadilloLogro.getLayoutParams());
-            ViewGroup rootView = findViewById(R.id.content);
+            nuevoBocadillo.setId(i);
+            ConstraintLayout rootView = findViewById(R.id.content);
             rootView.addView(nuevoBocadillo);
+
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(rootView);
+            constraintSet.connect(i, ConstraintSet.START, rootView.getId(), ConstraintSet.START, 40);
+            constraintSet.connect(i, ConstraintSet.END, rootView.getId(), ConstraintSet.END, 40);
+            constraintSet.connect(i, ConstraintSet.TOP, botonInicio.getId(), ConstraintSet.BOTTOM, 10);
+            constraintSet.connect(i, ConstraintSet.BOTTOM, imagenUser.getId(), ConstraintSet.TOP, 10);
+            constraintSet.applyTo(rootView);
+
 
             nuevoBocadillo.setVisibility(View.VISIBLE);
             nuevoBocadillo.startAnimation(animacionAparecer);
             nuevoBocadillo.setOnClickListener((View v) -> {
-                        nuevoBocadillo.setVisibility(View.INVISIBLE);
-                        nuevoBocadillo.startAnimation(animacionDesaparecer);
+                rootView.removeView(nuevoBocadillo);
             });
             System.out.println("MOSTRADO BOCADILLO LOGRO: " + logro.getId_logro());
+            i++;
         }
     }
 

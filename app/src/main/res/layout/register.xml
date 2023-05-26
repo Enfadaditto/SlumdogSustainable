@@ -21,24 +21,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_dialog_info" />
 
-    <ImageView
-        android:id="@+id/iconSelector"
-        android:layout_width="122dp"
-        android:layout_height="129dp"
-        android:onClick="selectIcon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.053"
-        app:srcCompat="@drawable/user" />
-
     <EditText
         android:id="@+id/nicknameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="216dp"
         android:ems="10"
         android:hint="nick"
         android:inputType="textPersonName"
@@ -46,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.716"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iconSelector" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/emailField"
@@ -118,4 +105,19 @@
         app:layout_constraintStart_toEndOf="@+id/passwordField"
         app:layout_constraintTop_toBottomOf="@+id/infoemail"
         app:srcCompat="@android:drawable/ic_dialog_info" />
+
+    <Spinner
+        android:id="@+id/spinnerIcon"
+        android:layout_width="186dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginBottom="94dp"
+        app:layout_constraintBottom_toTopOf="@+id/nicknameField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.373" />
 </androidx.constraintlayout.widget.ConstraintLayout>

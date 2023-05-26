@@ -57,11 +57,11 @@ public class User {
 
 
     User() {}
-    public User(String nick, String email, String password) {
+    public User(String nick, String email, String password, int icon) {
         this.nickname = nick;
         this.email = email;
         this.password = password;
-        this.icon = 0;
+        this.icon = icon;
         this.pointsAchieved = 0;
         this.timeSpent = 0;
         this.logrosAñadidos = false;

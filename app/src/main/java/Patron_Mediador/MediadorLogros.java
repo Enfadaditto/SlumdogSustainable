@@ -9,16 +9,20 @@ import Domain_Layer.User;
 import Domain_Layer.User_has_Logro;
 import Persistence.LogroRepository;
 import Persistence.SingletonConnection;
+import Persistence.UserRepository;
 import Persistence.User_LRepository;
 
 public class MediadorLogros implements IMediadorLogros {
 
     private User_LRepository conexionEnlacesBD = new User_LRepository(SingletonConnection.getSingletonInstance());
     private LogroRepository conexionLogrosBD = new LogroRepository(SingletonConnection.getSingletonInstance());
+    private UserRepository conexionUserBD = new UserRepository(SingletonConnection.getSingletonInstance());
 
     @Override
     public void notificarLogroDesbloqueado(User usuario, Logro logro) {
         List<User_has_Logro> listaEnlaces = conexionEnlacesBD.obtenerTodos();
+
+        if ((new User_has_Logro().getEnlaceUsuarioLogro(usuario.getNickname(), logro.getId_logro(), listaEnlaces)).isCompletado()) return;
         MainActivity.logrosCompletados.offer(logro);
         System.out.println("Logro desbloqueado: " + MainActivity.logrosCompletados.peek().getNombre());
         User_has_Logro uhl = new User_has_Logro().getEnlaceUsuarioLogro(usuario.getNickname(), logro.getId_logro(), listaEnlaces);
@@ -35,5 +39,8 @@ public class MediadorLogros implements IMediadorLogros {
                 conexionEnlacesBD.guardar(nuevoEnlace);
             }
         }
+
+        usuario.setLogrosAñadidos(true);
+        conexionUserBD.actualizar(usuario);
     }
 }

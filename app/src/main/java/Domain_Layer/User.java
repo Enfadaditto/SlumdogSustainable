@@ -47,6 +47,8 @@ public class User {
     private int timeSpentOnMonday;
     @DatabaseField
     private int metasSemanales;
+    @DatabaseField
+    private boolean logrosAñadidos;
 
     private List<ODS_has_User> ODSUser;
     private IMediadorLogros mediadorLogros = new MediadorLogros();
@@ -62,6 +64,7 @@ public class User {
         this.icon = 0;
         this.pointsAchieved = 0;
         this.timeSpent = 0;
+        this.logrosAñadidos = false;
     }
 
     public static void updatePartidasandTime(UserRepository userRepository, Boolean hit, Boolean abadonada, int time, int Puntos) {
@@ -294,5 +297,13 @@ public class User {
 
     public void setMetasSemanales(int metasSemanales) {
         this.metasSemanales = metasSemanales;
+    }
+
+    public boolean isLogrosAñadidos() {
+        return logrosAñadidos;
+    }
+
+    public void setLogrosAñadidos(boolean logrosAñadidos) {
+        this.logrosAñadidos = logrosAñadidos;
     }
 }

@@ -37,8 +37,8 @@ public class BocadilloLogro extends LinearLayout implements IBocadilloLogro{
 
     public void crearImagen(){
         System.out.println("CREANDO IMAGEN DEL LOGRO: " + logro.getId_logro());
-        if (logro.getTipo() == Logro.TipoLogro.Medalla) imagenLogro.setImageDrawable(getDrawable(context, R.drawable.corazon_roto));
-        if (logro.getTipo() == Logro.TipoLogro.Trofeo) imagenLogro.setImageDrawable(getDrawable(context, R.drawable.corazon_vida));
+        if (logro.getTipo() == Logro.TipoLogro.Medalla) imagenLogro.setImageDrawable(getDrawable(context, R.drawable.logroconseguido));
+        if (logro.getTipo() == Logro.TipoLogro.Trofeo) imagenLogro.setImageDrawable(getDrawable(context, R.drawable.trofeo_ganado));
 
         imagenLogro.setLayoutParams(new LayoutParams(325, ViewGroup.LayoutParams.MATCH_PARENT,2));
 
@@ -59,11 +59,12 @@ public class BocadilloLogro extends LinearLayout implements IBocadilloLogro{
         System.out.println("AÑADIENDO TEXTOS DEL LOGRO: " + logro.getId_logro());
         nombreLogro.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 120));
         nombreLogro.setGravity(Gravity.CENTER|Gravity.LEFT);
-        nombreLogro.setPadding(10,0,0,0);
+        nombreLogro.setPadding(50,0,0,0);
         nombreLogro.setText(logro.getNombre()); nombreLogro.setTextColor(Color.WHITE);
+        nombreLogro.setTextSize(18);
 
         descripcionLogro.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 101));
-        descripcionLogro.setPadding(10,5,0,0);
+        descripcionLogro.setPadding(40,40,0,0);
         descripcionLogro.setText(logro.getDescripcion()); descripcionLogro.setTextColor(Color.WHITE);
         descripcionLogro.setTextSize(12);
 

@@ -27,6 +27,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.ui.AppBarConfiguration;
 
 
+import com.j256.ormlite.stmt.query.In;
+
 import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Queue;
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         }).start();
 
        */
+
     }
 
 
@@ -114,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             {
 
                 UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
-                user = User.getUserByUsername(u, "prueba");
+                user = User.getUserByUsername(u, "logro1");
 
                runOnUiThread(new Runnable() {
                     public void run() {
@@ -124,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
                             finish();
                         }
                         else {
-
                             music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
                             music.setLooping(true);
                             music.start();
@@ -135,6 +137,17 @@ public class MainActivity extends AppCompatActivity {
                             imagenUser.setImageResource(imageIds.get(user.getIcon()));
                             nivelJugador = findViewById(R.id.TextoNivelUsuario);
                             nivelJugador.setText("Nivel "+ user.getNivelUsuario());
+
+                            if (!user.isLogrosAñadidos()) {
+                                Thread hilo = new Thread(() -> {
+                                    addObservadores(user);
+                                    user.desbloquearLogro(new Logro().getLogroPorID(1));
+                                });
+                                hilo.start();
+                                try {hilo.join();} catch (InterruptedException e) {e.printStackTrace();}
+
+                                onWindowFocusChanged(true);
+                            }
 
                             nivelJugador.addTextChangedListener(new TextWatcher() {
                                 @Override
@@ -235,7 +248,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 3000);
         if (contadorToques == 5) {
-            FachadaDeRetos.easterEgg = true;
+            Thread hilo = new Thread( () -> {
+                user.desbloquearLogro(new Logro().getLogroPorID(29));
+            }); hilo.start();
+            try {
+                hilo.join();
+            } catch (InterruptedException e) { e.printStackTrace(); }
+
+            onWindowFocusChanged(true);
         }
     }
 
@@ -247,13 +267,7 @@ public class MainActivity extends AppCompatActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         if (!hasFocus) return;
         System.out.println("Tamaño cola logros: " + logrosCompletados.size());
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (!logrosCompletados.isEmpty()) mostrarLogros();
-            }
-        }, 100);
-
+        if (!logrosCompletados.isEmpty()) mostrarLogros();
     }
     @Override
     protected void onResume() {

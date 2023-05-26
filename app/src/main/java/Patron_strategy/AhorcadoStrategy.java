@@ -2,22 +2,19 @@ package Patron_strategy;
 
 import static Patron_Fachada.FachadaDeRetos.haConsolidado;
 import static Patron_Fachada.FachadaDeRetos.juegoRetoAhorcado;
-import static Patron_Fachada.FachadaDeRetos.juegoRetoPregunta;
 import static Patron_Fachada.FachadaDeRetos.pistas;
 import static Patron_Fachada.FachadaDeRetos.puntosConsolidados;
 import static Patron_Fachada.FachadaDeRetos.puntosTotales;
 import static Patron_Fachada.FachadaDeRetos.retoAhorcado;
-import static Patron_Fachada.FachadaDeRetos.retoPregunta;
 import static Patron_Fachada.FachadaDeRetos.ronda;
 import static Patron_Fachada.FachadaDeRetos.vidas;
 
 import android.os.Bundle;
 
 import Builder.BuilderRetoAhorcado;
-import Builder.BuilderRetoPregunta;
 import Builder.Director;
 
-public class PlayAhorcado implements JuegoStrategy{
+public class AhorcadoStrategy implements JuegoStrategy{
     public Bundle crearReto() {
         Bundle b = new Bundle();
         b.putString("palabraAhorcado", juegoRetoAhorcado.getAhorcado().getPalabra());

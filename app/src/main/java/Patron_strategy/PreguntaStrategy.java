@@ -13,9 +13,8 @@ import android.os.Bundle;
 
 import Builder.BuilderRetoPregunta;
 import Builder.Director;
-import Patron_Fachada.FachadaDeRetos;
 
-public class PlayPregunta implements JuegoStrategy{
+public class PreguntaStrategy implements JuegoStrategy{
     public Bundle crearReto() {
         Bundle b = new Bundle();
         b.putInt("idPregunta", juegoRetoPregunta.getPreguntaActual().getQuestionID());

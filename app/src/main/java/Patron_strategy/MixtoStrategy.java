@@ -16,7 +16,7 @@ import Builder.BuilderRetoDescubrirFrase;
 import Builder.BuilderRetoPregunta;
 import Builder.Director;
 
-public class PlayMixto implements JuegoStrategy{
+public class MixtoStrategy implements JuegoStrategy{
     @Override
     public Bundle crearReto() {
         return null;

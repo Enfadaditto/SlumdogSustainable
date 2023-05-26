@@ -500,7 +500,6 @@ public class IUretoAhorcado extends AppCompatActivity {
             MainActivity.background.pause();
             Acierto = true;
 
-
             cantidadRetosContestados++;
             if(FachadaDeRetos.haUsadoPista){
                 textoPuntosGanados.setText("+" +nivel*50 + " puntos ganados!");

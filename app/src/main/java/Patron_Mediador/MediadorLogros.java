@@ -33,6 +33,7 @@ public class MediadorLogros implements IMediadorLogros {    //MEDIA ENTRE ENLACE
     }
 
     public void addEnlaces(User usuario) {
+        conexionEnlacesBD = new User_LRepository(SingletonConnection.getSingletonInstance());
         conexionLogroBD = new LogroRepository(SingletonConnection.getSingletonInstance());
         User_has_Logro x = new User_has_Logro("",-1);
         for (Logro l : conexionLogroBD.obtenerTodos()) {

@@ -93,6 +93,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         MainActivity.background = MediaPlayer.create(getApplicationContext(), R.raw.backgroundmusic);
         MainActivity.background.setLooping(true);
         MainActivity.background.start();
+
         if (retoAhorcadoEscogido) {
             context.setEstrategia(new AhorcadoStrategy());
             context.obtenerRetos();
@@ -305,6 +306,7 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
                     puntosTotales = 0;
                 }
                 vidas--;
+                if (juegoReto instanceof RetoAhorcado) indiceRetoFacil--;
                 updateHitsFailsODS(false, juegoReto.getIdOds(), MainActivity.user);
             } else if (resultCode == RESULT_FIRST_USER) {
                 if(haUsadoPista){
@@ -362,6 +364,9 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         pistas = 3;
         puntosTotales = 0;
         puntosConsolidados = 0;
+        indiceRetoFacil = 0;
+        indiceRetoMedio = 0;
+        indiceRetoDificil = 0;
         ronda = 1;
         vidas = 1;
     }

@@ -15,7 +15,7 @@ import Persistence.UserRepository;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class TestUsuario {
+public class UserTest {
     User testUser;
     @Test
     public void testCrearUsuario() {
@@ -25,7 +25,7 @@ public class TestUsuario {
                 public void run() {
                     UserRepository uRepo = new UserRepository(SingletonConnection.getSingletonInstance());
                     String nicknameTest = "prueba" + new Random().nextInt(1000);
-                    uRepo.guardar(new User(nicknameTest, "email@email.com", "psswd123.", null));
+                    uRepo.guardar(new User(nicknameTest, "email@email.com", "psswd123.", 0));
                     testUser = User.getUserByUsername(uRepo, nicknameTest);
                 }
             });
@@ -46,7 +46,7 @@ public class TestUsuario {
                 public void run() {
                     UserRepository uRepo = new UserRepository(SingletonConnection.getSingletonInstance());
                     String nicknameTest = "prueba" + new Random().nextInt(1000);
-                    testUser = new User(nicknameTest, "email@email.com", "psswd123.", null);
+                    testUser = new User(nicknameTest, "email@email.com", "psswd123.", 0);
                     uRepo.guardar(testUser);
                     assertTrue(!User.checkUsernameNotTaken(uRepo, nicknameTest));
                 }
@@ -67,7 +67,7 @@ public class TestUsuario {
                 public void run() {
                     UserRepository uRepo = new UserRepository(SingletonConnection.getSingletonInstance());
                     String nicknameTest = "prueba" + new Random().nextInt(1000);
-                    testUser = new User(nicknameTest, "email@email.com", "psswd123.", null);
+                    testUser = new User(nicknameTest, "email@email.com", "psswd123.", 0);
                     testUser.setPointsAchieved(15000);
                 }
             });

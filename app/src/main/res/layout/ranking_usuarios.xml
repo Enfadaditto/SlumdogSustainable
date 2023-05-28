@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_logros_metas">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -30,14 +31,14 @@
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="267dp"
-        android:layout_height="144dp"
+        android:layout_width="339dp"
+        android:layout_height="200dp"
         app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024"
-        app:srcCompat="@drawable/ranking" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/imagen_podium" />
 
     <Spinner
         android:id="@+id/selectorRanking"
@@ -52,24 +53,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.915" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewposicion"
-        android:layout_width="182dp"
-        android:layout_height="25dp"
+        android:layout_width="380dp"
+        android:layout_height="37dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="188dp"
         android:layout_marginEnd="325dp"
         android:layout_marginBottom="30dp"
-        android:text="Tu posición en el ranking:"
+        android:fontFamily="sans-serif-light"
+        android:text="T U   P O S I C I Ó N   E N   E L   R A N K I N G:"
+        android:textAlignment="center"
         android:textColor="@color/black"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/selectorGrafica"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

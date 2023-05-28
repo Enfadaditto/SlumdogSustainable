@@ -342,8 +342,12 @@ public class IUretoAhorcado extends AppCompatActivity {
 
             botonSelccionado.setBackground(getDrawable(R.drawable.boton_teclado_verde));
             letrasEncontradas[imax++]= StringToChar(letraSeleccionada);
-            //noEncontradas.remove(StringToChar(letraSeleccionada));
             sustituirLetra(letraSeleccionada);
+            Character caracterSeleccionado = StringToChar(letraSeleccionada);
+            if(noEncontradas.contains(caracterSeleccionado)){
+                noEncontradas.remove(caracterSeleccionado);
+            }
+
             terminoBien(comprobarSiTermino());
         }else {
             //letra incorrecta

@@ -65,7 +65,6 @@ public class UserTest {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    UserRepository uRepo = new UserRepository(SingletonConnection.getSingletonInstance());
                     String nicknameTest = "prueba" + new Random().nextInt(1000);
                     testUser = new User(nicknameTest, "email@email.com", "psswd123.", 0);
                     testUser.setPointsAchieved(15000);

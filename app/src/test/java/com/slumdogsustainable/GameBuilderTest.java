@@ -21,6 +21,7 @@ public class GameBuilderTest {
         RetoPregunta juegoRetoPregunta = BuilderretoPregunta.getJuego();
         assertTrue(!juegoRetoPregunta.getPreguntasNivel1().isEmpty() && !juegoRetoPregunta.getPreguntasNivel2().isEmpty() && !juegoRetoPregunta.getPreguntasNivel3().isEmpty());
     }
+
     @Test
     public void correctGameValues() {
         Director creadorDeJuego = new Director();

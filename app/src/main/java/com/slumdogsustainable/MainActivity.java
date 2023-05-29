@@ -272,18 +272,16 @@ public class MainActivity extends AppCompatActivity {
         contadorToques++;
         if (contadorToques == 1)
             new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+                @Override
+                public void run() {
                 contadorToques = 0;
             }
-        }, 3000);
+            }, 3000);
         if (contadorToques == 5) {
             Thread hilo = new Thread( () -> {
                 user.desbloquearLogro(new Logro().getLogroPorID(29));
             }); hilo.start();
-            try {
-                hilo.join();
-            } catch (InterruptedException e) { e.printStackTrace(); }
+            try { hilo.join(); } catch (InterruptedException e) { e.printStackTrace(); }
 
             onWindowFocusChanged(true);
         }

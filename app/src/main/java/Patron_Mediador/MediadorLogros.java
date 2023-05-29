@@ -48,6 +48,7 @@ public class MediadorLogros implements IMediadorLogros {    //MEDIA ENTRE ENLACE
         conexionEnlacesBD.actualizar(uhl);
     }
 
+    @Override
     public void addEnlacesToUser() {
         conexionEnlacesBD = new User_LRepository(SingletonConnection.getSingletonInstance());
         conexionUsuarioBD = new UserRepository(SingletonConnection.getSingletonInstance());

@@ -4,6 +4,8 @@ import com.j256.ormlite.field.DatabaseField;
 
 import java.util.List;
 
+import Patron_Mediador.IMediadorLogros;
+import Patron_Mediador.MediadorLogros;
 import Persistence.LogroRepository;
 import Persistence.SingletonConnection;
 
@@ -16,6 +18,8 @@ public class Logro {
     private String nombre;
     @DatabaseField
     private String descripcion;
+
+    private IMediadorLogros mediadorLogros;
 
     public static List<Logro> getAllLogros(LogroRepository logroRepository) {
         return logroRepository.obtenerTodos();
@@ -61,4 +65,6 @@ public class Logro {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public void setMediador(IMediadorLogros mediador) { this.mediadorLogros = mediador; }
 }

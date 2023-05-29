@@ -16,11 +16,27 @@ import Persistence.User_LRepository;
 
 public class MediadorLogros implements IMediadorLogros {    //MEDIA ENTRE ENLACES USER_lOGRO, USUARIO Y LOGROS
 
-    private User_LRepository conexionEnlacesBD;
-    private LogroRepository conexionLogroBD;
+    private User usuario;
+    private List<Logro> logros;
 
+    private User_LRepository conexionEnlacesBD;
+    private UserRepository conexionUsuarioBD;
+
+
+    public void registrarUsuario(User u) {
+        System.out.println("REGISTRADO USUARIO");
+        usuario = u;
+        usuario.setMediador(this);
+    }
+    public void registrarLogros(List<Logro> logro) {
+        System.out.println("REGISTRADA LISTA DE LOGROS");
+        logros = logro;
+        for (Logro l : logros) {
+            l.setMediador(this);
+        }
+    }
     @Override
-    public void notificarLogroDesbloqueado(User usuario, Logro logro) {
+    public void notificarLogroDesbloqueado(Logro logro) {
         conexionEnlacesBD = new User_LRepository(SingletonConnection.getSingletonInstance());
         List<User_has_Logro> listaEnlaces = conexionEnlacesBD.obtenerTodos();
 
@@ -32,11 +48,11 @@ public class MediadorLogros implements IMediadorLogros {    //MEDIA ENTRE ENLACE
         conexionEnlacesBD.actualizar(uhl);
     }
 
-    public void addEnlaces(User usuario) {
+    public void addEnlacesToUser() {
         conexionEnlacesBD = new User_LRepository(SingletonConnection.getSingletonInstance());
-        conexionLogroBD = new LogroRepository(SingletonConnection.getSingletonInstance());
+        conexionUsuarioBD = new UserRepository(SingletonConnection.getSingletonInstance());
         User_has_Logro x = new User_has_Logro("",-1);
-        for (Logro l : conexionLogroBD.obtenerTodos()) {
+        for (Logro l : logros) {
             if (x.getEnlaceUsuarioLogro(usuario.getNickname(), l.getId_logro(), conexionEnlacesBD.obtenerTodos()) == null) {
                 User_has_Logro nuevoEnlace = new User_has_Logro(usuario.getNickname(), l.getId_logro());
                 nuevoEnlace.setCompletado(false); nuevoEnlace.setProgreso(0);
@@ -45,6 +61,6 @@ public class MediadorLogros implements IMediadorLogros {    //MEDIA ENTRE ENLACE
         }
 
         usuario.setLogrosAñadidos(true);
-        new UserRepository(SingletonConnection.getSingletonInstance()).actualizar(usuario);
+        conexionUsuarioBD.actualizar(usuario);
     }
 }

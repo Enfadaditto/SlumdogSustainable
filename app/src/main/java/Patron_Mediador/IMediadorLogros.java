@@ -1,11 +1,13 @@
 package Patron_Mediador;
 
+import java.util.List;
+
 import Domain_Layer.Logro;
 import Domain_Layer.User;
 
 public interface IMediadorLogros {
 
-    public void notificarLogroDesbloqueado(User usuario, Logro logro);
+    public void notificarLogroDesbloqueado(Logro logro);
 
-    public void addEnlaces(User user);
+    public void addEnlacesToUser();
 }

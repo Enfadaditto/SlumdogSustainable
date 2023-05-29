@@ -44,6 +44,8 @@ import Domain_Layer.Logro;
 
 import Domain_Layer.User;
 //import Persistence.Repository;
+import Patron_Mediador.MediadorLogros;
+import Persistence.LogroRepository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 import Patron_Fachada.FachadaDeRetos;
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     public ImageView imagenUser;
     TextView nivelJugador;
     public static Queue<Logro> logrosCompletados = new ArrayDeque<>();
-
+    List<Logro> logros;
     Button botonInicio;
     ConstraintLayout bocadilloLogro;
 
@@ -77,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantalla_carga);
         new Task().execute();
-
 
       /*  Date fecha = new Date("08/07/2023");
 
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             {
 
                 UserRepository u = new UserRepository(SingletonConnection.getSingletonInstance());
-                user = User.getUserByUsername(u, "prueba");
+                //user = User.getUserByUsername(u, "prueba");
 
                 runOnUiThread(new Runnable() {
                     public void run() {
@@ -141,10 +142,19 @@ public class MainActivity extends AppCompatActivity {
                             nivelJugador = findViewById(R.id.TextoNivelUsuario);
                             nivelJugador.setText("Nivel "+ user.getNivelUsuario());
 
+                            MediadorLogros mediador = new MediadorLogros();
+                            Thread hiloLogro = new Thread(() -> {
+                                logros = new LogroRepository(SingletonConnection.getSingletonInstance()).obtenerTodos();
+                            });
+                            hiloLogro.start();
+                            try { hiloLogro.join(); } catch (InterruptedException e) {e.printStackTrace();}
+                            mediador.registrarUsuario(user);
+                            mediador.registrarLogros(logros);
+
                             if (!user.isLogrosAñadidos()) {
                                 System.out.println("PANTALLA DE CARGA");
                                 Thread hilo = new Thread(() -> {
-                                    addObservadores(user);
+                                    mediador.addEnlacesToUser();
                                     user.desbloquearLogro(new Logro().getLogroPorID(1));
                                 });
                                 hilo.start();
@@ -277,10 +287,6 @@ public class MainActivity extends AppCompatActivity {
 
             onWindowFocusChanged(true);
         }
-    }
-
-    public void addObservadores(User u) {
-        u.addEnlaces();
     }
 
     @Override

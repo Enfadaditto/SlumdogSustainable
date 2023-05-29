@@ -50,8 +50,7 @@ public class User {
     @DatabaseField
     private boolean logrosAñadidos;
 
-    private List<ODS_has_User> ODSUser;
-    private IMediadorLogros mediadorLogros = new MediadorLogros();
+    private IMediadorLogros mediadorLogros;
     private EstadoNivelJugador estado;
 
 
@@ -138,9 +137,6 @@ public class User {
     public boolean passwordIsSafe(String password) {
         return  password.matches("^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\\-__+.]){1,}).{8,}$");
     }
-    public void addODSKnowledge(ODS_has_User newODSKnown) {
-        this.ODSUser.add(newODSKnown);
-    }
 
     public String getNickname() {
         return nickname;
@@ -191,12 +187,9 @@ public class User {
     }
 
     public void desbloquearLogro(Logro logro) {
-        mediadorLogros.notificarLogroDesbloqueado(this, logro);
+        mediadorLogros.notificarLogroDesbloqueado(logro);
     }
 
-    public void addEnlaces() {
-        mediadorLogros.addEnlaces(this);
-    }
 
    public int  getNivelUsuario(){
        if(this.getPointsAchieved()>5000 && this.getPointsAchieved()<10000)  {
@@ -306,4 +299,6 @@ public class User {
     public void setLogrosAñadidos(boolean logrosAñadidos) {
         this.logrosAñadidos = logrosAñadidos;
     }
+
+    public void setMediador(IMediadorLogros mediador) { this.mediadorLogros = mediador; }
 }

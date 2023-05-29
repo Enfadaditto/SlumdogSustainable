@@ -10,10 +10,8 @@ import Domain_Layer.User;
 import Domain_Layer.User_has_Logro;
 
 public class User_LRepository extends Repository<User_has_Logro> {
-    List<Logro> listaLogros;
 
     public User_LRepository(ConnectionSource c) {
         init(User_has_Logro.class, c);
-        listaLogros = new LogroRepository(SingletonConnection.getSingletonInstance()).obtenerTodos();
     }
 }

@@ -1,6 +1,7 @@
 package Presentacion_layer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.text.format.DateUtils;
@@ -156,5 +157,15 @@ public class IURanking extends AppCompatActivity {
 
             return convertView;
         }
+
+
+    }
+
+    public void abandonarRanking(View v){
+
+        Intent intent = new Intent(IURanking.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 }

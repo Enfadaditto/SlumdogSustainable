@@ -13,7 +13,6 @@ import java.util.List;
 
 import Patron_Mediador.IMediadorLogros;
 import Patron_Mediador.MediadorLogros;
-import Patron_estado.EstadoNivelJugador;
 import Persistence.ODS_URepository;
 import Persistence.PartidaRepository;
 import Persistence.SingletonConnection;
@@ -51,7 +50,7 @@ public class User {
     private boolean logrosAñadidos;
 
     private IMediadorLogros mediadorLogros;
-    private EstadoNivelJugador estado;
+
 
 
 

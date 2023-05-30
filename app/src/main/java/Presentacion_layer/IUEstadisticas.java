@@ -76,6 +76,7 @@ public class IUEstadisticas extends AppCompatActivity {
     ScrollView Scroll;
 
     List<Integer> retosStats;
+    ImageView abandonar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -458,5 +459,13 @@ public class IUEstadisticas extends AppCompatActivity {
         public String getFormattedValue(float value) {
             return mFormat.format(value) + " %";
         }
+    }
+
+    public void abandonarEstadisticas(View v){
+
+        Intent intent = new Intent(IUEstadisticas.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 }

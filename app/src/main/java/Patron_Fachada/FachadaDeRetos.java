@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -33,6 +34,7 @@ import Persistence.ODS_URepository;
 import Persistence.ObjetivoSemanal;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
+import Presentacion_layer.IURanking;
 import Presentacion_layer.IUretoAhorcado;
 import Presentacion_layer.IUretoFrase;
 import Presentacion_layer.IUretoPregunta;
@@ -369,6 +371,14 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         indiceRetoDificil = 0;
         ronda = 1;
         vidas = 1;
+    }
+
+    public void abandonarSeleccionReto(View v){
+
+        Intent intent = new Intent(FachadaDeRetos.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 
 }

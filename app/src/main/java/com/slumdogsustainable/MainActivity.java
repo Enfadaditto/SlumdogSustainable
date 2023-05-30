@@ -80,28 +80,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.pantalla_carga);
         new Task().execute();
 
-      /*  Date fecha = new Date("08/07/2023");
-
-        Calendar diaDelaSemana = Calendar.getInstance();
-
-        LocalDate currentDate = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            currentDate = LocalDate.now();
-        }
-        DayOfWeek dayOfWeek = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            dayOfWeek = currentDate.getDayOfWeek();
-        }
-        System.out.println("------------" + dayOfWeek + "-------------------------");
-
-
-
-        new Thread(() -> {
-            user = User.getUserByUsername(new UserRepository(SingletonConnection.getSingletonInstance()), "prueba");
-            addObservadores(user);
-        }).start();
-
-       */
 
     }
 

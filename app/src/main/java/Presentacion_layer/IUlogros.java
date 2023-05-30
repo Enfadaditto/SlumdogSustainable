@@ -1,5 +1,6 @@
 package Presentacion_layer;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
@@ -138,6 +139,13 @@ public class IUlogros extends AppCompatActivity {
 
     }
 
+    public void abandonarLogros(View v){
+
+        Intent intent = new Intent(IUlogros.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
 
     public void onClickMedalla(View view){ponerLogros(todasLasMedallas);}
     public void onClickTrofeo(View view){

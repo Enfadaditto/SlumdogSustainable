@@ -193,8 +193,10 @@ public class User {
    public int  getNivelUsuario(){
        if(this.getPointsAchieved()>5000 && this.getPointsAchieved()<10000)  {
            return 1;
-       }else if(this.getPointsAchieved()>=10000){
+       }else if(this.getPointsAchieved()>=10000 && MainActivity.user.getPointsAchieved()<15000){
            return 2;
+       } else if(this.getPointsAchieved()>=15000){
+           return 3;
        }
 
        return 0;

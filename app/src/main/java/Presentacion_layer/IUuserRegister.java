@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
@@ -108,7 +109,13 @@ public class IUuserRegister extends AppCompatActivity {
                         return;
                     }
 
-                    setContentView(R.layout.pantalla_carga);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setContentView(R.layout.pantalla_carga);
+                        }
+                    });
+
                     new UserRepository(SingletonConnection.getSingletonInstance()).guardar(
                             new User(
                                     nicknameField.getText().toString(),
@@ -122,7 +129,7 @@ public class IUuserRegister extends AppCompatActivity {
                     Intent intent = new Intent(IUuserRegister.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                } catch (RuntimeException e) {System.out.println(e);}
+                } catch (RuntimeException e) {e.printStackTrace();}
             }
         }).start();
     }

@@ -86,10 +86,12 @@ public class IUMenu extends AppCompatActivity{
     }
 
     public int desbloqueoDeNiveles(){
-        if(MainActivity.user.getPointsAchieved()>5000 && MainActivity.user.getPointsAchieved()<10000)  {
+        if(MainActivity.user.getPointsAchieved()>=5000 && MainActivity.user.getPointsAchieved()<10000)  {
             return 1;
-        }else if(MainActivity.user.getPointsAchieved()>=10000){
+        }else if(MainActivity.user.getPointsAchieved()>=10000 && MainActivity.user.getPointsAchieved()<15000){
             return 2;
+        } else if(MainActivity.user.getPointsAchieved()>=15000){
+            return 3;
         }
 
         return 0;
@@ -115,6 +117,14 @@ public class IUMenu extends AppCompatActivity{
             botonRetoMixto.setText("Necesitas nivel 3");
             botonRetoMixto.setEnabled(false);
         }
+
+    }
+
+    public void abandonarSeleccionReto(View v){
+
+        Intent intent = new Intent(IUMenu.this, MainActivity.class);
+        startActivity(intent);
+        finish();
 
     }
 }

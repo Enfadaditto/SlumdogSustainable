@@ -373,12 +373,6 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         vidas = 1;
     }
 
-    public void abandonarSeleccionReto(View v){
 
-        Intent intent = new Intent(FachadaDeRetos.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-
-    }
 
 }

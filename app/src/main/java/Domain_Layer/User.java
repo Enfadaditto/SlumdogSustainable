@@ -39,12 +39,6 @@ public class User {
     @DatabaseField
     private int icon;
     @DatabaseField
-    private int pointsAchievedOnMonday;
-    @DatabaseField
-    private int gamesAchievedOnMonday;
-    @DatabaseField
-    private int timeSpentOnMonday;
-    @DatabaseField
     private int metasSemanales;
     @DatabaseField
     private boolean logrosAñadidos;
@@ -258,31 +252,6 @@ public class User {
         for(int i = 0; i < 18; i++) {
             ODS.guardar(new ODS_has_User(nickname, i, 0,0));
         }
-    }
-
-
-    public int getPointsAchievedOnMonday() {
-        return pointsAchievedOnMonday;
-    }
-
-    public void setPointsAchievedOnMonday(int pointsAchievedOnMonday) {
-        this.pointsAchievedOnMonday = pointsAchievedOnMonday;
-    }
-
-    public int getGamesAchievedOnMonday() {
-        return gamesAchievedOnMonday;
-    }
-
-    public void setGamesAchievedOnMonday(int gamesAchievedOnMonday) {
-        this.gamesAchievedOnMonday = gamesAchievedOnMonday;
-    }
-
-    public int getTimeSpentOnMonday() {
-        return timeSpentOnMonday;
-    }
-
-    public void setTimeSpentOnMonday(int timeSpentOnMonday) {
-        this.timeSpentOnMonday = timeSpentOnMonday;
     }
 
     public int getMetasSemanales() {

@@ -350,8 +350,6 @@ public class FachadaDeRetos extends AppCompatActivity implements FachadaInterfac
         if (usuario.getGamesAchieved() == 20) usuario.desbloquearLogro(new Logro().getLogroPorID(28));
         if (easterEgg) usuario.desbloquearLogro(new Logro().getLogroPorID(29));
         if (ronda == 1 && vidas < 0) usuario.desbloquearLogro(new Logro().getLogroPorID(30));
-        if(usuario.getPointsAchievedOnMonday()== 10000){
-            ObjetivoSemanal.sumarMetaSemanal();   }
     }
 
     public void onDestroy () {

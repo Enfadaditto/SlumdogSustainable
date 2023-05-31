@@ -88,8 +88,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
-        MainActivity.music.start();
+        if(music != null) {
+            music.stop();
+            MainActivity.music = MediaPlayer.create(getApplicationContext(), R.raw.mainmusic);
+            MainActivity.music.start();}
     }
 
     private class Task extends AsyncTask<Void, Void, Void> {

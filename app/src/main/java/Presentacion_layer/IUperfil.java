@@ -198,10 +198,6 @@ public class IUperfil extends AppCompatActivity {
     }
 
     public void abandonarPerfil(View v){
-
-        Intent intent = new Intent(IUperfil.this, MainActivity.class);
-        startActivity(intent);
         finish();
-
     }
 }

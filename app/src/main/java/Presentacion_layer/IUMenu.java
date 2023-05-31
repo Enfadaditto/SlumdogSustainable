@@ -122,8 +122,6 @@ public class IUMenu extends AppCompatActivity{
 
     public void abandonarSeleccionReto(View v){
 
-        Intent intent = new Intent(IUMenu.this, MainActivity.class);
-        startActivity(intent);
         finish();
 
     }

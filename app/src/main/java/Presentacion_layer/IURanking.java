@@ -162,9 +162,6 @@ public class IURanking extends AppCompatActivity {
     }
 
     public void abandonarRanking(View v){
-
-        Intent intent = new Intent(IURanking.this, MainActivity.class);
-        startActivity(intent);
         finish();
 
     }

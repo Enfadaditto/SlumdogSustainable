@@ -462,9 +462,6 @@ public class IUEstadisticas extends AppCompatActivity {
     }
 
     public void abandonarEstadisticas(View v){
-
-        Intent intent = new Intent(IUEstadisticas.this, MainActivity.class);
-        startActivity(intent);
         finish();
 
     }

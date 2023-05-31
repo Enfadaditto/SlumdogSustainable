@@ -140,11 +140,7 @@ public class IUlogros extends AppCompatActivity {
     }
 
     public void abandonarLogros(View v){
-
-        Intent intent = new Intent(IUlogros.this, MainActivity.class);
-        startActivity(intent);
         finish();
-
     }
 
     public void onClickMedalla(View view){ponerLogros(todasLasMedallas);}

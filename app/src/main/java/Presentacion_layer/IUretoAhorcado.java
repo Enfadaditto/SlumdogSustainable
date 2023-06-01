@@ -507,16 +507,13 @@ public class IUretoAhorcado extends AppCompatActivity {
             cantidadRetosContestados++;
             if(FachadaDeRetos.haUsadoPista){
                 textoPuntosGanados.setText("+" +nivel*50 + " puntos ganados!");
+                puntosTotales += 50 * nivel;
 
             }else{
                 textoPuntosGanados.setText("+" +nivel*100 + " puntos ganados!");
-
-            }
-            if(FachadaDeRetos.haUsadoPista){
-                puntosTotales += 50 * nivel;
-            }else{
                 puntosTotales += 100 * nivel;
             }
+
 
             textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
 

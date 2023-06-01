@@ -335,12 +335,15 @@ public class IUretoPregunta extends AppCompatActivity {
 
         respuestasCorrectasContestadas++;
         if(FachadaDeRetos.haUsadoPista){
-            screenText += 50 * Nivel;
+            textoPuntosGanados.setText("+" +Nivel*50 + " puntos ganados!");
+            puntosTotales += 50 * Nivel;
+
         }else{
-            screenText += 100 * Nivel;
+            textoPuntosGanados.setText("+" +Nivel*100 + " puntos ganados!");
+            puntosTotales += 100 * Nivel;
         }
 
-        textoPuntosGanados.setText("+" + screenText + " puntos ganados!");
+        //textoPuntosGanados.setText("+" + screenText + " puntos ganados!");
         textoPuntosTotal.setText("Puntos Totales: " + puntosTotales);
         cambiarColorAVerde(index);
         visualizacionBotonConsolidar(true);

@@ -6,9 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import Builder.BuilderRetoPregunta;
-import Builder.Director;
-import Domain_Layer.Question;
+import Domain_Layer.Patron_Builder.BuilderRetoPregunta;
+import Domain_Layer.Patron_Builder.Director;
 import Domain_Layer.RetoPregunta;
 
 public class GameBuilderTest {

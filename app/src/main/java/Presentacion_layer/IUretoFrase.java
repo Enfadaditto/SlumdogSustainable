@@ -1,6 +1,6 @@
 package Presentacion_layer;
 
-import static Patron_Fachada.FachadaDeRetos.ABANDON;
+import static Domain_Layer.Patron_Fachada.FachadaDeRetos.ABANDON;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
@@ -44,7 +44,7 @@ import java.util.Random;
 
 import Domain_Layer.DFButton;
 import Domain_Layer.Frase;
-import Patron_Fachada.FachadaDeRetos;
+import Domain_Layer.Patron_Fachada.FachadaDeRetos;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 

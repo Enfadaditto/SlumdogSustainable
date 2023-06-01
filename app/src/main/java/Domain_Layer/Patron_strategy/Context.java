@@ -1,4 +1,4 @@
-package Patron_strategy;
+package Domain_Layer.Patron_strategy;
 
 import android.os.Bundle;
 

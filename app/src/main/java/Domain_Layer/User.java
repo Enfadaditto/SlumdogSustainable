@@ -1,6 +1,5 @@
 package Domain_Layer;
 
-import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.j256.ormlite.table.DatabaseTable;
@@ -11,8 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import Patron_Mediador.IMediadorLogros;
-import Patron_Mediador.MediadorLogros;
+import Domain_Layer.Patron_Mediador.IMediadorLogros;
 import Persistence.ODS_URepository;
 import Persistence.PartidaRepository;
 import Persistence.SingletonConnection;

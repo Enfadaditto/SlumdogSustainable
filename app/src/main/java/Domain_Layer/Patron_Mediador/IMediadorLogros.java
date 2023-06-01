@@ -1,4 +1,4 @@
-package Patron_Mediador;
+package Domain_Layer.Patron_Mediador;
 
 import java.util.List;
 

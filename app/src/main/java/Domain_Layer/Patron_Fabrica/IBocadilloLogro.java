@@ -1,4 +1,4 @@
-package Patron_Fabrica;
+package Domain_Layer.Patron_Fabrica;
 
 public interface IBocadilloLogro {
 

@@ -1,17 +1,13 @@
 package com.slumdogsustainable;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
@@ -20,7 +16,6 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,27 +23,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.constraintlayout.widget.Constraints;
 import androidx.navigation.ui.AppBarConfiguration;
 
-
-import com.j256.ormlite.stmt.query.In;
 
 import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Queue;
 
-import Patron_Fabrica.BocadilloLogro;
-import Patron_Fabrica.FabricaConcreta;
+import Domain_Layer.Patron_Fabrica.BocadilloLogro;
+import Domain_Layer.Patron_Fabrica.FabricaConcreta;
 import Domain_Layer.Logro;
 
 import Domain_Layer.User;
 //import Persistence.Repository;
-import Patron_Mediador.MediadorLogros;
+import Domain_Layer.Patron_Mediador.MediadorLogros;
 import Persistence.LogroRepository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
-import Patron_Fachada.FachadaDeRetos;
 import Presentacion_layer.IUEstadisticas;
 import Presentacion_layer.IUMenu;
 import Presentacion_layer.IURanking;

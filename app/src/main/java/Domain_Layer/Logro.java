@@ -4,8 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 
 import java.util.List;
 
-import Patron_Mediador.IMediadorLogros;
-import Patron_Mediador.MediadorLogros;
+import Domain_Layer.Patron_Mediador.IMediadorLogros;
 import Persistence.LogroRepository;
 import Persistence.SingletonConnection;
 

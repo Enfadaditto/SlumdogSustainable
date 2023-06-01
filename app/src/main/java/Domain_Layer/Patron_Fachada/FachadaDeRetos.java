@@ -1,10 +1,9 @@
-package Patron_Fachada;
+package Domain_Layer.Patron_Fachada;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -15,26 +14,23 @@ import com.slumdogsustainable.R;
 
 import java.util.Random;
 
-import Builder.BuilderRetoAhorcado;
-import Builder.BuilderRetoDescubrirFrase;
-import Builder.BuilderRetoPregunta;
+import Domain_Layer.Patron_Builder.BuilderRetoAhorcado;
+import Domain_Layer.Patron_Builder.BuilderRetoDescubrirFrase;
+import Domain_Layer.Patron_Builder.BuilderRetoPregunta;
 import Domain_Layer.Logro;
 import Domain_Layer.Reto;
 import Domain_Layer.RetoAhorcado;
 import Domain_Layer.RetoDescubrirFrase;
 import Domain_Layer.RetoPregunta;
 import Domain_Layer.User;
-import Patron_strategy.Context;
-import Patron_strategy.JuegoStrategy;
-import Patron_strategy.AhorcadoStrategy;
-import Patron_strategy.FraseStrategy;
-import Patron_strategy.MixtoStrategy;
-import Patron_strategy.PreguntaStrategy;
+import Domain_Layer.Patron_strategy.Context;
+import Domain_Layer.Patron_strategy.AhorcadoStrategy;
+import Domain_Layer.Patron_strategy.FraseStrategy;
+import Domain_Layer.Patron_strategy.MixtoStrategy;
+import Domain_Layer.Patron_strategy.PreguntaStrategy;
 import Persistence.ODS_URepository;
-import Persistence.ObjetivoSemanal;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
-import Presentacion_layer.IURanking;
 import Presentacion_layer.IUretoAhorcado;
 import Presentacion_layer.IUretoFrase;
 import Presentacion_layer.IUretoPregunta;

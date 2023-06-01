@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
-import Patron_Fachada.FachadaDeRetos;
+import Domain_Layer.Patron_Fachada.FachadaDeRetos;
 import Persistence.ObjetivoSemanal;
 
 public class IUMenu extends AppCompatActivity{

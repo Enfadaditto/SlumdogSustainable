@@ -1,36 +1,36 @@
-package Builder;
+package Domain_Layer.Patron_Builder;
 
-import com.slumdogsustainable.MainActivity;
 import com.slumdogsustainable.R;
 
 import java.util.Collections;
 import java.util.Random;
 
-import Domain_Layer.RetoAhorcado;
-import Persistence.AhorcadoRepository;
+import Domain_Layer.Frase;
+import Domain_Layer.RetoDescubrirFrase;
+import Persistence.FraseRepository;
 import Persistence.SingletonConnection;
 
-public class BuilderRetoAhorcado extends BuilderReto {
-
+public class BuilderRetoDescubrirFrase extends BuilderReto {
     public Thread hilo;
-    protected RetoAhorcado juego;
+    protected RetoDescubrirFrase juego;
 
-    public RetoAhorcado getJuego() {
-        return juego;
+    public RetoDescubrirFrase getJuego() {return juego;}
+
+    public BuilderRetoDescubrirFrase() { juego = new RetoDescubrirFrase(); }
+
+    @Override
+    public void buildNivel() {
+        juego.setNivel(1);
     }
 
-    public BuilderRetoAhorcado() {
-        juego = new RetoAhorcado();
-    }
-
+    @Override
     public void buildRetosNivel1() {
-
         hilo = new Thread(new Runnable() {
             public void run() {
                 try {
-                    AhorcadoRepository preguntasEnBD = new AhorcadoRepository(SingletonConnection.getSingletonInstance());
-                    juego.setPalabras(preguntasEnBD.obtenerTodos());
-                    Collections.shuffle(juego.getPalabras(), new Random());
+                    FraseRepository frasesBD = new FraseRepository(SingletonConnection.getSingletonInstance());
+                    juego.setFrasesNivel1(Frase.getListadoFrase(frasesBD));;
+                    Collections.shuffle(juego.getFrasesNivel1(), new Random());
                 } catch (Exception e) {
 
                     System.out.println(e);
@@ -41,23 +41,22 @@ public class BuilderRetoAhorcado extends BuilderReto {
         try {
             hilo.join();
         } catch(Exception e) {}
+
     }
 
-
-
-    public void buildRetosNivel2() {buildRetosNivel1();}
-
-    public void buildRetosNivel3() {buildRetosNivel1();}
+    @Override
+    public void buildRetosNivel2() {
+        buildRetosNivel1();
+    }
 
     @Override
-    public void buildNivel() {
-        juego.setNivel(1);
+    public void buildRetosNivel3() {
+        buildRetosNivel1();
     }
 
     @Override
     public void buildTiempo() {
-        juego.setTiempo(120000); //10000ms = 10seg
-
+        juego.setTiempo(120000);
     }
 
     @Override
@@ -79,7 +78,5 @@ public class BuilderRetoAhorcado extends BuilderReto {
     public void buildPuntos() {
         juego.setPuntos(100 * juego.getNivel());
     }
-
-
 
 }

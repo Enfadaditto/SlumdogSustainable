@@ -1,6 +1,4 @@
-package Patron_Mediador;
-
-import android.widget.Toast;
+package Domain_Layer.Patron_Mediador;
 
 import com.slumdogsustainable.MainActivity;
 
@@ -9,7 +7,6 @@ import java.util.List;
 import Domain_Layer.Logro;
 import Domain_Layer.User;
 import Domain_Layer.User_has_Logro;
-import Persistence.LogroRepository;
 import Persistence.SingletonConnection;
 import Persistence.UserRepository;
 import Persistence.User_LRepository;
